@@ -86,13 +86,3 @@ body {
     @apply bg-background text-foreground;
   }
 }
-
-html.light {
-  --bg-color: white;
-  --text-color: black;
-}
-
-html.dark {
-  --bg-color: black;
-  --text-color: white;
-}
