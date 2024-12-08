@@ -28,6 +28,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "commitlint.config.ts"
-  ],
+, "next.config.mjs"  ],
   "exclude": ["node_modules"]
 }
