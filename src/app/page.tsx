@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { AuthCard } from "@/components/auth-card";
 
 export default async function Home() {
   return (
@@ -48,6 +49,7 @@ export default async function Home() {
             Read our docs
           </a>
         </div>
+        <AuthCard />
       </main>
       <footer className="row-start-3 flex flex-wrap items-center justify-center gap-6">
         <a
