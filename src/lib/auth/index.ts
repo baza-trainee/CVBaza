@@ -17,7 +17,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
-    async redirect({ url, baseurl }) {
+    async redirect({ url }) {
       if (
         url === "/api/auth/callback/github" ||
         url === "/api/auth/callback/google"
