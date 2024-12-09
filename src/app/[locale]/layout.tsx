@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children, params }: LayoutProps) {
- const { locale } =  params;
+ const { locale } =  await params;
 
   if (!routing.locales.includes(locale)) {
     notFound();
