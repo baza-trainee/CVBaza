@@ -5,7 +5,8 @@ const users = pgTable("user", {
   name: varchar("name", { length: 255 }),
   email: varchar("email", { length: 320 }).notNull().unique(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
-  image: varchar("image", { length: 2048 }).notNull(),
+  image: varchar("image", { length: 2048 }),
+  password: varchar("password", { length: 255 }),
 });
 
 export default users;

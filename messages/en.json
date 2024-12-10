@@ -1,5 +1,12 @@
 {
   "HomePage": {
     "title": "Hello world!"
+  },
+  "Auth": {
+    "errors": {
+      "oauthAccountNotLinked": "This email is already associated with a different provider. Please sign in with the correct provider.",
+      "emailExists": "This email is already registered with password. Please sign in with email and password.",
+      "default": "An error occurred during authentication. Please try again."
+    }
   }
 }
