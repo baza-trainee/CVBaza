@@ -6,8 +6,6 @@ export const client = postgres(process.env.DATABASE_URL!, {
   max: process.env.DB_MIGRATING ? 1 : undefined,
 });
 
-const db = drizzle(client, {
+export const db = drizzle(client, {
   schema,
 });
-
-export default db;

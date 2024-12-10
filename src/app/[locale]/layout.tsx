@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { notFound } from "next/navigation";
+import { SessionProvider } from "next-auth/react";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import TestComponent from "@/components/test-component";
 import ThemeProvider from "@/components/theme-provider";
 import { routing } from "@/i18n/routing";
+import { auth } from "@/lib/auth";
 import "../globals.css";
 
 const geistSans = localFont({
@@ -31,7 +33,8 @@ type LayoutProps = {
 };
 
 export default async function RootLayout({ children, params }: LayoutProps) {
-  const { locale } = await params; // Await params
+  const { locale } = await params;
+  const session = await auth();
 
   if (!routing.locales.includes(locale)) {
     notFound();
@@ -44,17 +47,19 @@ export default async function RootLayout({ children, params }: LayoutProps) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <TestComponent />
-            {children}
-          </ThemeProvider>
-        </NextIntlClientProvider>
+        <SessionProvider session={session}>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="light"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <TestComponent />
+              {children}
+            </ThemeProvider>
+          </NextIntlClientProvider>
+        </SessionProvider>
       </body>
     </html>
   );
