@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/routing";
@@ -13,7 +14,9 @@ export function UserProfile() {
         <div className="flex flex-col items-center gap-4">
           <div className="flex items-center gap-4">
             {session.user?.image && (
-              <img
+              <Image
+                width={50}
+                height={50}
                 src={session.user.image}
                 alt="Profile"
                 className="h-10 w-10 rounded-full"
