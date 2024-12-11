@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { signIn } from "@/lib/auth";
-import { hashPassword } from "@/lib/auth";
 import { createUser, findUserByEmail } from "@/resources/user-queries";
+import { hashPassword } from "@/utils/password";
 
 const registerSchema = z.object({
   email: z.string().email(),

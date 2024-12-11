@@ -32,8 +32,8 @@ interface AuthFormProps {
 export function AuthForm({ type }: AuthFormProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const error = searchParams.get("error");
   const callbackUrl = searchParams.get("callbackUrl") || "/";
+  const error = searchParams.get("error");
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -49,15 +49,16 @@ export function AuthForm({ type }: AuthFormProps) {
       if (type === "register") {
         const res = await fetch("/api/auth/register", {
           method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(values),
-          headers: {
-            "Content-Type": "application/json",
-          },
         });
 
         if (!res.ok) {
           const error = await res.json();
-          throw new Error(error.error || "Something went wrong");
+          form.setError("root", {
+            message: error.error || "Registration failed",
+          });
+          return;
         }
       }
 
@@ -68,7 +69,15 @@ export function AuthForm({ type }: AuthFormProps) {
       });
 
       if (result?.error) {
-        throw new Error(result.error);
+        const errorMessage =
+          result.error === "Configuration"
+            ? "Account not found. Please sign up or try a different email."
+            : result.error;
+
+        form.setError("root", {
+          message: errorMessage,
+        });
+        return;
       }
 
       router.push(callbackUrl);
@@ -77,7 +86,7 @@ export function AuthForm({ type }: AuthFormProps) {
       console.error(error);
       form.setError("root", {
         message:
-          error instanceof Error ? error.message : "Something went wrong",
+          error instanceof Error ? error.message : "Authentication failed",
       });
     }
   }

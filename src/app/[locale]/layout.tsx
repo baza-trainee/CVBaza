@@ -1,25 +1,17 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Open_Sans } from "next/font/google";
 import { notFound } from "next/navigation";
 import { SessionProvider } from "next-auth/react";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import TestComponent from "@/components/test-component";
-import ThemeProvider from "@/components/theme-provider";
 import { routing } from "@/i18n/routing";
 import { auth } from "@/lib/auth";
 import "../globals.css";
 
-const geistSans = localFont({
-  src: "../fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-
-const geistMono = localFont({
-  src: "../fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const openSans = Open_Sans({
+  subsets: ["latin", "cyrillic"],
+  variable: "--font-open-sans",
 });
 
 export const metadata: Metadata = {
@@ -43,21 +35,12 @@ export default async function RootLayout({ children, params }: LayoutProps) {
   const messages = await getMessages();
 
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en">
+      <body className={`${openSans.variable} font-sans antialiased`}>
         <SessionProvider session={session}>
           <NextIntlClientProvider locale={locale} messages={messages}>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="light"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <TestComponent />
-              {children}
-            </ThemeProvider>
+            <TestComponent />
+            {children}
           </NextIntlClientProvider>
         </SessionProvider>
       </body>

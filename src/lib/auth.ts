@@ -1,54 +1,22 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import bcrypt from "bcryptjs";
-import NextAuth, { DefaultSession } from "next-auth";
-import { JWT } from "next-auth/jwt";
+import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { db } from "@/db";
 import { findUserByEmail } from "@/resources/user-queries";
 import { User } from "@/types/db";
-
-// Password utilities
-export async function hashPassword(password: string) {
-  const salt = await bcrypt.genSalt(12);
-  return bcrypt.hash(password, salt);
-}
-
-export async function verifyPassword(password: string, hashedPassword: string) {
-  return bcrypt.compare(password, hashedPassword);
-}
-
-declare module "next-auth" {
-  interface Session {
-    user: {
-      id: string;
-    } & DefaultSession["user"];
-  }
-}
-
-declare module "next-auth/jwt" {
-  interface JWT {
-    id: string;
-    email: string;
-    name?: string | null;
-    picture?: string | null;
-  }
-}
-
-const adapter = DrizzleAdapter(db);
+import { verifyPassword } from "../utils/password";
 
 const authOptions = NextAuth({
-  adapter,
+  adapter: DrizzleAdapter(db),
   session: {
     strategy: "jwt",
   },
   pages: {
-    signIn: "/[locale]/auth/signin",
-    error: "/[locale]/auth/signin",
+    signIn: "/en/auth/signin",
+    error: "/en/auth/signin",
   },
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
@@ -73,29 +41,43 @@ const authOptions = NextAuth({
           type: "password",
         },
       },
-
-      async authorize(credentials): Promise<User | null> {
+      //@ts-ignore
+      async authorize(
+        credentials: Record<"email" | "password", string | undefined>
+      ): Promise<User | null> {
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Invalid email or password");
         }
-        // @ts-ignore
+
         const user = await findUserByEmail(credentials.email);
 
-        if (!user || typeof user.password !== "string") {
-          throw new Error("User not found");
+        if (!user) {
+          throw new Error(
+            "Account not found. Please sign up or try a different email."
+          );
+        }
+
+        if (!user.password) {
+          throw new Error("OAuthAccountNotLinked");
         }
 
         const isCorrectPassword = await verifyPassword(
-          // @ts-ignore
           credentials.password,
           user.password
         );
 
         if (!isCorrectPassword) {
-          throw new Error("Invalid email or password");
+          throw new Error("InvalidCredentials");
         }
 
-        return user;
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          emailVerified: user.emailVerified,
+          image: user.image,
+          password: user.password,
+        };
       },
     }),
   ],
@@ -118,7 +100,8 @@ const authOptions = NextAuth({
 
       // If user exists with credentials, don't allow OAuth
       if (existingUser.password) {
-        return false;
+        // Use default locale, the middleware will handle the redirect
+        return `/en/auth/signin?error=UseCredentials&email=${encodeURIComponent(user.email)}`;
       }
 
       return true;
