@@ -13,7 +13,89 @@ export default {
       fontFamily: {
         sans: ["var(--font-open-sans)"],
       },
+      fontSize: {
+        h1: [
+          "64px",
+          { lineHeight: "100%", letterSpacing: "0", fontWeight: "600" },
+        ],
+        h2: [
+          "48px",
+          { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
+        ],
+        h3: [
+          "24px",
+          { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
+        ],
+        h4: [
+          "20px",
+          { lineHeight: "120%", letterSpacing: "0", fontWeight: "400" },
+        ],
+        h5: [
+          "18px",
+          { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
+        ],
+        btn: [
+          "16px",
+          { lineHeight: "150%", letterSpacing: "0.5px", fontWeight: "600" },
+        ],
+        body: [
+          "16px",
+          { lineHeight: "150%", letterSpacing: "0", fontWeight: "400" },
+        ],
+        "body-semibold": [
+          "16px",
+          { lineHeight: "150%", letterSpacing: "0", fontWeight: "600" },
+        ],
+        small: [
+          "12px",
+          { lineHeight: "auto", letterSpacing: "0", fontWeight: "400" },
+        ],
+        "small-semibold": [
+          "12px",
+          { lineHeight: "auto", letterSpacing: "0", fontWeight: "600" },
+        ],
+        xs: [
+          "8px",
+          { lineHeight: "auto", letterSpacing: "0", fontWeight: "400" },
+        ],
+      },
       colors: {
+        white: "hsl(var(--white))",
+        red: "hsl(var(--red))",
+        blue: {
+          50: "hsl(var(--blue-50))",
+          100: "hsl(var(--blue-100))",
+          200: "hsl(var(--blue-200))",
+          300: "hsl(var(--blue-300))",
+          400: "hsl(var(--blue-400))",
+          500: "hsl(var(--blue-500))",
+          600: "hsl(var(--blue-600))",
+          700: "hsl(var(--blue-700))",
+          800: "hsl(var(--blue-800))",
+          900: "hsl(var(--blue-900))",
+        },
+        violet: {
+          100: "hsl(var(--violet-100))",
+          200: "hsl(var(--violet-200))",
+          300: "hsl(var(--violet-300))",
+          400: "hsl(var(--violet-400))",
+          500: "hsl(var(--violet-500))",
+          600: "hsl(var(--violet-600))",
+          700: "hsl(var(--violet-700))",
+          800: "hsl(var(--violet-800))",
+          900: "hsl(var(--violet-900))",
+        },
+        black: {
+          100: "hsl(var(--black-100))",
+          200: "hsl(var(--black-200))",
+          300: "hsl(var(--black-300))",
+          400: "hsl(var(--black-400))",
+          500: "hsl(var(--black-500))",
+          600: "hsl(var(--black-600))",
+          700: "hsl(var(--black-700))",
+          800: "hsl(var(--black-800))",
+          900: "hsl(var(--black-900))",
+        },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
