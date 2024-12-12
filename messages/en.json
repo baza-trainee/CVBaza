@@ -8,5 +8,9 @@
       "emailExists": "This email is already registered with password. Please sign in with email and password.",
       "default": "An error occurred during authentication. Please try again."
     }
+  },
+  "404Page": {
+    "text": "Text 2",
+    "desc": "Could not find requested resource 2"
   }
 }
