@@ -25,7 +25,7 @@ const Header = () => {
         </ul>
         <button className="flex items-center justify-center gap-[18px] rounded-[100px] border-2 border-blue-500 px-5 py-3">
           <Image src={Person} width={24} height={24} alt="user" />
-          <p className=" text-blue-500">Miй Аккаунт</p>
+          <p className="text-btn text-blue-500">Miй Аккаунт</p>
         </button>
       </div>
     </header>
