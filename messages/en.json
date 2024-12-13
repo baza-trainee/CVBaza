@@ -10,7 +10,8 @@
     }
   },
   "404Page": {
-    "text": "Text 2",
-    "desc": "Could not find requested resource 2"
+    "text": "404",
+    "desc": "It looks like we can't find the page you're looking for. Return to the main page.",
+    "buttonText": "To the main page"
   }
 }
