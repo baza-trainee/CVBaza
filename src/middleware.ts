@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import createMiddleware from "next-intl/middleware";
 
-const locales = ["ua", "en"];
-const defaultLocale = "ua";
+const locales = ["en", "ua"];
+const defaultLocale = "en";
 const middleware = createMiddleware({
   locales,
   defaultLocale,

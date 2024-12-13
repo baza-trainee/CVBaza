@@ -10,6 +10,7 @@
     }
   },
   "404Page": {
+    "homePage": "/en",
     "text": "404",
     "desc": "It looks like we can't find the page you're looking for. Return to the main page.",
     "buttonText": "To the main page"
