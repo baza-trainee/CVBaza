@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Logo from "../../public/logo.svg";
 import Person from "../../public/person.svg";
+import { Button } from "./ui/button";
 
 const Header = () => {
   const headerLinks = [
@@ -20,15 +21,15 @@ const Header = () => {
           {headerLinks.map((l) => (
             <Link key={l.name} href={l.href}>
               <li className="flex h-full items-center justify-center">
-                <p className="text-body font-sans">{l.name}</p>
+                <p className="font-sans text-body text-black-500">{l.name}</p>
               </li>
             </Link>
           ))}
         </ul>
-        <button className="flex items-center justify-center gap-[18px] rounded-[100px] border-2 border-blue-500 px-5 py-3">
+        <Button>
           <Image src={Person} width={24} height={24} alt="user" />
-          <p className="text-btn text-blue-500 font-sans">Miй Аккаунт</p>
-        </button>
+          <p className="font-sans text-btn text-blue-500">Miй Аккаунт</p>
+        </Button>
       </div>
     </header>
   );
