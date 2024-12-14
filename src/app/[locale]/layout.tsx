@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { SessionProvider } from "next-auth/react";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 import TestComponent from "@/components/test-component";
 import { routing } from "@/i18n/routing";
 import { auth } from "@/lib/auth";
@@ -39,8 +41,10 @@ export default async function RootLayout({ children, params }: LayoutProps) {
       <body className={`${openSans.variable} font-sans antialiased`}>
         <SessionProvider session={session}>
           <NextIntlClientProvider locale={locale} messages={messages}>
+            <Header/>
             <TestComponent />
             {children}
+            <Footer/>
           </NextIntlClientProvider>
         </SessionProvider>
       </body>

@@ -88,3 +88,6 @@
     @apply bg-background text-foreground;
   }
 }
+p{
+  @apply font-sans
+}
