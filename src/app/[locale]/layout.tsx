@@ -1,3 +1,5 @@
+import Footer from "@/components/footer";
+import Header from "@/components/header";
 import TestComponent from "@/components/test-component";
 import { routing } from "@/i18n/routing";
 import { auth } from "@/lib/auth";
@@ -5,7 +7,7 @@ import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { Open_Sans } from "next/font/google";
+import { Open_Sans } from 'next/font/google';
 import { notFound } from "next/navigation";
 import "../globals.css";
 
@@ -39,8 +41,10 @@ export default async function RootLayout({ children, params }: LayoutProps) {
       <body className={`${openSans.variable} font-sans antialiased`}>
         <SessionProvider session={session}>
           <NextIntlClientProvider locale={locale} messages={messages}>
+            <Header />
             <TestComponent />
             {children}
+            <Footer />
           </NextIntlClientProvider>
         </SessionProvider>
       </body>
