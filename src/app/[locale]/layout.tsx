@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
-import { notFound } from "next/navigation";
-import { SessionProvider } from "next-auth/react";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
 import TestComponent from "@/components/test-component";
 import { routing } from "@/i18n/routing";
 import { auth } from "@/lib/auth";
+import type { Metadata } from "next";
+import { SessionProvider } from "next-auth/react";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
+import { Open_Sans } from "next/font/google";
+import { notFound } from "next/navigation";
 import "../globals.css";
 
 const openSans = Open_Sans({
