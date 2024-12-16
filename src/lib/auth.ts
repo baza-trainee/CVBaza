@@ -11,14 +11,6 @@ import { verifyPassword } from "../utils/password";
 
 const authOptions = NextAuth({
   adapter: DrizzleAdapter(db),
-  session: {
-    strategy: "jwt",
-  },
-  pages: {
-    signIn: "/en/auth/signin",
-    error: "/en/auth/signin",
-  },
-  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -119,6 +111,7 @@ const authOptions = NextAuth({
       if (trigger === "update" && session) {
         return { ...token, ...session.user };
       }
+
       if (user) {
         const typedUser = user as User;
         return {
@@ -132,6 +125,14 @@ const authOptions = NextAuth({
       return token;
     },
   },
+  session: {
+    strategy: "jwt",
+  },
+  pages: {
+    signIn: "/en/auth/signin",
+    error: "/en/auth/signin",
+  },
+  secret: process.env.NEXTAUTH_SECRET,
 });
 
 export const {

@@ -88,6 +88,6 @@
     @apply text-foreground;
   }
 }
-p{
-  @apply font-sans
+p {
+  @apply font-sans;
 }

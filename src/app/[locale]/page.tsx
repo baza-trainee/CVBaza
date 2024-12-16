@@ -1,19 +1,17 @@
-import { CoverLetter } from '@/components/cover-letter';
-import { Steps } from "@/components/steps/steps";
-
-import HeroSection from "@/components/hero-section";
-import OptimizationSection from "@/components/optimization-section";
+import { CoverLetter } from "@/components/homepage/cover-letter";
+import { HeroSection } from "@/components/homepage/hero-section";
+import { OptimizationSection } from "@/components/homepage/optimization-section";
+import { Steps } from "@/components/homepage/steps/steps";
 
 export default function Home() {
-
   return (
-    <div className=" font-[family-name:var(--font-geist-sans)] overflow-x-hidden">
-      <main className="row-start-2 flex flex-col items-center sm:items-start">
-        <HeroSection/>
-        <OptimizationSection/>
+    <main className="overflow-x-hidden font-[family-name:var(--font-geist-sans)]">
+      <div className="row-start-2 flex flex-col items-center sm:items-start">
+        <HeroSection />
+        <OptimizationSection />
         <Steps />
         <CoverLetter />
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }
