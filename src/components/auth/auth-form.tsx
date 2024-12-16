@@ -107,7 +107,7 @@ export function AuthForm({ type }: AuthFormProps) {
       </div>
 
       {error && (
-        <div className="rounded-md bg-red-50 p-3 text-sm text-red-500">
+        <div className="bg-red-50 text-red-500 rounded-md p-3 text-sm">
           {error === "CredentialsSignin" && "Invalid email or password"}
           {error === "AccessDenied" &&
             "This email is registered with email/password. Please sign in with your password."}
@@ -158,7 +158,7 @@ export function AuthForm({ type }: AuthFormProps) {
             )}
           />
           {form.formState.errors.root && (
-            <div className="text-sm text-red-500">
+            <div className="text-red-500 text-sm">
               {form.formState.errors.root.message}
             </div>
           )}

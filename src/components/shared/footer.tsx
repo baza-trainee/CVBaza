@@ -1,18 +1,25 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import Facebook from "../../public/Facebook.svg";
-import Linkedin from "../../public/Linkedin.svg";
-import Telegram from "../../public/Telegram.svg";
-import Logo_big from "../../public/logo_big.svg";
 
-const Footer = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const Footer = () => {
   const socialIconsList = [
-    { icon: Facebook, href: "https://www.facebook.com", alt: "fb_icon" },
-    { icon: Telegram, href: "https://web.telegram.org", alt: "tg_icon" },
-    { icon: Linkedin, href: "https://www.linkedin.com", alt: "ld_icon" },
+    {
+      icon: "/icons/socials/facebook.svg",
+      href: "https://www.facebook.com",
+      alt: "fb_icon",
+    },
+    {
+      icon: "/icons/socials/telegram.svg",
+      href: "https://web.telegram.org",
+      alt: "tg_icon",
+    },
+    {
+      icon: "/icons/socials/linkedin.svg",
+      href: "https://www.linkedin.com",
+      alt: "ld_icon",
+    },
   ];
+
   const siteList = [
     { label: "Baza Skill", href: "https://baza-skill.com.ua" },
     {
@@ -20,6 +27,7 @@ const Footer = () => {
       href: "https://job-tracker-frontend-three.vercel.app/log-in",
     },
   ];
+
   const linkList = [
     { label: "Резюме", href: "/" },
     {
@@ -32,7 +40,12 @@ const Footer = () => {
     <footer className="bg-blue-900">
       <div className="flex flex-col gap-14 px-20 pb-10 pt-20">
         <div className="flex justify-between">
-          <Image src={Logo_big} width={116} height={116} alt="logo_big" />
+          <Image
+            src="/icons/logo_big.svg"
+            width={116}
+            height={116}
+            alt="logo_big"
+          />
           <div className="flex flex-col gap-6 text-white">
             <h5 className="font-sans text-h5">СТВОРИ ІЗ ШІ</h5>
             <div className="flex flex-col gap-4">
@@ -54,7 +67,7 @@ const Footer = () => {
               </a>
 
               <a href="mailto:info@baza-trainee.tech">
-                <p className="underline text-body">info@baza-trainee.tech</p>
+                <p className="text-body underline">info@baza-trainee.tech</p>
               </a>
             </div>
           </div>
@@ -88,5 +101,3 @@ const Footer = () => {
     </footer>
   );
 };
-
-export default Footer;

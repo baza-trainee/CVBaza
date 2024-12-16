@@ -1,10 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import Logo from "../../public/logo.svg";
-import Person from "../../public/person.svg";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 
-const Header = () => {
+export const Header = () => {
   const headerLinks = [
     { name: "Резюме", href: "/" },
     { name: "Супровідний лист", href: "/" },
@@ -15,7 +13,7 @@ const Header = () => {
         <ul className="flex gap-9">
           <li>
             <Link href="/">
-              <Image src={Logo} width={60} height={60} alt="logo" />
+              <Image src="/icons/logo.svg" width={60} height={60} alt="logo" />
             </Link>
           </li>
           {headerLinks.map((l) => (
@@ -27,12 +25,10 @@ const Header = () => {
           ))}
         </ul>
         <Button>
-          <Image src={Person} width={24} height={24} alt="user" />
+          <Image src="icons/person.svg" width={24} height={24} alt="user" />
           <p className="font-sans text-btn text-blue-500">Miй Аккаунт</p>
         </Button>
       </div>
     </header>
   );
 };
-
-export default Header;
