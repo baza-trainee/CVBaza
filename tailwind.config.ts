@@ -10,6 +10,9 @@ export default {
   ],
   theme: {
     extend: {
+      padding: {
+        dynamic: "clamp(20px, 7vw, 80px)", // Мінімум 80px, масштаб 5vw, максимум 300px
+      },
       fontFamily: {
         sans: ["var(--font-open-sans)"],
       },

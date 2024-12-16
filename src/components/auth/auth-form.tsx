@@ -267,7 +267,7 @@ export function AuthForm({ lang, type }: AuthFormProps) {
           )}
 
           {form.formState.errors.root && (
-            <div className="text-sm text-red-500">
+            <div className="text-red-500 text-sm">
               {form.formState.errors.root.message}
             </div>
           )}
