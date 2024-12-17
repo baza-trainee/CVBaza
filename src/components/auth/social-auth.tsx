@@ -1,26 +1,27 @@
 "use client";
 
-import { Github, Mail } from "lucide-react";
-import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
+import { signIn } from "next-auth/react";
+import { Icon } from "./icon";
 
 export function SocialAuth() {
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 gap-5">
       <Button
         variant="outline"
-        onClick={() => signIn("google", { callbackUrl: "/" })}
-        className="w-full"
+        className="w-[170px] h-12 rounded-[40px] px-8 py-3 font-normal text-xl [&_svg]:size-6 bg-inherit"
+        onClick={() => signIn("google", { callbackUrl: "/" })}        
       >
-        <Mail className="mr-2 h-4 w-4" />
+        <Icon name="icon-google" size="full"/>
         Google
       </Button>
       <Button
         variant="outline"
         onClick={() => signIn("github", { callbackUrl: "/" })}
-        className="w-full"
+        className="w-[170px] h-12 rounded-[40px] font-normal text-xl [&_svg]:size-6 bg-inherit"
       >
-        <Github className="mr-2 h-4 w-4" />
+        <Icon name="icon-git" size="24px"/>
+        
         GitHub
       </Button>
     </div>
