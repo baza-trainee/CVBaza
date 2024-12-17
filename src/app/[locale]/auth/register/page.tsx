@@ -25,6 +25,3 @@ export default function RegisterPage({ params }: PageProps) {
     </div>
   )
 }
-
-
-}
