@@ -5,7 +5,7 @@ type Locale = "en" | "ua"
 
 type Params = Promise<{ locale: Locale }>
 
-export default async function RegisterPage({ params }: PageProps) {
+export default async function RegisterPage({ params }: Params) {
   const { locale } = await params
 
   return (
