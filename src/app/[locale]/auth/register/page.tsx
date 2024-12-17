@@ -5,8 +5,8 @@ type Locale = "en" | "ua"
 
 type Params = Promise<{ locale: Locale }>
 
-export default async function RegisterPage({ params }: Params) {
-  const { locale } = await params
+export default async function RegisterPage(props: { params: Params }) {
+  const { locale } = await props.params
 
   return (
     <div className="flex min-h-screen items-center justify-center">
