@@ -17,7 +17,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import Icon from "./icon";
+import { Icon } from "./icon";
 import { SocialAuth } from "./social-auth";
 
 const formSchema = z.object({
