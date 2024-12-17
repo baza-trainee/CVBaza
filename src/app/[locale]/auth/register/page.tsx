@@ -3,12 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 type Locale = "en" | "ua"
 
-type PageProps = {
-  params: { locale: Locale }
-}
+type Params = Promise<{ locale: Locale }>
 
-export default function RegisterPage({ params }: PageProps) {
-  const { locale } = params
+export default async function RegisterPage({ params }: PageProps) {
+  const { locale } = await params
 
   return (
     <div className="flex min-h-screen items-center justify-center">
