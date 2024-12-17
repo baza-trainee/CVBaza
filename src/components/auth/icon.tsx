@@ -7,7 +7,7 @@ interface IconProps {
   className?: string;
 }
 
-const Icon: React.FC<IconProps> = ({
+export const Icon: React.FC<IconProps> = ({
   name,
   size = "w-6 h-6",
   color = "text-current",
@@ -75,5 +75,3 @@ const Icon: React.FC<IconProps> = ({
     </svg>
   </div>
 );
-
-export default Icon;
