@@ -1,11 +1,5 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { signIn } from "next-auth/react";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,7 +10,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Link from "../../../node_modules/next/link";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 import Icon from "./icon";
 import { SocialAuth } from "./social-auth";
 
@@ -128,7 +128,7 @@ export function AuthForm({ lang, type }: AuthFormProps) {
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          
+
           <FormField
             control={form.control}
             name="email"
@@ -201,7 +201,7 @@ export function AuthForm({ lang, type }: AuthFormProps) {
           />
           {type === "register" && (
             <div>
-              <FormField
+              {/* <FormField
                 control={form.control}
                 name="find"
                 render={({ field }) => (
@@ -222,47 +222,42 @@ export function AuthForm({ lang, type }: AuthFormProps) {
                     <FormMessage />
                   </FormItem>
                 )}
-              />
-              <FormField
-                control={form.control}
-                name="agree"
-                render={({ field }) => (
-                  <FormItem className="mt-5">
-                    <FormControl>
-                      <label className="flex items-center gap-2">
-                        <Input
-                          type="checkbox"
-                          className="h-[18px] w-[18px] rounded border-blue-500 text-blue-600"
-                        />
-                        <p className="text-black text-small">
-                          {lang === "en" ? "I agree with " : "Я погоджуюся з "}
+              /> */}
 
-                          <Link
-                            href=""
-                            className="text-blue-500 hover:text-blue-700"
-                          >
-                            {lang === "en"
-                              ? "Terms of service "
-                              : "Умовами надання послуг "}
-                          </Link>
-                          {lang === "en"
-                            ? "and agree with "
-                            : "і погоджуюся з "}
-                          <Link
-                            href=""
-                            className="text-blue-500 hover:text-blue-700"
-                          >
-                            {lang === "en"
-                              ? "Privacy policy"
-                              : "Політикою конфіденційності"}
-                          </Link>
-                        </p>
-                      </label>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <FormItem className="mt-5">
+                <FormControl>
+                  <label className="flex items-center gap-2">
+                    <Input
+                      type="checkbox"
+                      className="h-[18px] w-[18px] rounded border-blue-500 text-blue-600"
+                    />
+                    <p className="text-black text-small">
+                      {lang === "en" ? "I agree with " : "Я погоджуюся з "}
+
+                      <Link
+                        href=""
+                        className="text-blue-500 hover:text-blue-700"
+                      >
+                        {lang === "en"
+                          ? "Terms of service "
+                          : "Умовами надання послуг "}
+                      </Link>
+                      {lang === "en"
+                        ? "and agree with "
+                        : "і погоджуюся з "}
+                      <Link
+                        href=""
+                        className="text-blue-500 hover:text-blue-700"
+                      >
+                        {lang === "en"
+                          ? "Privacy policy"
+                          : "Політикою конфіденційності"}
+                      </Link>
+                    </p>
+                  </label>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
             </div>
           )}
 
