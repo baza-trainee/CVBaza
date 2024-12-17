@@ -2,8 +2,13 @@ import { AuthError } from "@/components/auth/auth-error";
 import { AuthForm } from "@/components/auth/auth-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-export default function SignInPage({ params }: { params: { locale: "en" | "ua" } }) {
-  const { locale } = params
+type Locale = "en" | "ua"
+
+type Params = Promise<{ locale: Locale }>
+
+export default async function SignInPage(props: { params: Params }) {
+  const { locale } = await props.params
+  
   return (
     <div className="flex min-h-screen items-center justify-center">
       <Card className="w-full max-w-[600px] p-[50px] " >
