@@ -25,8 +25,8 @@ export const Header = () => {
           ))}
         </ul>
         <Button>
-          <Image src="icons/person.svg" width={24} height={24} alt="user" />
-          <p className="font-sans text-btn text-blue-500">Miй Аккаунт</p>
+          <Image src="/icons/person.svg" width={24} height={24} alt="user" />
+          <p className="font-sans text-btn text-blue-500">Miй Акаунт</p>
         </Button>
       </div>
     </header>

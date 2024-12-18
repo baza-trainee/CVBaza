@@ -8,5 +8,11 @@
       "emailExists": "This email is already registered with password. Please sign in with email and password.",
       "default": "An error occurred during authentication. Please try again."
     }
+  },
+  "404Page": {
+    "homePage": "/en",
+    "text": "404",
+    "desc": "It looks like we can't find the page you're looking for. Return to the main page.",
+    "buttonText": "To the main page"
   }
 }
