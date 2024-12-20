@@ -21,8 +21,16 @@ export default {
           "64px",
           { lineHeight: "100%", letterSpacing: "0", fontWeight: "600" },
         ],
+        "h1-sm": [
+          "46px",
+          { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
+        ],
         h2: [
           "48px",
+          { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
+        ],
+        "h2-sm": [
+          "36px",
           { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
         ],
         h3: [
@@ -176,6 +184,9 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      screens: {
+        sm: "350px",
       },
     },
   },
