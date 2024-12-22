@@ -29,6 +29,14 @@ export default {
           "48px",
           { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
         ],
+        "h2-2xl": [
+          "64px",
+          { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
+        ],
+        "h2-md": [
+          "40px",
+          { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
+        ],
         "h2-sm": [
           "36px",
           { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
