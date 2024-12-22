@@ -1,11 +1,13 @@
-import { LocaleProvider } from "@/components/local-provider";
-import { routing } from "@/i18n/routing";
-import { auth } from "@/lib/auth";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { SessionProvider } from "next-auth/react";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { notFound } from "next/navigation";
+import { LocaleProvider } from "@/components/local-provider";
+import { Footer } from "@/components/shared/footer";
+import { Header } from "@/components/shared/header";
+import { routing } from "@/i18n/routing";
+import { auth } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,9 +29,9 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
     <LocaleProvider locale={locale}>
       <SessionProvider session={session}>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          {/* <Header /> */}
+          <Header />
           {children}
-          {/* <Footer /> */}
+          <Footer />
         </NextIntlClientProvider>
       </SessionProvider>
     </LocaleProvider>
