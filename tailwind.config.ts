@@ -186,7 +186,7 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       screens: {
-        sm: "350px",
+        sm: "390px",
       },
     },
   },
