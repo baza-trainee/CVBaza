@@ -9,8 +9,8 @@ export default function Home() {
       <div>
         <HeroSection />
         <OptimizationSection />
-        <Steps />
-        <CoverLetter />
+        {/* <Steps />
+        <CoverLetter /> */}
       </div>
     </main>
   );
