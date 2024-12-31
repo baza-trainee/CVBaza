@@ -8,26 +8,33 @@ export const Header = () => {
     { name: "Супровідний лист", href: "/" },
   ];
   return (
-    <header className="bg-white px-20 py-3">
+    <header className="bg-white px-[15px] py-3 lg:px-10 xl:px-20 2xl:px-[120px]">
       <div className="flex justify-between">
         <ul className="flex gap-9">
           <li>
             <Link href="/">
-              <Image src="/icons/logo.svg" width={60} height={60} alt="logo" />
+              <div className="relative h-10 w-10 lg:h-[60px] lg:w-[60px]">
+                <Image src="/icons/logo.svg" fill alt="logo" />
+              </div>
             </Link>
           </li>
           {headerLinks.map((l) => (
-            <Link key={l.name} href={l.href}>
+            <Link className="hidden lg:inline-block" key={l.name} href={l.href}>
               <li className="flex h-full items-center justify-center">
                 <p className="font-sans text-body text-black-500">{l.name}</p>
               </li>
             </Link>
           ))}
         </ul>
-        <Button>
-          <Image src="/icons/person.svg" width={24} height={24} alt="user" />
+        <Button className="hidden px-[20px] lg:flex 2xl:px-9">
+          <div className="relative h-6 w-6">
+            <Image src="/icons/person.svg" fill alt="user" />
+          </div>
           <p className="font-sans text-btn text-blue-500">Miй Акаунт</p>
         </Button>
+        <div className="relative block h-12 w-12 lg:hidden">
+          <Image src="/icons/hamburger.svg" fill alt="hamburger" />
+        </div>
       </div>
     </header>
   );
