@@ -69,6 +69,8 @@ const authOptions = NextAuth({
           emailVerified: user.emailVerified,
           image: user.image,
           password: user.password,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt,
         };
       },
     }),

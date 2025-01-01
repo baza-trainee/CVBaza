@@ -1,17 +1,17 @@
-import { AuthForm } from "@/components/auth/auth-form"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { AuthForm } from "@/components/auth/auth-form";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-type Locale = "en" | "ua"
+type Locale = "en" | "ua";
 
-type Params = Promise<{ locale: Locale }>
+type Params = Promise<{ locale: Locale }>;
 
 export default async function RegisterPage(props: { params: Params }) {
-  const { locale } = await props.params
+  const { locale } = await props.params;
 
   return (
     <div className="flex min-h-screen items-center justify-center">
       <Card className="w-full max-w-[600px] p-[50px]">
-        <CardHeader className="p-0 mb-12">
+        <CardHeader className="mb-12 p-0">
           <CardTitle className="text-center text-2xl font-semibold">
             {locale === "en" ? "Create an account" : "Створіть обліковий запис"}
           </CardTitle>
@@ -21,5 +21,5 @@ export default async function RegisterPage(props: { params: Params }) {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
