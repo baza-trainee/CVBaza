@@ -1,6 +1,6 @@
 {
-  "id": "8f8b1c41-5b55-4c4e-b5ec-948171191b27",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "baa039bf-a7c7-4386-a144-48c3426748eb",
+  "prevId": "8f8b1c41-5b55-4c4e-b5ec-948171191b27",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -401,8 +401,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "email_verified": {
-          "name": "email_verified",
+        "emailVerified": {
+          "name": "emailVerified",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false

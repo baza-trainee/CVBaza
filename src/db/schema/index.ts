@@ -1,3 +1,10 @@
-export { default as accounts } from "./accounts";
-export { default as sessions } from "./sessions";
-export { default as users } from "./users";
+export { accounts } from "./accounts";
+export { educations } from "./educations";
+export { resumes, resumesRelations } from "./resumes";
+export { sessions, sessionsRelations } from "./sessions";
+export { users, usersRelations } from "./users";
+export { workExperiences } from "./work-experiences";
+export {
+  passwordResetTokens,
+  passwordResetTokensRelations,
+} from "./password-reset-tokens";
