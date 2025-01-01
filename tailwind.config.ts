@@ -17,6 +17,10 @@ export default {
         sans: ["var(--font-open-sans)"],
       },
       fontSize: {
+        "h1-large": [
+          "80px",
+          { lineHeight: "100%", letterSpacing: "0", fontWeight: "600" },
+        ],
         h1: [
           "64px",
           { lineHeight: "100%", letterSpacing: "0", fontWeight: "600" },
