@@ -8,12 +8,12 @@ export const Header = () => {
     { name: "Супровідний лист", href: "/" },
   ];
   return (
-    <header className="bg-white px-[15px] py-3 lg:px-10 xl:px-20 2xl:px-[120px]">
+    <header className="bg-white px-[16px] py-2 lg:py-3 lg:px-10 xl:px-20 2xl:px-[120px]">
       <div className="flex justify-between">
         <ul className="flex gap-9">
           <li>
             <Link href="/">
-              <div className="relative h-10 w-10 lg:h-[60px] lg:w-[60px]">
+              <div className="relative h-12 w-12 lg:h-[60px] lg:w-[60px]">
                 <Image src="/icons/logo.svg" fill alt="logo" />
               </div>
             </Link>
