@@ -23,7 +23,7 @@ export const Socials = ({ classNames }: { classNames: string }) => {
   return (
     <div className={classNames}>
       <h5 className="font-sans text-h5">ШУКАЙ НАС</h5>
-      <div className="flex justify-between">
+      <div className="flex max-w-28 justify-between">
         {socialIconsList.map((i) => (
           <Link key={i.href} href={i.href}>
             <div className="relative h-8 w-8">

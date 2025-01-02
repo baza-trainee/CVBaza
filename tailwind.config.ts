@@ -199,6 +199,7 @@ export default {
       },
       screens: {
         sm: "350px",
+        ms: "450px",
       },
     },
   },
