@@ -8,31 +8,24 @@ export const Footer = () => {
   return (
     <footer className="bg-blue-900">
       <div className="footer-container">
-        <div className="flex flex-col items-center justify-between gap-[50px] md:flex-row md:items-start">
-          <div className="flex flex-col items-center gap-6 text-white ms:max-md:w-full ms:max-md:items-start ms:max-md:gap-11 md:items-start">
-            <div className="relative h-[80px] w-[80px] lg:h-[116px] lg:w-[116px]">
+        <div className="flex w-full flex-col items-center gap-[3.125rem] ms:items-start md:flex-row md:gap-[4.6rem] xl:gap-[6rem] 2xl:gap-36 3xl:gap-[13.75rem]">
+          <div className="flex flex-col gap-6">
+            <div className="relative h-20 w-20 lg:h-[7.25rem] lg:w-[7.25rem] 3xl:h-[8.75rem] 3xl:w-[8.75rem]">
               <Image src="/icons/logo_big.svg" fill alt="logo_big" />
             </div>
-            <Socials classNames="flex ms:hidden md:flex flex-col gap-6 text-white lg:hidden" />
-            <div className="hidden w-full gap-[60px] ms:max-md:flex ms:max-md:flex-col">
-              <div className="flex flex-wrap gap-[60]">
-                <HelpLinks classNames="flex min-w-[180px] flex-col gap-6 text-white" />
-                <CreateWithAi classNames="flex min-w-[180px] flex-col gap-6 text-white" />
-                <Contacts classNames="flex min-w-[180px] flex-col gap-6 text-white" />
-                <Socials classNames="flex min-w-[180px] flex-col gap-6 text-white lg:flex" />
-              </div>
-            </div>
+            <Socials classNames="hidden md:max-lg:flex flex-col ms:items-start ms:order-last ms:max-md:min-w-[180px] gap-6 text-white" />
           </div>
-          <CreateWithAi classNames="sm:flex ms:hidden flex-col items-center sm:gap-6 text-white md:items-start lg:flex" />
-          <HelpLinks classNames="flex flex-col gap-6 text-white ms:hidden" />
-          <Contacts classNames="flex ms:max-md:hidden flex-col gap-6 text-white" />
-          <HelpLinks classNames="hidden flex-col gap-6 text-white md:flex" />
-          <CreateWithAi classNames="hidden md:flex flex-col items-center gap-6 text-white md:items-start lg:hidden" />
-          <Socials classNames="hidden flex-col gap-6 text-white lg:flex" />
+
+          <div className="flex grow flex-col flex-wrap gap-[3.125rem] ms:flex-row ms:items-start ms:gap-[3.75rem] ms:gap-y-[4.375rem] md:justify-between">
+            <Socials classNames="flex md:max-lg:hidden lg:order-last flex-col ms:items-start ms:order-last items-center ms:max-md:min-w-[180px] gap-6 text-white" />
+            <CreateWithAi classNames="flex md:order-last lg:order-2 ms:items-start ms:max-md:min-w-[180px] flex-col items-center gap-6 text-white " />
+            <HelpLinks classNames="flex  ms:items-start md:order-2 ms:order-first flex-col items-center ms:max-md:min-w-[180px]  gap-6 text-white " />
+            <Contacts classNames="flex md:order-first ms:items-start items-center ms:max-md:min-w-[180px] flex-col gap-6 text-white" />
+          </div>
         </div>
 
         <div className="flex items-center border-t border-t-white py-8">
-          <p className="w-full text-pretty px-14 text-center font-sans text-body text-white ms:px-0 ms:text-start">
+          <p className="w-full text-pretty px-14 text-center font-sans text-body text-white ms:px-0 ms:text-start 3xl:text-body-sm">
             Baza Trainee Ukraine 2024 © Усі права захищені
           </p>
         </div>
