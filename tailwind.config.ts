@@ -61,8 +61,16 @@ export default {
           "16px",
           { lineHeight: "150%", letterSpacing: "0.5px", fontWeight: "600" },
         ],
+        "btn-semibold": [
+          "24px",
+          { lineHeight: "150%", letterSpacing: "0.5px", fontWeight: "600" },
+        ],
         body: [
           "16px",
+          { lineHeight: "150%", letterSpacing: "0", fontWeight: "400" },
+        ],
+        "body-sm": [
+          "24px",
           { lineHeight: "150%", letterSpacing: "0", fontWeight: "400" },
         ],
         "body-semibold": [
@@ -199,6 +207,8 @@ export default {
       },
       screens: {
         sm: "350px",
+        ms: "480px",
+        "3xl": "1920px",
       },
     },
   },
