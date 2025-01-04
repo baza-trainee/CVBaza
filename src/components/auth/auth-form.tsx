@@ -1,5 +1,12 @@
 "use client";
 
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -10,13 +17,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { signIn } from "next-auth/react";
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
 import { Icon } from "./icon";
 import { SocialAuth } from "./social-auth";
 
@@ -117,7 +117,7 @@ export function AuthForm({ lang, type }: AuthFormProps) {
       </div>
 
       {error && (
-        <div className="rounded-md bg-red-50 p-3 text-small text-red-500">
+        <div className="bg-red-50 text-red-500 rounded-md p-3 text-small">
           {error === "CredentialsSignin" && "Invalid email or password"}
           {error === "AccessDenied" &&
             (lang === "en"
@@ -128,7 +128,6 @@ export function AuthForm({ lang, type }: AuthFormProps) {
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-
           <FormField
             control={form.control}
             name="email"
@@ -242,9 +241,7 @@ export function AuthForm({ lang, type }: AuthFormProps) {
                           ? "Terms of service "
                           : "Умовами надання послуг "}
                       </Link>
-                      {lang === "en"
-                        ? "and agree with "
-                        : "і погоджуюся з "}
+                      {lang === "en" ? "and agree with " : "і погоджуюся з "}
                       <Link
                         href=""
                         className="text-blue-500 hover:text-blue-700"

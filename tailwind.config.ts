@@ -17,6 +17,10 @@ export default {
         sans: ["var(--font-open-sans)"],
       },
       fontSize: {
+        "h1-3xl": [
+          "96px",
+          { lineHeight: "100%", letterSpacing: "0", fontWeight: "600" },
+        ],
         "h1-large": [
           "80px",
           { lineHeight: "100%", letterSpacing: "0", fontWeight: "600" },
@@ -29,12 +33,16 @@ export default {
           "46px",
           { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
         ],
-        h2: [
-          "48px",
-          { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
+        "h2-3xl": [
+          "80px",
+          { lineHeight: "100%", letterSpacing: "0", fontWeight: "600" },
         ],
         "h2-2xl": [
           "64px",
+          { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
+        ],
+        h2: [
+          "48px",
           { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
         ],
         "h2-md": [
@@ -61,8 +69,16 @@ export default {
           "16px",
           { lineHeight: "150%", letterSpacing: "0.5px", fontWeight: "600" },
         ],
+        "btn-semibold": [
+          "24px",
+          { lineHeight: "150%", letterSpacing: "0.5px", fontWeight: "600" },
+        ],
         body: [
           "16px",
+          { lineHeight: "150%", letterSpacing: "0", fontWeight: "400" },
+        ],
+        "body-sm": [
+          "24px",
           { lineHeight: "150%", letterSpacing: "0", fontWeight: "400" },
         ],
         "body-semibold": [
@@ -199,6 +215,8 @@ export default {
       },
       screens: {
         sm: "350px",
+        ms: "480px",
+        "3xl": "1920px",
       },
     },
   },

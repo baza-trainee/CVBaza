@@ -29,23 +29,23 @@ export const OptimizationSection = () => {
     imageHeight = 286;
   }
   return (
-    <section className="flex h-auto w-full items-center overflow-hidden bg-white sm:h-[716px] md:h-[446px] lg:h-[488px] sm:py-20">
-      <div className="container flex sm:flex-col-reverse sm:px-4 md:flex-row md:gap-8 md:px-4 lg:gap-[117px] lg:px-0 lg:pl-10 xl:pl-[120px] 2xl:gap-[110px]">
-        <div className="h-auto w-full sm:w-[318px] sm:h-[298px] md:w-[352px] lg:w-[402px] lg:h-[328px] xl:w-[550px] xl:h-[328px]">
+    <section className="flex h-auto w-full items-center overflow-hidden bg-white sm:py-20 2xl:py-[120px] 3xl:py-[140px]">
+      <div className="container flex sm:flex-col-reverse sm:px-4 md:flex-row md:gap-8 md:px-4 lg:gap-20 lg:px-10 xl:gap-[117px] xl:px-20 2xl:gap-[110px] 2xl:px-[120px]">
+        <div className="sm:h-[298px] sm:w-[318px] ms:h-[298px] ms:w-[448px] md:w-[352px] lg:h-[328px] lg:w-[402px] xl:h-[328px] xl:w-[548px] 3xl:h-[400px] 3xl:w-[711px]">
           <Image
             src={imageSrc}
             alt="Optimization"
             width={imageWidth}
             height={imageHeight}
-            className="h-auto w-full"
+            className="h-full w-full object-cover"
           />
         </div>
 
-        <div className="flex w-full flex-col md:w-[339px] lg:w-[378px] sm:gap-4 2xl:gap-6 2xl:w-[540px]">
-          <h2 className="text-center lg:text-h2 text-blue-900 sm:text-start sm:text-h2-sm md:text-h2-md lg:pt-[50px] lg:text-left 2xl:text-h2-2xl">
+        <div className="flex w-full flex-col sm:gap-4 md:w-[339px] md:justify-center lg:w-[378px] 2xl:w-[540px] 2xl:gap-6">
+          <h2 className="text-center text-blue-900 sm:text-start sm:text-h2-sm md:text-h2-md lg:text-left lg:text-h2 2xl:text-h2-2xl 3xl:text-h2-3xl">
             Оптимізація резюме
           </h2>
-          <p className="sm:text-body text-center text-black-500 sm:pb-[36px] sm:text-start md:pb-0 lg:text-left">
+          <p className="text-center text-black-500 sm:pb-[36px] sm:text-start sm:text-body md:pb-0 lg:text-left 3xl:w-[756px] 3xl:text-body-sm">
             Дізнайтеся, яких навичок вам бракує. Система на базі штучного
             інтелекту покаже вам, як адаптувати своє резюме так, щоб підкреслити
             навички та досвід, які шукають рекрутери.
