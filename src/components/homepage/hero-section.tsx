@@ -4,8 +4,8 @@ import Link from "next/link";
 export const HeroSection = () => {
   return (
     <div className="flex w-full overflow-hidden bg-background sm:pt-[60px] sm:pb-[76px] sm:flex-col sm:gap-0  md:flex-row md:px-4 md:h-[calc(100vh-84px)] lg:flex-row lg:gap-[39px] lg:px-10 md:py-20 xl:px-20 xl:py-[34px] md:justify-between 2xl:py-0 2xl:px-[120px] 2xl:flex-wrap 2xl:content-center  2xl:gap-[111px] xl:gap-[102px] md:items-start md:gap-[32px] xl:items-center">
-
-      <div className="flex w-full flex-col lg:gap-[60px] md:w-[352px] sm:px-4 md:px-0 md:gap-10 sm:gap-[60px] lg:w-[443px] xl:w-[450px] xl:justify-center 2xl:flex-wrap 2xl:content-center 2xl:w-[548px]">
+      <div className="max-w-[1536px]">
+        <div className="flex w-full flex-col lg:gap-[60px] md:w-[352px] sm:px-4 md:px-0 md:gap-10 sm:gap-[60px] lg:w-[443px] xl:w-[450px] xl:justify-center 2xl:flex-wrap 2xl:content-center 2xl:w-[548px]">
         <div className="w-full md:flex md:flex-col lg:w-[450px]">
           <h1 className="text-start text-3xl text-black-900 sm:text-h1-sm  md:text-h2 lg:text-left lg:text-h1 2xl:text-h1-large">
             Професійний конструктор резюме
@@ -92,6 +92,8 @@ export const HeroSection = () => {
           />
         </div>
       </div>
+      </div>
+      
     </div>
   );
 };
