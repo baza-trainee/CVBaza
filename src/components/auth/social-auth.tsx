@@ -6,7 +6,7 @@ import { Icon } from "./icon";
 
 export function SocialAuth() {
   return (
-    <div className="grid grid-cols-2 gap-5">
+    <div className="mb-6 grid grid-cols-2 gap-5">
       <Button
         variant="outline"
         className="h-12 w-[170px] rounded-[40px] bg-inherit px-8 py-3 text-xl font-normal [&_svg]:size-6"

@@ -17,16 +17,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "../ui/checkbox";
 import { Icon } from "./icon";
 import { SocialAuth } from "./social-auth";
-
-const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6, {
-    message: "Password must be at least 6 characters.",
-  }),
-  name: z.string().optional(),
-});
 
 interface AuthFormProps {
   type: "signin" | "register";
@@ -43,6 +36,18 @@ export function AuthForm({ lang, type }: AuthFormProps) {
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
+
+  const formSchema = z.object({
+    email: z.string().email(),
+    password: z.string().min(8, {
+      message: `${
+        lang === "en"
+          ? "Invalid password. Please try again"
+          : "Невірний пароль. Спробуйте ще раз"
+      }`,
+    }),
+    name: z.string().optional(),
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -80,7 +85,11 @@ export function AuthForm({ lang, type }: AuthFormProps) {
       if (result?.error) {
         const errorMessage =
           result.error === "Configuration"
-            ? "Account not found. Please sign up or try a different email."
+            ? `${
+              lang === "en"
+                ? "Account not found. Please sign up or try a different email."
+                : "Обліковий запис не знайдено. Будь ласка, зареєструйтеся або спробуйте іншу електронну адресу."
+            }`
             : result.error;
 
         form.setError("root", {
@@ -95,13 +104,17 @@ export function AuthForm({ lang, type }: AuthFormProps) {
       console.error(error);
       form.setError("root", {
         message:
-          error instanceof Error ? error.message : "Authentication failed",
+          error instanceof Error
+            ? error.message
+            : `${
+              lang === "en" ? "Authentication failed" : "Помилка авторизації"
+            }`,
       });
     }
   }
 
   return (
-    <div className="space-y-6 px-[70px]">
+    <div className="px-[70px]">
       <SocialAuth />
 
       <div className="relative">
@@ -117,7 +130,7 @@ export function AuthForm({ lang, type }: AuthFormProps) {
       </div>
 
       {error && (
-        <div className="bg-red-50 text-red-500 rounded-md p-3 text-small">
+        <div className="rounded-md bg-red-50 p-3 text-small text-red-500">
           {error === "CredentialsSignin" && "Invalid email or password"}
           {error === "AccessDenied" &&
             (lang === "en"
@@ -127,23 +140,26 @@ export function AuthForm({ lang, type }: AuthFormProps) {
       )}
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="my-6 flex flex-col gap-4"
+        >
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="text-xl font-normal">Email</FormLabel>
                 <FormControl
-                  className={`rounded-[8px] px-4 py-3 ${form.formState.errors.email ? "text-red-300" : "text-gray-300"}`}
+                // className={`rounded-[8px] px-4 py-3 ${form.formState.errors.email ? "text-red-300" : "text-gray-300"}`}
                 >
                   <Input
                     placeholder="Email"
                     {...field}
-                    className={`hover:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 ${form.formState.errors.email ? "border-red-300 bg-red-50 text-red-500 hover:border-red-500 focus:border-red-500" : "border-gray-300 bg-inherit"}`}
+                    className={`hover:border-blue-500 focus:border-blue-500 focus:outline-blue-500 ${form.formState.errors.email ? "border-red-300 bg-red-50 text-red-500 hover:border-red-500 focus:border-red-500 focus:outline-red-500" : "border-black-200 bg-inherit"}`}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="mt-1 pl-1 text-[12px] text-red-500" />
               </FormItem>
             )}
           />
@@ -152,14 +168,16 @@ export function AuthForm({ lang, type }: AuthFormProps) {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{lang === "en" ? "Password" : "Пароль"}</FormLabel>
+                <FormLabel className="text-xl font-normal">
+                  {lang === "en" ? "Password" : "Пароль"}
+                </FormLabel>
                 <FormControl>
                   <div className="relative flex items-center rounded-[40px]">
                     <Input
                       type={showPassword ? "text" : "password"}
                       placeholder="Пароль"
                       {...field}
-                      className={`w-full rounded-[8px] border px-4 py-2 hover:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 ${form.formState.errors.password ? "border-red-300 bg-red-50 text-red-500 hover:border-red-500 focus:border-red-500" : "border-gray-300 bg-inherit"}`}
+                      className={`w-full rounded-[8px] border px-4 py-3 hover:border-blue-500 focus:border-blue-500 focus:outline-blue-500 ${form.formState.errors.password ? "border-red-300 bg-red-50 text-red-500 hover:border-red-500 focus:border-red-500 focus:outline-red-500" : "border-black-200 bg-inherit"}`}
                     />
                     <Button
                       type="button"
@@ -174,18 +192,21 @@ export function AuthForm({ lang, type }: AuthFormProps) {
                     </Button>
                   </div>
                 </FormControl>
-                <FormMessage className="text-small text-gray-400">
+                <FormMessage
+                  className={`mt-1 pl-1 text-[12px] text-gray-400 ${form.formState.errors.password && "hidden"}`}
+                >
                   {type === "register" &&
                     (lang === "en"
                       ? "The password must consist of 8 characters and contain numbers and Latin letters"
                       : "Пароль має складатись з 8 символів і містити цифри та латинські літери")}
                 </FormMessage>
+                <FormMessage className="mt-1 pl-1 text-[12px] text-red-500" />
+
                 {type === "signin" && (
                   <FormControl>
-                    <label className="flex items-center gap-2">
-                      <Input
-                        type="checkbox"
-                        className="h-[18px] w-[18px] rounded border-blue-500"
+                    <label className="mt-2 flex items-center gap-2">
+                      <Checkbox
+                      // className="h-[18px] w-[18px] rounded border-blue-500"
                       />
                       <p className="text-black text-small">
                         {lang === "en"
@@ -200,35 +221,11 @@ export function AuthForm({ lang, type }: AuthFormProps) {
           />
           {type === "register" && (
             <div>
-              {/* <FormField
-                control={form.control}
-                name="find"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <label className="flex items-center gap-2">
-                        <Input
-                          type="checkbox"
-                          className="h-[18px] w-[18px] rounded border-blue-500 text-blue-600"
-                        />
-                        <p className="text-black text-small">
-                          {lang === "en"
-                            ? "I want to receive updates, special offers and promotional emails"
-                            : "Я хочу отримувати оновлення, спеціальні пропозиції та рекламні електронні листи"}
-                        </p>
-                      </label>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              /> */}
-
-              <FormItem className="mt-5">
+              <FormItem>
                 <FormControl>
                   <label className="flex items-center gap-2">
-                    <Input
-                      type="checkbox"
-                      className="h-[18px] w-[18px] rounded border-blue-500 text-blue-600"
+                    <Checkbox
+                    // className="h-[18px] w-[18px] rounded border-blue-500 text-blue-600"
                     />
                     <p className="text-black text-small">
                       {lang === "en" ? "I agree with " : "Я погоджуюся з "}
@@ -259,13 +256,13 @@ export function AuthForm({ lang, type }: AuthFormProps) {
           )}
 
           {form.formState.errors.root && (
-            <div className="text-red-500 text-sm">
+            <div className="text-sm text-red-500">
               {form.formState.errors.root.message}
             </div>
           )}
           <Button
             type="submit"
-            className="mt-8 w-full rounded-[40px] bg-blue-500 text-white last:mt-8 hover:border-blue-500 hover:bg-blue-700"
+            className="mt-2 w-full rounded-[40px] bg-blue-500 text-white hover:border-blue-600 hover:bg-blue-600 focus:border-blue-600 focus:bg-blue-600"
           >
             {type === "signin"
               ? lang === "en"
@@ -278,8 +275,11 @@ export function AuthForm({ lang, type }: AuthFormProps) {
         </form>
       </Form>
       {type === "signin" ? (
-        <div className="mt-8 flex flex-col items-center text-xl">
-          <Link href="" className="text-blue-500 hover:text-blue-700">
+        <div className="flex flex-col items-center text-xl">
+          <Link
+            href="reset-password/token"
+            className="text-blue-500 hover:text-blue-700"
+          >
             {lang === "en" ? "Forgot password" : "Забули пароль"}
           </Link>
           <h4 className="mt-6">

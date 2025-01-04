@@ -43,6 +43,11 @@
     --black-800: 0 0% 3%;
     --black-900: 0 0% 1%;
 
+    /* Red scale */
+    --red-50: 5 100% 98%;
+    --red-300: 4 100% 80%;
+    --red-500: 4 83% 50%;
+
     /* Original theme variables */
     --background: 220 71% 98%;
     --foreground: 0 0% 3.9%;

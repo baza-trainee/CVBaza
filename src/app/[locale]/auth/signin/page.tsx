@@ -12,7 +12,7 @@ export default async function SignInPage(props: { params: Params }) {
   return (
     <div className="flex min-h-screen items-center justify-center">
       <Card className="w-full max-w-[600px] p-[50px]">
-        <CardHeader className="mb-12 p-0">
+        <CardHeader className="mb-8 p-0">
           <CardTitle className="text-center text-2xl font-semibold">
             {locale === "en"
               ? "Sign in to your account"
