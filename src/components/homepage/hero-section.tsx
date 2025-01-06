@@ -69,7 +69,7 @@ export const HeroSection = () => {
             height={28}
           />
           <Image
-            src="/images/hero/AI.png"
+            src="/images/hero/ai.png"
             className="invisible absolute lg:visible lg:bottom-[110px] lg:right-[-16px] xl:bottom-[166px] xl:right-[10px] 3xl:bottom-[216px] 3xl:right-[450px]"
             alt="AI"
             width={181}

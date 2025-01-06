@@ -15,11 +15,11 @@ export function AuthError() {
   if (!error) return null;
 
   const errorMessages: Record<string, string> = {
-    OAuthAccountNotLinked: "This email is already associated with a different provider.",
-    UseCredentials: `This email (${email}) is registered with email/password. Please sign in with your password.`,
-    CredentialsSignin: "Invalid email or password.",
-    UserNotFound: "No account found with this email. Please check your email or register.",
-    InvalidCredentials: "Invalid password. Please try again.",
+    OAuthAccountNotLinked: t("errors.oauthAccountNotLinked"),
+    UseCredentials: t("errors.useCredentials", { email: email || "" }),
+    CredentialsSignin: t("errors.credentialsSignin"),
+    UserNotFound: t("errors.userNotFound"),
+    InvalidCredentials: t("errors.invalidCredentials"),
     EmailExists: t("errors.emailExists"),
     default: t("errors.default"),
   };
