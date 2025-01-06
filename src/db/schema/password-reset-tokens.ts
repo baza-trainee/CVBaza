@@ -1,5 +1,6 @@
 import { relations, sql } from "drizzle-orm";
 import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+
 import { users } from "./users";
 
 export const passwordResetTokens = pgTable("password_reset_tokens", {
@@ -15,12 +16,9 @@ export const passwordResetTokens = pgTable("password_reset_tokens", {
   ),
 });
 
-export const passwordResetTokensRelations = relations(
-  passwordResetTokens,
-  ({ one }) => ({
-    user: one(users, {
-      fields: [passwordResetTokens.userId],
-      references: [users.id],
-    }),
-  })
-);
+export const passwordResetTokensRelations = relations(passwordResetTokens, ({ one }) => ({
+  user: one(users, {
+    fields: [passwordResetTokens.userId],
+    references: [users.id],
+  }),
+}));

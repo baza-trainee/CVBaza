@@ -10,8 +10,8 @@ export const HeroSection = () => {
             Професійний конструктор резюме
           </h1>
           <p className="mx-auto w-full pt-4 text-start text-black-500 sm:text-base sm:text-body md:pt-4 lg:mx-0 lg:w-[354px] lg:text-left 2xl:pt-6 3xl:w-[568px] 3xl:text-body-sm">
-            Створіть вражаюче резюме за лічені хвилини. Використовуйте
-            можливості штучного інтелекту та аналізу даних.
+            Створіть вражаюче резюме за лічені хвилини. Використовуйте можливості штучного інтелекту
+            та аналізу даних.
           </p>
 
           <Link

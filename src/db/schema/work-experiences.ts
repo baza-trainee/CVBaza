@@ -1,5 +1,6 @@
 import { relations, sql } from "drizzle-orm";
 import { pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+
 import { resumes } from "./resumes";
 
 export const workExperiences = pgTable("work_experiences", {
@@ -22,12 +23,9 @@ export const workExperiences = pgTable("work_experiences", {
   ),
 });
 
-export const workExperiencesRelations = relations(
-  workExperiences,
-  ({ one }) => ({
-    resume: one(resumes, {
-      fields: [workExperiences.resumeId],
-      references: [resumes.id],
-    }),
-  })
-);
+export const workExperiencesRelations = relations(workExperiences, ({ one }) => ({
+  resume: one(resumes, {
+    fields: [workExperiences.resumeId],
+    references: [resumes.id],
+  }),
+}));

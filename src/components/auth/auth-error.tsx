@@ -1,8 +1,9 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import { AlertCircle } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export function AuthError() {
@@ -14,12 +15,10 @@ export function AuthError() {
   if (!error) return null;
 
   const errorMessages: Record<string, string> = {
-    OAuthAccountNotLinked:
-      "This email is already associated with a different provider.",
+    OAuthAccountNotLinked: "This email is already associated with a different provider.",
     UseCredentials: `This email (${email}) is registered with email/password. Please sign in with your password.`,
     CredentialsSignin: "Invalid email or password.",
-    UserNotFound:
-      "No account found with this email. Please check your email or register.",
+    UserNotFound: "No account found with this email. Please check your email or register.",
     InvalidCredentials: "Invalid password. Please try again.",
     EmailExists: t("errors.emailExists"),
     default: t("errors.default"),

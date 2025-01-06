@@ -17,86 +17,26 @@ export default {
         sans: ["var(--font-open-sans)"],
       },
       fontSize: {
-        "h1-3xl": [
-          "96px",
-          { lineHeight: "100%", letterSpacing: "0", fontWeight: "600" },
-        ],
-        "h1-large": [
-          "80px",
-          { lineHeight: "100%", letterSpacing: "0", fontWeight: "600" },
-        ],
-        h1: [
-          "64px",
-          { lineHeight: "100%", letterSpacing: "0", fontWeight: "600" },
-        ],
-        "h1-sm": [
-          "46px",
-          { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
-        ],
-        "h2-3xl": [
-          "80px",
-          { lineHeight: "100%", letterSpacing: "0", fontWeight: "600" },
-        ],
-        "h2-2xl": [
-          "64px",
-          { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
-        ],
-        h2: [
-          "48px",
-          { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
-        ],
-        "h2-md": [
-          "40px",
-          { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
-        ],
-        "h2-sm": [
-          "36px",
-          { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
-        ],
-        h3: [
-          "24px",
-          { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
-        ],
-        h4: [
-          "20px",
-          { lineHeight: "120%", letterSpacing: "0", fontWeight: "400" },
-        ],
-        h5: [
-          "18px",
-          { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
-        ],
-        btn: [
-          "16px",
-          { lineHeight: "150%", letterSpacing: "0.5px", fontWeight: "600" },
-        ],
-        "btn-semibold": [
-          "24px",
-          { lineHeight: "150%", letterSpacing: "0.5px", fontWeight: "600" },
-        ],
-        body: [
-          "16px",
-          { lineHeight: "150%", letterSpacing: "0", fontWeight: "400" },
-        ],
-        "body-sm": [
-          "24px",
-          { lineHeight: "150%", letterSpacing: "0", fontWeight: "400" },
-        ],
-        "body-semibold": [
-          "16px",
-          { lineHeight: "150%", letterSpacing: "0", fontWeight: "600" },
-        ],
-        small: [
-          "12px",
-          { lineHeight: "auto", letterSpacing: "0", fontWeight: "400" },
-        ],
-        "small-semibold": [
-          "12px",
-          { lineHeight: "auto", letterSpacing: "0", fontWeight: "600" },
-        ],
-        xs: [
-          "8px",
-          { lineHeight: "auto", letterSpacing: "0", fontWeight: "400" },
-        ],
+        "h1-3xl": ["96px", { lineHeight: "100%", letterSpacing: "0", fontWeight: "600" }],
+        "h1-large": ["80px", { lineHeight: "100%", letterSpacing: "0", fontWeight: "600" }],
+        h1: ["64px", { lineHeight: "100%", letterSpacing: "0", fontWeight: "600" }],
+        "h1-sm": ["46px", { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" }],
+        "h2-3xl": ["80px", { lineHeight: "100%", letterSpacing: "0", fontWeight: "600" }],
+        "h2-2xl": ["64px", { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" }],
+        h2: ["48px", { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" }],
+        "h2-md": ["40px", { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" }],
+        "h2-sm": ["36px", { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" }],
+        h3: ["24px", { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" }],
+        h4: ["20px", { lineHeight: "120%", letterSpacing: "0", fontWeight: "400" }],
+        h5: ["18px", { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" }],
+        btn: ["16px", { lineHeight: "150%", letterSpacing: "0.5px", fontWeight: "600" }],
+        "btn-semibold": ["24px", { lineHeight: "150%", letterSpacing: "0.5px", fontWeight: "600" }],
+        body: ["16px", { lineHeight: "150%", letterSpacing: "0", fontWeight: "400" }],
+        "body-sm": ["24px", { lineHeight: "150%", letterSpacing: "0", fontWeight: "400" }],
+        "body-semibold": ["16px", { lineHeight: "150%", letterSpacing: "0", fontWeight: "600" }],
+        small: ["12px", { lineHeight: "auto", letterSpacing: "0", fontWeight: "400" }],
+        "small-semibold": ["12px", { lineHeight: "auto", letterSpacing: "0", fontWeight: "600" }],
+        xs: ["8px", { lineHeight: "auto", letterSpacing: "0", fontWeight: "400" }],
       },
       colors: {
         white: "hsl(var(--white))",

@@ -1,7 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 import { desc } from "drizzle-orm";
+import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+
 import { db } from "@/db";
 import { educations, resumes, workExperiences } from "@/db/schema";
 import { auth } from "@/lib/auth";
@@ -51,38 +52,23 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(newResume, { status: 201 });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json(
-        { error: "Invalid input", details: error.errors },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid input", details: error.errors }, { status: 400 });
     }
 
     console.error("Error creating resume:", error);
-    return NextResponse.json(
-      { error: "Something went wrong" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
   }
 }
 
 export async function GET() {
   try {
-    const allResumes = await db
-      .select()
-      .from(resumes)
-      .orderBy(desc(resumes.createdAt));
+    const allResumes = await db.select().from(resumes).orderBy(desc(resumes.createdAt));
 
     const resumesWithRelations = await Promise.all(
       allResumes.map(async (resume) => {
         const [resumeEducations, resumeWorkExperiences] = await Promise.all([
-          db
-            .select()
-            .from(educations)
-            .where(eq(educations.resumeId, resume.id)),
-          db
-            .select()
-            .from(workExperiences)
-            .where(eq(workExperiences.resumeId, resume.id)),
+          db.select().from(educations).where(eq(educations.resumeId, resume.id)),
+          db.select().from(workExperiences).where(eq(workExperiences.resumeId, resume.id)),
         ]);
 
         return {
@@ -96,9 +82,6 @@ export async function GET() {
     return NextResponse.json(resumesWithRelations);
   } catch (error) {
     console.error("Error fetching resumes:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch resumes" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch resumes" }, { status: 500 });
   }
 }
