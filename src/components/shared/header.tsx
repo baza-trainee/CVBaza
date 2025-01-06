@@ -1,11 +1,12 @@
 import Image from "next/image";
-import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/routing";
 
 export const Header = () => {
   const headerLinks = [
-    { name: "Резюме", href: "/" },
-    { name: "Супровідний лист", href: "/" },
+    { name: "Резюме", href: "/profile/resume" },
+    { name: "Супровідний лист", href: "/profile/cover-letter" },
   ];
   return (
     <header className="bg-white px-3.5 py-2 lg:px-10 lg:py-3 xl:px-[7.5rem] 3xl:py-5">
@@ -21,21 +22,19 @@ export const Header = () => {
           {headerLinks.map((l) => (
             <Link className="hidden lg:inline-block" key={l.name} href={l.href}>
               <li className="flex h-full items-center justify-center">
-                <p className="font-sans text-body text-black-500 3xl:text-body-sm">
-                  {l.name}
-                </p>
+                <p className="font-sans text-body text-black-500 3xl:text-body-sm">{l.name}</p>
               </li>
             </Link>
           ))}
         </ul>
-        <Button className="hidden lg:flex 2xl:px-9 3xl:px-[3.125rem] 3xl:py-4">
-          <div className="relative h-6 w-6">
-            <Image src="/icons/person.svg" fill alt="user" />
-          </div>
-          <p className="font-sans text-btn text-blue-500 3xl:text-btn-semibold">
-            Miй Акаунт
-          </p>
-        </Button>
+        <Link href="/profile/dashboard">
+          <Button className="hidden lg:flex 2xl:px-9 3xl:px-[3.125rem] 3xl:py-4">
+            <div className="relative h-6 w-6">
+              <Image src="/icons/person.svg" fill alt="user" />
+            </div>
+            <p className="font-sans text-btn text-blue-500 3xl:text-btn-semibold">Miй Акаунт</p>
+          </Button>
+        </Link>
         <div className="relative block size-12 lg:hidden">
           <Image src="/icons/hamburger.svg" fill alt="hamburger" />
         </div>

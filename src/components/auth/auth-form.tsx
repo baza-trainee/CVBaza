@@ -1,12 +1,12 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -17,13 +17,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Locale } from "@/i18n/routing";
+
 import { Checkbox } from "../ui/checkbox";
+
 import { Icon } from "./icon";
+import { AuthFormValues, authFormSchema } from "./schema";
 import { SocialAuth } from "./social-auth";
 
 interface AuthFormProps {
   type: "signin" | "register";
-  lang: "en" | "ua";
+  lang: Locale;
 }
 
 export function AuthForm({ lang, type }: AuthFormProps) {
@@ -37,20 +41,8 @@ export function AuthForm({ lang, type }: AuthFormProps) {
     setShowPassword((prev) => !prev);
   };
 
-  const formSchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(8, {
-      message: `${
-        lang === "en"
-          ? "Invalid password. Please try again"
-          : "Невірний пароль. Спробуйте ще раз"
-      }`,
-    }),
-    name: z.string().optional(),
-  });
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<AuthFormValues>({
+    resolver: zodResolver(authFormSchema(lang)),
     defaultValues: {
       email: "",
       password: "",
@@ -58,7 +50,7 @@ export function AuthForm({ lang, type }: AuthFormProps) {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: AuthFormValues) {
     try {
       if (type === "register") {
         const res = await fetch("/api/auth/register", {
@@ -86,10 +78,10 @@ export function AuthForm({ lang, type }: AuthFormProps) {
         const errorMessage =
           result.error === "Configuration"
             ? `${
-              lang === "en"
-                ? "Account not found. Please sign up or try a different email."
-                : "Обліковий запис не знайдено. Будь ласка, зареєструйтеся або спробуйте іншу електронну адресу."
-            }`
+                lang === "en"
+                  ? "Account not found. Please sign up or try a different email."
+                  : "Обліковий запис не знайдено. Будь ласка, зареєструйтеся або спробуйте іншу електронну адресу."
+              }`
             : result.error;
 
         form.setError("root", {
@@ -106,9 +98,7 @@ export function AuthForm({ lang, type }: AuthFormProps) {
         message:
           error instanceof Error
             ? error.message
-            : `${
-              lang === "en" ? "Authentication failed" : "Помилка авторизації"
-            }`,
+            : `${lang === "en" ? "Authentication failed" : "Помилка авторизації"}`,
       });
     }
   }
@@ -140,10 +130,7 @@ export function AuthForm({ lang, type }: AuthFormProps) {
       )}
 
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="my-6 flex flex-col gap-4"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="my-6 flex flex-col gap-4">
           <FormField
             control={form.control}
             name="email"
@@ -209,9 +196,7 @@ export function AuthForm({ lang, type }: AuthFormProps) {
                       // className="h-[18px] w-[18px] rounded border-blue-500"
                       />
                       <p className="text-black text-small">
-                        {lang === "en"
-                          ? "Remember the password"
-                          : "Запам'ятати пароль"}
+                        {lang === "en" ? "Remember the password" : "Запам'ятати пароль"}
                       </p>
                     </label>
                   </FormControl>
@@ -230,22 +215,12 @@ export function AuthForm({ lang, type }: AuthFormProps) {
                     <p className="text-black text-small">
                       {lang === "en" ? "I agree with " : "Я погоджуюся з "}
 
-                      <Link
-                        href=""
-                        className="text-blue-500 hover:text-blue-700"
-                      >
-                        {lang === "en"
-                          ? "Terms of service "
-                          : "Умовами надання послуг "}
+                      <Link href="" className="text-blue-500 hover:text-blue-700">
+                        {lang === "en" ? "Terms of service " : "Умовами надання послуг "}
                       </Link>
                       {lang === "en" ? "and agree with " : "і погоджуюся з "}
-                      <Link
-                        href=""
-                        className="text-blue-500 hover:text-blue-700"
-                      >
-                        {lang === "en"
-                          ? "Privacy policy"
-                          : "Політикою конфіденційності"}
+                      <Link href="" className="text-blue-500 hover:text-blue-700">
+                        {lang === "en" ? "Privacy policy" : "Політикою конфіденційності"}
                       </Link>
                     </p>
                   </label>
@@ -256,9 +231,7 @@ export function AuthForm({ lang, type }: AuthFormProps) {
           )}
 
           {form.formState.errors.root && (
-            <div className="text-sm text-red-500">
-              {form.formState.errors.root.message}
-            </div>
+            <div className="text-sm text-red-500">{form.formState.errors.root.message}</div>
           )}
           <Button
             type="submit"
@@ -276,16 +249,11 @@ export function AuthForm({ lang, type }: AuthFormProps) {
       </Form>
       {type === "signin" ? (
         <div className="flex flex-col items-center text-xl">
-          <Link
-            href="reset-password/token"
-            className="text-blue-500 hover:text-blue-700"
-          >
+          <Link href="/forgot-password" className="text-blue-500 hover:text-blue-700">
             {lang === "en" ? "Forgot password" : "Забули пароль"}
           </Link>
           <h4 className="mt-6">
-            {lang === "en"
-              ? "Don't have an account?"
-              : "Не маєте облікового запису?"}
+            {lang === "en" ? "Don't have an account?" : "Не маєте облікового запису?"}
           </h4>
           <Link
             href="register"
@@ -296,15 +264,8 @@ export function AuthForm({ lang, type }: AuthFormProps) {
         </div>
       ) : (
         <div className="mt-8 flex flex-col items-center text-xl">
-          <h4>
-            {lang === "en"
-              ? "Already have an account?"
-              : "Вже маєте обліковий запис?"}
-          </h4>
-          <Link
-            href="signin"
-            className="mt-4 text-blue-500 hover:text-blue-700"
-          >
+          <h4>{lang === "en" ? "Already have an account?" : "Вже маєте обліковий запис?"}</h4>
+          <Link href="signin" className="mt-4 text-blue-500 hover:text-blue-700">
             {lang === "en" ? "Sign in" : "Логін"}
           </Link>
         </div>

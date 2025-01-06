@@ -17,20 +17,13 @@ export default async function middlewareHandler(request: NextRequest) {
     const response = middleware(request);
     return response;
   }
-  const localeWithoutSlash = locales.find((locale) =>
-    pathname.startsWith(`/${locale}`)
-  );
+  const localeWithoutSlash = locales.find((locale) => pathname.startsWith(`/${locale}`));
   if (localeWithoutSlash) {
     return NextResponse.redirect(
-      new URL(
-        pathname.replace(`/${localeWithoutSlash}`, `/${localeWithoutSlash}/`),
-        request.url
-      )
+      new URL(pathname.replace(`/${localeWithoutSlash}`, `/${localeWithoutSlash}/`), request.url)
     );
   }
-  return NextResponse.redirect(
-    new URL(`/${defaultLocale}${pathname}`, request.url)
-  );
+  return NextResponse.redirect(new URL(`/${defaultLocale}${pathname}`, request.url));
 }
 export const config = {
   matcher: ["/((?!api|_next|_vercel|.*\\..*).*)", "/"],

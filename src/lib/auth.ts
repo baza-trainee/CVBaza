@@ -4,9 +4,11 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+
 import { db } from "@/db";
 import { findUserByEmail } from "@/resources/user-queries";
 import { User } from "@/types/db";
+
 import { verifyPassword } from "../utils/password";
 
 const authOptions = NextAuth({
@@ -44,19 +46,14 @@ const authOptions = NextAuth({
         const user = await findUserByEmail(credentials.email);
 
         if (!user) {
-          throw new Error(
-            "Account not found. Please sign up or try a different email."
-          );
+          throw new Error("Account not found. Please sign up or try a different email.");
         }
 
         if (!user.password) {
           throw new Error("OAuthAccountNotLinked");
         }
 
-        const isCorrectPassword = await verifyPassword(
-          credentials.password,
-          user.password
-        );
+        const isCorrectPassword = await verifyPassword(credentials.password, user.password);
 
         if (!isCorrectPassword) {
           throw new Error("InvalidCredentials");

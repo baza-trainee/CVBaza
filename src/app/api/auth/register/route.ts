@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+
 import { signIn } from "@/lib/auth";
 import { createUser, findUserByEmail } from "@/resources/user-queries";
 import { hashPassword } from "@/utils/password";
@@ -18,10 +19,7 @@ export async function POST(request: Request) {
     const existingUser = await findUserByEmail(email);
 
     if (existingUser) {
-      return NextResponse.json(
-        { error: "User with this email already exists" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "User with this email already exists" }, { status: 400 });
     }
 
     const hashedPassword = await hashPassword(password);
@@ -39,10 +37,7 @@ export async function POST(request: Request) {
     });
 
     if (signInResult?.error) {
-      return NextResponse.json(
-        { error: "Failed to sign in after registration" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to sign in after registration" }, { status: 500 });
     }
 
     return NextResponse.json(
@@ -58,16 +53,10 @@ export async function POST(request: Request) {
     );
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json(
-        { error: error.errors[0].message },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: error.errors[0].message }, { status: 400 });
     }
 
     console.error("Registration error:", error);
-    return NextResponse.json(
-      { error: "Something went wrong" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
   }
 }

@@ -1,7 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
+import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { z } from "zod";
+
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { env } from "@/env";
@@ -34,8 +35,7 @@ export async function POST(req: NextRequest) {
     if (!user) {
       // Return success even if user not found to prevent email enumeration
       return NextResponse.json({
-        message:
-          "If an account exists with that email, a password reset link has been sent.",
+        message: "If an account exists with that email, a password reset link has been sent.",
       });
     }
 
@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
     const token = Buffer.from(tokenData).toString("base64");
 
     // Send reset email
-    const resetUrl = `${env.NEXT_PUBLIC_APP_URL}/auth/reset-password/${token}`;
+    const resetUrl = `${env.NEXT_PUBLIC_APP_URL}/reset-password/${token}`;
 
     try {
       const mailOptions = {
@@ -63,8 +63,7 @@ export async function POST(req: NextRequest) {
       await transporter.sendMail(mailOptions);
 
       return NextResponse.json({
-        message:
-          "If an account exists with that email, a password reset link has been sent.",
+        message: "If an account exists with that email, a password reset link has been sent.",
       });
     } catch (emailError) {
       console.error("Error sending email:", emailError);
@@ -75,9 +74,6 @@ export async function POST(req: NextRequest) {
     }
   } catch (error) {
     console.error("Error in forgot password:", error);
-    return NextResponse.json(
-      { error: "Failed to process request" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to process request" }, { status: 500 });
   }
 }
