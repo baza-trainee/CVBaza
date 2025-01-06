@@ -1,6 +1,8 @@
 import { migrate } from "drizzle-orm/postgres-js/migrator";
+
 import config from "@/../drizzle.config";
 import { env } from "@/env";
+
 import { client, db } from "./index";
 
 if (!env.DB_MIGRATING) {

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { SessionProvider } from "next-auth/react";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+
 import { LocaleProvider } from "@/components/local-provider";
 import { Footer } from "@/components/shared/footer";
 import { Header } from "@/components/shared/header";
