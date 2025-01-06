@@ -100,7 +100,6 @@ export default {
       },
       colors: {
         white: "hsl(var(--white))",
-        red: "hsl(var(--red))",
         blue: {
           50: "hsl(var(--blue-50))",
           100: "hsl(var(--blue-100))",
@@ -134,6 +133,11 @@ export default {
           700: "hsl(var(--black-700))",
           800: "hsl(var(--black-800))",
           900: "hsl(var(--black-900))",
+        },
+        red: {
+          50: "hsl(var(--red-50))",
+          300: "hsl(var(--red-300))",
+          500: "hsl(var(--red-500))",
         },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
