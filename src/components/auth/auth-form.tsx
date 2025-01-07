@@ -1,11 +1,13 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
+
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -33,7 +35,7 @@ interface AuthFormProps {
 export function AuthForm({ lang, type }: AuthFormProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/";
+  const callbackUrl = searchParams.get("callbackUrl") || "/profile/dashboard";
   const error = searchParams.get("error");
   const [showPassword, setShowPassword] = useState(false);
 
@@ -47,6 +49,7 @@ export function AuthForm({ lang, type }: AuthFormProps) {
       email: "",
       password: "",
       name: "",
+      rememberMe: false,
     },
   });
 
@@ -71,6 +74,7 @@ export function AuthForm({ lang, type }: AuthFormProps) {
       const result = await signIn("credentials", {
         email: values.email,
         password: values.password,
+        remember: values.rememberMe,
         redirect: false,
       });
 
@@ -137,9 +141,7 @@ export function AuthForm({ lang, type }: AuthFormProps) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-xl font-normal">Email</FormLabel>
-                <FormControl
-                // className={`rounded-[8px] px-4 py-3 ${form.formState.errors.email ? "text-red-300" : "text-gray-300"}`}
-                >
+                <FormControl>
                   <Input
                     placeholder="Email"
                     {...field}
@@ -190,16 +192,14 @@ export function AuthForm({ lang, type }: AuthFormProps) {
                 <FormMessage className="mt-1 pl-1 text-[12px] text-red-500" />
 
                 {type === "signin" && (
-                  <FormControl>
-                    <label className="mt-2 flex items-center gap-2">
-                      <Checkbox
-                      // className="h-[18px] w-[18px] rounded border-blue-500"
-                      />
-                      <p className="text-black text-small">
-                        {lang === "en" ? "Remember the password" : "Запам'ятати пароль"}
-                      </p>
-                    </label>
-                  </FormControl>
+                  <div className="mt-2 flex justify-end">
+                    <Link
+                      href={`/${lang}/forgot-password`}
+                      className="text-sm text-blue-500 hover:text-blue-700"
+                    >
+                      {lang === "en" ? "Forgot password?" : "Забули пароль?"}
+                    </Link>
+                  </div>
                 )}
               </FormItem>
             )}
@@ -230,6 +230,22 @@ export function AuthForm({ lang, type }: AuthFormProps) {
             </div>
           )}
 
+          {type === "signin" && (
+            <FormField
+              control={form.control}
+              name="rememberMe"
+              render={({ field }) => (
+                <FormItem className="flex items-center space-x-2 space-y-0">
+                  <FormControl>
+                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                  </FormControl>
+                  <FormLabel className="text-sm font-normal">
+                    {lang === "en" ? "Remember me" : "Запам'ятати мене"}
+                  </FormLabel>
+                </FormItem>
+              )}
+            />
+          )}
           {form.formState.errors.root && (
             <div className="text-sm text-red-500">{form.formState.errors.root.message}</div>
           )}
@@ -249,9 +265,6 @@ export function AuthForm({ lang, type }: AuthFormProps) {
       </Form>
       {type === "signin" ? (
         <div className="flex flex-col items-center text-xl">
-          <Link href="/forgot-password" className="text-blue-500 hover:text-blue-700">
-            {lang === "en" ? "Forgot password" : "Забули пароль"}
-          </Link>
           <h4 className="mt-6">
             {lang === "en" ? "Don't have an account?" : "Не маєте облікового запису?"}
           </h4>

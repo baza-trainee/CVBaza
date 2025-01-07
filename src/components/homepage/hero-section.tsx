@@ -1,7 +1,14 @@
+"use client";
+
+import { useSession } from "next-auth/react";
+
 import Image from "next/image";
 import Link from "next/link";
 
 export const HeroSection = () => {
+  const { data: session } = useSession();
+  console.log("Session:", session);
+
   return (
     <div className="flex w-full items-center overflow-hidden bg-background sm:flex-col sm:gap-0 sm:pb-[76px] sm:pt-[60px] md:h-[calc(100vh-84px)] md:flex-row md:justify-between md:gap-[32px] md:px-4 md:py-20 lg:flex-row lg:gap-10 lg:px-10 xl:gap-[102px] xl:px-20 xl:py-[34px] 2xl:flex-wrap 2xl:content-center 2xl:gap-[111px] 2xl:px-[120px] 2xl:py-0 3xl:h-[calc(100vh-96px)] 3xl:gap-0">
       <div className="flex w-full flex-col sm:gap-[60px] sm:px-4 md:w-[352px] md:gap-10 md:px-0 lg:w-[443px] lg:gap-[60px] xl:w-[450px] xl:justify-center 2xl:w-[548px] 2xl:flex-wrap 2xl:content-center 3xl:w-auto">
