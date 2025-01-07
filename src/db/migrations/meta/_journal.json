@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1735721738852,
-      "tag": "0000_cold_luckman",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1735722093353,
-      "tag": "0001_faithful_forge",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1735724393180,
-      "tag": "0002_clumsy_anita_blake",
+      "when": 1736231064045,
+      "tag": "0000_fat_doctor_doom",
       "breakpoints": true
     }
   ]

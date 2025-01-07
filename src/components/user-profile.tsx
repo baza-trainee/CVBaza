@@ -1,7 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
+
+import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/routing";

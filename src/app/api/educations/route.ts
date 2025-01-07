@@ -1,5 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+
+import { NextRequest, NextResponse } from "next/server";
 
 import { db } from "@/db";
 import { educations } from "@/db/schema";
