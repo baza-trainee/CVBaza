@@ -1,8 +1,9 @@
 "use client";
 
+import { FC } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
-import { FC } from "react";
 
 import { Container } from "@/components/shared/container";
 import { useMedia } from "@/hooks/use-media";

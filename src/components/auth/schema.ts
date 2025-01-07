@@ -18,6 +18,7 @@ export const authFormSchema = (lang: Locale) =>
           : "Пароль повинен містити щонайменше 8 символів",
     }),
     name: z.string().optional(),
+    rememberMe: z.boolean().default(false),
   });
 
 export const forgotPasswordSchema = (lang: Locale) =>

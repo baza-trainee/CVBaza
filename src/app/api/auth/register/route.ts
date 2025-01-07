@@ -1,5 +1,6 @@
-import { NextResponse } from "next/server";
 import { z } from "zod";
+
+import { NextResponse } from "next/server";
 
 import { signIn } from "@/lib/auth";
 import { createUser, findUserByEmail } from "@/resources/user-queries";

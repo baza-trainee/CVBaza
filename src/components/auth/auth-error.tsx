@@ -1,8 +1,9 @@
 "use client";
 
 import { AlertCircle } from "lucide-react";
-import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+
+import { useSearchParams } from "next/navigation";
 
 import { Alert, AlertDescription } from "@/components/ui/alert";
 

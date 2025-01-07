@@ -1,5 +1,4 @@
 import Link from "next/link";
-import React from "react";
 
 export const CreateWithAi = ({ classNames }: { classNames: string }) => {
   const linkList = [

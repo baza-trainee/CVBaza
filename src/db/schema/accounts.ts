@@ -1,5 +1,6 @@
-import { integer, pgTable, primaryKey, text, uuid } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "next-auth/adapters";
+
+import { integer, pgTable, primaryKey, text, uuid } from "drizzle-orm/pg-core";
 
 import { users } from "./users";
 
@@ -20,7 +21,11 @@ export const accounts = pgTable(
     id_token: text("id_token"),
     session_state: text("session_state"),
   },
-  (account) => ({
-    compoundKey: primaryKey(account.provider, account.providerAccountId),
-  })
+  (account) => [
+    {
+      compoundKey: primaryKey({
+        columns: [account.provider, account.providerAccountId],
+      }),
+    },
+  ]
 );
