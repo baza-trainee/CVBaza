@@ -8,6 +8,8 @@
     "source.fixAll": "always",
     "source.organizeImports": "always"
   },
+  "files.eol": "\n",
+  "files.trimTrailingWhitespace": true,
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
