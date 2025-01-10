@@ -1,6 +1,5 @@
 import { relations, sql } from "drizzle-orm";
 import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
-
 import { resumes } from "./resumes";
 
 export const users = pgTable("user", {

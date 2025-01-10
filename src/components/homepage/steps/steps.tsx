@@ -1,13 +1,10 @@
 "use client";
 
-import { FC } from "react";
-
 import Image from "next/image";
 import Link from "next/link";
-
+import { FC } from "react";
 import { Container } from "@/components/shared/container";
 import { useMedia } from "@/hooks/use-media";
-
 import { dataSteps } from "./data";
 
 export const Steps: FC = () => {
@@ -38,7 +35,9 @@ export const Steps: FC = () => {
                     {step}
                   </p>
                 </div>
-                <h3 className="mb-2 text-h3 leading-normal text-blue-900">{title}</h3>
+                <h3 className="mb-2 text-h3 leading-normal text-blue-900">
+                  {title}
+                </h3>
                 <p className="text-center text-body">{description}</p>
               </li>
             ))}

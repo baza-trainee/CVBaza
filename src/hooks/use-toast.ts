@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-
 import type { ToastActionElement, ToastProps } from "@/components/ui/toast";
 
 const TOAST_LIMIT = 1;
@@ -15,7 +14,11 @@ type ToasterToast = ToastProps & {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-type ActionType = "ADD_TOAST" | "UPDATE_TOAST" | "DISMISS_TOAST" | "REMOVE_TOAST";
+type ActionType =
+  | "ADD_TOAST"
+  | "UPDATE_TOAST"
+  | "DISMISS_TOAST"
+  | "REMOVE_TOAST";
 
 let count = 0;
 
@@ -75,7 +78,9 @@ export const reducer = (state: State, action: Action): State => {
     case "UPDATE_TOAST":
       return {
         ...state,
-        toasts: state.toasts.map((t) => (t.id === action.toast.id ? { ...t, ...action.toast } : t)),
+        toasts: state.toasts.map((t) =>
+          t.id === action.toast.id ? { ...t, ...action.toast } : t
+        ),
       };
 
     case "DISMISS_TOAST": {
@@ -96,9 +101,9 @@ export const reducer = (state: State, action: Action): State => {
         toasts: state.toasts.map((t) =>
           t.id === toastId || toastId === undefined
             ? {
-                ...t,
-                open: false,
-              }
+              ...t,
+              open: false,
+            }
             : t
         ),
       };

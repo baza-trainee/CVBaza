@@ -1,7 +1,5 @@
-import { z } from "zod";
-
 import { NextRequest, NextResponse } from "next/server";
-
+import { z } from "zod";
 import { db } from "@/db";
 import { workExperiences } from "@/db/schema";
 import { auth } from "@/lib/auth";
@@ -30,15 +28,24 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const validatedData = workExperienceSchema.parse(body);
 
-    const [newWorkExperience] = await db.insert(workExperiences).values(validatedData).returning();
+    const [newWorkExperience] = await db
+      .insert(workExperiences)
+      .values(validatedData)
+      .returning();
 
     return NextResponse.json(newWorkExperience, { status: 201 });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: "Invalid input", details: error.errors }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid input", details: error.errors },
+        { status: 400 }
+      );
     }
 
     console.error("Error creating work experience:", error);
-    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Something went wrong" },
+      { status: 500 }
+    );
   }
 }

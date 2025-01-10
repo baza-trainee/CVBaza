@@ -1,24 +1,23 @@
-import { Mail, MapPin, Phone } from "lucide-react";
-
 import Image from "next/image";
+import { Mail, MapPin, Phone } from "lucide-react";
 
 export const ClassicTemplate = () => {
   return (
     <div className="w-full max-w-4xl bg-white shadow-lg">
       {/* Header Section */}
-      <div className="flex p-8 gap-8">
-        <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-200">
+      <div className="flex gap-8 p-8">
+        <div className="h-32 w-32 overflow-hidden rounded-full bg-gray-200">
           <Image
             src="/cat.jpg"
             width={100}
             height={100}
             alt="Profile"
-            className="w-full h-full object-cover"
+            className="h-full w-full object-cover"
           />
         </div>
         <div>
-          <h1 className="text-4xl font-bold mb-1">BAZA</h1>
-          <h2 className="text-2xl text-gray-600 mb-4">TRAINEE</h2>
+          <h1 className="mb-1 text-4xl font-bold">BAZA</h1>
+          <h2 className="mb-4 text-2xl text-gray-600">TRAINEE</h2>
           <p className="text-gray-600">Art Director</p>
         </div>
       </div>
@@ -28,18 +27,18 @@ export const ClassicTemplate = () => {
         <div className="w-1/3 bg-gray-50 p-6">
           {/* Contact Section */}
           <div className="mb-8">
-            <h3 className="text-lg font-bold mb-4 text-gray-800">CONTACT</h3>
+            <h3 className="mb-4 text-lg font-bold text-gray-800">CONTACT</h3>
             <div className="space-y-3">
               <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-gray-600" />
+                <Mail className="h-4 w-4 text-gray-600" />
                 <span className="text-sm">email@example.com</span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-gray-600" />
+                <Phone className="h-4 w-4 text-gray-600" />
                 <span className="text-sm">+1 234 567 890</span>
               </div>
               <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-gray-600" />
+                <MapPin className="h-4 w-4 text-gray-600" />
                 <span className="text-sm">New York, USA</span>
               </div>
             </div>
@@ -47,7 +46,7 @@ export const ClassicTemplate = () => {
 
           {/* Education Section */}
           <div className="mb-8">
-            <h3 className="text-lg font-bold mb-4 text-gray-800">EDUCATION</h3>
+            <h3 className="mb-4 text-lg font-bold text-gray-800">EDUCATION</h3>
             <div className="space-y-4">
               <div>
                 <h4 className="font-medium">Bachelor of Design</h4>
@@ -64,18 +63,26 @@ export const ClassicTemplate = () => {
 
           {/* Skills Section */}
           <div>
-            <h3 className="text-lg font-bold mb-4 text-gray-800">SKILLS</h3>
+            <h3 className="mb-4 text-lg font-bold text-gray-800">SKILLS</h3>
             <div className="space-y-3">
-              {["Web Design", "UI/UX", "Graphic Design", "SEO", "Marketing", "Branding"].map(
-                (skill) => (
-                  <div key={skill} className="flex items-center gap-2">
-                    <div className="flex-1">{skill}</div>
-                    <div className="w-24 bg-gray-200 h-2 rounded-full">
-                      <div className="bg-gray-600 h-2 rounded-full" style={{ width: "80%" }} />
-                    </div>
+              {[
+                "Web Design",
+                "UI/UX",
+                "Graphic Design",
+                "SEO",
+                "Marketing",
+                "Branding",
+              ].map((skill) => (
+                <div key={skill} className="flex items-center gap-2">
+                  <div className="flex-1">{skill}</div>
+                  <div className="h-2 w-24 rounded-full bg-gray-200">
+                    <div
+                      className="h-2 rounded-full bg-gray-600"
+                      style={{ width: "80%" }}
+                    />
                   </div>
-                )
-              )}
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -84,20 +91,23 @@ export const ClassicTemplate = () => {
         <div className="w-2/3 p-6">
           {/* Work Experience Section */}
           <div className="mb-8">
-            <h3 className="text-lg font-bold mb-4 text-gray-800">WORK EXPERIENCE</h3>
+            <h3 className="mb-4 text-lg font-bold text-gray-800">
+              WORK EXPERIENCE
+            </h3>
             <div className="space-y-6">
               {[2019, 2017, 2015, 2013].map((year) => (
                 <div key={year} className="border-l-2 border-gray-200 pl-4">
-                  <div className="flex justify-between items-start">
+                  <div className="flex items-start justify-between">
                     <h4 className="font-medium">SENIOR GRAPHIC DESIGNER</h4>
                     <span className="text-sm text-gray-500">
                       {year} - {year + 2}
                     </span>
                   </div>
-                  <p className="text-sm text-gray-600 mb-1">FADGET STUDIO</p>
+                  <p className="mb-1 text-sm text-gray-600">FADGET STUDIO</p>
                   <p className="text-sm text-gray-500">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua.
                   </p>
                 </div>
               ))}
@@ -106,7 +116,7 @@ export const ClassicTemplate = () => {
 
           {/* References Section */}
           <div>
-            <h3 className="text-lg font-bold mb-4 text-gray-800">REFERENCES</h3>
+            <h3 className="mb-4 text-lg font-bold text-gray-800">REFERENCES</h3>
             <div className="grid grid-cols-2 gap-6">
               <div>
                 <h4 className="font-medium">Estelle Darcy</h4>

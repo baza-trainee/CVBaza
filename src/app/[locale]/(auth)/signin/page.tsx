@@ -13,7 +13,9 @@ export default async function SignInPage(props: { params: Params }) {
       <Card className="w-full max-w-[600px] p-[50px]">
         <CardHeader className="mb-8 p-0">
           <CardTitle className="text-center text-2xl font-semibold">
-            {locale === "en" ? "Sign in to your account" : "Увійдіть у свій обліковий запис"}
+            {locale === "en"
+              ? "Sign in to your account"
+              : "Увійдіть у свій обліковий запис"}
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0">

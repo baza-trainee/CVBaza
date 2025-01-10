@@ -1,19 +1,18 @@
-import { Mail, MapPin, Phone } from "lucide-react";
-
 import Image from "next/image";
+import { Mail, MapPin, Phone } from "lucide-react";
 
 export const ModernDarkTemplate = () => {
   return (
     <div className="w-full max-w-4xl bg-white shadow-lg">
       {/* Header */}
-      <div className="bg-slate-800 text-white p-6 flex items-center gap-6">
-        <div className="w-24 h-24 rounded-full overflow-hidden">
+      <div className="flex items-center gap-6 bg-slate-800 p-6 text-white">
+        <div className="h-24 w-24 overflow-hidden rounded-full">
           <Image
             src="/cat.jpg"
             width={100}
             height={100}
             alt="Profile"
-            className="w-full h-full object-cover"
+            className="h-full w-full object-cover"
           />
         </div>
         <div>
@@ -24,27 +23,27 @@ export const ModernDarkTemplate = () => {
 
       <div className="flex">
         {/* Left Sidebar */}
-        <div className="w-1/3 bg-gray-50 p-6 space-y-8">
+        <div className="w-1/3 space-y-8 bg-gray-50 p-6">
           <section>
-            <h2 className="font-bold mb-4">CONTACT</h2>
+            <h2 className="mb-4 font-bold">CONTACT</h2>
             <div className="space-y-2 text-sm">
               <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4" />
+                <Mail className="h-4 w-4" />
                 <span>info@example.com</span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4" />
+                <Phone className="h-4 w-4" />
                 <span>+1 234 567 890</span>
               </div>
               <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4" />
+                <MapPin className="h-4 w-4" />
                 <span>New York, USA</span>
               </div>
             </div>
           </section>
 
           <section>
-            <h2 className="font-bold mb-4">SKILLS</h2>
+            <h2 className="mb-4 font-bold">SKILLS</h2>
             <ul className="space-y-1 text-sm">
               <li>Management</li>
               <li>Teamwork</li>
@@ -57,7 +56,7 @@ export const ModernDarkTemplate = () => {
           </section>
 
           <section>
-            <h2 className="font-bold mb-4">LANGUAGES</h2>
+            <h2 className="mb-4 font-bold">LANGUAGES</h2>
             <ul className="space-y-1 text-sm">
               <li>English (Native)</li>
               <li>Spanish (Fluent)</li>
@@ -67,7 +66,7 @@ export const ModernDarkTemplate = () => {
           </section>
 
           <section>
-            <h2 className="font-bold mb-4">REFERENCE</h2>
+            <h2 className="mb-4 font-bold">REFERENCE</h2>
             <div className="text-sm">
               <p className="font-medium">Estelle Perry</p>
               <p>Marketing Director</p>
@@ -78,24 +77,25 @@ export const ModernDarkTemplate = () => {
         </div>
 
         {/* Main Content */}
-        <div className="w-2/3 p-6 space-y-8">
+        <div className="w-2/3 space-y-8 p-6">
           <section>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-white">
+            <div className="mb-4 flex items-center gap-2">
+              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-800 text-white">
                 <span className="text-sm">1</span>
               </div>
               <h2 className="font-bold">PROFILE</h2>
             </div>
             <p className="text-sm text-gray-600">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
             </p>
           </section>
 
           <section>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-white">
+            <div className="mb-4 flex items-center gap-2">
+              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-800 text-white">
                 <span className="text-sm">2</span>
               </div>
               <h2 className="font-bold">WORK EXPERIENCE</h2>
@@ -123,14 +123,14 @@ export const ModernDarkTemplate = () => {
                 },
               ].map((job, index) => (
                 <div key={index} className="text-sm">
-                  <div className="flex justify-between items-start mb-1">
+                  <div className="mb-1 flex items-start justify-between">
                     <div>
                       <h3 className="font-medium">{job.title}</h3>
                       <p className="text-gray-600">{job.company}</p>
                     </div>
                     <span className="text-gray-500">{job.period}</span>
                   </div>
-                  <ul className="list-disc list-inside text-gray-600 pl-2">
+                  <ul className="list-inside list-disc pl-2 text-gray-600">
                     {job.duties.map((duty, i) => (
                       <li key={i}>{duty}</li>
                     ))}
@@ -141,8 +141,8 @@ export const ModernDarkTemplate = () => {
           </section>
 
           <section>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-white">
+            <div className="mb-4 flex items-center gap-2">
+              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-800 text-white">
                 <span className="text-sm">3</span>
               </div>
               <h2 className="font-bold">EDUCATION</h2>
@@ -163,7 +163,7 @@ export const ModernDarkTemplate = () => {
                 },
               ].map((edu, index) => (
                 <div key={index} className="text-sm">
-                  <div className="flex justify-between items-start">
+                  <div className="flex items-start justify-between">
                     <div>
                       <h3 className="font-medium">{edu.degree}</h3>
                       <p className="text-gray-600">{edu.school}</p>

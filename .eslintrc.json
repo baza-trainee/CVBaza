@@ -1,33 +1,23 @@
 {
   "extends": ["next/core-web-vitals", "next/typescript", "prettier"],
-  "plugins": ["check-file", "import", "prettier", "@typescript-eslint"],
+  "plugins": ["check-file", "import"],
   "rules": {
-    "prettier/prettier": "error",
-    "indent": "off",
-    "no-mixed-spaces-and-tabs": "error",
-    "no-trailing-spaces": "error",
-    "import/order": [
+    "indent": [
       "error",
+      2,
       {
-        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
-        "pathGroups": [
-          {
-            "pattern": "next-auth/**",
-            "group": "external",
-            "position": "before"
-          },
-          {
-            "pattern": "next/**",
-            "group": "external",
-            "position": "after"
-          }
-        ],
-        "pathGroupsExcludedImportTypes": ["builtin"],
-        "newlines-between": "always",
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true
-        }
+        "SwitchCase": 1,
+        "VariableDeclarator": 1,
+        "outerIIFEBody": 1,
+        "MemberExpression": 1,
+        "FunctionDeclaration": { "parameters": 1, "body": 1 },
+        "FunctionExpression": { "parameters": 1, "body": 1 },
+        "CallExpression": { "arguments": 1 },
+        "ArrayExpression": 1,
+        "ObjectExpression": 1,
+        "ImportDeclaration": 1,
+        "flatTernaryExpressions": false,
+        "ignoreComments": false
       }
     ],
     "prefer-arrow-callback": ["error"],

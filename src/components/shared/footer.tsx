@@ -1,5 +1,4 @@
 import Image from "next/image";
-
 import { Contacts } from "../homepage/footer/contacts";
 import { CreateWithAi } from "../homepage/footer/create-with-ai";
 import { HelpLinks } from "../homepage/footer/help-links";
