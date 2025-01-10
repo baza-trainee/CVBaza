@@ -1,6 +1,12 @@
 import { relations, sql } from "drizzle-orm";
-import { jsonb, pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
-
+import {
+  jsonb,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+  varchar,
+} from "drizzle-orm/pg-core";
 import { educations } from "./educations";
 import { users } from "./users";
 import { workExperiences } from "./work-experiences";

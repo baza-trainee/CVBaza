@@ -1,5 +1,4 @@
 import Image from "next/image";
-
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/routing";
 
@@ -22,7 +21,9 @@ export const Header = () => {
           {headerLinks.map((l) => (
             <Link className="hidden lg:inline-block" key={l.name} href={l.href}>
               <li className="flex h-full items-center justify-center">
-                <p className="font-sans text-body text-black-500 3xl:text-body-sm">{l.name}</p>
+                <p className="font-sans text-body text-black-500 3xl:text-body-sm">
+                  {l.name}
+                </p>
               </li>
             </Link>
           ))}
@@ -32,7 +33,9 @@ export const Header = () => {
             <div className="relative h-6 w-6">
               <Image src="/icons/person.svg" fill alt="user" />
             </div>
-            <p className="font-sans text-btn text-blue-500 3xl:text-btn-semibold">Miй Акаунт</p>
+            <p className="font-sans text-btn text-blue-500 3xl:text-btn-semibold">
+              Miй Акаунт
+            </p>
           </Button>
         </Link>
         <div className="relative block size-12 lg:hidden">

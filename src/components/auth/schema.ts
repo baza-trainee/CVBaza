@@ -1,5 +1,4 @@
 import { z } from "zod";
-
 import { Locale } from "@/i18n/routing";
 
 export const authFormSchema = (lang: Locale) =>
@@ -46,12 +45,17 @@ export const resetPasswordSchema = (lang: Locale) =>
       confirmPassword: z.string(),
     })
     .refine((data) => data.password === data.confirmPassword, {
-      message: lang === "en" ? "Passwords don't match" : "Паролі не співпадають",
+      message:
+        lang === "en" ? "Passwords don't match" : "Паролі не співпадають",
       path: ["confirmPassword"],
     });
 
 export type AuthFormValues = z.infer<ReturnType<typeof authFormSchema>>;
 
-export type ResetPasswordFormValues = z.infer<ReturnType<typeof resetPasswordSchema>>;
+export type ResetPasswordFormValues = z.infer<
+  ReturnType<typeof resetPasswordSchema>
+>;
 
-export type ForgotPasswordFormValues = z.infer<ReturnType<typeof forgotPasswordSchema>>;
+export type ForgotPasswordFormValues = z.infer<
+  ReturnType<typeof forgotPasswordSchema>
+>;

@@ -1,8 +1,6 @@
+import { NextRequest, NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
-
-import { NextRequest, NextResponse } from "next/server";
-
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { hashPassword } from "@/utils/password";
@@ -26,27 +24,39 @@ export async function POST(req: NextRequest) {
     // Check if token is expired (1 hour)
     const tokenTime = parseInt(timestamp);
     if (Date.now() - tokenTime > ONE_HOUR) {
-      return NextResponse.json({ error: "Reset link has expired" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Reset link has expired" },
+        { status: 400 }
+      );
     }
 
     // Find user
     const [user] = await db.select().from(users).where(eq(users.id, userId));
 
     if (!user) {
-      return NextResponse.json({ error: "Invalid reset link" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid reset link" },
+        { status: 400 }
+      );
     }
 
     // Hash new password
     const hashedPassword = await hashPassword(password);
 
     // Update password
-    await db.update(users).set({ password: hashedPassword }).where(eq(users.id, userId));
+    await db
+      .update(users)
+      .set({ password: hashedPassword })
+      .where(eq(users.id, userId));
 
     return NextResponse.json({
       message: "Password has been reset successfully",
     });
   } catch (error) {
     console.error("Error in reset password:", error);
-    return NextResponse.json({ error: "Failed to reset password" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to reset password" },
+      { status: 500 }
+    );
   }
 }

@@ -1,7 +1,5 @@
-import { z } from "zod";
-
 import { NextRequest, NextResponse } from "next/server";
-
+import { z } from "zod";
 import { db } from "@/db";
 import { educations } from "@/db/schema";
 import { auth } from "@/lib/auth";
@@ -29,15 +27,24 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const validatedData = educationSchema.parse(body);
 
-    const [newEducation] = await db.insert(educations).values(validatedData).returning();
+    const [newEducation] = await db
+      .insert(educations)
+      .values(validatedData)
+      .returning();
 
     return NextResponse.json(newEducation, { status: 201 });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: "Invalid input", details: error.errors }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid input", details: error.errors },
+        { status: 400 }
+      );
     }
 
     console.error("Error creating education:", error);
-    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Something went wrong" },
+      { status: 500 }
+    );
   }
 }

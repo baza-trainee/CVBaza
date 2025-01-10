@@ -12,7 +12,9 @@ const openSans = Open_Sans({
 export default function RootLayout({ children }: LayoutProps) {
   return (
     <html>
-      <body className={`${openSans.variable} font-sans antialiased`}>{children}</body>
+      <body className={`${openSans.variable} font-sans antialiased`}>
+        {children}
+      </body>
     </html>
   );
 }

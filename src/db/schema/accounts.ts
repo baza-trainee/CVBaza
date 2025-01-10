@@ -1,7 +1,5 @@
-import type { AdapterAccount } from "next-auth/adapters";
-
 import { integer, pgTable, primaryKey, text, uuid } from "drizzle-orm/pg-core";
-
+import type { AdapterAccount } from "next-auth/adapters";
 import { users } from "./users";
 
 export const accounts = pgTable(
