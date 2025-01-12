@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { Link } from "@/i18n/routing";
 
-import { AuthSwitchWidget } from "../homepage/header/switch-widget";
+import { ProfileButtonSwitchWidget } from "../homepage/header/switch-widget";
 
 export const Header = () => {
   const headerLinks = [
@@ -28,7 +28,7 @@ export const Header = () => {
             </Link>
           ))}
         </ul>
-        <AuthSwitchWidget />
+        <ProfileButtonSwitchWidget />
         <div className="relative block size-12 lg:hidden">
           <Image src="/icons/hamburger.svg" fill alt="hamburger" />
         </div>

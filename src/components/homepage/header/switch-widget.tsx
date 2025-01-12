@@ -6,13 +6,13 @@ import { usePathname } from "next/navigation";
 import { AccountButton } from "./account-button";
 import { ProfileInfo } from "./profile-info";
 
-export const AuthSwitchWidget = () => {
+export const ProfileButtonSwitchWidget = () => {
   const pathname = usePathname();
-  const { status } = useSession();
+  const { status, data } = useSession();
   return (
     <>
       {pathname.split("/")[2] === "profile" && status === "authenticated" ? (
-        <ProfileInfo />
+        <ProfileInfo name={data?.user.name as string} />
       ) : (
         <AccountButton />
       )}

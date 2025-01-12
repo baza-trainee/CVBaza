@@ -10,7 +10,7 @@ export const AccountButton = () => {
         <div className="relative h-6 w-6">
           <Image src="/icons/person.svg" fill alt="user" />
         </div>
-        <p className="font-sans text-btn text-blue-500 3xl:text-btn-semibold">Miй Акаунт</p>
+        <p className="font-sans text-btn text-blue-500 3xl:text-btn-semibold">Miй акаунт</p>
       </Button>
     </Link>
   );
