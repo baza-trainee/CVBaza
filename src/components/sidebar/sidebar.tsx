@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 import { Icon } from "../auth/icon";
 import { Avatar } from "./avatar";
 import { DropdownMenu } from "./dropdown-menu";
 
-const user = { name: "Baza Trainee" };
-
 export function Sidebar({ lng }: { lng: string }) {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: session } = useSession();
 
   const toggle = (value: boolean) => {
     setIsOpen(value);
@@ -15,7 +15,7 @@ export function Sidebar({ lng }: { lng: string }) {
 
   return (
     <aside className="block w-1/4 font-semibold">
-      <Avatar name={user.name} />
+      <Avatar name={session?.user.name || "Baza Trainee"} />
       <nav className="mt-5">
         <ul>
           <li>

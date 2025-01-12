@@ -1,6 +1,9 @@
 import React from "react";
+import { Icon } from "../auth/icon";
 
-export const Avatar: React.FC<{ name: string }> = ({ name }) => {
+export const Avatar: React.FC<{ name: string | null | undefined }> = ({
+  name,
+}) => {
   const getInitials = (fullname: string) => {
     const names = fullname.split(" ");
     return names
@@ -10,13 +13,18 @@ export const Avatar: React.FC<{ name: string }> = ({ name }) => {
       .toUpperCase();
   };
 
-  const initials = getInitials(name);
+  const initials = getInitials(name || "");
 
   return (
     <div className="flex items-center gap-3">
       <div className="flex h-10 w-10 items-center justify-center rounded-[50%] bg-blue-50 text-base font-normal">
-        {initials}
+        {name === null || name === undefined ? (
+          <Icon name="icon-person" size="w-6 h-6" />
+        ) : (
+          initials
+        )}
       </div>
+
       <span className="text-base font-semibold">{name}</span>
     </div>
   );
