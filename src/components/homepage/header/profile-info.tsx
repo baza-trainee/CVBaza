@@ -19,8 +19,8 @@ export const ProfileInfo = ({ name }: { name: string }) => {
     const names = name.split(" ");
     console.log(names);
     if (names.length > 1) {
-      return `${names[0][0]}${names[1][0]}`;
-    } else if (names.length === 0) return `${name[0][0]}`;
+      return `${names[0][0].toLocaleUpperCase()}${names[1][0].toLocaleUpperCase()}`;
+    } else if (names.length === 0) return `${name[0][0].toLocaleUpperCase()}`;
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     else "AA";
   };
@@ -28,8 +28,9 @@ export const ProfileInfo = ({ name }: { name: string }) => {
     <>
       <DropdownMenu onOpenChange={(state) => setOpen(state)} modal={false}>
         <div className="flex gap-3 justify-center items-center">
-          <div className="p-[0.9375rem] rounded-full bg-blue-50">{createAvatar(name)}</div>{" "}
-          {/* TODO:fix padding */}
+          <div className="flex px-5 py-4 rounded-full bg-blue-50">
+            <p className="text-body">{createAvatar(name)}</p>
+          </div>
           <p className="text-btn">{name}</p>
           <DropdownMenuTrigger>
             <SettingIcon open={open} />
