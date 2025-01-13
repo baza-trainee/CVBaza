@@ -3,6 +3,7 @@
 // import { usePathname, useRouter } from "next/navigation";
 // import { useEffect } from "react";
 // import { useSession } from "next-auth/react";
+import { Sidebar } from "@/components/sidebar/sidebar";
 
 export default function ProfileLayout({
   children,
@@ -31,5 +32,10 @@ export default function ProfileLayout({
   //   return null;
   // }
 
-  return <>{children}</>;
+  return (
+    <div className="flex h-[100vh] pl-3.5 pt-10 lg:pl-10 xl:pl-[7.5rem]">
+      <Sidebar lng={locale} />
+      <main>{children}</main>
+    </div>
+  );
 }
