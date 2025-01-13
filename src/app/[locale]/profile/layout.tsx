@@ -1,6 +1,6 @@
 "use client";
 
-// import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 // import { useEffect } from "react";
 // import { useSession } from "next-auth/react";
 import { Sidebar } from "@/components/sidebar/sidebar";
@@ -12,8 +12,8 @@ export default function ProfileLayout({
 }) {
   // const { data: session, status } = useSession();
   // const router = useRouter();
-  // const pathname = usePathname();
-    const locale = pathname.split("/")[1];
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1];
 
   // useEffect(() => {
   //   if (status === "unauthenticated") {
