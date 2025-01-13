@@ -1,4 +1,4 @@
-import { ResumeTemplates } from "@/components/profile/templates/resume";
+import { ResumeTemplates } from "@/components/profile/resume/templates";
 
 const ResumeTemlatesPage = () => {
   return <ResumeTemplates />;
