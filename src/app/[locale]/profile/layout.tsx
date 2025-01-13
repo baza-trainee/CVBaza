@@ -13,6 +13,7 @@ export default function ProfileLayout({
   // const { data: session, status } = useSession();
   // const router = useRouter();
   // const pathname = usePathname();
+    const locale = pathname.split("/")[1];
 
   // useEffect(() => {
   //   if (status === "unauthenticated") {
