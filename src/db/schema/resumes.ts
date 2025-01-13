@@ -18,20 +18,21 @@ export const resumes = pgTable("resumes", {
     .references(() => users.id, { onDelete: "cascade" }),
 
   title: varchar("title", { length: 255 }),
-  description: text("description"), // Can be long, keep as text
+  profession: text("profession"), // Can be long, keep as text
   photoUrl: varchar("photo_url", { length: 2048 }), // URL length
-  colorHex: varchar("color_hex", { length: 7 }), // #RRGGBB format
-  borderStyle: varchar("border_style", { length: 50 }),
   summary: text("summary"), // Can be long, keep as text
-  firstName: varchar("first_name", { length: 255 }),
-  lastName: varchar("last_name", { length: 255 }),
-  jobTitle: varchar("job_title", { length: 255 }),
-  city: varchar("city", { length: 100 }),
-  country: varchar("country", { length: 100 }),
+  name: varchar("name", { length: 255 }),
+  address: varchar("address", { length: 100 }),
   phone: varchar("phone", { length: 50 }),
   email: varchar("email", { length: 320 }),
-
+  github: varchar("github", { length: 255 }),
+  linkedin: varchar("linkedin", { length: 255 }),
+  behance: varchar("behance", { length: 255 }),
+  template: varchar("template", { length: 255 }).notNull(),
   skills: jsonb("skills").$type<string[]>().default([]),
+  languages: jsonb("languages")
+    .$type<{ language: string; level: string }[]>()
+    .default([]),
 
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(

@@ -5,24 +5,47 @@ import { db } from "@/db";
 import { educations, resumes, workExperiences } from "@/db/schema";
 import { auth } from "@/lib/auth";
 
-const resumeSchema = z.object({
-  title: z.string().min(1).max(255),
+const educationSchema = z.object({
+  degree: z.string().max(255),
+  school: z.string().max(255),
   description: z.string().optional(),
+  startDate: z.string().max(255),
+  endDate: z.string().max(255),
+});
+
+const workExperienceSchema = z.object({
+  position: z.string().max(255),
+  company: z.string().max(255),
+  location: z.string().max(255),
+  startDate: z.string().max(255),
+  endDate: z.string().max(255),
+  description: z.string().optional(),
+});
+
+const resumeSchema = z.object({
+  title: z.string().max(255),
+  profession: z.string().optional(),
   photoUrl: z.string().url().max(2048).optional(),
-  colorHex: z
-    .string()
-    .regex(/^#[0-9A-Fa-f]{6}$/)
-    .optional(),
-  borderStyle: z.string().max(50).optional(),
   summary: z.string().optional(),
-  firstName: z.string().min(1).max(255),
-  lastName: z.string().min(1).max(255),
-  jobTitle: z.string().min(1).max(255),
-  city: z.string().max(100).optional(),
-  country: z.string().max(100).optional(),
+  name: z.string().max(255),
+  address: z.string().max(100).optional(),
   phone: z.string().max(50).optional(),
   email: z.string().email().max(320),
+  github: z.string().max(255).optional(),
+  linkedin: z.string().max(255).optional(),
+  behance: z.string().max(255).optional(),
+  template: z.string().max(255),
   skills: z.array(z.string()).optional(),
+  languages: z
+    .array(
+      z.object({
+        language: z.string(),
+        level: z.string(),
+      })
+    )
+    .optional(),
+  education: z.array(educationSchema).optional(),
+  workExperience: z.array(workExperienceSchema).optional(),
 });
 
 export async function POST(req: NextRequest) {
@@ -43,11 +66,42 @@ export async function POST(req: NextRequest) {
       .insert(resumes)
       .values({
         ...validatedData,
-        userId: "5770b1c5-c9f4-4364-91cc-d7e653652e39",
+        userId: session.user.id,
+        skills: validatedData.skills || [],
+        languages: validatedData.languages || [],
       })
       .returning();
 
-    return NextResponse.json(newResume, { status: 201 });
+    // Insert education records if provided
+    if (validatedData.education?.length) {
+      await db.insert(educations).values(
+        validatedData.education.map((edu) => ({
+          ...edu,
+          resumeId: newResume.id,
+        }))
+      );
+    }
+
+    // Insert work experience records if provided
+    if (validatedData.workExperience?.length) {
+      await db.insert(workExperiences).values(
+        validatedData.workExperience.map((exp) => ({
+          ...exp,
+          resumeId: newResume.id,
+        }))
+      );
+    }
+
+    // Fetch the complete resume with relations
+    const completeResume = await db.query.resumes.findFirst({
+      where: eq(resumes.id, newResume.id),
+      with: {
+        educations: true,
+        workExperiences: true,
+      },
+    });
+
+    return NextResponse.json(completeResume, { status: 201 });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -55,8 +109,6 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-
-    console.error("Error creating resume:", error);
     return NextResponse.json(
       { error: "Something went wrong" },
       { status: 500 }

@@ -1,5 +1,5 @@
 {
-  "id": "34870539-2c41-469a-9abb-fb374e9e1d30",
+  "id": "4968fb14-8b69-4aad-86e8-3d554dcebc78",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -262,8 +262,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "description": {
-          "name": "description",
+        "profession": {
+          "name": "profession",
           "type": "text",
           "primaryKey": false,
           "notNull": false
@@ -274,50 +274,20 @@
           "primaryKey": false,
           "notNull": false
         },
-        "color_hex": {
-          "name": "color_hex",
-          "type": "varchar(7)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "border_style": {
-          "name": "border_style",
-          "type": "varchar(50)",
-          "primaryKey": false,
-          "notNull": false
-        },
         "summary": {
           "name": "summary",
           "type": "text",
           "primaryKey": false,
           "notNull": false
         },
-        "first_name": {
-          "name": "first_name",
+        "name": {
+          "name": "name",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false
         },
-        "last_name": {
-          "name": "last_name",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "job_title": {
-          "name": "job_title",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "city": {
-          "name": "city",
-          "type": "varchar(100)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "country": {
-          "name": "country",
+        "address": {
+          "name": "address",
           "type": "varchar(100)",
           "primaryKey": false,
           "notNull": false
@@ -334,8 +304,39 @@
           "primaryKey": false,
           "notNull": false
         },
+        "github": {
+          "name": "github",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "linkedin": {
+          "name": "linkedin",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "behance": {
+          "name": "behance",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "template": {
+          "name": "template",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
         "skills": {
           "name": "skills",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'[]'::jsonb"
+        },
+        "languages": {
+          "name": "languages",
           "type": "jsonb",
           "primaryKey": false,
           "notNull": false,
