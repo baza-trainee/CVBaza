@@ -6,13 +6,13 @@ import { LuGraduationCap } from "react-icons/lu";
 import { MdOutlineWorkOutline } from "react-icons/md";
 import { Github } from "@/components/icons/github";
 import { Linkedin } from "@/components/icons/linkedin";
-import { ResumeTemplateProps } from "@/types/resume";
+import { ResumeData } from "@/types/resume";
 
 const SectionTitle = ({ title }: { title: string }) => {
   return <h3 className="text-lg font-bold text-blue-800">{title}</h3>;
 };
 
-export const ModernDarkTemplate = ({ data }: ResumeTemplateProps) => {
+export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
   return (
     <div className="flex h-[297mm] w-[210mm] flex-col bg-white">
       {/* Header */}
@@ -41,7 +41,7 @@ export const ModernDarkTemplate = ({ data }: ResumeTemplateProps) => {
           {/* Contact Info */}
           {data.email ||
             data.phone ||
-            (data.address && (
+            (data.location && (
               <div className="mt-6">
                 <SectionTitle title="Contact" />
                 <div className="mt-4 space-y-4">
@@ -60,7 +60,7 @@ export const ModernDarkTemplate = ({ data }: ResumeTemplateProps) => {
                   <div className="flex items-center gap-2">
                     <MapPin className="h-4 w-4 min-w-4" />
                     <span className="text-sm">
-                      {data.address ? data.address : "-"}
+                      {data.location ? data.location : "-"}
                     </span>
                   </div>
                   {data.github && (
@@ -181,9 +181,7 @@ export const ModernDarkTemplate = ({ data }: ResumeTemplateProps) => {
                 {data.education.map((edu) => (
                   <div key={edu.id}>
                     <h4 className="font-medium">{edu.degree}</h4>
-                    <p className="text-sm text-gray-600">
-                      {edu.institution} | {edu.location}
-                    </p>
+                    <p className="text-sm text-gray-600">{edu.institution}</p>
                     <p className="text-sm text-gray-500">
                       {edu.startDate} - {edu.endDate}
                     </p>

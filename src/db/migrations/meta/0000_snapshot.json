@@ -1,5 +1,5 @@
 {
-  "id": "4968fb14-8b69-4aad-86e8-3d554dcebc78",
+  "id": "fdbbf29d-14e1-4f59-947a-55322565ae4a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -113,12 +113,6 @@
         "school": {
           "name": "school",
           "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "description": {
-          "name": "description",
-          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
@@ -262,14 +256,20 @@
           "primaryKey": false,
           "notNull": false
         },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
         "profession": {
           "name": "profession",
           "type": "text",
           "primaryKey": false,
           "notNull": false
         },
-        "photo_url": {
-          "name": "photo_url",
+        "photo": {
+          "name": "photo",
           "type": "varchar(2048)",
           "primaryKey": false,
           "notNull": false
@@ -280,14 +280,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "name": {
-          "name": "name",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "address": {
-          "name": "address",
+        "location": {
+          "name": "location",
           "type": "varchar(100)",
           "primaryKey": false,
           "notNull": false
@@ -529,12 +523,6 @@
         },
         "company": {
           "name": "company",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "location": {
-          "name": "location",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false

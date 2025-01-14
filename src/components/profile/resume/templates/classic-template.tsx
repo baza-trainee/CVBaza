@@ -3,7 +3,7 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { IoLogoBehance } from "react-icons/io5";
 import { Github } from "@/components/icons/github";
 import { Linkedin } from "@/components/icons/linkedin";
-import { ResumeTemplateProps } from "@/types/resume";
+import { ResumeData } from "@/types/resume";
 
 const SectionTitle = ({ title }: { title: string }) => {
   return (
@@ -13,7 +13,7 @@ const SectionTitle = ({ title }: { title: string }) => {
   );
 };
 
-export const ClassicTemplate = ({ data }: ResumeTemplateProps) => {
+export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
   return (
     <div className="h-[297mm] w-[210mm] bg-white text-black-400 shadow-lg">
       {/* Header Section */}
@@ -50,7 +50,7 @@ export const ClassicTemplate = ({ data }: ResumeTemplateProps) => {
         {/* Left Column */}
         <div className="w-1/3 space-y-8 bg-gray-200 px-2">
           {/* Contact Section */}
-          {(data.email || data.phone || data.address) && (
+          {(data.email || data.phone || data.location) && (
             <div className="my-2">
               <SectionTitle title="Contact" />
               <div className="space-y-6">
@@ -66,10 +66,10 @@ export const ClassicTemplate = ({ data }: ResumeTemplateProps) => {
                     <span className="text-sm">{data.phone}</span>
                   </div>
                 )}
-                {data.address && (
+                {data.location && (
                   <div className="flex items-center gap-2">
                     <MapPin className="h-4 w-4 min-w-4 text-gray-600" />
-                    <span className="text-sm">{data.address}</span>
+                    <span className="text-sm">{data.location}</span>
                   </div>
                 )}
               </div>
@@ -152,9 +152,6 @@ export const ClassicTemplate = ({ data }: ResumeTemplateProps) => {
                     <p className="text-sm text-gray-600">
                       {edu.institution} | {edu.startDate} - {edu.endDate}
                     </p>
-                    {edu.description && (
-                      <p className="text-sm">{edu.description}</p>
-                    )}
                   </div>
                 ))}
               </div>

@@ -3,72 +3,35 @@ import { desc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "@/db";
 import { educations, resumes, workExperiences } from "@/db/schema";
-import { auth } from "@/lib/auth";
-
-const educationSchema = z.object({
-  degree: z.string().max(255),
-  school: z.string().max(255),
-  description: z.string().optional(),
-  startDate: z.string().max(255),
-  endDate: z.string().max(255),
-});
-
-const workExperienceSchema = z.object({
-  position: z.string().max(255),
-  company: z.string().max(255),
-  location: z.string().max(255),
-  startDate: z.string().max(255),
-  endDate: z.string().max(255),
-  description: z.string().optional(),
-});
-
-const resumeSchema = z.object({
-  title: z.string().max(255),
-  profession: z.string().optional(),
-  photoUrl: z.string().url().max(2048).optional(),
-  summary: z.string().optional(),
-  name: z.string().max(255),
-  address: z.string().max(100).optional(),
-  phone: z.string().max(50).optional(),
-  email: z.string().email().max(320),
-  github: z.string().max(255).optional(),
-  linkedin: z.string().max(255).optional(),
-  behance: z.string().max(255).optional(),
-  template: z.string().max(255),
-  skills: z.array(z.string()).optional(),
-  languages: z
-    .array(
-      z.object({
-        language: z.string(),
-        level: z.string(),
-      })
-    )
-    .optional(),
-  education: z.array(educationSchema).optional(),
-  workExperience: z.array(workExperienceSchema).optional(),
-});
+import { resumeSchema } from "./schema";
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await auth();
-
-    if (!session?.user) {
-      return NextResponse.json(
-        { error: "You must be logged in to create a resume" },
-        { status: 401 }
-      );
-    }
+    //TODO: add auth
+    const hardcodedUserId = "addabf24-6eb9-449a-b55e-e35547fee088";
 
     const body = await req.json();
     const validatedData = resumeSchema.parse(body);
 
+    //TODO: add uploading photo to cloudinary
     const [newResume] = await db
       .insert(resumes)
       .values({
-        ...validatedData,
-        userId: session.user.id,
-        skills: validatedData.skills || [],
-        languages: validatedData.languages || [],
+        userId: hardcodedUserId,
+        title: validatedData.title,
+        name: validatedData.name,
+        profession: validatedData.profession,
+        photo: validatedData.photo,
+        summary: validatedData.summary,
+        location: validatedData.location,
+        phone: validatedData.phone,
+        email: validatedData.email,
+        github: validatedData.github,
+        linkedin: validatedData.linkedin,
+        behance: validatedData.behance,
+        template: validatedData.template,
+        skills: validatedData.skills,
+        languages: validatedData.languages,
       })
       .returning();
 
@@ -76,7 +39,10 @@ export async function POST(req: NextRequest) {
     if (validatedData.education?.length) {
       await db.insert(educations).values(
         validatedData.education.map((edu) => ({
-          ...edu,
+          degree: edu.degree,
+          institution: edu.institution,
+          startDate: edu.startDate,
+          endDate: edu.endDate,
           resumeId: newResume.id,
         }))
       );
@@ -86,23 +52,28 @@ export async function POST(req: NextRequest) {
     if (validatedData.workExperience?.length) {
       await db.insert(workExperiences).values(
         validatedData.workExperience.map((exp) => ({
-          ...exp,
+          position: exp.position,
+          company: exp.company,
+          startDate: exp.startDate,
+          endDate: exp.endDate,
+          description: exp.description,
           resumeId: newResume.id,
         }))
       );
     }
 
-    // Fetch the complete resume with relations
-    const completeResume = await db.query.resumes.findFirst({
-      where: eq(resumes.id, newResume.id),
-      with: {
-        educations: true,
-        workExperiences: true,
-      },
-    });
+    // Fetch the complete resume
+    const completeResume = await db
+      .select()
+      .from(resumes)
+      .where(eq(resumes.id, newResume.id))
+      .leftJoin(educations, eq(educations.resumeId, resumes.id))
+      .leftJoin(workExperiences, eq(workExperiences.resumeId, resumes.id));
 
     return NextResponse.json(completeResume, { status: 201 });
   } catch (error) {
+    console.error("Resume creation error:", error);
+
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "Invalid input", details: error.errors },
@@ -110,7 +81,10 @@ export async function POST(req: NextRequest) {
       );
     }
     return NextResponse.json(
-      { error: "Something went wrong" },
+      {
+        error: "Something went wrong",
+        details: error instanceof Error ? error.message : String(error),
+      },
       { status: 500 }
     );
   }
@@ -148,7 +122,10 @@ export async function GET() {
   } catch (error) {
     console.error("Error fetching resumes:", error);
     return NextResponse.json(
-      { error: "Failed to fetch resumes" },
+      {
+        error: "Failed to fetch resumes",
+        details: error instanceof Error ? error.message : String(error),
+      },
       { status: 500 }
     );
   }
