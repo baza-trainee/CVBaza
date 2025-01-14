@@ -1,9 +1,8 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -16,7 +15,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Locale, useRouter } from "@/i18n/routing";
-
 import { ForgotPasswordFormValues, forgotPasswordSchema } from "./schema";
 
 interface ForgotPasswordFormProps {
@@ -51,7 +49,9 @@ export function ForgotPasswordForm({ lang }: ForgotPasswordFormProps) {
 
       if (!response.ok) {
         throw new Error(
-          result.error || lang === "en" ? "Failed to process request" : "Помилка при обробці запиту"
+          result.error || lang === "en"
+            ? "Failed to process request"
+            : "Помилка при обробці запиту"
         );
       }
 
@@ -77,7 +77,9 @@ export function ForgotPasswordForm({ lang }: ForgotPasswordFormProps) {
         <Card className="w-full max-w-[600px] p-[50px]">
           <CardHeader className="mb-8 p-0">
             <CardTitle className="text-center text-2xl font-semibold">
-              {lang === "en" ? "Check Your Email" : "Перевірте свою електронну пошту"}
+              {lang === "en"
+                ? "Check Your Email"
+                : "Перевірте свою електронну пошту"}
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0 px-[70px] text-center">
@@ -106,7 +108,11 @@ export function ForgotPasswordForm({ lang }: ForgotPasswordFormProps) {
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0 px-[70px]">
-          {error && <div className="mb-4 rounded-md bg-red-50 p-4 text-red-600">{error}</div>}
+          {error && (
+            <div className="mb-4 rounded-md bg-red-50 p-4 text-red-600">
+              {error}
+            </div>
+          )}
 
           <p className="mb-6 text-center">
             {lang === "en"
@@ -115,7 +121,10 @@ export function ForgotPasswordForm({ lang }: ForgotPasswordFormProps) {
           </p>
 
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="my-6 flex flex-col gap-4">
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="my-6 flex flex-col gap-4"
+            >
               <FormField
                 control={form.control}
                 name="email"

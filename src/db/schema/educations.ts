@@ -1,14 +1,12 @@
 import { relations, sql } from "drizzle-orm";
-import { pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
-
+import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import { resumes } from "./resumes";
 
 export const educations = pgTable("educations", {
   id: uuid("id").primaryKey().defaultRandom(),
 
   degree: varchar("degree", { length: 255 }),
-  school: varchar("school", { length: 255 }),
-  description: text("description"), // Can be long, keep as text
+  institution: varchar("school", { length: 255 }),
   startDate: varchar("start_date", { length: 255 }),
   endDate: varchar("end_date", { length: 255 }),
 

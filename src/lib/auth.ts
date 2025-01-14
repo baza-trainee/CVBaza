@@ -1,17 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { headers } from "next/headers";
+import { DrizzleAdapter } from "@auth/drizzle-adapter";
+import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-
-import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import NextAuth from "next-auth";
-
-import { headers } from "next/headers";
-
 import { db } from "@/db";
 import { findUserByEmail } from "@/resources/user-queries";
 import { User } from "@/types/db";
-
 import { verifyPassword } from "../utils/password";
 
 const errorMessages = {
@@ -22,7 +18,8 @@ const errorMessages = {
   },
   ua: {
     invalidCredentials: "Невірна електронна пошта або пароль",
-    accountNotLinked: "Будь ласка, використовуйте електронну пошту/пароль для входу",
+    accountNotLinked:
+      "Будь ласка, використовуйте електронну пошту/пароль для входу",
     useCredentials:
       "Будь ласка, використовуйте електронну пошту/пароль для входу в цей обліковий запис",
   },
@@ -69,7 +66,10 @@ const authOptions = NextAuth({
       },
       //@ts-ignore
       async authorize(
-        credentials: Record<"email" | "password" | "remember", string | undefined>
+        credentials: Record<
+          "email" | "password" | "remember",
+          string | undefined
+        >
       ): Promise<User | null> {
         const locale = await getLocaleFromHeaders();
 
@@ -86,7 +86,10 @@ const authOptions = NextAuth({
           throw new Error(errorMessages[locale].accountNotLinked);
         }
 
-        const isCorrectPassword = await verifyPassword(credentials.password, user.password);
+        const isCorrectPassword = await verifyPassword(
+          credentials.password,
+          user.password
+        );
 
         if (!isCorrectPassword) {
           throw new Error(errorMessages[locale].invalidCredentials);

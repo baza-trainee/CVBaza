@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export const OptimizationSection = () => {
   const [windowWidth, setWindowWidth] = useState<number | null>(null);
@@ -47,8 +46,9 @@ export const OptimizationSection = () => {
             Оптимізація резюме
           </h2>
           <p className="text-center text-black-500 sm:pb-[36px] sm:text-start sm:text-body md:pb-0 lg:text-left 3xl:w-[756px] 3xl:text-body-sm">
-            Дізнайтеся, яких навичок вам бракує. Система на базі штучного інтелекту покаже вам, як
-            адаптувати своє резюме так, щоб підкреслити навички та досвід, які шукають рекрутери.
+            Дізнайтеся, яких навичок вам бракує. Система на базі штучного
+            інтелекту покаже вам, як адаптувати своє резюме так, щоб підкреслити
+            навички та досвід, які шукають рекрутери.
           </p>
         </div>
       </div>

@@ -1,5 +1,7 @@
+import { ResumeEditor } from "@/components/profile/resume/editor";
+
 const AddResumePage = () => {
-  return <div>Add Resume</div>;
+  return <ResumeEditor />;
 };
 
 export default AddResumePage;
