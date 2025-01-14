@@ -49,7 +49,7 @@ export const ProfileInfo = ({ name }: { name: string }) => {
             </Link>
 
             <span className="w-full h-[1px] bg-black-100"></span>
-            <button onClick={() => signOut()}>
+            <button onClick={() => signOut({ callbackUrl: "/" })}>
               <div className="flex gap-2">
                 <div className="relative w-6 h-6">
                   <Image src="/icons/exit.svg" fill alt="exit" />
