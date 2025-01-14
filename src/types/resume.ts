@@ -2,7 +2,6 @@ export interface Education {
   id: number;
   institution: string;
   degree: string;
-  location: string;
   startDate: string;
   endDate: string;
   description: string;
@@ -23,25 +22,13 @@ export interface Language {
   level: string;
 }
 
-export interface Contact {
-  name: string;
-  title: string;
-  email: string;
-  phone: string;
-  location: string;
-  github?: string;
-  linkedin?: string;
-  behance?: string;
-  photo: string;
-}
-
 export interface ResumeData {
   title: string;
   name: string;
   profession: string;
   email: string;
   phone: string;
-  address: string;
+  location: string;
   github?: string;
   linkedin?: string;
   behance?: string;
@@ -52,10 +39,6 @@ export interface ResumeData {
   languages: Language[];
   summary: string;
   template: string;
-}
-
-export interface ResumeTemplateProps {
-  data: ResumeData;
 }
 
 export interface EditorFormProps {

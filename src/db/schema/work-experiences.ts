@@ -7,7 +7,6 @@ export const workExperiences = pgTable("work_experiences", {
 
   position: varchar("position", { length: 255 }),
   company: varchar("company", { length: 255 }),
-  location: varchar("location", { length: 255 }),
   startDate: varchar("start_date", { length: 255 }),
   endDate: varchar("end_date", { length: 255 }),
   description: text("description"), // Can be long, keep as text
