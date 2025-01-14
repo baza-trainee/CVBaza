@@ -1,6 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/routing";
 
 export const Header = () => {
   const headerLinks = [
