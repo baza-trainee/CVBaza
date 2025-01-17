@@ -3,7 +3,8 @@
 import { usePathname } from "next/navigation";
 // import { useEffect } from "react";
 // import { useSession } from "next-auth/react";
-import { Sidebar } from "@/components/sidebar/sidebar";
+import { HorizontalSidebar } from "@/components/profile/sidebar/horizontal-sidebar";
+import { Sidebar } from "@/components/profile/sidebar/sidebar";
 
 export default function ProfileLayout({
   children,
@@ -34,9 +35,10 @@ export default function ProfileLayout({
   // }
 
   return (
-    <div className="flex h-[100vh] pl-3.5 pt-10 lg:pl-10 xl:pl-[7.5rem]">
+    <div className="flex w-full pt-10">
+      <HorizontalSidebar />
       <Sidebar lng={locale} />
-      <main>{children}</main>
+      <div className="w-full overflow-hidden">{children}</div>
     </div>
   );
 }

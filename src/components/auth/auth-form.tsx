@@ -17,8 +17,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Locale } from "@/i18n/routing";
+import { Icon } from "../shared/icon";
 import { Checkbox } from "../ui/checkbox";
-import { Icon } from "./icon";
 import { AuthFormValues, authFormSchema } from "./schema";
 import { SocialAuth } from "./social-auth";
 
@@ -77,10 +77,10 @@ export function AuthForm({ lang, type }: AuthFormProps) {
         const errorMessage =
           result.error === "Configuration"
             ? `${
-              lang === "en"
-                ? "Account not found. Please sign up or try a different email."
-                : "Обліковий запис не знайдено. Будь ласка, зареєструйтеся або спробуйте іншу електронну адресу."
-            }`
+                lang === "en"
+                  ? "Account not found. Please sign up or try a different email."
+                  : "Обліковий запис не знайдено. Будь ласка, зареєструйтеся або спробуйте іншу електронну адресу."
+              }`
             : result.error;
 
         form.setError("root", {
