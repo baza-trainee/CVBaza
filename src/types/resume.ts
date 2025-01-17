@@ -32,6 +32,9 @@ export interface ResumeData {
   github?: string;
   linkedin?: string;
   behance?: string;
+  telegram?: string;
+  dribbble?: string;
+  adobePortfolio?: string;
   photo: string;
   skills: string[];
   education: Education[];

@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon } from "../auth/icon";
+import { Icon } from "../../shared/icon";
 
 export const Avatar: React.FC<{ name: string | null | undefined }> = ({
   name,
@@ -25,7 +25,9 @@ export const Avatar: React.FC<{ name: string | null | undefined }> = ({
         )}
       </div>
 
-      <span className="text-base font-semibold">{name}</span>
+      <span className="hidden text-base font-semibold md:inline-block">
+        {name}
+      </span>
     </div>
   );
 };

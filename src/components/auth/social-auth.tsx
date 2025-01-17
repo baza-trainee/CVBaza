@@ -2,7 +2,7 @@
 
 import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { Icon } from "./icon";
+import { Icon } from "../shared/icon";
 
 export function SocialAuth() {
   return (
