@@ -25,9 +25,12 @@ export const resumes = pgTable("resumes", {
   location: varchar("location", { length: 100 }),
   phone: varchar("phone", { length: 50 }),
   email: varchar("email", { length: 320 }),
+  telegram: varchar("telegram", { length: 255 }),
   github: varchar("github", { length: 255 }),
   linkedin: varchar("linkedin", { length: 255 }),
   behance: varchar("behance", { length: 255 }),
+  dribbble: varchar("dribbble", { length: 255 }),
+  adobePortfolio: varchar("adobePortfolio", { length: 255 }),
   template: varchar("template", { length: 255 }).notNull(),
   skills: jsonb("skills").$type<string[]>().default([]),
   languages: jsonb("languages")
