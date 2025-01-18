@@ -1,31 +1,44 @@
 "use client";
 
-import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
+// import { useEffect } from "react";
+// import { useSession } from "next-auth/react";
+import { HorizontalSidebar } from "@/components/profile/sidebar/horizontal-sidebar";
+import { Sidebar } from "@/components/profile/sidebar/sidebar";
 
-import { useEffect } from "react";
-
-import { usePathname, useRouter } from "next/navigation";
-
-export default function ProfileLayout({ children }: { children: React.ReactNode }) {
-  const { data: session, status } = useSession();
-  const router = useRouter();
+export default function ProfileLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  // const { data: session, status } = useSession();
+  // const router = useRouter();
   const pathname = usePathname();
+  const locale = pathname.split("/")[1];
 
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      const locale = pathname.split("/")[1];
-      // Use current path as callback URL
-      router.replace(`/${locale}/signin?callbackUrl=${encodeURIComponent(pathname)}`);
-    }
-  }, [status, router, pathname]);
+  // useEffect(() => {
+  //   if (status === "unauthenticated") {
+  //     const locale = pathname.split("/")[1];
+  //     // Use current path as callback URL
+  //     router.replace(
+  //       `/${locale}/signin?callbackUrl=${encodeURIComponent(pathname)}`
+  //     );
+  //   }
+  // }, [status, router, pathname]);
 
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
+  // if (status === "loading") {
+  //   return <div>Loading...</div>;
+  // }
 
-  if (!session) {
-    return null;
-  }
+  // if (!session) {
+  //   return null;
+  // }
 
-  return <>{children}</>;
+  return (
+    <div className="flex w-full pt-10">
+      <HorizontalSidebar />
+      <Sidebar lng={locale} />
+      <div className="w-full overflow-hidden">{children}</div>
+    </div>
+  );
 }

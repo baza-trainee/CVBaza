@@ -13,7 +13,9 @@ export const Contacts = ({ classNames }: { classNames: string }) => {
         </a>
 
         <a href="mailto:info@baza-trainee.tech">
-          <p className="text-body underline 3xl:text-btn-semibold">info@baza-trainee.tech</p>
+          <p className="text-body underline 3xl:text-btn-semibold">
+            info@baza-trainee.tech
+          </p>
         </a>
       </div>
     </div>

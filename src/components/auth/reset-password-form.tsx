@@ -1,9 +1,8 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -16,7 +15,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Locale, useRouter } from "@/i18n/routing";
-
 import { ResetPasswordFormValues, resetPasswordSchema } from "./schema";
 
 interface ResetPasswordFormProps {
@@ -54,7 +52,10 @@ export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
 
       if (!response.ok) {
         throw new Error(
-          result.error || (lang === "en" ? "Failed to reset password" : "Помилка при зміні паролю")
+          result.error ||
+            (lang === "en"
+              ? "Failed to reset password"
+              : "Помилка при зміні паролю")
         );
       }
 
@@ -78,10 +79,14 @@ export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
     return (
       <div className="rounded-lg bg-white p-8 shadow-md">
         <h1 className="mb-4 text-2xl font-bold">
-          {lang === "en" ? "Password Reset Successful" : "Пароль успішно змінено"}
+          {lang === "en"
+            ? "Password Reset Successful"
+            : "Пароль успішно змінено"}
         </h1>
         <p>
-          {lang === "en" ? "Redirecting to login page..." : "Перенаправлено на сторінку входу..."}
+          {lang === "en"
+            ? "Redirecting to login page..."
+            : "Перенаправлено на сторінку входу..."}
         </p>
       </div>
     );
@@ -98,11 +103,16 @@ export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
         <CardContent className="p-0">
           <div className="px-[70px]">
             {error && (
-              <div className="rounded-md bg-red-50 p-3 text-small text-red-500">{error}</div>
+              <div className="rounded-md bg-red-50 p-3 text-small text-red-500">
+                {error}
+              </div>
             )}
 
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="my-6 flex flex-col gap-4">
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="my-6 flex flex-col gap-4"
+              >
                 <FormField
                   control={form.control}
                   name="password"
@@ -115,7 +125,9 @@ export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
                         <Input
                           type="password"
                           placeholder={
-                            lang === "en" ? "Enter your new password" : "Введіть новий пароль"
+                            lang === "en"
+                              ? "Enter your new password"
+                              : "Введіть новий пароль"
                           }
                           {...field}
                           className={`rounded-lg border border-gray-300 bg-gray-50 p-4 text-gray-900 focus:border-blue-500 focus:ring-blue-500 ${
@@ -136,13 +148,17 @@ export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-xl font-normal">
-                        {lang === "en" ? "Confirm Password" : "Підтвердіть пароль"}
+                        {lang === "en"
+                          ? "Confirm Password"
+                          : "Підтвердіть пароль"}
                       </FormLabel>
                       <FormControl>
                         <Input
                           type="password"
                           placeholder={
-                            lang === "en" ? "Confirm your new password" : "Підтвердіть новий пароль"
+                            lang === "en"
+                              ? "Confirm your new password"
+                              : "Підтвердіть новий пароль"
                           }
                           {...field}
                           className={`rounded-lg border border-gray-300 bg-gray-50 p-4 text-gray-900 focus:border-blue-500 focus:ring-blue-500 ${

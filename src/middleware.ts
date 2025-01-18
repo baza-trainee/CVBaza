@@ -1,6 +1,6 @@
 /* eslint-disable import/order */
-import createMiddleware from "next-intl/middleware";
 import type { NextRequest } from "next/server";
+import createMiddleware from "next-intl/middleware";
 
 // Create the next-intl middleware
 const intlMiddleware = createMiddleware({

@@ -101,3 +101,13 @@ p {
     @apply flex flex-col gap-[66px] px-4 pb-[66px] pt-20 md:gap-[42px] lg:px-10 lg:pt-20 xl:px-20 xl:pt-20 2xl:gap-[86px] 2xl:px-[120px] 2xl:pb-[86px] 2xl:pt-[120px];
   }
 }
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

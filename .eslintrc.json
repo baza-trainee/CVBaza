@@ -1,35 +1,8 @@
 {
   "extends": ["next/core-web-vitals", "next/typescript", "prettier"],
-  "plugins": ["check-file", "import", "prettier", "@typescript-eslint"],
+  "plugins": ["check-file", "import"],
   "rules": {
-    "prettier/prettier": "error",
-    "indent": "off",
-    "no-mixed-spaces-and-tabs": "error",
-    "no-trailing-spaces": "error",
-    "import/order": [
-      "error",
-      {
-        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
-        "pathGroups": [
-          {
-            "pattern": "next-auth/**",
-            "group": "external",
-            "position": "before"
-          },
-          {
-            "pattern": "next/**",
-            "group": "external",
-            "position": "after"
-          }
-        ],
-        "pathGroupsExcludedImportTypes": ["builtin"],
-        "newlines-between": "always",
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true
-        }
-      }
-    ],
+    "indent": ["off"],
     "prefer-arrow-callback": ["error"],
     "prefer-template": ["error"],
     "check-file/filename-naming-convention": [

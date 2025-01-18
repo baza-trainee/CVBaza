@@ -4,4 +4,7 @@ export { resumes, resumesRelations } from "./resumes";
 export { sessions, sessionsRelations } from "./sessions";
 export { users, usersRelations } from "./users";
 export { workExperiences } from "./work-experiences";
-export { passwordResetTokens, passwordResetTokensRelations } from "./password-reset-tokens";
+export {
+  passwordResetTokens,
+  passwordResetTokensRelations,
+} from "./password-reset-tokens";

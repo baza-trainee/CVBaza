@@ -1,8 +1,8 @@
-import { UploadApiErrorResponse, UploadApiResponse } from "cloudinary";
-
 import { NextRequest, NextResponse } from "next/server";
+import { UploadApiErrorResponse, UploadApiResponse } from "cloudinary";
+import { cloudinary } from "@/lib/cloudinary";
 
-import { cloudinary } from "@/lib/cloudinary"; // your config path
+// your config path
 
 type UploadResponse =
   | { success: true; result?: UploadApiResponse }
@@ -40,13 +40,19 @@ export async function POST(req: NextRequest) {
 
     // Input validation
     if (!file || !folderName) {
-      return NextResponse.json({ message: "File and folder name are required" }, { status: 400 });
+      return NextResponse.json(
+        { message: "File and folder name are required" },
+        { status: 400 }
+      );
     }
 
     // File size validation (e.g., 10MB limit)
     const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB in bytes
     if (file.size > MAX_FILE_SIZE) {
-      return NextResponse.json({ message: "File size exceeds 10MB limit" }, { status: 400 });
+      return NextResponse.json(
+        { message: "File size exceeds 10MB limit" },
+        { status: 400 }
+      );
     }
 
     // File type validation
@@ -74,9 +80,15 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    return NextResponse.json({ message: "Failed to upload file" }, { status: 500 });
+    return NextResponse.json(
+      { message: "Failed to upload file" },
+      { status: 500 }
+    );
   } catch (error) {
     console.error("Error uploading file to Cloudinary:", error);
-    return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { message: "Internal server error" },
+      { status: 500 }
+    );
   }
 }

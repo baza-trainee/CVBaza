@@ -1,14 +1,11 @@
 "use client";
 
-import { signIn } from "next-auth/react";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-
+import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
+import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -20,10 +17,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Locale } from "@/i18n/routing";
-
+import { Icon } from "../shared/icon";
 import { Checkbox } from "../ui/checkbox";
-
-import { Icon } from "./icon";
 import { AuthFormValues, authFormSchema } from "./schema";
 import { SocialAuth } from "./social-auth";
 
@@ -134,7 +129,10 @@ export function AuthForm({ lang, type }: AuthFormProps) {
       )}
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="my-6 flex flex-col gap-4">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="my-6 flex flex-col gap-4"
+        >
           <FormField
             control={form.control}
             name="email"
@@ -215,12 +213,22 @@ export function AuthForm({ lang, type }: AuthFormProps) {
                     <p className="text-black text-small">
                       {lang === "en" ? "I agree with " : "Я погоджуюся з "}
 
-                      <Link href="" className="text-blue-500 hover:text-blue-700">
-                        {lang === "en" ? "Terms of service " : "Умовами надання послуг "}
+                      <Link
+                        href=""
+                        className="text-blue-500 hover:text-blue-700"
+                      >
+                        {lang === "en"
+                          ? "Terms of service "
+                          : "Умовами надання послуг "}
                       </Link>
                       {lang === "en" ? "and agree with " : "і погоджуюся з "}
-                      <Link href="" className="text-blue-500 hover:text-blue-700">
-                        {lang === "en" ? "Privacy policy" : "Політикою конфіденційності"}
+                      <Link
+                        href=""
+                        className="text-blue-500 hover:text-blue-700"
+                      >
+                        {lang === "en"
+                          ? "Privacy policy"
+                          : "Політикою конфіденційності"}
                       </Link>
                     </p>
                   </label>
@@ -237,7 +245,10 @@ export function AuthForm({ lang, type }: AuthFormProps) {
               render={({ field }) => (
                 <FormItem className="flex items-center space-x-2 space-y-0">
                   <FormControl>
-                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
                   </FormControl>
                   <FormLabel className="text-sm font-normal">
                     {lang === "en" ? "Remember me" : "Запам'ятати мене"}
@@ -247,7 +258,9 @@ export function AuthForm({ lang, type }: AuthFormProps) {
             />
           )}
           {form.formState.errors.root && (
-            <div className="text-sm text-red-500">{form.formState.errors.root.message}</div>
+            <div className="text-sm text-red-500">
+              {form.formState.errors.root.message}
+            </div>
           )}
           <Button
             type="submit"
@@ -266,7 +279,9 @@ export function AuthForm({ lang, type }: AuthFormProps) {
       {type === "signin" ? (
         <div className="flex flex-col items-center text-xl">
           <h4 className="mt-6">
-            {lang === "en" ? "Don't have an account?" : "Не маєте облікового запису?"}
+            {lang === "en"
+              ? "Don't have an account?"
+              : "Не маєте облікового запису?"}
           </h4>
           <Link
             href="register"
@@ -277,8 +292,15 @@ export function AuthForm({ lang, type }: AuthFormProps) {
         </div>
       ) : (
         <div className="mt-8 flex flex-col items-center text-xl">
-          <h4>{lang === "en" ? "Already have an account?" : "Вже маєте обліковий запис?"}</h4>
-          <Link href="signin" className="mt-4 text-blue-500 hover:text-blue-700">
+          <h4>
+            {lang === "en"
+              ? "Already have an account?"
+              : "Вже маєте обліковий запис?"}
+          </h4>
+          <Link
+            href="signin"
+            className="mt-4 text-blue-500 hover:text-blue-700"
+          >
             {lang === "en" ? "Sign in" : "Логін"}
           </Link>
         </div>

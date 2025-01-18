@@ -1,6 +1,5 @@
 import { relations, sql } from "drizzle-orm";
 import { pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
-
 import { resumes } from "./resumes";
 
 export const workExperiences = pgTable("work_experiences", {
@@ -8,7 +7,6 @@ export const workExperiences = pgTable("work_experiences", {
 
   position: varchar("position", { length: 255 }),
   company: varchar("company", { length: 255 }),
-  location: varchar("location", { length: 255 }),
   startDate: varchar("start_date", { length: 255 }),
   endDate: varchar("end_date", { length: 255 }),
   description: text("description"), // Can be long, keep as text
@@ -23,9 +21,12 @@ export const workExperiences = pgTable("work_experiences", {
   ),
 });
 
-export const workExperiencesRelations = relations(workExperiences, ({ one }) => ({
-  resume: one(resumes, {
-    fields: [workExperiences.resumeId],
-    references: [resumes.id],
-  }),
-}));
+export const workExperiencesRelations = relations(
+  workExperiences,
+  ({ one }) => ({
+    resume: one(resumes, {
+      fields: [workExperiences.resumeId],
+      references: [resumes.id],
+    }),
+  })
+);

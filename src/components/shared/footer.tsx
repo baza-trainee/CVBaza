@@ -1,5 +1,4 @@
 import Image from "next/image";
-
 import { Contacts } from "../homepage/footer/contacts";
 import { CreateWithAi } from "../homepage/footer/create-with-ai";
 import { HelpLinks } from "../homepage/footer/help-links";
@@ -7,7 +6,7 @@ import { Socials } from "../homepage/footer/socials";
 
 export const Footer = () => {
   return (
-    <footer className="bg-blue-900">
+    <footer className="overflow-hidden bg-blue-900">
       <div className="footer-container">
         <div className="flex w-full flex-col items-center gap-[3.125rem] ms:items-start md:flex-row md:gap-[4.6rem] xl:gap-[6rem] 2xl:gap-36 3xl:gap-[13.75rem]">
           <div className="flex flex-col gap-6">
