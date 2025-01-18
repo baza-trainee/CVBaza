@@ -7,7 +7,7 @@ interface ResumePreviewSectionProps {
   template: string;
 }
 
-const renderTemplate = (template: string) => {
+const getTemplate = (template: string) => {
   switch (template) {
     case "classic":
       return ClassicTemplate;
@@ -22,10 +22,12 @@ export const ResumePreviewSection = ({
   data,
   template,
 }: ResumePreviewSectionProps) => {
+  const TemplateComponent = getTemplate(template);
+
   return (
     <div className="group w-full xl:flex">
-      <div className="no-scrollbar mx-auto flex h-[94vh] justify-center overflow-y-auto p-3">
-        {renderTemplate(template)({ data: data })}
+      <div className="no-scrollbar mx-auto flex h-[94vh] justify-center overflow-y-auto bg-gray-100 p-3">
+        <TemplateComponent data={data} />
       </div>
     </div>
   );
