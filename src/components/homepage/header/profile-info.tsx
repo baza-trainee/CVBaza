@@ -17,7 +17,6 @@ export const ProfileInfo = ({ name }: { name: string }) => {
   const [open, setOpen] = useState(false);
   const createAvatar = (name: string) => {
     const names = name.split(" ");
-    console.log(names);
     if (names.length > 1) {
       return `${names[0][0].toLocaleUpperCase()}${names[1][0].toLocaleUpperCase()}`;
     } else if (names.length === 0) return `${name[0][0].toLocaleUpperCase()}`;
@@ -27,7 +26,7 @@ export const ProfileInfo = ({ name }: { name: string }) => {
   return (
     <>
       <DropdownMenu onOpenChange={(state) => setOpen(state)} modal={false}>
-        <div className="flex gap-3 justify-center items-center">
+        <div className="hidden lg:flex gap-3 justify-center items-center">
           <div className="flex px-5 py-4 rounded-full bg-blue-50">
             <p className="text-body">{createAvatar(name)}</p>
           </div>

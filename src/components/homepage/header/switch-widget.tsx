@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/i18n/routing";
 
 import { AccountButton } from "./account-button";
 import { ProfileInfo } from "./profile-info";
@@ -11,7 +11,7 @@ export const ProfileButtonSwitchWidget = () => {
   const { status, data } = useSession();
   return (
     <>
-      {pathname.split("/")[2] === "profile" && status === "authenticated" ? (
+      {pathname.split("/")[1] === "profile" && status === "authenticated" ? (
         <ProfileInfo name={data?.user.name as string} />
       ) : (
         <AccountButton />
