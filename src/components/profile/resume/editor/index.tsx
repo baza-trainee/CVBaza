@@ -47,7 +47,7 @@ export const ResumeEditor = () => {
           setShowSmResumePreview={setShowSmResumePreview}
         />
       </div>
-      <div className="hidden w-full overflow-hidden xl:block xl:w-1/2">
+      <div className="hidden w-full xl:block xl:w-1/2">
         <ResumePreviewSection
           data={resumeData}
           template={resumeData.template || templates.CLASSIC}
