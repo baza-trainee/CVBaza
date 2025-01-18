@@ -1,6 +1,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { GripHorizontal } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { UseFormReturn } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
@@ -29,6 +30,7 @@ export const WorkExperienceItem = ({
   index,
   remove,
 }: WorkExperienceItemProps) => {
+  const t = useTranslations("Form");
   const {
     attributes,
     listeners,
@@ -51,7 +53,9 @@ export const WorkExperienceItem = ({
       }}
     >
       <div className="flex justify-between gap-2">
-        <span className="font-semibold">Work experience {index + 1}</span>
+        <span className="font-semibold">
+          {t("labels.workExperience")} {index + 1}
+        </span>
         <GripHorizontal
           className="size-5 cursor-grab text-muted-foreground focus:outline-none"
           {...attributes}
@@ -63,9 +67,13 @@ export const WorkExperienceItem = ({
         name={`workExperiences.${index}.position`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Job title</FormLabel>
+            <FormLabel>{t("labels.position")}</FormLabel>
             <FormControl>
-              <Input {...field} autoFocus />
+              <Input
+                placeholder={t("placeholders.position")}
+                {...field}
+                autoFocus
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -76,9 +84,9 @@ export const WorkExperienceItem = ({
         name={`workExperiences.${index}.company`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Company</FormLabel>
+            <FormLabel>{t("labels.company")}</FormLabel>
             <FormControl>
-              <Input {...field} />
+              <Input placeholder={t("placeholders.company")} {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -90,12 +98,13 @@ export const WorkExperienceItem = ({
           name={`workExperiences.${index}.startDate`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Start date</FormLabel>
+              <FormLabel>{t("labels.startDate")}</FormLabel>
               <FormControl>
                 <Input
                   {...field}
                   type="date"
                   value={field.value?.slice(0, 10)}
+                  placeholder={t("placeholders.startDate")}
                 />
               </FormControl>
               <FormMessage />
@@ -107,12 +116,13 @@ export const WorkExperienceItem = ({
           name={`workExperiences.${index}.endDate`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>End date</FormLabel>
+              <FormLabel>{t("labels.endDate")}</FormLabel>
               <FormControl>
                 <Input
                   {...field}
                   type="date"
                   value={field.value?.slice(0, 10)}
+                  placeholder={t("placeholders.endDate")}
                 />
               </FormControl>
               <FormMessage />
@@ -121,24 +131,26 @@ export const WorkExperienceItem = ({
         />
       </div>
       <FormDescription>
-        Leave <span className="font-semibold">end date</span> empty if you are
-        currently working here.
+        {t("workExperience.endDateDescription")}
       </FormDescription>
       <FormField
         control={form.control}
         name={`workExperiences.${index}.description`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Description</FormLabel>
+            <FormLabel>{t("labels.description")}</FormLabel>
             <FormControl>
-              <Textarea {...field} />
+              <Textarea
+                placeholder={t("placeholders.description")}
+                {...field}
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
       <Button variant="destructive" type="button" onClick={() => remove(index)}>
-        Remove
+        {t("workExperience.remove")}
       </Button>
     </div>
   );
