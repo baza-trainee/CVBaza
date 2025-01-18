@@ -18,12 +18,12 @@ const renderTemplate = (template: string) => {
   }
 };
 
-export const ResumePreviewSection = ({
+export const MobilePreview = ({
   data,
   template,
 }: ResumePreviewSectionProps) => {
   return (
-    <div className="group w-full xl:flex">
+    <div className="absolute left-0 top-0 z-50 h-full w-full bg-white/70 backdrop-blur-sm">
       <div className="no-scrollbar mx-auto flex h-[94vh] justify-center overflow-y-auto p-3">
         {renderTemplate(template)({ data: data })}
       </div>

@@ -1,9 +1,15 @@
 import Image from "next/image";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { FaRegCircle, FaUserCircle } from "react-icons/fa";
+import {
+  FaDribbble,
+  FaRegCircle,
+  FaTelegram,
+  FaUserCircle,
+} from "react-icons/fa";
 import { IoLogoBehance } from "react-icons/io5";
 import { LuGraduationCap } from "react-icons/lu";
 import { MdOutlineWorkOutline } from "react-icons/md";
+import { SiAdobeacrobatreader } from "react-icons/si";
 import { Github } from "@/components/icons/github";
 import { Linkedin } from "@/components/icons/linkedin";
 import { ResumeData } from "@/types/resume";
@@ -11,15 +17,42 @@ import { ResumeData } from "@/types/resume";
 const SectionTitle = ({ title }: { title: string }) => {
   return <h3 className="text-lg font-bold text-blue-800">{title}</h3>;
 };
+const ContactItem = ({
+  icon: Icon,
+  text,
+  link,
+  isLink = false,
+}: {
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  text: string;
+  link?: string;
+  isLink?: boolean;
+}) => {
+  return (
+    <>
+      {isLink ? (
+        <a href={link} className="flex items-center gap-2">
+          <Icon className="h-4 w-4 min-w-4" />
+          <span className="text-[12px]">{text}</span>
+        </a>
+      ) : (
+        <div className="flex items-center gap-2">
+          <Icon className="h-4 w-4 min-w-4" />
+          <span className="text-[12px]">{text}</span>
+        </div>
+      )}
+    </>
+  );
+};
 
 export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
   return (
     <div className="flex h-[297mm] w-[210mm] flex-col bg-white">
       {/* Header */}
-      <div className="flex flex-col gap-2 bg-blue-900 p-8 text-white">
-        <div className="flex items-center gap-4">
+      <div className="flex h-[8rem] flex-col gap-2 bg-blue-900 p-8 text-white">
+        <div className="flex items-start gap-4">
           {data.photo && (
-            <div className="relative h-32 w-32 translate-x-[20%] translate-y-[60%] overflow-hidden rounded-full border-4 border-white">
+            <div className="relative h-32 w-32 translate-y-[40%] overflow-hidden rounded-full border-4 border-white">
               <Image
                 src={data.photo}
                 alt={data.name}
@@ -37,65 +70,75 @@ export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
 
       <div className="flex flex-1">
         {/* Left Column */}
-        <div className="w-1/3 space-y-6 bg-gray-100 p-8">
+        <div className="w-1/3 bg-gray-100 px-2">
           {/* Contact Info */}
-          {data.email ||
-            data.phone ||
-            (data.location && (
-              <div className="mt-6">
-                <SectionTitle title="Contact" />
-                <div className="mt-4 space-y-4">
-                  <div className="flex items-center gap-2">
-                    <Mail className="h-4 w-4 min-w-4" />
-                    <span className="text-sm">
-                      {data.email ? data.email : "-"}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Phone className="h-4 w-4 min-w-4" />
-                    <span className="text-sm">
-                      {data.phone ? data.phone : "-"}{" "}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4 min-w-4" />
-                    <span className="text-sm">
-                      {data.location ? data.location : "-"}
-                    </span>
-                  </div>
-                  {data.github && (
-                    <a
-                      href={data.github ? data.github : "#"}
-                      target="_blank"
-                      className="flex items-center gap-2"
-                    >
-                      <Github className="h-4 w-4 min-w-4" />
-                      <span className="text-sm">GitHub</span>
-                    </a>
-                  )}
-                  {data.linkedin && (
-                    <a
-                      href={data.linkedin ? data.linkedin : "#"}
-                      target="_blank"
-                      className="flex items-center gap-2"
-                    >
-                      <Linkedin className="h-4 w-4 min-w-4" />
-                      <span className="text-sm">LinkedIn</span>
-                    </a>
-                  )}
-                  {data.behance && (
-                    <a
-                      href={data.behance ? data.behance : "#"}
-                      target="_blank"
-                      className="flex items-center gap-2"
-                    >
-                      <IoLogoBehance className="h-4 w-4 min-w-4" />
-                      <span className="text-sm">Behance</span>
-                    </a>
-                  )}
-                </div>
+          {(data.email || data.phone || data.location) && (
+            <div className="mt-[6rem]">
+              <SectionTitle title="Contact" />
+              <div className="mt-4 space-y-4">
+                {data.email && (
+                  <ContactItem
+                    icon={Mail}
+                    text={data.email}
+                    link={`mailto:${data.email}`}
+                    isLink
+                  />
+                )}
+                {data.phone && <ContactItem icon={Phone} text={data.phone} />}
+                {data.location && (
+                  <ContactItem icon={MapPin} text={data.location} />
+                )}
+                {data.telegram && (
+                  <ContactItem
+                    icon={FaTelegram}
+                    text={data.telegram}
+                    link={data.telegram}
+                    isLink
+                  />
+                )}
+                {data.github && (
+                  <ContactItem
+                    icon={Github}
+                    text="Github"
+                    link={data.github}
+                    isLink
+                  />
+                )}
+                {data.linkedin && (
+                  <ContactItem
+                    icon={Linkedin}
+                    text="Linkedin"
+                    link={data.linkedin}
+                    isLink
+                  />
+                )}
+                {data.behance && (
+                  <ContactItem
+                    icon={IoLogoBehance}
+                    text="Behance"
+                    link={data.behance}
+                    isLink
+                  />
+                )}
+                {data.dribbble && (
+                  <ContactItem
+                    icon={FaDribbble}
+                    text="Dribbble"
+                    link={data.dribbble}
+                    isLink
+                  />
+                )}
+                {data.adobePortfolio && (
+                  <ContactItem
+                    icon={SiAdobeacrobatreader}
+                    text="Adobe Portfolio"
+                    link={data.adobePortfolio}
+                    isLink
+                  />
+                )}
               </div>
-            ))}
+            </div>
+          )}
 
           {/* Skills */}
           {data.skills && data.skills.length > 0 && (
@@ -156,9 +199,11 @@ export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
                   <div key={exp.id}>
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between">
                       <h4 className="font-medium">{exp.position}</h4>
-                      <span className="mt-1 text-sm text-gray-500 sm:mt-0">
-                        {exp.startDate} - {exp.endDate}
-                      </span>
+                      {exp.company && (
+                        <span className="mt-1 text-sm text-gray-500 sm:mt-0">
+                          {exp.startDate} - {exp.endDate}
+                        </span>
+                      )}
                     </div>
                     <p className="mb-1 text-sm font-[500] text-gray-600">
                       {exp.company}

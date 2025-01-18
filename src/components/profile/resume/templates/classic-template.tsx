@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { IoLogoBehance } from "react-icons/io5";
+import { FaBehance, FaDribbble, FaTelegram } from "react-icons/fa";
+import { SiAdobeacrobatreader } from "react-icons/si";
 import { Github } from "@/components/icons/github";
 import { Linkedin } from "@/components/icons/linkedin";
 import { ResumeData } from "@/types/resume";
@@ -13,7 +14,36 @@ const SectionTitle = ({ title }: { title: string }) => {
   );
 };
 
+const ContactItem = ({
+  icon: Icon,
+  text,
+  link,
+  isLink = false,
+}: {
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  text: string;
+  link?: string;
+  isLink?: boolean;
+}) => {
+  return (
+    <>
+      {isLink ? (
+        <a href={link} className="flex items-center gap-2">
+          <Icon className="h-4 w-4 min-w-4 text-gray-600" />
+          <span className="text-[13px]">{text}</span>
+        </a>
+      ) : (
+        <div className="flex items-center gap-2">
+          <Icon className="h-4 w-4 min-w-4 text-gray-600" />
+          <span className="text-[13px]">{text}</span>
+        </div>
+      )}
+    </>
+  );
+};
+
 export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
+  console.log(data);
   return (
     <div className="h-[297mm] w-[210mm] bg-white text-black-400 shadow-lg">
       {/* Header Section */}
@@ -54,23 +84,25 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
             <div className="my-2">
               <SectionTitle title="Contact" />
               <div className="space-y-6">
-                {data.email && (
-                  <div className="flex items-center gap-2">
-                    <Mail className="h-4 w-4 min-w-4 text-gray-600" />
-                    <span className="text-sm">{data.email}</span>
-                  </div>
-                )}
-                {data.phone && (
-                  <div className="flex items-center gap-2">
-                    <Phone className="h-4 w-4 min-w-4 text-gray-600" />
-                    <span className="text-sm">{data.phone}</span>
-                  </div>
-                )}
+                {data.phone && <ContactItem icon={Phone} text={data.phone} />}
                 {data.location && (
-                  <div className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4 min-w-4 text-gray-600" />
-                    <span className="text-sm">{data.location}</span>
-                  </div>
+                  <ContactItem icon={MapPin} text={data.location} />
+                )}
+                {data.email && (
+                  <ContactItem
+                    icon={Mail}
+                    text={data.email}
+                    isLink={true}
+                    link={`mailto:${data.email}`}
+                  />
+                )}
+                {data.telegram && (
+                  <ContactItem
+                    icon={FaTelegram}
+                    text="Telegram"
+                    isLink={true}
+                    link={data.telegram}
+                  />
                 )}
               </div>
             </div>
@@ -82,22 +114,44 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
               <SectionTitle title="Social" />
               <div className="space-y-6">
                 {data.linkedin && (
-                  <div className="flex items-center gap-2">
-                    <Linkedin className="h-4 w-4 min-w-4 text-gray-600" />
-                    <span className="text-sm">{data.linkedin}</span>
-                  </div>
+                  <ContactItem
+                    icon={Linkedin}
+                    text="Linkedin"
+                    isLink={true}
+                    link={data.linkedin}
+                  />
                 )}
                 {data.github && (
-                  <div className="flex items-center gap-2">
-                    <Github className="h-4 w-4 min-w-4 text-gray-600" />
-                    <span className="text-sm">{data.github}</span>
-                  </div>
+                  <ContactItem
+                    icon={Github}
+                    text="Github"
+                    isLink={true}
+                    link={data.github}
+                  />
                 )}
                 {data.behance && (
-                  <div className="flex items-center gap-2">
-                    <IoLogoBehance className="h-4 w-4 min-w-4 text-gray-600" />
-                    <span className="text-sm">{data.behance}</span>
-                  </div>
+                  <ContactItem
+                    icon={FaBehance}
+                    text="Behance"
+                    isLink={true}
+                    link={data.behance}
+                  />
+                )}
+                {data.dribbble && (
+                  <ContactItem
+                    icon={FaDribbble}
+                    text="Dribbble"
+                    isLink={true}
+                    link={data.dribbble}
+                  />
+                )}
+                {data.adobePortfolio && (
+                  <ContactItem
+                    icon={SiAdobeacrobatreader}
+                    text="Adobe Portfolio"
+                    isLink={true}
+                    link={data.adobePortfolio}
+                  />
                 )}
               </div>
             </div>
@@ -124,16 +178,18 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
         {/* Right Column */}
         <div className="flex-1 space-y-8 p-4">
           {/* Experience Section */}
-          {data.workExperiences?.length > 0 && (
+          {data.workExperiences?.length && (
             <div>
               <SectionTitle title="Work Experience" />
               <div className="space-y-4">
                 {data.workExperiences.map((exp, index) => (
                   <div key={index} className="space-y-1">
                     <h4 className="font-bold">{exp.position}</h4>
-                    <p className="text-sm text-gray-600">
-                      {exp.company} | {exp.startDate} - {exp.endDate}
-                    </p>
+                    {exp.company && (
+                      <p className="text-sm text-gray-600">
+                        {exp.company} | {exp.startDate} - {exp.endDate}{" "}
+                      </p>
+                    )}
                     <p className="text-sm">{exp.description}</p>
                   </div>
                 ))}

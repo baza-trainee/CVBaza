@@ -8,12 +8,12 @@ export interface Education {
 }
 
 export interface WorkExperience {
-  id: number;
-  company: string;
-  position: string;
-  startDate: string;
-  endDate: string;
-  description: string;
+  id?: string;
+  company?: string;
+  position?: string;
+  startDate?: string;
+  endDate?: string;
+  description?: string;
 }
 
 export interface Language {
@@ -32,6 +32,9 @@ export interface ResumeData {
   github?: string;
   linkedin?: string;
   behance?: string;
+  telegram?: string;
+  dribbble?: string;
+  adobePortfolio?: string;
   photo: string;
   skills: string[];
   education: Education[];

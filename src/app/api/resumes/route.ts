@@ -8,7 +8,7 @@ import { resumeSchema } from "./schema";
 export async function POST(req: NextRequest) {
   try {
     //TODO: add auth
-    const hardcodedUserId = "addabf24-6eb9-449a-b55e-e35547fee088";
+    const hardcodedUserId = "c6f5d462-17cb-4a13-84b5-3a03bece5a8f";
 
     const body = await req.json();
     const validatedData = resumeSchema.parse(body);
@@ -26,9 +26,12 @@ export async function POST(req: NextRequest) {
         location: validatedData.location,
         phone: validatedData.phone,
         email: validatedData.email,
+        telegram: validatedData.telegram,
         github: validatedData.github,
         linkedin: validatedData.linkedin,
         behance: validatedData.behance,
+        dribbble: validatedData.dribbble,
+        adobePortfolio: validatedData.adobePortfolio,
         template: validatedData.template,
         skills: validatedData.skills,
         languages: validatedData.languages,
@@ -90,6 +93,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
+//TODO: get resumes by current user
 export async function GET() {
   try {
     const allResumes = await db

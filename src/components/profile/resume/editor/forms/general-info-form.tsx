@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
   Form,
@@ -18,17 +19,14 @@ import {
 } from "@/components/ui/select";
 import { templates } from "@/constants";
 import { EditorFormProps } from "@/types/resume";
-
-interface GeneralInfoFormValues {
-  template: string;
-  title: string;
-}
+import { GeneralInfoFormValues, generalInfoSchema } from "./schema";
 
 export const GeneralInfoForm = ({
   resumeData,
   setResumeData,
 }: EditorFormProps) => {
   const form = useForm<GeneralInfoFormValues>({
+    resolver: zodResolver(generalInfoSchema),
     defaultValues: {
       template: resumeData?.template || templates.CLASSIC,
       title: resumeData?.title || "",

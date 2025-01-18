@@ -1,5 +1,5 @@
 {
-  "id": "fdbbf29d-14e1-4f59-947a-55322565ae4a",
+  "id": "8d98d12f-c773-46b2-b209-9c829d927d07",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -298,6 +298,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "telegram": {
+          "name": "telegram",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
         "github": {
           "name": "github",
           "type": "varchar(255)",
@@ -312,6 +318,18 @@
         },
         "behance": {
           "name": "behance",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dribbble": {
+          "name": "dribbble",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "adobePortfolio": {
+          "name": "adobePortfolio",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false

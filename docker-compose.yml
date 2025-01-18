@@ -17,6 +17,17 @@ services:
       timeout: 5s
       retries: 5
 
+  migrations:
+    build:
+      context: .
+      target: deps
+    command: sh -c "npx drizzle-kit generate && npm run db:migrate"
+    environment:
+      DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@postgres:${DB_PORT}/${DB_NAME}?schema=public
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   app:
     image: cvbaza
     env_file: .env
@@ -25,8 +36,8 @@ services:
     build: .
     restart: always
     depends_on:
-      postgres:
-        condition: service_healthy
+      migrations:
+        condition: service_completed_successfully
     ports:
       - "${LOCAL_PORT}:${PORT}"
     container_name: cvbaza-app
