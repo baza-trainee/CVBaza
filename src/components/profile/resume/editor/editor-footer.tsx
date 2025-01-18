@@ -40,6 +40,7 @@ export const EditorFooter = ({
           <Button
             onClick={nextStep ? () => setCurrentStep(nextStep) : undefined}
             disabled={!nextStep}
+            className="transition-colors hover:bg-blue-100/50"
           >
             Next step
           </Button>

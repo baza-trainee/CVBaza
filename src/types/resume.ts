@@ -8,12 +8,12 @@ export interface Education {
 }
 
 export interface WorkExperience {
-  id: number;
-  company: string;
-  position: string;
-  startDate: string;
-  endDate: string;
-  description: string;
+  id?: string;
+  company?: string;
+  position?: string;
+  startDate?: string;
+  endDate?: string;
+  description?: string;
 }
 
 export interface Language {

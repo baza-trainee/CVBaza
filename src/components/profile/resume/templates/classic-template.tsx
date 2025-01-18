@@ -178,16 +178,18 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
         {/* Right Column */}
         <div className="flex-1 space-y-8 p-4">
           {/* Experience Section */}
-          {data.workExperiences?.length > 0 && (
+          {data.workExperiences?.length && (
             <div>
               <SectionTitle title="Work Experience" />
               <div className="space-y-4">
                 {data.workExperiences.map((exp, index) => (
                   <div key={index} className="space-y-1">
                     <h4 className="font-bold">{exp.position}</h4>
-                    <p className="text-sm text-gray-600">
-                      {exp.company} | {exp.startDate} - {exp.endDate}
-                    </p>
+                    {exp.company && (
+                      <p className="text-sm text-gray-600">
+                        {exp.company} | {exp.startDate} - {exp.endDate}{" "}
+                      </p>
+                    )}
                     <p className="text-sm">{exp.description}</p>
                   </div>
                 ))}
