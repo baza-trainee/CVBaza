@@ -199,9 +199,11 @@ export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
                   <div key={exp.id}>
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between">
                       <h4 className="font-medium">{exp.position}</h4>
-                      <span className="mt-1 text-sm text-gray-500 sm:mt-0">
-                        {exp.startDate} - {exp.endDate}
-                      </span>
+                      {exp.company && (
+                        <span className="mt-1 text-sm text-gray-500 sm:mt-0">
+                          {exp.startDate} - {exp.endDate}
+                        </span>
+                      )}
                     </div>
                     <p className="mb-1 text-sm font-[500] text-gray-600">
                       {exp.company}
