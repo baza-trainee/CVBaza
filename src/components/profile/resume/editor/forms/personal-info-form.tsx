@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import {
   Form,
@@ -27,6 +28,8 @@ export const PersonalInfoForm = ({
   resumeData,
   setResumeData,
 }: EditorFormProps) => {
+  const t = useTranslations("Form");
+
   const form = useForm<PersonalInfoFormValues>({
     resolver: zodResolver(personalInfoSchema),
     defaultValues: {
@@ -66,9 +69,11 @@ export const PersonalInfoForm = ({
   return (
     <div className="mx-auto w-full max-w-md space-y-6 p-6">
       <div className="space-y-2 text-center">
-        <h1 className="text-2xl font-semibold tracking-tight">Personal Info</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">
+          {t("steps.personalInfo.title")}
+        </h1>
         <p className="text-sm text-muted-foreground">
-          Fill in your personal information
+          {t("steps.personalInfo.description")}
         </p>
       </div>
 
@@ -79,9 +84,9 @@ export const PersonalInfoForm = ({
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Full Name</FormLabel>
+                <FormLabel>{t("labels.name")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="John Doe" {...field} />
+                  <Input placeholder={t("placeholders.name")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -93,9 +98,12 @@ export const PersonalInfoForm = ({
             name="profession"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Profession</FormLabel>
+                <FormLabel>{t("labels.profession")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Software Engineer" {...field} />
+                  <Input
+                    placeholder={t("placeholders.profession")}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -137,9 +145,9 @@ export const PersonalInfoForm = ({
             name="location"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Location</FormLabel>
+                <FormLabel>{t("labels.location")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="New York, USA" {...field} />
+                  <Input placeholder={t("placeholders.location")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -151,9 +159,9 @@ export const PersonalInfoForm = ({
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone</FormLabel>
+                <FormLabel>{t("labels.phone")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="+1 234 567 8900" {...field} />
+                  <Input placeholder={t("placeholders.phone")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -165,13 +173,9 @@ export const PersonalInfoForm = ({
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{t("labels.email")}</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="john@example.com"
-                    type="email"
-                    {...field}
-                  />
+                  <Input placeholder={t("placeholders.email")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -183,9 +187,9 @@ export const PersonalInfoForm = ({
             name="telegram"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Telegram (Optional)</FormLabel>
+                <FormLabel>{t("labels.telegram")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="@username" {...field} />
+                  <Input placeholder={t("placeholders.telegram")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -197,9 +201,9 @@ export const PersonalInfoForm = ({
             name="github"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>GitHub (Optional)</FormLabel>
+                <FormLabel>{t("labels.github")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="https://github.com/username" {...field} />
+                  <Input placeholder={t("placeholders.github")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -211,12 +215,9 @@ export const PersonalInfoForm = ({
             name="behance"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Behance (Optional)</FormLabel>
+                <FormLabel>{t("labels.behance")}</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="https://behance.net/username"
-                    {...field}
-                  />
+                  <Input placeholder={t("placeholders.behance")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -228,12 +229,9 @@ export const PersonalInfoForm = ({
             name="dribbble"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Dribbble (Optional)</FormLabel>
+                <FormLabel>{t("labels.dribbble")}</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="https://dribbble.com/username"
-                    {...field}
-                  />
+                  <Input placeholder={t("placeholders.dribbble")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -245,10 +243,10 @@ export const PersonalInfoForm = ({
             name="adobePortfolio"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Adobe Portfolio (Optional)</FormLabel>
+                <FormLabel>{t("labels.adobePortfolio")}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="https://portfolio.adobe.com/username"
+                    placeholder={t("placeholders.adobePortfolio")}
                     {...field}
                   />
                 </FormControl>

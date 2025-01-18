@@ -16,6 +16,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useFieldArray, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
@@ -27,6 +28,8 @@ export const WorkExperienceForm = ({
   resumeData,
   setResumeData,
 }: EditorFormProps) => {
+  const t = useTranslations("Form");
+
   const form = useForm<WorkExperienceValues>({
     resolver: zodResolver(workExperienceSchema),
     defaultValues: {
@@ -73,9 +76,11 @@ export const WorkExperienceForm = ({
   return (
     <div className="mx-auto max-w-xl space-y-6">
       <div className="space-y-1.5 text-center">
-        <h2 className="text-2xl font-semibold">Work experience</h2>
+        <h2 className="text-2xl font-semibold">
+          {t("steps.workExperience.title")}
+        </h2>
         <p className="text-sm text-muted-foreground">
-          Add as many work experiences as you like.
+          {t("steps.workExperience.description")}
         </p>
       </div>
       <Form {...form}>
@@ -115,7 +120,7 @@ export const WorkExperienceForm = ({
                 })
               }
             >
-              Add work experience
+              {t("workExperience.add")}
             </Button>
           </div>
         </form>

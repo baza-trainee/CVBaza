@@ -6,22 +6,46 @@ import { SkillsForm } from "./forms/skills-form";
 import { SummaryForm } from "./forms/summary-form";
 import { WorkExperienceForm } from "./forms/work-experience-form";
 
+export type StepKey =
+  | "generalInfo"
+  | "personalInfo"
+  | "workExperience"
+  | "education"
+  | "skills"
+  | "summary";
+
 export const steps: {
-  title: string;
+  titleKey: StepKey;
   component: React.ComponentType<EditorFormProps>;
   key: string;
 }[] = [
-  { title: "General info", component: GeneralInfoForm, key: "general-info" },
-  { title: "Personal info", component: PersonalInfoForm, key: "personal-info" },
   {
-    title: "Work experience",
+    titleKey: "generalInfo",
+    component: GeneralInfoForm,
+    key: "general-info",
+  },
+  {
+    titleKey: "personalInfo",
+    component: PersonalInfoForm,
+    key: "personal-info",
+  },
+  {
+    titleKey: "workExperience",
     component: WorkExperienceForm,
     key: "work-experience",
   },
-  { title: "Education", component: EducationForm, key: "education" },
-  { title: "Skills", component: SkillsForm, key: "skills" },
   {
-    title: "Summary",
+    titleKey: "education",
+    component: EducationForm,
+    key: "education",
+  },
+  {
+    titleKey: "skills",
+    component: SkillsForm,
+    key: "skills",
+  },
+  {
+    titleKey: "summary",
     component: SummaryForm,
     key: "summary",
   },

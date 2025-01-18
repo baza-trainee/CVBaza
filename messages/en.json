@@ -4,19 +4,106 @@
   },
   "Auth": {
     "errors": {
-      "oauthAccountNotLinked": "This email is already associated with a different provider. Please sign in with the correct provider.",
-      "useCredentials": "This email ({email}) is registered with email/password. Please sign in with your password.",
-      "credentialsSignin": "Invalid email or password.",
-      "userNotFound": "No account found with this email. Please check your email or register.",
-      "invalidCredentials": "Invalid password. Please try again.",
-      "emailExists": "This email is already registered with password. Please sign in with email and password.",
+      "oauthAccountNotLinked": "This email is already associated with another provider. Please sign in using the appropriate provider.",
+      "emailExists": "This email is already registered with a password. Please sign in using your email and password.",
       "default": "An error occurred during authentication. Please try again."
     }
   },
   "404Page": {
     "homePage": "/en",
     "text": "404",
-    "desc": "It looks like we can't find the page you're looking for. Return to the main page.",
-    "buttonText": "To the main page"
+    "desc": "It seems we can't find the page you're looking for. Return to homepage.",
+    "buttonText": "Go to Homepage"
+  },
+  "Form": {
+    "validation": {
+      "required": "This field is required",
+      "titleRequired": "Title is required",
+      "templateRequired": "Please select a template",
+      "nameRequired": "Name is required",
+      "professionRequired": "Profession is required",
+      "photoRequired": "Photo is required",
+      "locationRequired": "Location is required",
+      "phoneRequired": "Phone is required",
+      "invalidEmail": "Invalid email address",
+      "invalidUrl": "Invalid URL address",
+      "positionRequired": "Position is required",
+      "companyRequired": "Company is required",
+      "startDateRequired": "Start date is required",
+      "endDateRequired": "End date is required",
+      "descriptionRequired": "Description is required"
+    },
+    "steps": {
+      "generalInfo": {
+        "title": "General Info",
+        "description": "This information will be displayed on your resume."
+      },
+      "personalInfo": {
+        "title": "Personal Info",
+        "description": "Fill in your personal information"
+      },
+      "workExperience": {
+        "title": "Work Experience",
+        "description": "Add your work experience"
+      },
+      "education": {
+        "title": "Education",
+        "description": "Add your educational background"
+      },
+      "skills": {
+        "title": "Skills",
+        "description": "List your professional skills"
+      },
+      "summary": {
+        "title": "Summary",
+        "description": "Write a brief professional summary"
+      }
+    },
+    "labels": {
+      "name": "Full Name",
+      "profession": "Profession",
+      "photo": "Photo",
+      "location": "Location",
+      "phone": "Phone",
+      "email": "Email",
+      "telegram": "Telegram (Optional)",
+      "github": "GitHub (Optional)",
+      "behance": "Behance (Optional)",
+      "dribbble": "Dribbble (Optional)",
+      "adobePortfolio": "Adobe Portfolio (Optional)",
+      "position": "Position",
+      "company": "Company",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "description": "Description",
+      "workExperience": "Work Experience"
+    },
+    "placeholders": {
+      "name": "John Doe",
+      "profession": "Software Engineer",
+      "location": "New York, USA",
+      "phone": "+1 234 567 8900",
+      "email": "john@example.com",
+      "telegram": "@username",
+      "github": "https://github.com/username",
+      "behance": "https://behance.net/username",
+      "dribbble": "https://dribbble.com/username",
+      "adobePortfolio": "https://portfolio.adobe.com/username",
+      "position": "Senior Software Engineer",
+      "company": "Company Name",
+      "startDate": "January 2020",
+      "endDate": "Present",
+      "description": "Describe your responsibilities and achievements"
+    },
+    "workExperience": {
+      "endDateDescription": "Leave end date empty if you are currently working here",
+      "remove": "Remove",
+      "add": "Add work experience"
+    },
+    "navigation": {
+      "previousStep": "Previous step",
+      "nextStep": "Next step",
+      "togglePreview": "Toggle preview"
+    }
   }
 }

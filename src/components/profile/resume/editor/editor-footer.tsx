@@ -1,4 +1,5 @@
 import { FileUserIcon, PenLineIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { steps } from "./steps";
 
@@ -16,6 +17,8 @@ export const EditorFooter = ({
   showSmResumePreview,
   setShowSmResumePreview,
 }: FooterProps) => {
+  const t = useTranslations("Form.navigation");
+
   const previousStep = steps.find(
     (_, index) => steps[index + 1]?.key === currentStep
   )?.key;
@@ -35,14 +38,14 @@ export const EditorFooter = ({
             }
             disabled={!previousStep}
           >
-            Previous step
+            {t("previousStep")}
           </Button>
           <Button
             onClick={nextStep ? () => setCurrentStep(nextStep) : undefined}
             disabled={!nextStep}
             className="transition-colors hover:bg-blue-100/50"
           >
-            Next step
+            {t("nextStep")}
           </Button>
         </div>
         <Button
@@ -50,11 +53,13 @@ export const EditorFooter = ({
           size="icon"
           onClick={() => setShowSmResumePreview(!showSmResumePreview)}
           className="xl:hidden"
-          title={
-            showSmResumePreview ? "Show input form" : "Show resume preview"
-          }
+          title={t("togglePreview")}
         >
-          {showSmResumePreview ? <PenLineIcon /> : <FileUserIcon />}
+          {showSmResumePreview ? (
+            <PenLineIcon className="h-4 w-4" />
+          ) : (
+            <FileUserIcon className="h-4 w-4" />
+          )}
         </Button>
       </div>
     </footer>
