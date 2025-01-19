@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { format, parseISO } from "date-fns";
 import { Mail, MapPin, Phone } from "lucide-react";
 import {
   FaDribbble,
@@ -13,6 +14,15 @@ import { SiAdobeacrobatreader } from "react-icons/si";
 import { Github } from "@/components/icons/github";
 import { Linkedin } from "@/components/icons/linkedin";
 import { ResumeData } from "@/types/resume";
+
+const formatDate = (date: string) => {
+  if (!date) return "";
+  try {
+    return format(parseISO(date), "MMM yyyy");
+  } catch {
+    return date;
+  }
+};
 
 const SectionTitle = ({ title }: { title: string }) => {
   return <h3 className="text-lg font-bold text-blue-800">{title}</h3>;
@@ -197,17 +207,21 @@ export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
               <div className="space-y-6">
                 {data.workExperiences.slice(0, 2).map((exp) => (
                   <div key={exp.id}>
-                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between">
-                      <h4 className="font-medium">{exp.position}</h4>
+                    <div className="flex flex-col sm:items-start sm:justify-between">
+                      <h4 className="whitespace-nowrap font-medium">
+                        {exp.company}
+                      </h4>
+                      <p className="mb-1 text-sm font-[500] text-gray-600">
+                        {exp.position}
+                      </p>
                       {exp.company && (
-                        <span className="mt-1 text-sm text-gray-500 sm:mt-0">
-                          {exp.startDate} - {exp.endDate}
+                        <span className="mt-1 text-[12px] text-gray-700 sm:mt-0">
+                          {formatDate(exp.startDate as string)} -{" "}
+                          {formatDate(exp.endDate as string)}
                         </span>
                       )}
                     </div>
-                    <p className="mb-1 text-sm font-[500] text-gray-600">
-                      {exp.company}
-                    </p>
+
                     <p className="text-sm text-gray-500">{exp.description}</p>
                   </div>
                 ))}
@@ -216,20 +230,23 @@ export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
           )}
 
           {/* Education Section */}
-          {data.education && (
+          {data.educations && data.educations.length > 0 && (
             <div className="relative z-0 mb-8 border-l border-l-blue-800 pl-6">
-              <LuGraduationCap className="absolute left-[-1rem] top-0 z-30 rounded-full bg-blue-800 text-3xl text-white" />
+              <LuGraduationCap className="absolute left-[-1rem] top-0 z-30 rounded-full bg-blue-800 p-1 text-3xl text-white" />
               <SectionTitle title="Education" />
               <FaRegCircle className="absolute left-[-0.5rem] top-[50%] bg-white text-sm" />
               <hr className="mb-4 border border-blue-800" />
-              <div className="space-y-4">
-                {data.education.map((edu) => (
-                  <div key={edu.id}>
-                    <h4 className="font-medium">{edu.degree}</h4>
-                    <p className="text-sm text-gray-600">{edu.institution}</p>
-                    <p className="text-sm text-gray-500">
-                      {edu.startDate} - {edu.endDate}
-                    </p>
+              <div className="space-y-6">
+                {data.educations.map((edu, i) => (
+                  <div key={i}>
+                    <div className="flex flex-col sm:items-start sm:justify-between">
+                      <h4 className="font-medium">{edu.institution}</h4>
+                      <p className="text-sm text-gray-600">{edu.degree}</p>
+                      <span className="mt-1 text-[12px] text-gray-700 sm:mt-0">
+                        {formatDate(edu.startDate as string)} -{" "}
+                        {formatDate(edu.endDate as string)}
+                      </span>
+                    </div>
                   </div>
                 ))}
               </div>

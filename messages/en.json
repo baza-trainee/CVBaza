@@ -76,7 +76,8 @@
       "startDate": "Start Date",
       "endDate": "End Date",
       "description": "Description",
-      "workExperience": "Work Experience"
+      "workExperience": "Work Experience",
+      "education": "Education"
     },
     "placeholders": {
       "name": "John Doe",
@@ -99,6 +100,31 @@
       "endDateDescription": "Leave end date empty if you are currently working here",
       "remove": "Remove",
       "add": "Add work experience"
+    },
+    "education": {
+      "add": "Add education",
+      "remove": "Remove"
+    },
+    "fields": {
+      "name": "Full Name",
+      "profession": "Profession",
+      "photo": "Photo",
+      "location": "Location",
+      "phone": "Phone",
+      "email": "Email",
+      "telegram": "Telegram (Optional)",
+      "github": "GitHub (Optional)",
+      "behance": "Behance (Optional)",
+      "dribbble": "Dribbble (Optional)",
+      "adobePortfolio": "Adobe Portfolio (Optional)",
+      "position": "Position",
+      "company": "Company",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "description": "Description",
+      "workExperience": "Work Experience",
+      "degree": "Degree",
+      "institution": "Institution"
     },
     "navigation": {
       "previousStep": "Previous step",

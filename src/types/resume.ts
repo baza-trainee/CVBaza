@@ -1,10 +1,8 @@
 export interface Education {
-  id: number;
-  institution: string;
-  degree: string;
-  startDate: string;
-  endDate: string;
-  description: string;
+  institution?: string;
+  degree?: string;
+  startDate?: string;
+  endDate?: string;
 }
 
 export interface WorkExperience {
@@ -37,7 +35,7 @@ export interface ResumeData {
   adobePortfolio?: string;
   photo: string;
   skills: string[];
-  education: Education[];
+  educations: Education[];
   workExperiences: WorkExperience[];
   languages: Language[];
   summary: string;
