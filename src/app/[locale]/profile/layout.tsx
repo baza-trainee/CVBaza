@@ -35,7 +35,7 @@ export default function ProfileLayout({
   // }
 
   return (
-    <div className="flex w-full pt-10">
+    <div className="flex w-full pb-[120px] pt-10">
       <HorizontalSidebar />
       <Sidebar lng={locale} />
       <div className="w-full overflow-hidden">{children}</div>
