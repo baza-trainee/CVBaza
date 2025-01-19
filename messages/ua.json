@@ -76,7 +76,8 @@
       "startDate": "Дата початку",
       "endDate": "Дата закінчення",
       "description": "Опис",
-      "workExperience": "Досвід роботи"
+      "workExperience": "Досвід роботи",
+      "education": "Освіта"
     },
     "placeholders": {
       "name": "Джон Доу",
@@ -96,9 +97,34 @@
       "description": "Опишіть ваші обов'язки та досягнення"
     },
     "workExperience": {
-      "endDateDescription": "Залиште дату закінчення порожньою, якщо ви все ще працюєте тут",
+      "endDateDescription": "Залиште дату закінчення порожньою, якщо ви зараз тут працюєте",
       "remove": "Видалити",
       "add": "Додати досвід роботи"
+    },
+    "education": {
+      "add": "Додати освіту",
+      "remove": "Видалити"
+    },
+    "fields": {
+      "name": "Повне ім'я",
+      "profession": "Професія",
+      "photo": "Фото",
+      "location": "Місцезнаходження",
+      "phone": "Телефон",
+      "email": "Електронна пошта",
+      "telegram": "Telegram (Необов'язково)",
+      "github": "GitHub (Необов'язково)",
+      "behance": "Behance (Необов'язково)",
+      "dribbble": "Dribbble (Необов'язково)",
+      "adobePortfolio": "Adobe Portfolio (Необов'язково)",
+      "position": "Посада",
+      "company": "Компанія",
+      "startDate": "Дата початку",
+      "endDate": "Дата закінчення",
+      "description": "Опис",
+      "workExperience": "Досвід роботи",
+      "degree": "Ступінь",
+      "institution": "Навчальний заклад"
     },
     "navigation": {
       "previousStep": "Попередній крок",
