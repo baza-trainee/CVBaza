@@ -85,7 +85,7 @@
       "location": "New York, USA",
       "phone": "+1 234 567 8900",
       "email": "john@example.com",
-      "telegram": "@username",
+      "telegram": "https://t.me/username",
       "github": "https://github.com/username",
       "behance": "https://behance.net/username",
       "dribbble": "https://dribbble.com/username",

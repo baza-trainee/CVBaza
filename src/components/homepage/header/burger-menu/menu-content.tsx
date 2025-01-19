@@ -1,8 +1,6 @@
+import React from "react";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
-
-import React from "react";
-
 import { Link, usePathname } from "@/i18n/routing";
 
 export const MenuContent = ({ closeMenu }: { closeMenu: () => void }) => {
@@ -14,12 +12,12 @@ export const MenuContent = ({ closeMenu }: { closeMenu: () => void }) => {
     { name: "Мій профіль", href: "/profile/dashboard" },
   ];
   const createAvatar = (name: string) => {
+    if (!name) return "AA";
     const names = name.split(" ");
     if (names.length > 1) {
       return `${names[0][0].toLocaleUpperCase()}${names[1][0].toLocaleUpperCase()}`;
-    } else if (names.length === 0) return `${name[0][0].toLocaleUpperCase()}`;
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    else "AA";
+    }
+    return names[0][0].toLocaleUpperCase();
   };
   const handleSignOut = () => {
     signOut({ callbackUrl: "/" });
@@ -29,12 +27,12 @@ export const MenuContent = ({ closeMenu }: { closeMenu: () => void }) => {
   return (
     <>
       {pathname.split("/")[1] === "profile" && status === "authenticated" ? (
-        <div className="flex size-full mt-3 flex-col gap-7 px-7 pt-20 pb-16">
-          <div className="flex items-center justify-center ms:justify-start gap-4 ">
-            <div className="flex px-5 py-4 rounded-full bg-white">
+        <div className="mt-3 flex size-full flex-col gap-7 px-7 pb-16 pt-20">
+          <div className="flex items-center justify-center gap-4 ms:justify-start">
+            <div className="flex rounded-full bg-white px-5 py-4">
               <p className="text-3xl">{createAvatar(session!.user!.name!)}</p>
             </div>
-            <p className="text-3xl font-semibold truncate text-wrap text-white">
+            <p className="truncate text-wrap text-3xl font-semibold text-white">
               {session.user.name}
             </p>
           </div>
@@ -42,26 +40,26 @@ export const MenuContent = ({ closeMenu }: { closeMenu: () => void }) => {
             <Link href="/profile/dashboard">
               <p
                 onClick={closeMenu}
-                className="text-3xl text-center ms:text-start font-semibold text-white"
+                className="text-center text-3xl font-semibold text-white ms:text-start"
               >
                 Аккаунт
               </p>
             </Link>
             <p
               onClick={handleSignOut}
-              className="text-3xl text-center ms:text-start font-semibold text-white"
+              className="text-center text-3xl font-semibold text-white ms:text-start"
             >
               Вийти
             </p>
           </div>
         </div>
       ) : (
-        <div className="flex mt-3 flex-col gap-7 px-7 pt-20 pb-2">
+        <div className="mt-3 flex flex-col gap-7 px-7 pb-2 pt-20">
           {headerLinks.map((l) => (
             <Link key={l.name} href={l.href}>
               <p
                 onClick={closeMenu}
-                className="text-3xl text-center ms:text-start font-semibold text-white"
+                className="text-center text-3xl font-semibold text-white ms:text-start"
               >
                 {l.name}
               </p>

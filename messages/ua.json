@@ -85,7 +85,7 @@
       "location": "Київ, Україна",
       "phone": "+380 XX XXX XXXX",
       "email": "john@example.com",
-      "telegram": "@username",
+      "telegram": "https://t.me/username",
       "github": "https://github.com/username",
       "behance": "https://behance.net/username",
       "dribbble": "https://dribbble.com/username",

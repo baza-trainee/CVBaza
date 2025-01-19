@@ -1,10 +1,8 @@
 "use client";
-import { signOut } from "next-auth/react";
-
-import { useState } from "react";
 
 import Image from "next/image";
-
+import { useState } from "react";
+import { signOut } from "next-auth/react";
 import { SettingIcon } from "@/components/IconsComponents/setting-icon";
 import {
   DropdownMenu,
@@ -16,18 +14,18 @@ import { Link } from "@/i18n/routing";
 export const ProfileInfo = ({ name }: { name: string }) => {
   const [open, setOpen] = useState(false);
   const createAvatar = (name: string) => {
+    if (!name) return "AA";
     const names = name.split(" ");
     if (names.length > 1) {
       return `${names[0][0].toLocaleUpperCase()}${names[1][0].toLocaleUpperCase()}`;
-    } else if (names.length === 0) return `${name[0][0].toLocaleUpperCase()}`;
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    else "AA";
+    }
+    return names[0][0].toLocaleUpperCase();
   };
   return (
     <>
       <DropdownMenu onOpenChange={(state) => setOpen(state)} modal={false}>
-        <div className="hidden lg:flex gap-3 justify-center items-center">
-          <div className="flex px-5 py-4 rounded-full bg-blue-50">
+        <div className="hidden items-center justify-center gap-3 lg:flex">
+          <div className="flex rounded-full bg-blue-50 px-5 py-4">
             <p className="text-body">{createAvatar(name)}</p>
           </div>
           <p className="text-btn">{name}</p>
@@ -36,10 +34,10 @@ export const ProfileInfo = ({ name }: { name: string }) => {
           </DropdownMenuTrigger>
         </div>
         <DropdownMenuContent sideOffset={20} align="end" alignOffset={-10}>
-          <div className="flex w-full flex-col gap-5 px-6 py-[1.625rem] ">
+          <div className="flex w-full flex-col gap-5 px-6 py-[1.625rem]">
             <Link href="/profile/dashboard">
               <div className="flex gap-2">
-                <div className="relative w-6 h-6">
+                <div className="relative h-6 w-6">
                   <Image src="/icons/account.svg" fill alt="account" />
                 </div>
 
@@ -47,10 +45,10 @@ export const ProfileInfo = ({ name }: { name: string }) => {
               </div>
             </Link>
 
-            <span className="w-full h-[1px] bg-black-100"></span>
+            <span className="h-[1px] w-full bg-black-100"></span>
             <button onClick={() => signOut({ callbackUrl: "/" })}>
               <div className="flex gap-2">
-                <div className="relative w-6 h-6">
+                <div className="relative h-6 w-6">
                   <Image src="/icons/exit.svg" fill alt="exit" />
                 </div>
                 <p className="text-body">Вийти</p>
