@@ -23,6 +23,7 @@ export interface Language {
 }
 
 export interface ResumeData {
+  id: number;
   title: string;
   name: string;
   profession: string;
@@ -35,13 +36,14 @@ export interface ResumeData {
   telegram?: string;
   dribbble?: string;
   adobePortfolio?: string;
-  photo: string;
+  photo?: string;
   skills: string[];
   education: Education[];
   workExperiences: WorkExperience[];
   languages: Language[];
   summary: string;
   template: string;
+  lastUpdated: string;
 }
 
 export interface EditorFormProps {
