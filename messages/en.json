@@ -131,5 +131,8 @@
       "nextStep": "Next step",
       "togglePreview": "Toggle preview"
     }
+  },
+  "CoverLetter": {
+    "title": "Cover letters"
   }
 }

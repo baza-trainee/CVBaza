@@ -1,5 +1,11 @@
 import Image from "next/image";
-import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+} from "react";
 import { MenuContent } from "./menu-content";
 
 export const BurgerMenu = ({
@@ -10,18 +16,37 @@ export const BurgerMenu = ({
   setOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
   const layerRef = useRef<HTMLDivElement>(null);
-  const closeMenu = () => setOpen(false);
+  // const closeMenu = () => setOpen(false);
+  // useEffect(() => {
+  //   layerRef.current?.addEventListener("click", closeMenu);
+  //   if (open) {
+  //     document.body.style.overflow = "hidden";
+  //   } else {
+  //     document.body.style.overflowY = "auto";
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  //   return () => layerRef.current!.removeEventListener("click", closeMenu);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [open]);
+
+  const closeMenu = useCallback(() => {
+    setOpen(false);
+  }, [setOpen]);
+
   useEffect(() => {
-    layerRef.current?.addEventListener("click", closeMenu);
+    const currentLayer = layerRef.current;
     if (open) {
       document.body.style.overflow = "hidden";
+      currentLayer?.addEventListener("click", closeMenu);
     } else {
       document.body.style.overflowY = "auto";
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    return () => layerRef.current!.removeEventListener("click", closeMenu);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open]);
+    return () => {
+      document.body.style.overflowY = "auto";
+      currentLayer?.removeEventListener("click", closeMenu);
+    };
+  }, [open, closeMenu]);
+
   return (
     <>
       <div
