@@ -1,10 +1,20 @@
 import Image from "next/image";
+import { format, parseISO } from "date-fns";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { FaBehance, FaDribbble, FaTelegram } from "react-icons/fa";
 import { SiAdobeacrobatreader } from "react-icons/si";
 import { Github } from "@/components/icons/github";
 import { Linkedin } from "@/components/icons/linkedin";
 import { ResumeData } from "@/types/resume";
+
+const formatDate = (date: string) => {
+  if (!date) return "";
+  try {
+    return format(parseISO(date), "MMM yyyy");
+  } catch {
+    return date;
+  }
+};
 
 const SectionTitle = ({ title }: { title: string }) => {
   return (
@@ -178,16 +188,19 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
         {/* Right Column */}
         <div className="flex-1 space-y-8 p-4">
           {/* Experience Section */}
-          {data.workExperiences?.length > 0 && (
+          {data.workExperiences?.length && (
             <div>
               <SectionTitle title="Work Experience" />
               <div className="space-y-4">
                 {data.workExperiences.map((exp, index) => (
                   <div key={index} className="space-y-1">
                     <h4 className="font-bold">{exp.position}</h4>
-                    <p className="text-sm text-gray-600">
-                      {exp.company} | {exp.startDate} - {exp.endDate}
-                    </p>
+                    {exp.company && (
+                      <p className="text-sm text-gray-600">
+                        {exp.company} | {formatDate(exp.startDate as string)} -{" "}
+                        {formatDate(exp.endDate as string)}
+                      </p>
+                    )}
                     <p className="text-sm">{exp.description}</p>
                   </div>
                 ))}
@@ -196,16 +209,20 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
           )}
 
           {/* Education Section */}
-          {data.education?.length > 0 && (
+          {data.educations?.length > 0 && (
             <div>
               <SectionTitle title="Education" />
               <div className="space-y-4">
-                {data.education.map((edu, index) => (
+                {data.educations.map((edu, index) => (
                   <div key={index} className="space-y-1">
                     <h4 className="font-bold">{edu.degree}</h4>
-                    <p className="text-sm text-gray-600">
-                      {edu.institution} | {edu.startDate} - {edu.endDate}
-                    </p>
+                    {edu.institution && (
+                      <p className="text-sm text-gray-600">
+                        {edu.institution} |{" "}
+                        {formatDate(edu.startDate as string)} -{" "}
+                        {formatDate(edu.endDate as string)}
+                      </p>
+                    )}
                   </div>
                 ))}
               </div>

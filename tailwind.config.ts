@@ -8,6 +8,7 @@ export default {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: ["stroke-blue-700", "fill-blue-700"],
   theme: {
     extend: {
       padding: {

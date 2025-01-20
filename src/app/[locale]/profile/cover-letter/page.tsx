@@ -1,5 +1,7 @@
+import { CoverLetter } from "@/components/profile/cover-letter";
+
 const CoverLetterPage = () => {
-  return <div>CoverLetter</div>;
+  return <CoverLetter />;
 };
 
 export default CoverLetterPage;

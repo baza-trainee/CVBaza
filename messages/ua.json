@@ -14,5 +14,122 @@
     "text": "404",
     "desc": "Схоже, ми не зможемо знайти потрібну вам сторінку. Поверніться на головну.",
     "buttonText": "На головну"
+  },
+  "Form": {
+    "validation": {
+      "required": "Це поле обов'язкове",
+      "titleRequired": "Назва обов'язкова",
+      "templateRequired": "Будь ласка, оберіть шаблон",
+      "nameRequired": "Ім'я обов'язкове",
+      "professionRequired": "Професія обов'язкова",
+      "photoRequired": "Фото обов'язкове",
+      "locationRequired": "Місцезнаходження обов'язкове",
+      "phoneRequired": "Телефон обов'язковий",
+      "invalidEmail": "Невірна адреса електронної пошти",
+      "invalidUrl": "Невірна URL адреса",
+      "positionRequired": "Посада обов'язкова",
+      "companyRequired": "Компанія обов'язкова",
+      "startDateRequired": "Дата початку обов'язкова",
+      "endDateRequired": "Дата закінчення обов'язкова",
+      "descriptionRequired": "Опис обов'язковий"
+    },
+    "steps": {
+      "generalInfo": {
+        "title": "Загальна інформація",
+        "description": "Ця інформація буде відображена у вашому резюме."
+      },
+      "personalInfo": {
+        "title": "Особиста інформація",
+        "description": "Заповніть вашу особисту інформацію"
+      },
+      "workExperience": {
+        "title": "Досвід роботи",
+        "description": "Додайте ваш досвід роботи"
+      },
+      "education": {
+        "title": "Освіта",
+        "description": "Додайте вашу освіту"
+      },
+      "skills": {
+        "title": "Навички",
+        "description": "Перелічіть ваші професійні навички"
+      },
+      "summary": {
+        "title": "Резюме",
+        "description": "Напишіть коротке професійне резюме"
+      }
+    },
+    "labels": {
+      "name": "Повне ім'я",
+      "profession": "Професія",
+      "photo": "Фото",
+      "location": "Місцезнаходження",
+      "phone": "Телефон",
+      "email": "Електронна пошта",
+      "telegram": "Telegram (Необов'язково)",
+      "github": "GitHub (Необов'язково)",
+      "behance": "Behance (Необов'язково)",
+      "dribbble": "Dribbble (Необов'язково)",
+      "adobePortfolio": "Adobe Portfolio (Необов'язково)",
+      "position": "Посада",
+      "company": "Компанія",
+      "startDate": "Дата початку",
+      "endDate": "Дата закінчення",
+      "description": "Опис",
+      "workExperience": "Досвід роботи",
+      "education": "Освіта"
+    },
+    "placeholders": {
+      "name": "Джон Доу",
+      "profession": "Інженер програмного забезпечення",
+      "location": "Київ, Україна",
+      "phone": "+380 XX XXX XXXX",
+      "email": "john@example.com",
+      "telegram": "https://t.me/username",
+      "github": "https://github.com/username",
+      "behance": "https://behance.net/username",
+      "dribbble": "https://dribbble.com/username",
+      "adobePortfolio": "https://portfolio.adobe.com/username",
+      "position": "Старший інженер програмного забезпечення",
+      "company": "Назва компанії",
+      "startDate": "Січень 2020",
+      "endDate": "Теперішній час",
+      "description": "Опишіть ваші обов'язки та досягнення"
+    },
+    "workExperience": {
+      "endDateDescription": "Залиште дату закінчення порожньою, якщо ви зараз тут працюєте",
+      "remove": "Видалити",
+      "add": "Додати досвід роботи"
+    },
+    "education": {
+      "add": "Додати освіту",
+      "remove": "Видалити"
+    },
+    "fields": {
+      "name": "Повне ім'я",
+      "profession": "Професія",
+      "photo": "Фото",
+      "location": "Місцезнаходження",
+      "phone": "Телефон",
+      "email": "Електронна пошта",
+      "telegram": "Telegram (Необов'язково)",
+      "github": "GitHub (Необов'язково)",
+      "behance": "Behance (Необов'язково)",
+      "dribbble": "Dribbble (Необов'язково)",
+      "adobePortfolio": "Adobe Portfolio (Необов'язково)",
+      "position": "Посада",
+      "company": "Компанія",
+      "startDate": "Дата початку",
+      "endDate": "Дата закінчення",
+      "description": "Опис",
+      "workExperience": "Досвід роботи",
+      "degree": "Ступінь",
+      "institution": "Навчальний заклад"
+    },
+    "navigation": {
+      "previousStep": "Попередній крок",
+      "nextStep": "Наступний крок",
+      "togglePreview": "Перемкнути перегляд"
+    }
   }
 }
