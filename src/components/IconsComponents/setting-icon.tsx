@@ -3,7 +3,7 @@ import React from "react";
 export const SettingIcon = ({ open }: { open: boolean }) => {
   return (
     <svg
-      className={`stroke-black-500 hover:stroke-blue-500 hover:fill-blue-500 ${open && "fill-blue-700 stroke-blue-700"} `}
+      className={`stroke-black-500 hover:fill-blue-500 hover:stroke-blue-500 ${open && "fill-blue-700 stroke-blue-700"} `}
       width="24"
       height="24"
       viewBox="0 0 24 24"

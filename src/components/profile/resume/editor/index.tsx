@@ -14,7 +14,6 @@ export const ResumeEditor = () => {
   const currentStep = searchParams.get("step") || steps[0].key;
 
   const [showSmResumePreview, setShowSmResumePreview] = useState(false);
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [resumeData, setResumeData] = useState<any>({});
 

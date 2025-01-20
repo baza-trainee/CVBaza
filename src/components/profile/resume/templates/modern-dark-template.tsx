@@ -169,8 +169,8 @@ export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
             <div>
               <SectionTitle title="Languages" />
               <div className="mt-4 space-y-2">
-                {data.languages.map((language) => (
-                  <div key={language.id}>
+                {data.languages.map((language, i) => (
+                  <div key={i}>
                     <div className="flex items-center justify-between">
                       <span className="text-sm">{language.name}</span>
                       <span className="text-sm text-gray-600">

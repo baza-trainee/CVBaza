@@ -1,7 +1,5 @@
-import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
-
 import Image from "next/image";
-
+import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { MenuContent } from "./menu-content";
 
 export const BurgerMenu = ({
@@ -27,7 +25,7 @@ export const BurgerMenu = ({
   return (
     <>
       <div
-        className="block lg:hidden transition-all ease-out duration-300  absolute top-0 z-50 w-full ms:w-[70%]  md:w-[50%]  h-screen bg-blue-900"
+        className="absolute top-0 z-50 block h-screen w-full bg-blue-900 transition-all duration-300 ease-out ms:w-[70%] md:w-[50%] lg:hidden"
         style={
           open
             ? { transform: "translateX(0)", opacity: 1 }
@@ -35,7 +33,10 @@ export const BurgerMenu = ({
         }
       >
         <MenuContent closeMenu={closeMenu} />
-        <span className="absolute block right-3 top-4 size-10 text-white" onClick={closeMenu}>
+        <span
+          className="absolute right-3 top-4 block size-10 text-white"
+          onClick={closeMenu}
+        >
           <div className="relative size-full fill-white">
             <Image src={"/icons/cross.svg"} fill alt="cross" />
           </div>
@@ -43,7 +44,7 @@ export const BurgerMenu = ({
       </div>
       <div
         ref={layerRef}
-        className="fixed top-0 z-40 w-screen h-screen bg-[rgba(255, 255, 255, 0.7)] backdrop-blur"
+        className="bg-[rgba(255, 255, 255, 0.7)] fixed top-0 z-40 h-screen w-screen backdrop-blur"
         style={open ? { display: "block" } : { display: "none" }}
       ></div>
     </>

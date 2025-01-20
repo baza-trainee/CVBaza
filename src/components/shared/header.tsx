@@ -1,10 +1,8 @@
 "use client";
-import { useState } from "react";
 
 import Image from "next/image";
-
+import { useState } from "react";
 import { Link } from "@/i18n/routing";
-
 import { BurgerMenu } from "../homepage/header/burger-menu/burger-menu";
 import { ProfileButtonSwitchWidget } from "../homepage/header/switch-widget";
 
@@ -27,15 +25,24 @@ export const Header = () => {
               </Link>
             </li>
             {headerLinks.map((l) => (
-              <Link className="hidden lg:inline-block" key={l.name} href={l.href}>
+              <Link
+                className="hidden lg:inline-block"
+                key={l.name}
+                href={l.href}
+              >
                 <li className="flex h-full items-center justify-center">
-                  <p className="font-sans text-body text-black-500 3xl:text-body-sm">{l.name}</p>
+                  <p className="font-sans text-body text-black-500 3xl:text-body-sm">
+                    {l.name}
+                  </p>
                 </li>
               </Link>
             ))}
           </ul>
           <ProfileButtonSwitchWidget />
-          <div onClick={() => setOpen(true)} className="relative block size-12 lg:hidden">
+          <div
+            onClick={() => setOpen(true)}
+            className="relative block size-12 lg:hidden"
+          >
             <Image src="/icons/hamburger.svg" fill alt="hamburger" />
           </div>
         </div>

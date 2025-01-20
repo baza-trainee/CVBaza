@@ -6,7 +6,11 @@
     "errors": {
       "oauthAccountNotLinked": "This email is already associated with another provider. Please sign in using the appropriate provider.",
       "emailExists": "This email is already registered with a password. Please sign in using your email and password.",
-      "default": "An error occurred during authentication. Please try again."
+      "default": "An error occurred during authentication. Please try again.",
+      "useCredentials": "Please use email and password to sign in with {email}",
+      "credentialsSignin": "Invalid email or password",
+      "userNotFound": "User not found",
+      "invalidCredentials": "Invalid email or password"
     }
   },
   "404Page": {
@@ -31,7 +35,9 @@
       "companyRequired": "Company is required",
       "startDateRequired": "Start date is required",
       "endDateRequired": "End date is required",
-      "descriptionRequired": "Description is required"
+      "descriptionRequired": "Description is required",
+      "languageNameRequired": "Language name is required",
+      "languageLevelRequired": "Language level is required"
     },
     "steps": {
       "generalInfo": {
@@ -53,6 +59,10 @@
       "skills": {
         "title": "Skills",
         "description": "List your professional skills"
+      },
+      "languages": {
+        "title": "Languages",
+        "description": "Add languages you know"
       },
       "summary": {
         "title": "Summary",
@@ -77,7 +87,10 @@
       "endDate": "End Date",
       "description": "Description",
       "workExperience": "Work Experience",
-      "education": "Education"
+      "education": "Education",
+      "skills": "Skills",
+      "languageName": "Language",
+      "languageLevel": "Level"
     },
     "placeholders": {
       "name": "John Doe",
@@ -94,7 +107,9 @@
       "company": "Company Name",
       "startDate": "January 2020",
       "endDate": "Present",
-      "description": "Describe your responsibilities and achievements"
+      "description": "Describe your responsibilities and achievements",
+      "skills": "e.g. React.js, Node.js, graphic design, ...",
+      "languageLevel": "Select proficiency level"
     },
     "workExperience": {
       "endDateDescription": "Leave end date empty if you are currently working here",
@@ -103,6 +118,10 @@
     },
     "education": {
       "add": "Add education",
+      "remove": "Remove"
+    },
+    "languages": {
+      "add": "Add language",
       "remove": "Remove"
     },
     "fields": {
@@ -130,6 +149,9 @@
       "previousStep": "Previous step",
       "nextStep": "Next step",
       "togglePreview": "Toggle preview"
+    },
+    "descriptions": {
+      "skills": "Separate each skill with a comma."
     }
   }
 }
