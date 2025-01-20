@@ -175,10 +175,25 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
                 {data.skills.map((skill, index) => (
                   <span
                     key={index}
-                    className="rounded-full bg-gray-300 px-3 py-1 text-xs"
+                    className="rounded-md bg-gray-300 px-2 py-1 text-[13px]"
                   >
                     {skill}
                   </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Languages Section */}
+          {data.languages?.length > 0 && (
+            <div>
+              <SectionTitle title="Languages" />
+              <div className="space-y-2">
+                {data.languages.map((language, index) => (
+                  <div key={index} className="flex justify-between text-[13px]">
+                    <span>{language.name}</span>
+                    <span className="text-gray-600">{language.level}</span>
+                  </div>
                 ))}
               </div>
             </div>
@@ -188,7 +203,7 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
         {/* Right Column */}
         <div className="flex-1 space-y-8 p-4">
           {/* Experience Section */}
-          {data.workExperiences?.length && (
+          {data.workExperiences?.length ? (
             <div>
               <SectionTitle title="Work Experience" />
               <div className="space-y-4">
@@ -206,7 +221,7 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
                 ))}
               </div>
             </div>
-          )}
+          ) : null}
 
           {/* Education Section */}
           {data.educations?.length > 0 && (

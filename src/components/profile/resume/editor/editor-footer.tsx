@@ -33,6 +33,7 @@ export const EditorFooter = ({
         <div className="flex items-center gap-3 text-blue-600">
           <Button
             variant="secondary"
+            className="transition-colors hover:bg-blue-100/50"
             onClick={
               previousStep ? () => setCurrentStep(previousStep) : undefined
             }

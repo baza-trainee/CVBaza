@@ -1,8 +1,7 @@
 "use client";
+
 import { useSession } from "next-auth/react";
-
 import { usePathname } from "@/i18n/routing";
-
 import { AccountButton } from "./account-button";
 import { ProfileInfo } from "./profile-info";
 
