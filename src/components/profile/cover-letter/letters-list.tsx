@@ -10,12 +10,10 @@ const lettersList = [
 
 export const LettersList: FC = () => {
   return (
-    <div className="mt-9 flex">
+    <div className="mt-[36px] flex flex-wrap justify-between gap-[68px]">
       <CreateLetter />
       {lettersList.map((item) => (
-        <div key={item.title}>
-          <Letter title={item.title} />
-        </div>
+        <Letter title={item.title} key={item.title} />
       ))}
     </div>
   );
