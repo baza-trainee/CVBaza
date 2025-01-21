@@ -39,7 +39,6 @@ export interface ResumeData {
   languages: Language[];
   summary: string;
   template: string;
-  lastUpdated: string;
 }
 
 export interface IResume extends ResumeData {

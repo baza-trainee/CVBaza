@@ -6,10 +6,10 @@ import { useTranslations } from "next-intl";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export function AuthError() {
+  const t = useTranslations("Auth");
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
   const email = searchParams.get("email");
-  const t = useTranslations("Auth");
 
   if (!error) return null;
 

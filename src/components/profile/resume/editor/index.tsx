@@ -1,8 +1,9 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { templates } from "@/constants";
+import { useResumeData } from "@/hooks/use-resume-data";
 import { MobilePreview } from "../mobile-preview";
 import { ResumePreviewSection } from "../resume-preview";
 import { Breadcrumbs } from "./breadcrumbs";
@@ -12,21 +13,26 @@ import { steps } from "./steps";
 export const ResumeEditor = () => {
   const searchParams = useSearchParams();
   const currentStep = searchParams.get("step") || steps[0].key;
-
   const [showMobileResumePreview, setShowMobileResumePreview] = useState(false);
+  const { resumeData, updateResumeData, isInitialized } = useResumeData();
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [resumeData, setResumeData] = useState<any>({});
+  const setStep = useCallback(
+    (key: string) => {
+      const newSearchParams = new URLSearchParams(searchParams);
+      newSearchParams.set("step", key);
+      window.history.pushState(null, "", `?${newSearchParams.toString()}`);
+    },
+    [searchParams]
+  );
 
-  function setStep(key: string) {
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set("step", key);
-    window.history.pushState(null, "", `?${newSearchParams.toString()}`);
+  const FormComponent = useMemo(
+    () => steps.find((step) => step.key === currentStep)?.component,
+    [currentStep]
+  );
+
+  if (!isInitialized) {
+    return null;
   }
-
-  const FormComponent = steps.find(
-    (step) => step.key === currentStep
-  )?.component;
 
   return (
     <div className="flex w-full flex-col pt-[4rem] lg:pt-0 xl:flex-row">
@@ -36,7 +42,7 @@ export const ResumeEditor = () => {
           <div className="no-scrollbar overflow-y-auto">
             <FormComponent
               resumeData={resumeData}
-              setResumeData={setResumeData}
+              setResumeData={updateResumeData}
             />
           </div>
         )}
