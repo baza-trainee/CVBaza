@@ -161,5 +161,10 @@
       "error": "Error",
       "errorMessage": "Failed to generate summary. Please try again."
     }
+  },
+  "ResumePage": {
+    "title": "My Resumes",
+    "create": "Create Resume",
+    "copy": "Copy"
   }
 }

@@ -1,6 +1,6 @@
-import { ResumePage } from "@/components/profile/resume/resume-page/page";
+import { ResumePage } from "@/components/profile/resume/resume-page";
 
-const SendResumePage = () => {
+const ResumeView = () => {
   return (
     <div className="h-full w-full pt-5">
       <ResumePage />
@@ -8,4 +8,4 @@ const SendResumePage = () => {
   );
 };
 
-export default SendResumePage;
+export default ResumeView;

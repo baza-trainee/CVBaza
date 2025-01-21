@@ -62,7 +62,7 @@ export const languagesSchema = z.object({
   languages: z
     .array(
       z.object({
-        name: optionalString,
+        language: optionalString,
         level: optionalString,
       })
     )

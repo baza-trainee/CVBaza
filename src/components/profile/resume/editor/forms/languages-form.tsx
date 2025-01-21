@@ -107,7 +107,7 @@ export const LanguagesForm = ({
             <Button
               type="button"
               className="transition-colors hover:bg-blue-100/50"
-              onClick={() => append({ name: "", level: "" })}
+              onClick={() => append({ language: "", level: "" })}
             >
               {t("languages.add")}
             </Button>

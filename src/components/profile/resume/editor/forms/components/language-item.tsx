@@ -82,7 +82,7 @@ export const LanguageItem = ({
       <div className="grid gap-3">
         <FormField
           control={form.control}
-          name={`languages.${index}.name`}
+          name={`languages.${index}.language`}
           render={({ field }) => (
             <FormItem>
               <FormLabel>{t("labels.languageName")}</FormLabel>
