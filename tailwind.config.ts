@@ -66,6 +66,10 @@ export default {
           "18px",
           { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
         ],
+        "h5-semibold": [
+          "16px",
+          { lineHeight: "120%", letterSpacing: "0", fontWeight: "600" },
+        ],
         btn: [
           "16px",
           { lineHeight: "150%", letterSpacing: "0.5px", fontWeight: "600" },
@@ -88,15 +92,15 @@ export default {
         ],
         small: [
           "12px",
-          { lineHeight: "auto", letterSpacing: "0", fontWeight: "400" },
+          { lineHeight: "16px", letterSpacing: "0", fontWeight: "400" },
         ],
         "small-semibold": [
           "12px",
-          { lineHeight: "auto", letterSpacing: "0", fontWeight: "600" },
+          { lineHeight: "16px", letterSpacing: "0", fontWeight: "600" },
         ],
         xs: [
           "8px",
-          { lineHeight: "auto", letterSpacing: "0", fontWeight: "400" },
+          { lineHeight: "16px", letterSpacing: "0", fontWeight: "400" },
         ],
       },
       colors: {

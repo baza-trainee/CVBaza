@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Link } from "@/i18n/routing";
 import { BurgerMenu } from "../homepage/header/burger-menu/burger-menu";
 import { ProfileButtonSwitchWidget } from "../homepage/header/switch-widget";
+import { LanguageSwitcher } from "./language-switcher";
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
@@ -38,12 +39,17 @@ export const Header = () => {
               </Link>
             ))}
           </ul>
-          <ProfileButtonSwitchWidget />
-          <div
-            onClick={() => setOpen(true)}
-            className="relative block size-12 lg:hidden"
-          >
-            <Image src="/icons/hamburger.svg" fill alt="hamburger" />
+          <div className="flex items-center gap-4">
+            <div className="hidden lg:block">
+              <LanguageSwitcher />
+            </div>
+            <ProfileButtonSwitchWidget />
+            <div
+              onClick={() => setOpen(true)}
+              className="relative block size-12 lg:hidden"
+            >
+              <Image src="/icons/hamburger.svg" fill alt="hamburger" />
+            </div>
           </div>
         </div>
       </header>

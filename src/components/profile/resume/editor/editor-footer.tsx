@@ -6,16 +6,16 @@ import { steps } from "./steps";
 interface FooterProps {
   currentStep: string;
   setCurrentStep: (step: string) => void;
-  showSmResumePreview: boolean;
-  setShowSmResumePreview: (show: boolean) => void;
+  showMobileResumePreview: boolean;
+  setShowMobileResumePreview: (show: boolean) => void;
   isSaving?: boolean;
 }
 
 export const EditorFooter = ({
   currentStep,
   setCurrentStep,
-  showSmResumePreview,
-  setShowSmResumePreview,
+  showMobileResumePreview,
+  setShowMobileResumePreview,
 }: FooterProps) => {
   const t = useTranslations("Form.navigation");
 
@@ -33,6 +33,7 @@ export const EditorFooter = ({
         <div className="flex items-center gap-3 text-blue-600">
           <Button
             variant="secondary"
+            className="transition-colors hover:bg-blue-100/50"
             onClick={
               previousStep ? () => setCurrentStep(previousStep) : undefined
             }
@@ -51,11 +52,11 @@ export const EditorFooter = ({
         <Button
           variant="outline"
           size="icon"
-          onClick={() => setShowSmResumePreview(!showSmResumePreview)}
+          onClick={() => setShowMobileResumePreview(!showMobileResumePreview)}
           className="xl:hidden"
           title={t("togglePreview")}
         >
-          {showSmResumePreview ? (
+          {showMobileResumePreview ? (
             <PenLineIcon className="h-4 w-4" />
           ) : (
             <FileUserIcon className="h-4 w-4" />

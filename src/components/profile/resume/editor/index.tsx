@@ -13,7 +13,7 @@ export const ResumeEditor = () => {
   const searchParams = useSearchParams();
   const currentStep = searchParams.get("step") || steps[0].key;
 
-  const [showSmResumePreview, setShowSmResumePreview] = useState(false);
+  const [showMobileResumePreview, setShowMobileResumePreview] = useState(false);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [resumeData, setResumeData] = useState<any>({});
@@ -43,8 +43,8 @@ export const ResumeEditor = () => {
         <EditorFooter
           currentStep={currentStep}
           setCurrentStep={setStep}
-          showSmResumePreview={showSmResumePreview}
-          setShowSmResumePreview={setShowSmResumePreview}
+          showMobileResumePreview={showMobileResumePreview}
+          setShowMobileResumePreview={setShowMobileResumePreview}
         />
       </div>
       <div className="hidden w-full xl:block xl:w-1/2">
@@ -53,7 +53,7 @@ export const ResumeEditor = () => {
           template={resumeData.template || templates.CLASSIC}
         />
       </div>
-      {showSmResumePreview && (
+      {showMobileResumePreview && (
         <MobilePreview
           data={resumeData}
           template={resumeData.template || templates.CLASSIC}

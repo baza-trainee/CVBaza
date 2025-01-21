@@ -16,36 +16,43 @@ export const BurgerMenu = ({
   setOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
   const layerRef = useRef<HTMLDivElement>(null);
-  // const closeMenu = () => setOpen(false);
-  // useEffect(() => {
-  //   layerRef.current?.addEventListener("click", closeMenu);
-  //   if (open) {
-  //     document.body.style.overflow = "hidden";
-  //   } else {
-  //     document.body.style.overflowY = "auto";
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   return () => layerRef.current!.removeEventListener("click", closeMenu);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [open]);
 
-  const closeMenu = useCallback(() => {
-    setOpen(false);
-  }, [setOpen]);
+  const closeMenu = useCallback(() => setOpen(false), [setOpen]);
 
   useEffect(() => {
     const currentLayer = layerRef.current;
+
+    if (currentLayer) {
+      currentLayer.addEventListener("click", closeMenu);
+    }
+
     if (open) {
       document.body.style.overflow = "hidden";
       currentLayer?.addEventListener("click", closeMenu);
     } else {
       document.body.style.overflowY = "auto";
     }
+
     return () => {
-      document.body.style.overflowY = "auto";
-      currentLayer?.removeEventListener("click", closeMenu);
+      if (currentLayer) {
+        currentLayer.removeEventListener("click", closeMenu);
+      }
     };
   }, [open, closeMenu]);
+
+  // useEffect(() => {
+  //   const currentLayer = layerRef.current;
+  //   if (open) {
+  //     document.body.style.overflow = "hidden";
+  //     currentLayer?.addEventListener("click", closeMenu);
+  //   } else {
+  //     document.body.style.overflowY = "auto";
+  //   }
+  //   return () => {
+  //     document.body.style.overflowY = "auto";
+  //     currentLayer?.removeEventListener("click", closeMenu);
+  //   };
+  // }, [open, closeMenu]);
 
   return (
     <>
