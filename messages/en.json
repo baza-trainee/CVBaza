@@ -152,6 +152,14 @@
     },
     "descriptions": {
       "skills": "Separate each skill with a comma."
+    },
+    "summary": {
+      "generate": "Generate with AI",
+      "generating": "Generating...",
+      "success": "Success",
+      "successMessage": "Summary generated successfully!",
+      "error": "Error",
+      "errorMessage": "Failed to generate summary. Please try again."
     }
   }
 }
