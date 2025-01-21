@@ -18,6 +18,10 @@ export const env = createEnv({
     SMTP_FROM: z.string().min(1),
     SMTP_PORT: z.string().transform((val) => parseInt(val, 10)),
     SMTP_DEBUG: z.string().transform((val) => val === "true"),
+    CLOUDINARY_API_KEY: z.string().min(1),
+    CLOUDINARY_API_SECRET: z.string().min(1),
+    CLOUDINARY_CLOUD_NAME: z.string().min(1),
+    OPENAI_API_KEY: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_APP_URL: z.string().min(1),
@@ -39,5 +43,9 @@ export const env = createEnv({
     SMTP_PORT: process.env.SMTP_PORT,
     SMTP_DEBUG: process.env.SMTP_DEBUG,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+    CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
+    CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
+    CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
+    OPENAI_API_KEY: process.env.OPENAI_API_KEY,
   },
 });

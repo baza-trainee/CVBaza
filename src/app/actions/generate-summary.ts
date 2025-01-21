@@ -1,8 +1,9 @@
 "use server";
 
 import OpenAI from "openai";
+import { env } from "@/env";
 
-const apiKey = process.env.OPENAI_API_KEY;
+const apiKey = env.OPENAI_API_KEY;
 const openai = new OpenAI({ apiKey });
 
 export async function generateSummary(
