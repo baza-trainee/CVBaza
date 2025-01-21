@@ -53,25 +53,24 @@ const ContactItem = ({
 };
 
 export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
-  console.log(data);
   return (
-    <div className="h-[297mm] w-[210mm] bg-white text-black-400 shadow-lg">
+    <div className="aspect-[210/297] h-fit w-full bg-white text-black-400">
       {/* Header Section */}
       <div className="flex flex-col gap-8 sm:flex-row">
-        <div className="flex h-full min-h-[12rem] w-full items-center justify-center bg-gray-200 sm:w-1/3">
+        <div className="flex h-[12rem] w-full items-center justify-center bg-gray-200 sm:w-1/3">
           {data.photo && (
             <div className="h-32 w-32 overflow-hidden rounded-full border-[0.7rem] border-white">
               <Image
                 src={data.photo}
-                width={100}
-                height={100}
+                width={128}
+                height={128}
                 alt={`${data.name}'s photo`}
                 className="h-full w-full object-cover"
               />
             </div>
           )}
         </div>
-        <div className="flex flex-1 flex-col items-start justify-center py-2 text-left">
+        <div className="flex flex-1 flex-col items-start justify-center p-6 text-left">
           <h1 className="mb-1 text-center text-xl font-bold sm:text-left sm:text-2xl">
             {data.name}
           </h1>
@@ -86,7 +85,7 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
         </div>
       </div>
 
-      <div className="flex h-[calc(297mm-12rem)]">
+      <div className="flex min-h-0 flex-1">
         {/* Left Column */}
         <div className="w-1/3 space-y-8 bg-gray-200 px-2">
           {/* Contact Section */}
@@ -191,7 +190,7 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
               <div className="space-y-2">
                 {data.languages.map((language, index) => (
                   <div key={index} className="flex justify-between text-[13px]">
-                    <span>{language.name}</span>
+                    <span>{language.language}</span>
                     <span className="text-gray-600">{language.level}</span>
                   </div>
                 ))}

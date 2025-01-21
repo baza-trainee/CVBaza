@@ -26,7 +26,7 @@ export const DocumentInfo = ({
   return (
     <div className="flex justify-between">
       <div className="pl-2">
-        <div className="flex w-[132px] flex-col gap-[4px]">
+        <div className="flex w-[152px] flex-col gap-[4px]">
           <input
             type="text"
             value={title}

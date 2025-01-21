@@ -15,12 +15,11 @@ export interface WorkExperience {
 }
 
 export interface Language {
-  name?: string;
+  language?: string;
   level?: string;
 }
 
 export interface ResumeData {
-  id: number;
   title: string;
   name: string;
   profession: string;
@@ -41,6 +40,12 @@ export interface ResumeData {
   summary: string;
   template: string;
   lastUpdated: string;
+}
+
+export interface IResume extends ResumeData {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface EditorFormProps {

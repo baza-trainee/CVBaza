@@ -17,10 +17,21 @@ export default function useDimensions(
       };
     }
 
+    let timeoutId: NodeJS.Timeout;
+    const debouncedSetDimensions = (dims: {
+      width: number;
+      height: number;
+    }) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setDimensions(dims);
+      }, 100);
+    };
+
     const resizeObserver = new ResizeObserver((entries) => {
       const entry = entries[0];
       if (entry) {
-        setDimensions(getDimensions());
+        debouncedSetDimensions(getDimensions());
       }
     });
 
@@ -28,6 +39,7 @@ export default function useDimensions(
     setDimensions(getDimensions());
 
     return () => {
+      clearTimeout(timeoutId);
       resizeObserver.unobserve(currentRef);
       resizeObserver.disconnect();
     };
