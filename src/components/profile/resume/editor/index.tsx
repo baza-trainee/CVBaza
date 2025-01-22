@@ -1,8 +1,9 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { templates } from "@/constants";
+import { useResumeData } from "@/hooks/use-resume-data";
 import { MobilePreview } from "../mobile-preview";
 import { ResumePreviewSection } from "../resume-preview";
 import { Breadcrumbs } from "./breadcrumbs";
@@ -12,21 +13,26 @@ import { steps } from "./steps";
 export const ResumeEditor = () => {
   const searchParams = useSearchParams();
   const currentStep = searchParams.get("step") || steps[0].key;
+  const [showMobileResumePreview, setShowMobileResumePreview] = useState(false);
+  const { resumeData, updateResumeData, isInitialized } = useResumeData();
 
-  const [showSmResumePreview, setShowSmResumePreview] = useState(false);
+  const setStep = useCallback(
+    (key: string) => {
+      const newSearchParams = new URLSearchParams(searchParams);
+      newSearchParams.set("step", key);
+      window.history.pushState(null, "", `?${newSearchParams.toString()}`);
+    },
+    [searchParams]
+  );
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [resumeData, setResumeData] = useState<any>({});
+  const FormComponent = useMemo(
+    () => steps.find((step) => step.key === currentStep)?.component,
+    [currentStep]
+  );
 
-  function setStep(key: string) {
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set("step", key);
-    window.history.pushState(null, "", `?${newSearchParams.toString()}`);
+  if (!isInitialized) {
+    return null;
   }
-
-  const FormComponent = steps.find(
-    (step) => step.key === currentStep
-  )?.component;
 
   return (
     <div className="flex w-full flex-col pt-[4rem] lg:pt-0 xl:flex-row">
@@ -36,15 +42,15 @@ export const ResumeEditor = () => {
           <div className="no-scrollbar overflow-y-auto">
             <FormComponent
               resumeData={resumeData}
-              setResumeData={setResumeData}
+              setResumeData={updateResumeData}
             />
           </div>
         )}
         <EditorFooter
           currentStep={currentStep}
           setCurrentStep={setStep}
-          showSmResumePreview={showSmResumePreview}
-          setShowSmResumePreview={setShowSmResumePreview}
+          showMobileResumePreview={showMobileResumePreview}
+          setShowMobileResumePreview={setShowMobileResumePreview}
         />
       </div>
       <div className="hidden w-full xl:block xl:w-1/2">
@@ -53,7 +59,7 @@ export const ResumeEditor = () => {
           template={resumeData.template || templates.CLASSIC}
         />
       </div>
-      {showSmResumePreview && (
+      {showMobileResumePreview && (
         <MobilePreview
           data={resumeData}
           template={resumeData.template || templates.CLASSIC}

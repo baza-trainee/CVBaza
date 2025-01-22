@@ -69,7 +69,12 @@ export const EducationItem = ({
             <FormItem>
               <FormLabel>{t("fields.degree")}</FormLabel>
               <FormControl>
-                <Input {...field} value={field.value || ""} />
+                <Input
+                  {...field}
+                  value={field.value || ""}
+                  autoComplete="off"
+                  data-form-type="other"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -83,7 +88,12 @@ export const EducationItem = ({
             <FormItem>
               <FormLabel>{t("fields.institution")}</FormLabel>
               <FormControl>
-                <Input {...field} value={field.value || ""} />
+                <Input
+                  {...field}
+                  value={field.value || ""}
+                  autoComplete="off"
+                  data-form-type="other"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -100,9 +110,10 @@ export const EducationItem = ({
                 <FormControl>
                   <Input
                     {...field}
-                    type="date"
-                    value={field.value?.slice(0, 10)}
+                    value={field.value || ""}
                     placeholder={t("placeholders.startDate")}
+                    autoComplete="off"
+                    data-form-type="other"
                   />
                 </FormControl>
                 <FormMessage />
@@ -119,9 +130,10 @@ export const EducationItem = ({
                 <FormControl>
                   <Input
                     {...field}
-                    type="date"
-                    value={field.value?.slice(0, 10)}
+                    value={field.value || ""}
                     placeholder={t("placeholders.endDate")}
+                    autoComplete="off"
+                    data-form-type="other"
                   />
                 </FormControl>
                 <FormMessage />

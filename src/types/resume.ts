@@ -15,9 +15,8 @@ export interface WorkExperience {
 }
 
 export interface Language {
-  id: number;
-  name: string;
-  level: string;
+  language?: string;
+  level?: string;
 }
 
 export interface ResumeData {
@@ -33,13 +32,19 @@ export interface ResumeData {
   telegram?: string;
   dribbble?: string;
   adobePortfolio?: string;
-  photo: string;
+  photo?: string;
   skills: string[];
   educations: Education[];
   workExperiences: WorkExperience[];
   languages: Language[];
   summary: string;
   template: string;
+}
+
+export interface IResume extends ResumeData {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface EditorFormProps {

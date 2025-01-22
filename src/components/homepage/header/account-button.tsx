@@ -1,5 +1,4 @@
 import Image from "next/image";
-
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/routing";
 
@@ -10,7 +9,9 @@ export const AccountButton = () => {
         <div className="relative h-6 w-6">
           <Image src="/icons/person.svg" fill alt="user" />
         </div>
-        <p className="font-sans text-btn text-blue-500 3xl:text-btn-semibold">Miй акаунт</p>
+        <p className="font-sans text-btn text-blue-500 3xl:text-btn-semibold">
+          Miй акаунт
+        </p>
       </Button>
     </Link>
   );

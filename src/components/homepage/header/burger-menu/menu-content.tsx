@@ -1,4 +1,6 @@
 import { signOut, useSession } from "next-auth/react";
+import { LanguageSwitcher } from "@/components/shared/language-switcher";
+
 import { Link, usePathname } from "@/i18n/routing";
 
 export const MenuContent = ({ closeMenu }: { closeMenu: () => void }) => {
@@ -35,14 +37,19 @@ export const MenuContent = ({ closeMenu }: { closeMenu: () => void }) => {
             </p>
           </div>
           <div className="flex grow flex-col justify-between">
-            <Link href="/profile/settings">
-              <p
-                onClick={closeMenu}
-                className="text-center text-3xl font-semibold text-white ms:text-start"
-              >
-                Аккаунт
-              </p>
-            </Link>
+            <div className="flex flex-col gap-7">
+              <Link href="/profile/settings">
+                <p
+                  onClick={closeMenu}
+                  className="text-center text-3xl font-semibold text-white ms:text-start"
+                >
+                  Аккаунт
+                </p>
+              </Link>
+              <div className="flex justify-center ms:justify-start">
+                <LanguageSwitcher variant="mobile" />
+              </div>
+            </div>
             <p
               onClick={handleSignOut}
               className="text-center text-3xl font-semibold text-white ms:text-start"
@@ -52,7 +59,7 @@ export const MenuContent = ({ closeMenu }: { closeMenu: () => void }) => {
           </div>
         </div>
       ) : (
-        <div className="mt-3 flex flex-col gap-7 px-7 pb-2 pt-20">
+        <div className="mt-3 flex flex-col gap-7 px-7 pb-16 pt-20">
           {headerLinks.map((l) => (
             <Link key={l.name} href={l.href}>
               <p
@@ -63,6 +70,9 @@ export const MenuContent = ({ closeMenu }: { closeMenu: () => void }) => {
               </p>
             </Link>
           ))}
+          <div className="flex justify-center ms:justify-start">
+            <LanguageSwitcher variant="mobile" />
+          </div>
         </div>
       )}
     </>
