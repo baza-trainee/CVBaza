@@ -35,7 +35,7 @@ export const ProfileInfo = ({ name }: { name: string }) => {
         </div>
         <DropdownMenuContent sideOffset={20} align="end" alignOffset={-10}>
           <div className="flex w-full flex-col gap-5 px-6 py-[1.625rem]">
-            <Link href="/profile/dashboard">
+            <Link href="/profile/settings">
               <div className="flex gap-2">
                 <div className="relative h-6 w-6">
                   <Image src="/icons/account.svg" fill alt="account" />

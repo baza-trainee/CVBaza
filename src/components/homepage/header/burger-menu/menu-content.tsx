@@ -1,6 +1,4 @@
-import React from "react";
-import { useSession } from "next-auth/react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { Link, usePathname } from "@/i18n/routing";
 
 export const MenuContent = ({ closeMenu }: { closeMenu: () => void }) => {
@@ -37,7 +35,7 @@ export const MenuContent = ({ closeMenu }: { closeMenu: () => void }) => {
             </p>
           </div>
           <div className="flex grow flex-col justify-between">
-            <Link href="/profile/dashboard">
+            <Link href="/profile/settings">
               <p
                 onClick={closeMenu}
                 className="text-center text-3xl font-semibold text-white ms:text-start"
