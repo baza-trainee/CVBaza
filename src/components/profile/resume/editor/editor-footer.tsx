@@ -33,12 +33,13 @@ export const EditorFooter = ({
   )?.key;
 
   return (
-    <footer className="w-full border-t p-3">
-      <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-3">
-        <div className="flex items-center gap-3 text-blue-600">
+    <footer className="sticky bottom-0 w-full border-t bg-white p-3 shadow-sm">
+      <div className="mx-auto flex max-w-7xl flex-col justify-between gap-3 sm:flex-row sm:items-center">
+        {/* Navigation Buttons */}
+        <div className="flex flex-1 items-center gap-2 sm:gap-3">
           <Button
             variant="secondary"
-            className="transition-colors hover:bg-blue-100/50"
+            className="min-w-[100px] flex-1 transition-colors hover:bg-blue-100/50 sm:flex-initial"
             onClick={
               previousStep ? () => setCurrentStep(previousStep) : undefined
             }
@@ -47,37 +48,47 @@ export const EditorFooter = ({
             {t("previousStep")}
           </Button>
           <Button
+            className="min-w-[100px] flex-1 transition-colors hover:bg-blue-100/50 sm:flex-initial"
             onClick={nextStep ? () => setCurrentStep(nextStep) : undefined}
             disabled={!nextStep}
-            className="transition-colors hover:bg-blue-100/50"
           >
             {t("nextStep")}
           </Button>
-          {isSaving && <span className="ml-4 text-gray-500">Saving...</span>}
         </div>
 
-        <div className="flex items-center gap-3">
+        {/* Status and Actions */}
+        <div className="flex items-center justify-end gap-2 sm:gap-3">
+          {isSaving && (
+            <span className="text-sm text-gray-500 sm:ml-4">{t("saving")}</span>
+          )}
+
           {onSave && currentStep === "summary" && (
             <Button
               onClick={onSave}
               disabled={isSavingToDb}
-              className="flex items-center gap-2 transition-colors hover:bg-blue-100/50"
+              className="flex min-w-[120px] items-center justify-center gap-2 transition-colors hover:bg-blue-100/50"
             >
               <Save className="h-4 w-4" />
-              {isSavingToDb ? "Saving..." : "Save Resume"}
+              <span className="hidden sm:inline">
+                {isSavingToDb ? t("saving") : t("saveResume")}
+              </span>
+              <span className="sm:hidden">
+                {isSavingToDb ? t("saving") : t("save")}
+              </span>
             </Button>
           )}
+
           <Button
             variant="outline"
             size="icon"
             onClick={() => setShowMobileResumePreview(!showMobileResumePreview)}
-            className="xl:hidden"
+            className="h-10 w-10 xl:hidden"
             title={t("togglePreview")}
           >
             {showMobileResumePreview ? (
-              <PenLineIcon className="h-4 w-4" />
+              <PenLineIcon className="h-5 w-5" />
             ) : (
-              <FileUserIcon className="h-4 w-4" />
+              <FileUserIcon className="h-5 w-5" />
             )}
           </Button>
         </div>

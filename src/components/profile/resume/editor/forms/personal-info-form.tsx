@@ -39,6 +39,7 @@ export const PersonalInfoForm = ({
       location: resumeData?.location || "",
       phone: resumeData?.phone || "",
       email: resumeData?.email || "",
+      telegram: resumeData?.telegram || "",
       github: resumeData?.github || "",
       linkedin: resumeData?.linkedin || "",
       behance: resumeData?.behance || "",
@@ -178,6 +179,20 @@ export const PersonalInfoForm = ({
                 <FormLabel>{t("labels.email")}</FormLabel>
                 <FormControl>
                   <Input placeholder={t("placeholders.email")} {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="telegram"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("labels.telegram")}</FormLabel>
+                <FormControl>
+                  <Input placeholder={t("placeholders.telegram")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

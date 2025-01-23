@@ -1,40 +1,25 @@
 import { usePathname } from "next/navigation";
 import { useMemo, useRef } from "react";
+import { A4_WIDTH, MIN_ZOOM, PADDING } from "@/constants";
 import useDimensions from "@/hooks/use-dimensions";
 import { cn } from "@/lib/utils";
 import { ResumeData } from "@/types/resume";
-import { ClassicTemplate } from "./templates/classic-template";
-import { ModernDarkTemplate } from "./templates/modern-dark-template";
+import { renderTemplate } from "@/utils/render-template";
 
 interface ResumePreviewSectionProps {
   data: ResumeData;
   template: string;
 }
 
-const getTemplate = (template: string) => {
-  switch (template) {
-    case "classic":
-      return ClassicTemplate;
-    case "modern-dark":
-      return ModernDarkTemplate;
-    default:
-      return ClassicTemplate;
-  }
-};
-
-const A4_WIDTH = 794;
-const MIN_ZOOM = 0.4;
-const PADDING = 24;
-
 export const ResumePreviewSection = ({
   data,
   template,
 }: ResumePreviewSectionProps) => {
-  const TemplateComponent = getTemplate(template);
+  const pathname = usePathname();
   const containerRef = useRef<HTMLDivElement>(null);
   const { width } = useDimensions(containerRef);
-  const pathname = usePathname();
   const isEditor = pathname?.includes("/editor");
+  const TemplateComponent = renderTemplate(template);
 
   const zoom = useMemo(() => {
     if (!width) return MIN_ZOOM;

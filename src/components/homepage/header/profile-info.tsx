@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { signOut } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { SettingIcon } from "@/components/icons/setting-icon";
 import {
   DropdownMenu,
@@ -13,6 +14,8 @@ import { Link } from "@/i18n/routing";
 
 export const ProfileInfo = ({ name }: { name: string }) => {
   const [open, setOpen] = useState(false);
+  const t = useTranslations("Header.profileInfo");
+
   const createAvatar = (name: string) => {
     if (!name) return "AA";
     const names = name.split(" ");
@@ -38,10 +41,10 @@ export const ProfileInfo = ({ name }: { name: string }) => {
             <Link href="/profile/settings">
               <div className="flex gap-2">
                 <div className="relative h-6 w-6">
-                  <Image src="/icons/account.svg" fill alt="account" />
+                  <Image src="/icons/account.svg" fill alt={t("accountIcon")} />
                 </div>
 
-                <p className="text-body">Аккаунт</p>
+                <p className="text-body">{t("account")}</p>
               </div>
             </Link>
 
@@ -49,9 +52,9 @@ export const ProfileInfo = ({ name }: { name: string }) => {
             <button onClick={() => signOut({ callbackUrl: "/" })}>
               <div className="flex gap-2">
                 <div className="relative h-6 w-6">
-                  <Image src="/icons/exit.svg" fill alt="exit" />
+                  <Image src="/icons/exit.svg" fill alt={t("exitIcon")} />
                 </div>
-                <p className="text-body">Вийти</p>
+                <p className="text-body">{t("exit")}</p>
               </div>
             </button>
           </div>

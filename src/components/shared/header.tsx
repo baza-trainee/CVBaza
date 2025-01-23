@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { BurgerMenu } from "../homepage/header/burger-menu/burger-menu";
 import { ProfileButtonSwitchWidget } from "../homepage/header/switch-widget";
@@ -9,10 +10,13 @@ import { LanguageSwitcher } from "./language-switcher";
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
+  const t = useTranslations("SharedHeader");
+
   const headerLinks = [
-    { name: "Резюме", href: "/profile/resume" },
-    { name: "Супровідний лист", href: "/profile/cover-letter" },
+    { name: t("links.resume"), href: "/profile/resume" },
+    { name: t("links.coverLetter"), href: "/profile/cover-letter" },
   ];
+
   return (
     <>
       <header className="bg-white px-3.5 py-2 lg:px-10 lg:py-3 xl:px-[7.5rem] 3xl:py-5">
@@ -21,7 +25,7 @@ export const Header = () => {
             <li className="flex items-center justify-center">
               <Link href="/">
                 <div className="relative h-12 w-12 lg:size-[3.75rem]">
-                  <Image src="/icons/logo.svg" fill alt="logo" />
+                  <Image src="/icons/logo.svg" fill alt={t("images.logo")} />
                 </div>
               </Link>
             </li>
@@ -48,7 +52,11 @@ export const Header = () => {
               onClick={() => setOpen(true)}
               className="relative block size-12 lg:hidden"
             >
-              <Image src="/icons/hamburger.svg" fill alt="hamburger" />
+              <Image
+                src="/icons/hamburger.svg"
+                fill
+                alt={t("images.hamburger")}
+              />
             </div>
           </div>
         </div>

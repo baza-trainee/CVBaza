@@ -2,9 +2,11 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 export const OptimizationSection = () => {
   const [windowWidth, setWindowWidth] = useState<number | null>(null);
+  const t = useTranslations("HomePage.optimization");
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -15,16 +17,16 @@ export const OptimizationSection = () => {
 
   if (windowWidth === null) return null;
 
-  let imageSrc = "/images/optimization-section/optimization_350.png";
+  let imageSrc = "/images/optimization-section/optimization_350.webp";
   let imageWidth = 318;
   let imageHeight = 298;
 
   if (windowWidth >= 1280) {
-    imageSrc = "/images/optimization-section/optimization.png";
+    imageSrc = "/images/optimization-section/optimization.webp";
     imageWidth = 550;
     imageHeight = 328;
   } else if (windowWidth >= 768) {
-    imageSrc = "/images/optimization-section/optimization_768.png";
+    imageSrc = "/images/optimization-section/optimization_768.webp";
     imageWidth = 352;
     imageHeight = 286;
   }
@@ -34,7 +36,7 @@ export const OptimizationSection = () => {
         <div className="sm:h-[298px] sm:w-[318px] ms:h-[298px] ms:w-[448px] md:w-[352px] lg:h-[328px] lg:w-[402px] xl:h-[328px] xl:w-[548px] 3xl:h-[400px] 3xl:w-[711px]">
           <Image
             src={imageSrc}
-            alt="Optimization"
+            alt={t("title")}
             width={imageWidth}
             height={imageHeight}
             className="h-full w-full object-cover"
@@ -43,12 +45,10 @@ export const OptimizationSection = () => {
 
         <div className="flex w-full flex-col sm:gap-4 md:w-[339px] md:justify-center lg:w-[378px] 2xl:w-[540px] 2xl:gap-6">
           <h2 className="text-center text-blue-900 sm:text-start sm:text-h2-sm md:text-h2-md lg:text-left lg:text-h2 2xl:text-h2-2xl 3xl:text-h2-3xl">
-            Оптимізація резюме
+            {t("title")}
           </h2>
           <p className="text-center text-black-500 sm:pb-[36px] sm:text-start sm:text-body md:pb-0 lg:text-left 3xl:w-[756px] 3xl:text-body-sm">
-            Дізнайтеся, яких навичок вам бракує. Система на базі штучного
-            інтелекту покаже вам, як адаптувати своє резюме так, щоб підкреслити
-            навички та досвід, які шукають рекрутери.
+            {t("description")}
           </p>
         </div>
       </div>

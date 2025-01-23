@@ -73,6 +73,7 @@ export const ResumeEditor = () => {
         <MobilePreview
           data={resumeData}
           template={resumeData.template || templates.CLASSIC}
+          onClose={() => setShowMobileResumePreview(false)}
         />
       )}
     </div>

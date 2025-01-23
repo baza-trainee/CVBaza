@@ -1,31 +1,44 @@
+import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { ResumeData } from "@/types/resume";
-import { ClassicTemplate } from "./templates/classic-template";
-import { ModernDarkTemplate } from "./templates/modern-dark-template";
+import { renderTemplate } from "@/utils/render-template";
 
-interface ResumePreviewSectionProps {
+interface MobilePreviewProps {
   data: ResumeData;
   template: string;
+  onClose: () => void;
 }
-
-const renderTemplate = (template: string) => {
-  switch (template) {
-    case "classic":
-      return ClassicTemplate;
-    case "modern-dark":
-      return ModernDarkTemplate;
-    default:
-      return ClassicTemplate;
-  }
-};
 
 export const MobilePreview = ({
   data,
   template,
-}: ResumePreviewSectionProps) => {
+  onClose,
+}: MobilePreviewProps) => {
+  const t = useTranslations("ResumePage");
+
   return (
-    <div className="absolute left-0 top-0 z-50 h-full w-full bg-white/70 backdrop-blur-sm">
-      <div className="no-scrollbar mx-auto flex h-[94vh] justify-center overflow-y-auto p-3">
-        {renderTemplate(template)({ data: data })}
+    <div className="absolute left-0 top-0 z-50 h-full w-full bg-white/70 backdrop-blur-sm xl:hidden">
+      {/* Header */}
+      <div className="sticky top-0 z-10 flex h-14 items-center justify-between bg-white px-4 shadow-sm">
+        <h2 className="text-lg font-medium text-black-900">{t("preview")}</h2>
+        <button
+          onClick={onClose}
+          className="hover:bg-black-50 flex h-10 w-10 items-center justify-center rounded-full"
+          aria-label={t("close")}
+        >
+          <div className="relative h-6 w-6">
+            <Image src="/icons/exit.svg" alt={t("close")} fill />
+          </div>
+        </button>
+      </div>
+
+      {/* Content */}
+      <div className="no-scrollbar h-[calc(100vh-56px)] overflow-y-auto">
+        <div className="mx-auto flex justify-center p-3">
+          <div className="w-full max-w-[800px]">
+            {renderTemplate(template)({ data: data })}
+          </div>
+        </div>
       </div>
     </div>
   );

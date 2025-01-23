@@ -73,8 +73,7 @@ export const EducationItem = ({
                   {...field}
                   placeholder={t("placeholders.degree")}
                   value={field.value || ""}
-                  autoComplete="off"
-                  data-form-type="other"
+                  autoComplete="degree"
                 />
               </FormControl>
               <FormMessage />
@@ -93,8 +92,7 @@ export const EducationItem = ({
                   {...field}
                   placeholder={t("placeholders.institution")}
                   value={field.value || ""}
-                  autoComplete="off"
-                  data-form-type="other"
+                  autoComplete="organization"
                 />
               </FormControl>
               <FormMessage />
@@ -113,10 +111,8 @@ export const EducationItem = ({
                   <Input
                     {...field}
                     type="date"
-                    value={field.value?.slice(0, 10)}
-                    placeholder={t("placeholders.startDate")}
-                    autoComplete="off"
-                    data-form-type="other"
+                    value={field.value || ""}
+                    autoComplete="education-start"
                   />
                 </FormControl>
                 <FormMessage />
@@ -134,10 +130,8 @@ export const EducationItem = ({
                   <Input
                     {...field}
                     type="date"
-                    value={field.value?.slice(0, 10)}
-                    placeholder={t("placeholders.endDate")}
-                    autoComplete="off"
-                    data-form-type="other"
+                    value={field.value || ""}
+                    autoComplete="education-end"
                   />
                 </FormControl>
                 <FormMessage />

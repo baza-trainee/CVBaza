@@ -1,15 +1,19 @@
 import { signOut, useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { Link, usePathname } from "@/i18n/routing";
 
 export const MenuContent = ({ closeMenu }: { closeMenu: () => void }) => {
   const { data: session, status } = useSession();
   const pathname = usePathname();
+  const t = useTranslations("Header.menu");
+
   const headerLinks = [
-    { name: "Резюме", href: "/profile/resume" },
-    { name: "Супровідний лист", href: "/profile/cover-letter" },
-    { name: "Мій профіль", href: "/profile/dashboard" },
+    { name: t("links.resume"), href: "/profile/resume" },
+    { name: t("links.coverLetter"), href: "/profile/cover-letter" },
+    { name: t("links.myProfile"), href: "/profile/dashboard" },
   ];
+
   const createAvatar = (name: string) => {
     if (!name) return "AA";
     const names = name.split(" ");
@@ -18,6 +22,7 @@ export const MenuContent = ({ closeMenu }: { closeMenu: () => void }) => {
     }
     return names[0][0].toLocaleUpperCase();
   };
+
   const handleSignOut = () => {
     signOut({ callbackUrl: "/" });
     closeMenu();
@@ -42,7 +47,7 @@ export const MenuContent = ({ closeMenu }: { closeMenu: () => void }) => {
                   onClick={closeMenu}
                   className="text-center text-3xl font-semibold text-white ms:text-start"
                 >
-                  Аккаунт
+                  {t("account")}
                 </p>
               </Link>
               <div className="flex justify-center ms:justify-start">
@@ -53,7 +58,7 @@ export const MenuContent = ({ closeMenu }: { closeMenu: () => void }) => {
               onClick={handleSignOut}
               className="text-center text-3xl font-semibold text-white ms:text-start"
             >
-              Вийти
+              {t("exit")}
             </p>
           </div>
         </div>

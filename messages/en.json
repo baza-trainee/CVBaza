@@ -1,6 +1,58 @@
 {
   "HomePage": {
-    "title": "Hello world!"
+    "title": "Hello world!",
+    "coverLetter": {
+      "title": "Create your cover letter",
+      "description": "83% of HR professionals say that cover letters are important for their hiring decisions. Our AI-powered cover letter generator will create a personalized cover letter for you with just one click.",
+      "button": "Create cover letter"
+    },
+    "steps": {
+      "title": "Create your resume in 4 easy steps",
+      "button": "Create resume",
+      "step1": {
+        "step": "Step 1",
+        "title": "Choose template",
+        "description": "Choose a resume template or upload an existing one"
+      },
+      "step2": {
+        "step": "Step 2",
+        "title": "Add content",
+        "description": "Fill in the template with just a few clicks"
+      },
+      "step3": {
+        "step": "Step 3",
+        "title": "Customize it",
+        "description": "Choose colors and fonts using a convenient interface"
+      },
+      "step4": {
+        "step": "Step 4",
+        "title": "Save file",
+        "description": "Download your enhanced resume in PDF format"
+      }
+    },
+    "optimization": {
+      "title": "Resume Optimization",
+      "description": "Find out what skills you're missing. The AI-based system will show you how to adapt your resume to highlight the skills and experience recruiters are looking for."
+    },
+    "hero": {
+      "title": "Professional Resume Builder",
+      "description": "Create an impressive resume in minutes. Utilize the power of artificial intelligence and data analysis.",
+      "button": "Create Resume",
+      "features": {
+        "feature1": "Optimization for filtering algorithms",
+        "feature2": "The best path to a new job"
+      },
+      "images": {
+        "ellipse": "Ellipse",
+        "ellipseInlying": "Ellipse inlying",
+        "cv": "CV",
+        "typography": "Typography",
+        "ats": "ATS",
+        "ai": "AI",
+        "aiLogo": "AI Logo",
+        "colors": "Colors"
+      }
+    }
   },
   "Auth": {
     "errors": {
@@ -22,6 +74,7 @@
   "resume": {
     "lastUpdated": "Last updated",
     "copy": "copy",
+    "loading": "Loading resumes...",
     "actions": {
       "create": "Create Resume",
       "downloadPdf": "Download PDF",
@@ -38,7 +91,10 @@
     },
     "messages": {
       "deleteSuccess": "Resume deleted successfully",
-      "saveTitleSuccess": "Resume title updated successfully"
+      "saveTitleSuccess": "Resume title updated successfully",
+      "duplicateCreated": "Resume duplicated successfully",
+      "duplicateDeleted": "Duplicate resume deleted successfully",
+      "resumeDeleted": "Resume deleted successfully"
     },
     "errors": {
       "loadFailed": "Failed to load resumes",
@@ -73,9 +129,12 @@
       "languages": "Add languages you know and your proficiency level"
     },
     "navigation": {
-      "previousStep": "Previous step",
-      "nextStep": "Next step",
-      "togglePreview": "Toggle preview"
+      "previousStep": "Previous Step",
+      "nextStep": "Next Step",
+      "togglePreview": "Toggle Preview",
+      "saving": "Saving...",
+      "save": "Save",
+      "saveResume": "Save Resume"
     },
     "steps": {
       "generalInfo": {
@@ -119,6 +178,7 @@
       "behance": "Behance (Optional)",
       "dribbble": "Dribbble (Optional)",
       "adobePortfolio": "Adobe Portfolio (Optional)",
+      "linkedin": "LinkedIn (Optional)",
       "position": "Position",
       "company": "Company",
       "startDate": "Start Date",
@@ -143,8 +203,9 @@
       "behance": "https://behance.net/username",
       "dribbble": "https://dribbble.com/username",
       "adobePortfolio": "https://portfolio.adobe.com/username",
+      "linkedin": "https://www.linkedin.com/in/username",
       "position": "Senior Software Engineer",
-      "company": "Company XYZ",
+      "company": "Google, Amazon etc...",
       "description": "Describe your responsibilities and achievements",
       "startDate": "Select start date",
       "endDate": "Select end date or leave empty if current",
@@ -184,9 +245,74 @@
       "errorMessage": "Failed to generate summary. Please try again."
     }
   },
+  "Header": {
+    "accountButton": {
+      "myAccount": "My Account",
+      "userIcon": "User"
+    },
+    "profileInfo": {
+      "account": "Account",
+      "exit": "Exit",
+      "accountIcon": "Account",
+      "exitIcon": "Exit"
+    },
+    "menu": {
+      "links": {
+        "resume": "Resume",
+        "coverLetter": "Cover Letter",
+        "myProfile": "My Profile"
+      },
+      "account": "Account",
+      "exit": "Exit"
+    }
+  },
+  "SharedHeader": {
+    "links": {
+      "resume": "Resume",
+      "coverLetter": "Cover Letter"
+    },
+    "images": {
+      "logo": "Logo",
+      "hamburger": "Menu"
+    }
+  },
   "ResumePage": {
     "title": "My Resumes",
     "create": "Create Resume",
-    "copy": "Copy"
+    "copy": "Copy",
+    "preview": "Preview",
+    "close": "Close"
+  },
+  "Footer": {
+    "logo": {
+      "alt": "Big Logo"
+    },
+    "contacts": {
+      "title": "CONTACTS",
+      "email": "info@baza-trainee.tech"
+    },
+    "createWithAi": {
+      "title": "CREATE WITH AI",
+      "links": {
+        "resume": "Resume",
+        "coverLetter": "Cover Letter"
+      }
+    },
+    "help": {
+      "title": "HELP",
+      "links": {
+        "bazaSkill": "Baza Skill",
+        "jobTracker": "Job Tracker"
+      }
+    },
+    "socials": {
+      "title": "FIND US",
+      "icons": {
+        "facebook": "Facebook icon",
+        "telegram": "Telegram icon",
+        "linkedin": "LinkedIn icon"
+      }
+    },
+    "copyright": "Baza Trainee Ukraine 2024 \u00A9 All rights reserved"
   }
 }
