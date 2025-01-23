@@ -1,6 +1,4 @@
-import React from "react";
-import { useSession } from "next-auth/react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { Link, usePathname } from "@/i18n/routing";
 
@@ -39,7 +37,7 @@ export const MenuContent = ({ closeMenu }: { closeMenu: () => void }) => {
           </div>
           <div className="flex grow flex-col justify-between">
             <div className="flex flex-col gap-7">
-              <Link href="/profile/dashboard">
+              <Link href="/profile/settings">
                 <p
                   onClick={closeMenu}
                   className="text-center text-3xl font-semibold text-white ms:text-start"
