@@ -61,7 +61,7 @@ export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
       {/* Header */}
       <div className="flex h-[8rem] flex-col gap-2 bg-blue-900 p-8 text-white">
         <div className="flex items-start gap-4">
-          {data.photo && (
+          {data.photo && typeof data.photo === "string" && (
             <div className="relative h-32 w-32 translate-y-[40%] overflow-hidden rounded-full border-4 border-white">
               <Image
                 src={data.photo}
@@ -206,8 +206,8 @@ export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
               <FaRegCircle className="absolute left-[-0.5rem] top-[50%] bg-white text-sm" />
               <hr className="mb-4 border border-blue-800" />
               <div className="space-y-6">
-                {data.workExperiences.slice(0, 2).map((exp) => (
-                  <div key={exp.id}>
+                {data.workExperiences.slice(0, 2).map((exp, i) => (
+                  <div key={i}>
                     <div className="flex flex-col sm:items-start sm:justify-between">
                       <h4 className="whitespace-nowrap font-medium">
                         {exp.company}

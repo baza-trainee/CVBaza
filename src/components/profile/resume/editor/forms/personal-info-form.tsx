@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { EditorFormProps } from "@/types/resume";
-import { PersonalInfoFormValues, personalInfoSchema } from "./schema";
+import { personalInfoSchema } from "./schema";
 
 const convertToBase64 = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -30,7 +30,7 @@ export const PersonalInfoForm = ({
 }: EditorFormProps) => {
   const t = useTranslations("Form");
 
-  const form = useForm<PersonalInfoFormValues>({
+  const form = useForm({
     resolver: zodResolver(personalInfoSchema),
     defaultValues: {
       name: resumeData?.name || "",
@@ -39,8 +39,8 @@ export const PersonalInfoForm = ({
       location: resumeData?.location || "",
       phone: resumeData?.phone || "",
       email: resumeData?.email || "",
-      telegram: resumeData?.telegram || "",
       github: resumeData?.github || "",
+      linkedin: resumeData?.linkedin || "",
       behance: resumeData?.behance || "",
       dribbble: resumeData?.dribbble || "",
       adobePortfolio: resumeData?.adobePortfolio || "",
@@ -124,17 +124,19 @@ export const PersonalInfoForm = ({
                     name={field.name}
                   />
                 </FormControl>
-                {value && (
-                  <div className="mt-2">
-                    <Image
-                      src={value}
-                      alt="Preview"
-                      className="h-20 w-20 rounded-full object-cover"
-                      width={50}
-                      height={50}
-                    />
-                  </div>
-                )}
+                <div className="flex items-center gap-4">
+                  {value && (
+                    <div className="mt-2">
+                      <Image
+                        src={value as string}
+                        alt="Preview"
+                        className="h-20 w-20 rounded-full object-cover"
+                        width={50}
+                        height={50}
+                      />
+                    </div>
+                  )}
+                </div>
                 <FormMessage />
               </FormItem>
             )}
@@ -184,12 +186,12 @@ export const PersonalInfoForm = ({
 
           <FormField
             control={form.control}
-            name="telegram"
+            name="github"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("labels.telegram")}</FormLabel>
+                <FormLabel>{t("labels.github")}</FormLabel>
                 <FormControl>
-                  <Input placeholder={t("placeholders.telegram")} {...field} />
+                  <Input placeholder={t("placeholders.github")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -198,12 +200,12 @@ export const PersonalInfoForm = ({
 
           <FormField
             control={form.control}
-            name="github"
+            name="linkedin"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("labels.github")}</FormLabel>
+                <FormLabel>{t("labels.linkedin")}</FormLabel>
                 <FormControl>
-                  <Input placeholder={t("placeholders.github")} {...field} />
+                  <Input placeholder={t("placeholders.linkedin")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

@@ -1,3 +1,4 @@
+import { usePathname } from "next/navigation";
 import { useMemo, useRef } from "react";
 import useDimensions from "@/hooks/use-dimensions";
 import { cn } from "@/lib/utils";
@@ -32,6 +33,8 @@ export const ResumePreviewSection = ({
   const TemplateComponent = getTemplate(template);
   const containerRef = useRef<HTMLDivElement>(null);
   const { width } = useDimensions(containerRef);
+  const pathname = usePathname();
+  const isEditor = pathname?.includes("/editor");
 
   const zoom = useMemo(() => {
     if (!width) return MIN_ZOOM;
@@ -40,7 +43,10 @@ export const ResumePreviewSection = ({
 
   return (
     <div
-      className={cn("group relative hidden h-full w-full border-2 md:flex")}
+      className={cn(
+        "group relative w-full border-2",
+        isEditor ? "hidden md:flex" : "flex"
+      )}
       ref={containerRef}
     >
       <div
