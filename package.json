@@ -13,6 +13,7 @@
     "format:fix": "prettier --write --list-different .",
     "ts-check": "tsc --project tsconfig.json --pretty --noEmit && echo",
     "db:migrate": "cross-env DB_MIGRATING=true drizzle-kit migrate",
+    "db:generate": "drizzle-kit generate",
     "prepare": "husky"
   },
   "dependencies": {
