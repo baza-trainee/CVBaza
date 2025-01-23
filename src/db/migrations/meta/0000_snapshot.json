@@ -1,5 +1,5 @@
 {
-  "id": "8d98d12f-c773-46b2-b209-9c829d927d07",
+  "id": "daf334ec-b001-4a71-a658-8a0d92c5fd5b",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -274,6 +274,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "publicId": {
+          "name": "publicId",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
         "summary": {
           "name": "summary",
           "type": "text",
@@ -282,7 +288,7 @@
         },
         "location": {
           "name": "location",
-          "type": "varchar(100)",
+          "type": "varchar(320)",
           "primaryKey": false,
           "notNull": false
         },

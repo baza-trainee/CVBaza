@@ -1,5 +1,17 @@
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components/shared/icon";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Link } from "@/i18n/routing";
 
 interface DocumentInfoProps {
@@ -8,6 +20,7 @@ interface DocumentInfoProps {
   onDuplicate: () => void;
   onDelete: () => void;
   onTitleChange: (newTitle: string) => void;
+  isDeleting?: boolean;
 }
 
 export const DocumentInfo = ({
@@ -16,11 +29,19 @@ export const DocumentInfo = ({
   onDuplicate,
   onDelete,
   onTitleChange,
+  isDeleting = false,
 }: DocumentInfoProps) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const t = useTranslations("resume");
 
-  const togglePopup = () => {
-    setIsPopupOpen((prev) => !prev);
+  const handleDuplicate = () => {
+    onDuplicate();
+    setIsPopupOpen(false);
+  };
+
+  const handleDelete = () => {
+    onDelete();
+    setIsPopupOpen(false);
   };
 
   return (
@@ -34,19 +55,20 @@ export const DocumentInfo = ({
             className="text-h5-semibold text-blue-700"
           />
           <p className="text-small text-blue-700">
-            Останнє оновлення{" "}
+            {t("lastUpdated")}{" "}
             <span className="text-small text-blue-700">{lastUpdated}</span>
           </p>
         </div>
       </div>
 
       <div className="relative flex w-1/2 justify-end pr-[10px] pt-[10px]">
-        <div
+        <button
+          type="button"
           className="flex h-6 w-6 cursor-pointer items-center justify-center"
-          onClick={togglePopup}
+          onClick={() => setIsPopupOpen(!isPopupOpen)}
         >
           <Icon name="ellipsis" size="w-[15px] h-[4px]" />
-        </div>
+        </button>
 
         {isPopupOpen && (
           <div
@@ -54,38 +76,52 @@ export const DocumentInfo = ({
             style={{
               boxShadow: "rgba(40, 17, 47, 0.2) -2px 2px 4px 0px",
             }}
-            onClick={togglePopup}
           >
             <Link href="#" className="flex w-full gap-[4px]">
               <Icon name="icon-pdf" size="w-6 h-6" />
-              <p className="text-body">Завантажити PDF</p>
+              <p className="text-body">{t("actions.downloadPdf")}</p>
             </Link>
-            <Link
-              href="#"
+            <button
+              type="button"
               className="flex w-full gap-[4px]"
-              onClick={(e) => {
-                e.preventDefault();
-                onDuplicate();
-              }}
+              onClick={handleDuplicate}
             >
               <Icon name="icon-pencil" size="w-6 h-6" />
-              <p className="text-body">Дублювати</p>
-            </Link>
+              <p className="text-body">{t("actions.duplicate")}</p>
+            </button>
             <div
               className="mt-auto w-full pt-4"
               style={{ borderTop: "1px solid #D0CFCF" }}
             >
-              <Link
-                href="#"
-                className="flex w-full gap-[4px]"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onDelete();
-                }}
-              >
-                <Icon name="icon-delete" size="w-6 h-6" />
-                <p className="text-body">Видалити</p>
-              </Link>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <button
+                    type="button"
+                    className="flex w-full gap-[4px] text-red-500"
+                  >
+                    <Icon name="icon-delete" size="w-6 h-6" />
+                    <p className="text-body">{t("actions.delete")}</p>
+                  </button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>{t("delete.title")}</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      {t("delete.description")}
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>{t("actions.cancel")}</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={handleDelete}
+                      className="bg-red-500 hover:bg-red-600"
+                      disabled={isDeleting}
+                    >
+                      {isDeleting ? t("delete.deleting") : t("delete.confirm")}
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
           </div>
         )}

@@ -32,7 +32,7 @@ export interface ResumeData {
   telegram?: string;
   dribbble?: string;
   adobePortfolio?: string;
-  photo?: string;
+  photo?: string | File;
   skills: string[];
   educations: Education[];
   workExperiences: WorkExperience[];

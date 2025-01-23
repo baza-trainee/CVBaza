@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
+import { BsStars } from "react-icons/bs";
 import { generateSummary } from "@/app/actions/generate-summary";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -70,6 +71,19 @@ export const SummaryForm = ({ resumeData, setResumeData }: EditorFormProps) => {
         </p>
       </div>
 
+      <div className="flex items-center justify-center py-4">
+        <Button
+          onClick={handleGenerateSummary}
+          disabled={isGenerating}
+          type="button"
+          variant="ai"
+          size="sm"
+        >
+          {isGenerating ? t("summary.generating") : t("summary.generate")}{" "}
+          <BsStars />
+        </Button>
+      </div>
+
       <Textarea
         value={resumeData.summary || ""}
         onChange={(e) =>
@@ -78,17 +92,6 @@ export const SummaryForm = ({ resumeData, setResumeData }: EditorFormProps) => {
         placeholder={t("placeholders.description")}
         className="min-h-[200px]"
       />
-
-      <div className="flex items-center justify-center py-2">
-        <Button
-          onClick={handleGenerateSummary}
-          disabled={isGenerating}
-          type="button"
-          className="transition-colors hover:bg-blue-100/50"
-        >
-          {isGenerating ? t("summary.generating") : t("summary.generate")}
-        </Button>
-      </div>
     </div>
   );
 };
