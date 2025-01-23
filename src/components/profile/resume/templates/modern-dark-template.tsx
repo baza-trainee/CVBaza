@@ -57,7 +57,7 @@ const ContactItem = ({
 
 export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
   return (
-    <div className="flex h-[297mm] w-[210mm] flex-col bg-white">
+    <div className="flex h-full w-full flex-col bg-white">
       {/* Header */}
       <div className="flex h-[8rem] flex-col gap-2 bg-blue-900 p-8 text-white">
         <div className="flex items-start gap-4">
@@ -66,8 +66,9 @@ export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
               <Image
                 src={data.photo}
                 alt={data.name}
-                fill
-                className="object-cover"
+                width={128}
+                height={128}
+                className="h-full w-full object-cover"
               />
             </div>
           )}
@@ -78,7 +79,7 @@ export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
         </div>
       </div>
 
-      <div className="flex flex-1">
+      <div className="flex min-h-0 flex-1">
         {/* Left Column */}
         <div className="w-1/3 bg-gray-100 px-2">
           {/* Contact Info */}
@@ -152,7 +153,7 @@ export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
 
           {/* Skills */}
           {data.skills && data.skills.length > 0 && (
-            <div>
+            <div className="mt-4">
               <SectionTitle title="Skills" />
               <div className="mt-4 space-y-2">
                 {data.skills.slice(0, 8).map((skill, i) => (
@@ -169,10 +170,10 @@ export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
             <div>
               <SectionTitle title="Languages" />
               <div className="mt-4 space-y-2">
-                {data.languages.map((language) => (
-                  <div key={language.id}>
+                {data.languages.map((language, i) => (
+                  <div key={i}>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm">{language.name}</span>
+                      <span className="text-sm">{language.language}</span>
                       <span className="text-sm text-gray-600">
                         {language.level}
                       </span>

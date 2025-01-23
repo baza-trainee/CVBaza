@@ -1,6 +1,7 @@
 import { EditorFormProps } from "@/types/resume";
 import { EducationForm } from "./forms/education-form";
 import { GeneralInfoForm } from "./forms/general-info-form";
+import { LanguagesForm } from "./forms/languages-form";
 import { PersonalInfoForm } from "./forms/personal-info-form";
 import { SkillsForm } from "./forms/skills-form";
 import { SummaryForm } from "./forms/summary-form";
@@ -12,6 +13,7 @@ export type StepKey =
   | "workExperience"
   | "education"
   | "skills"
+  | "languages"
   | "summary";
 
 export const steps: {
@@ -43,6 +45,11 @@ export const steps: {
     titleKey: "skills",
     component: SkillsForm,
     key: "skills",
+  },
+  {
+    titleKey: "languages",
+    component: LanguagesForm,
+    key: "languages",
   },
   {
     titleKey: "summary",

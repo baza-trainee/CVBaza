@@ -147,7 +147,7 @@ export const Icon: React.FC<IconProps> = ({
       </symbol>
       <symbol
         id="icon-resume"
-        viewBox="0 0 24 24"
+        viewBox="0 0 17 21"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
@@ -156,6 +156,33 @@ export const Icon: React.FC<IconProps> = ({
         <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z" />
         <circle cx="12" cy="13" r="2" />
       </symbol>
+
+      <symbol
+        id="resume-page"
+        viewBox="0 0 17 21"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          id="Vector"
+          d="M15.67 10.48L15.67 4.24C15.67 4.16 15.66 4.08 15.63 4.01C15.6 3.93 15.56 3.87 15.5 3.81L12.52 0.67C12.41 0.56 12.27 0.5 12.12 0.5L1.06 0.5C0.91 0.5 0.77 0.56 0.66 0.67C0.55 0.78 0.5 0.93 0.5 1.09L0.5 19.86C0.5 20.02 0.55 20.17 0.66 20.28C0.77 20.39 0.91 20.45 1.06 20.45L7.13 20.45M15.02 14.16C15.15 14.11 15.29 14.08 15.43 14.08C15.57 14.08 15.71 14.11 15.84 14.16C15.97 14.22 16.08 14.3 16.18 14.41C16.28 14.51 16.36 14.63 16.41 14.77C16.47 14.91 16.5 15.05 16.5 15.2C16.5 15.35 16.47 15.49 16.41 15.63C16.36 15.76 16.28 15.89 16.18 15.99L12.4 19.97C12.26 20.12 12.07 20.22 11.87 20.25L10.4 20.5L10.63 18.94C10.66 18.73 10.75 18.54 10.89 18.39L14.68 14.41C14.78 14.3 14.89 14.22 15.02 14.16Z"
+          stroke="#121111"
+          strokeOpacity="1.000000"
+          strokeWidth="1.000000"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+        />
+        <path
+          id="Vector"
+          d="M4.15 8.49L11.74 8.49M4.15 4.5L7.95 4.5M4.15 12.48L7 12.48"
+          stroke="#121111"
+          strokeOpacity="1.000000"
+          strokeWidth="1.000000"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+        />
+      </symbol>
+
       <symbol
         id="icon-dashboard"
         viewBox="0 0 24 24"
@@ -176,16 +203,97 @@ export const Icon: React.FC<IconProps> = ({
         <rect width="20" height="16" x="2" y="4" rx="2" />
         <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
       </symbol>
-      <symbol
-        id="icon-resume"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path d="M14 2v4a2 2 0 0 0 2 2h4" />
-        <path d="M15 18a3 3 0 1 0-6 0" />
-        <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z" />
-        <circle cx="12" cy="13" r="2" />
+
+      <symbol id="ellipsis" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <path
+          fill="#0A4684"
+          fillRule="evenodd"
+          d="M4 2a2 2 0 1 1-4 0C0 .89.89 0 2 0a2 2 0 0 1 2 2Zm5.5 0a2 2 0 1 1-4 0c0-1.11.89-2 2-2a2 2 0 0 1 2 2ZM13 4a2 2 0 1 0 0-4c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2Z"
+        />
+      </symbol>
+
+      <symbol id="icon-pdf" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <defs>
+          <clipPath id="a">
+            <rect
+              width="23"
+              height="23"
+              fill="#fff"
+              fillOpacity="0"
+              rx="0"
+              transform="translate(.5 .5)"
+            />
+          </clipPath>
+        </defs>
+        <rect
+          width="23"
+          height="23"
+          fill="none"
+          rx="0"
+          transform="translate(.5 .5)"
+        />
+        <g stroke="#121111" clipPath="url(#a)">
+          <path d="m12.26 10.56-.06.29c-.28 1.26-.79 2.47-1.51 3.55m1.57-3.84.52-2.31c.18-.8-.62-1.42-1.23-.96-.32.24-.45.71-.28 1.12l.27.66c.21.52.45 1.02.72 1.49.6 1.05 1.37 2 2.28 2.81.38.33.78.64 1.2.91l.94.62c.44.29 1.01.1 1.23-.41.32-.71-.19-1.52-.88-1.43l-2.49.31m0 0-.11.01a13.83 13.83 0 0 0-5.09 1.69l-1.88 1.05c-.53.29-.64 1.08-.23 1.54.37.41.97.37 1.29-.09l2.1-3.07.07-.1" />
+          <path
+            strokeLinejoin="round"
+            d="M17.14 22c1.02 0 2-.4 2.72-1.11.73-.71 1.14-1.68 1.14-2.68v-5.98c0-1-.41-1.96-1.13-2.67L13.28 3.1c-.36-.35-.78-.63-1.25-.82-.47-.19-.97-.28-1.48-.28h-2.7c-1.02 0-2 .39-2.72 1.1C4.4 3.81 4 4.78 4 5.78v12.43c0 1 .4 1.97 1.13 2.68.72.71 1.7 1.11 2.72 1.11h9.29Z"
+          />
+        </g>
+      </symbol>
+
+      <symbol id="icon-pencil" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <defs>
+          <clipPath id="a">
+            <rect
+              width="23"
+              height="23"
+              fill="#fff"
+              fillOpacity="0"
+              rx="0"
+              transform="translate(.5 .5)"
+            />
+          </clipPath>
+        </defs>
+        <rect
+          width="23"
+          height="23"
+          fill="none"
+          rx="0"
+          transform="translate(.5 .5)"
+        />
+        <g clipPath="url(#a)">
+          <path
+            stroke="#121111"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M20.79 4.66a2.648 2.648 0 0 1 0 2.07c-.13.33-.33.63-.58.88L8.09 19.72 3 21l1.27-5.03L16.39 3.79c.47-.48 1.11-.76 1.79-.79.68-.03 1.34.19 1.86.63l.17.15c.25.26.45.55.58.88ZM10.64 21h10.2M18.29 6.97l1.28 1.28"
+          />
+        </g>
+      </symbol>
+
+      <symbol id="icon-delete" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <defs>
+          <clipPath id="a">
+            <rect
+              width="23"
+              height="23"
+              fill="#fff"
+              fillOpacity="0"
+              rx="0"
+              transform="translate(.5 .5)"
+            />
+          </clipPath>
+        </defs>
+        <rect
+          width="23"
+          height="23"
+          fill="none"
+          rx="0"
+          transform="translate(.5 .5)"
+        />
+        <g stroke="#121111" clipPath="url(#a)">
+          <path d="M10 6.04v12m4-12v12M3 2.62h18m-15.89 0v17.1c0 1.25.95 2.28 2.12 2.28h9.53c1.17 0 2.12-1.03 2.12-2.28V2.62M8.21 2h8.05" />
+        </g>
       </symbol>
     </svg>
 

@@ -1,5 +1,6 @@
 import createNextIntlPlugin from "next-intl/plugin";
 
+
 const withNextIntl = createNextIntlPlugin();
 const nextConfig = {
   images: {
@@ -7,6 +8,7 @@ const nextConfig = {
       { protocol: "https", hostname: "avatars.githubusercontent.com" },
       { protocol: "https", hostname: "lh3.googleusercontent.com" },
       { protocol: "https", hostname: "res.cloudinary.com" },
+      { protocol: "https", hostname: "example.com" },
     ],
   },
 };
