@@ -1,17 +1,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { Alert } from "@/components/shared/alert";
 import { Icon } from "@/components/shared/icon";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { Link } from "@/i18n/routing";
 
 interface DocumentInfoProps {
@@ -71,57 +61,42 @@ export const DocumentInfo = ({
         </button>
 
         {isPopupOpen && (
-          <div
-            className="absolute bottom-[4px] left-[90px] z-10 flex h-auto w-[222px] flex-col gap-4 rounded-bl-[4px] rounded-br-[4px] rounded-tl-[0px] rounded-tr-[4px] bg-white p-6"
-            style={{
-              boxShadow: "rgba(40, 17, 47, 0.2) -2px 2px 4px 0px",
-            }}
-          >
-            <Link href="#" className="flex w-full gap-[4px]">
+          <div className="absolute bottom-[4px] left-[90px] z-10 flex h-auto w-[222px] flex-col gap-4 rounded-bl-[4px] rounded-br-[4px] rounded-tl-[0px] rounded-tr-[4px] bg-white p-6 shadow-lg">
+            <Link
+              href="#"
+              className="flex w-full gap-[4px] transition-colors hover:text-blue-700"
+            >
               <Icon name="icon-pdf" size="w-6 h-6" />
               <p className="text-body">{t("actions.downloadPdf")}</p>
             </Link>
             <button
               type="button"
-              className="flex w-full gap-[4px]"
+              className="flex w-full gap-[4px] transition-colors hover:text-blue-700"
               onClick={handleDuplicate}
             >
               <Icon name="icon-pencil" size="w-6 h-6" />
               <p className="text-body">{t("actions.duplicate")}</p>
             </button>
-            <div
-              className="mt-auto w-full pt-4"
-              style={{ borderTop: "1px solid #D0CFCF" }}
-            >
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
+            <div className="mt-auto w-full border-t border-gray-200 pt-4">
+              <Alert
+                trigger={
                   <button
                     type="button"
-                    className="flex w-full gap-[4px] text-red-500"
+                    className="flex w-full gap-[4px] text-red-500 transition-colors hover:text-red-600"
                   >
                     <Icon name="icon-delete" size="w-6 h-6" />
                     <p className="text-body">{t("actions.delete")}</p>
                   </button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>{t("delete.title")}</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      {t("delete.description")}
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>{t("actions.cancel")}</AlertDialogCancel>
-                    <AlertDialogAction
-                      onClick={handleDelete}
-                      className="bg-red-500 hover:bg-red-600"
-                      disabled={isDeleting}
-                    >
-                      {isDeleting ? t("delete.deleting") : t("delete.confirm")}
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
+                }
+                title={t("delete.title")}
+                description={t("delete.description")}
+                cancelText={t("actions.cancel")}
+                confirmText={t("delete.confirm")}
+                loadingText={t("delete.deleting")}
+                isLoading={isDeleting}
+                variant="destructive"
+                onConfirm={handleDelete}
+              />
             </div>
           </div>
         )}

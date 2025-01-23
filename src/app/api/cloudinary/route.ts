@@ -29,7 +29,7 @@ const uploadToCloudinary = (
   });
 };
 
-export const uploadBase64Image = async (
+const uploadBase64Image = async (
   base64Data: string
 ): Promise<{ url: string; publicId: string }> => {
   // Convert base64 to proper format if it's not already

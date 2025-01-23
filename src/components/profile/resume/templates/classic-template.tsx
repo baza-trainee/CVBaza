@@ -58,7 +58,7 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
       {/* Header Section */}
       <div className="flex flex-col gap-8 sm:flex-row">
         <div className="flex h-[12rem] w-full items-center justify-center bg-gray-200 sm:w-1/3">
-          {data.photo && (
+          {data.photo && typeof data.photo === "string" && (
             <div className="h-32 w-32 overflow-hidden rounded-full border-[0.7rem] border-white">
               <Image
                 src={data.photo}
@@ -211,8 +211,8 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
                     <h4 className="font-bold">{exp.position}</h4>
                     {exp.company && (
                       <p className="text-sm text-gray-600">
-                        {exp.company} | {formatDate(exp.startDate as string)} -{" "}
-                        {formatDate(exp.endDate as string)}
+                        {exp.company} | {formatDate(exp.startDate!)} -{" "}
+                        {formatDate(exp.endDate!)}
                       </p>
                     )}
                     <p className="text-sm">{exp.description}</p>
@@ -223,18 +223,17 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
           ) : null}
 
           {/* Education Section */}
-          {data.educations?.length > 0 && (
+          {data.educations && data?.educations?.length > 0 && (
             <div>
               <SectionTitle title="Education" />
               <div className="space-y-4">
-                {data.educations.map((edu, index) => (
+                {data?.educations?.map((edu, index) => (
                   <div key={index} className="space-y-1">
                     <h4 className="font-bold">{edu.degree}</h4>
                     {edu.institution && (
                       <p className="text-sm text-gray-600">
-                        {edu.institution} |{" "}
-                        {formatDate(edu.startDate as string)} -{" "}
-                        {formatDate(edu.endDate as string)}
+                        {edu.institution} | {formatDate(edu.startDate!)} -{" "}
+                        {formatDate(edu.endDate!)}
                       </p>
                     )}
                   </div>

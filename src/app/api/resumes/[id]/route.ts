@@ -4,20 +4,9 @@ import { db } from "@/db";
 import { educations, resumes, workExperiences } from "@/db/schema";
 import { auth } from "@/lib/auth";
 
-// Helper to extract public ID from Cloudinary URL
-// const getPublicIdFromUrl = (url: string): string | null => {
-//   try {
-//     const matches = url.match(/\/upload\/v\d+\/(.+?)\./);
-//     return matches ? `cvbaza/${matches[1]}` : null;
-//   } catch (error) {
-//     console.error("Error extracting public ID:", error);
-//     return null;
-//   }
-// };
-
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth();
@@ -25,12 +14,11 @@ export async function DELETE(
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
+    const { id } = await params;
+
     // Get the resume to check ownership and get photo URL
     const resume = await db.query.resumes.findFirst({
-      where: and(
-        eq(resumes.id, params.id),
-        eq(resumes.userId, session.user.id)
-      ),
+      where: and(eq(resumes.id, id), eq(resumes.userId, session.user.id)),
     });
 
     if (!resume) {
@@ -50,31 +38,29 @@ export async function DELETE(
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ imageId: resume.publicId }),
+            body: JSON.stringify({ publicId: resume.publicId }),
           }
         );
 
         if (!response.ok) {
-          console.error("Failed to delete image from Cloudinary");
+          console.error("Failed to delete photo from Cloudinary");
         }
       } catch (error) {
-        console.error("Error calling Cloudinary remove endpoint:", error);
+        console.error("Error deleting photo from Cloudinary:", error);
       }
     }
 
-    // Delete related records first (due to foreign key constraints)
-    await db.delete(educations).where(eq(educations.resumeId, params.id));
+    // Delete resume and related data
+    await db.transaction(async (tx) => {
+      // Delete education records
+      await tx.delete(educations).where(eq(educations.resumeId, id));
 
-    await db
-      .delete(workExperiences)
-      .where(eq(workExperiences.resumeId, params.id));
+      // Delete work experience records
+      await tx.delete(workExperiences).where(eq(workExperiences.resumeId, id));
 
-    // Delete the resume
-    await db
-      .delete(resumes)
-      .where(
-        and(eq(resumes.id, params.id), eq(resumes.userId, session.user.id))
-      );
+      // Delete resume
+      await tx.delete(resumes).where(eq(resumes.id, id));
+    });
 
     return NextResponse.json({ message: "Resume deleted successfully" });
   } catch (error) {

@@ -29,27 +29,27 @@ export const ResumePage = () => {
   const [duplicatedResumes, setDuplicatedResumes] =
     useState<DuplicatedResume[]>(getSavedResumes);
   const [isDeleting, setIsDeleting] = useState(false);
-
-  const loadResumes = async () => {
-    try {
-      const response = await fetch("/api/resumes");
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const data: IResume[] = await response.json();
-      if (Array.isArray(data)) {
-        setResumes(data);
-      }
-    } catch (error) {
-      console.error("Error loading resumes:", error);
-      toast.error(t("errors.loadFailed"));
-    }
-  };
+  const [isDeletingId, setIsDeletingId] = useState<string | null>(null);
 
   useEffect(() => {
+    const loadResumes = async () => {
+      try {
+        const response = await fetch("/api/resumes");
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data: IResume[] = await response.json();
+        if (Array.isArray(data)) {
+          setResumes(data);
+        }
+      } catch (error) {
+        console.error("Error loading resumes:", error);
+        toast.error(t("errors.loadFailed"));
+      }
+    };
     loadResumes();
-  }, []);
+  }, [t]);
 
   const handleDuplicate = (resume: IResume) => {
     const newId = crypto.randomUUID();
@@ -83,6 +83,7 @@ export const ResumePage = () => {
 
     try {
       setIsDeleting(true);
+      setIsDeletingId(id);
       const response = await fetch(`/api/resumes/${id}`, {
         method: "DELETE",
       });
@@ -99,6 +100,7 @@ export const ResumePage = () => {
       toast.error(t("errors.deleteFailed"));
     } finally {
       setIsDeleting(false);
+      setIsDeletingId(null);
     }
   };
 
@@ -131,7 +133,7 @@ export const ResumePage = () => {
         </div>
       </div>
 
-      <div className="flex justify-center gap-[68px]">
+      <div className="flex flex-wrap justify-center gap-[68px]">
         {resumes.map((resume) => (
           <div key={resume.id} className="flex h-auto w-[232px] flex-col gap-4">
             <div className="h-[320px] overflow-y-hidden">
@@ -141,14 +143,14 @@ export const ResumePage = () => {
               />
             </div>
             <DocumentInfo
-              title={resume.title}
+              title={resume.title || ""}
               lastUpdated={formatDate(resume.updatedAt, locale)}
+              onDuplicate={() => handleDuplicate(resume)}
+              onDelete={() => handleDelete(resume.id)}
               onTitleChange={(newTitle) =>
                 handleTitleChange(resume.id, newTitle)
               }
-              onDuplicate={() => handleDuplicate(resume)}
-              onDelete={() => handleDelete(resume.id)}
-              isDeleting={isDeleting}
+              isDeleting={isDeleting && isDeletingId === resume.id}
             />
           </div>
         ))}
