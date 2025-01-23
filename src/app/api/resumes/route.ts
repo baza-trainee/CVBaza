@@ -14,19 +14,29 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    const data = await req.json();
+    const data = await req.formData();
+    const jsonData = data.get("data");
+
+    if (!jsonData || typeof jsonData !== "string") {
+      return NextResponse.json(
+        { message: "Invalid resume data" },
+        { status: 400 }
+      );
+    }
 
     try {
-      const validatedData = resumeSchema.parse(data);
+      const parsedData = JSON.parse(jsonData);
+      const validatedData = resumeSchema.parse(parsedData);
 
       // Handle photo upload if it's a base64 string
       if (
         validatedData.photo &&
         typeof validatedData.photo === "string" &&
-        validatedData.photo.startsWith("data:image")
+        validatedData.photo.startsWith("data:")
       ) {
-        const { url } = await uploadBase64Image(validatedData.photo);
+        const { url, publicId } = await uploadBase64Image(validatedData.photo);
         validatedData.photo = url;
+        validatedData.publicId = publicId;
       }
 
       // Insert resume
@@ -90,15 +100,36 @@ export async function GET() {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
+    // First get all resumes
     const userResumes = await db
       .select()
       .from(resumes)
       .where(eq(resumes.userId, session.user.id))
-      .leftJoin(educations, eq(educations.resumeId, resumes.id))
-      .leftJoin(workExperiences, eq(workExperiences.resumeId, resumes.id))
       .orderBy(desc(resumes.updatedAt));
 
-    return NextResponse.json(userResumes);
+    // Then get related data for each resume
+    const resumesWithData = await Promise.all(
+      userResumes.map(async (resume) => {
+        const [resumeEducations, resumeWorkExperiences] = await Promise.all([
+          db
+            .select()
+            .from(educations)
+            .where(eq(educations.resumeId, resume.id)),
+          db
+            .select()
+            .from(workExperiences)
+            .where(eq(workExperiences.resumeId, resume.id)),
+        ]);
+
+        return {
+          ...resume,
+          educations: resumeEducations,
+          workExperiences: resumeWorkExperiences,
+        };
+      })
+    );
+
+    return NextResponse.json(resumesWithData);
   } catch (error) {
     console.error("Error fetching resumes:", error);
     return NextResponse.json(

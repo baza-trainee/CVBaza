@@ -49,7 +49,7 @@ export const ResumePage = () => {
       }
     };
     loadResumes();
-  }, [t]);
+  }, []);
 
   const handleDuplicate = (resume: IResume) => {
     const newId = crypto.randomUUID();
@@ -134,8 +134,8 @@ export const ResumePage = () => {
       </div>
 
       <div className="flex flex-wrap justify-center gap-[68px]">
-        {resumes.map((resume) => (
-          <div key={resume.id} className="flex h-auto w-[232px] flex-col gap-4">
+        {resumes.map((resume, i) => (
+          <div key={i} className="flex h-auto w-[232px] flex-col gap-4">
             <div className="h-[320px] overflow-y-hidden">
               <ResumePreviewSection
                 data={resume}

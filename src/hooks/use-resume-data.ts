@@ -40,18 +40,31 @@ export const useResumeData = () => {
       setIsSavingToDb(true);
 
       // Validate required fields
-      if (!resumeData.name || !resumeData.profession || !resumeData.summary) {
-        throw new Error("Please fill in all required fields");
+      if (
+        !resumeData.name ||
+        !resumeData.profession ||
+        !resumeData.summary ||
+        !resumeData.title ||
+        !resumeData.template
+      ) {
+        throw new Error(
+          "Please fill in all required fields (Name, Profession, Summary, Title, and Template)"
+        );
       }
 
       // Create FormData for file upload
       const formData = new FormData();
       const dataToSend = { ...resumeData };
 
+      // If photo is a File, convert it to base64
       if (resumeData.photo instanceof File) {
-        formData.append("photo", resumeData.photo);
-        // Remove photo from JSON data since we're sending it as a file
-        delete dataToSend.photo;
+        const reader = new FileReader();
+        const base64 = await new Promise<string>((resolve, reject) => {
+          reader.onload = () => resolve(reader.result as string);
+          reader.onerror = reject;
+          reader.readAsDataURL(resumeData.photo as File);
+        });
+        dataToSend.photo = base64;
       }
 
       // Add resume data as JSON
@@ -69,11 +82,12 @@ export const useResumeData = () => {
 
       const savedResume = await response.json();
 
-      // Update local resume data with the Cloudinary URL
-      if (savedResume.photo) {
+      // Update local resume data with the Cloudinary URL and publicId
+      if (savedResume.photo && savedResume.publicId) {
         setResumeData((prev) => ({
           ...prev,
           photo: savedResume.photo,
+          publicId: savedResume.publicId,
         }));
       }
 
@@ -83,7 +97,7 @@ export const useResumeData = () => {
       });
 
       // Clear local storage
-      // localStorage.removeItem("resumeData");
+      localStorage.removeItem("resumeData");
 
       // Reset state to initial data
       setResumeData(initialData);
