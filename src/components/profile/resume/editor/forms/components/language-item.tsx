@@ -122,9 +122,17 @@ export const LanguageItem = ({
         />
       </div>
 
-      <Button variant="destructive" type="button" onClick={() => remove(index)}>
-        {t("languages.remove")}
-      </Button>
+      <div className="flex justify-end">
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          className="text-destructive"
+          onClick={() => remove(index)}
+        >
+          {t("languages.remove")}
+        </Button>
+      </div>
     </div>
   );
 };

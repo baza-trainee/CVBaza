@@ -35,6 +35,7 @@ export const ResumePreviewSection = ({
   const { width } = useDimensions(containerRef);
   const pathname = usePathname();
   const isEditor = pathname?.includes("/editor");
+  console.log(data);
 
   const zoom = useMemo(() => {
     if (!width) return MIN_ZOOM;
