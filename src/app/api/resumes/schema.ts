@@ -15,13 +15,19 @@ export const workExperienceSchema = z.object({
   description: z.string().optional(),
 });
 
+export const languageSchema = z.object({
+  language: z.string().max(255),
+  level: z.string().max(255),
+});
+
 export const resumeSchema = z.object({
   title: z.string().max(255),
   profession: z.string().optional(),
-  photo: z.string().url().max(2048).optional(),
+  photo: z.string().url().max(2048).nullish(),
+  publicId: z.string().max(100).nullish(),
   summary: z.string().optional(),
   name: z.string().max(255),
-  location: z.string().max(100).optional(),
+  location: z.string().max(320).optional(),
   phone: z.string().max(50).optional(),
   github: z.string().max(255).optional(),
   email: z.string().email().max(320),
@@ -32,14 +38,7 @@ export const resumeSchema = z.object({
   adobePortfolio: z.string().max(255).optional(),
   template: z.string().max(255),
   skills: z.array(z.string()).default([]),
-  languages: z
-    .array(
-      z.object({
-        language: z.string(),
-        level: z.string(),
-      })
-    )
-    .default([]),
-  education: z.array(educationSchema).optional(),
-  workExperience: z.array(workExperienceSchema).optional(),
+  languages: z.array(languageSchema).default([]),
+  educations: z.array(educationSchema).optional(),
+  workExperiences: z.array(workExperienceSchema).optional(),
 });

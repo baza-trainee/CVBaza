@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { toast } from "sonner";
 import { ResumePreviewSection } from "@/components/profile/resume/resume-preview";
 import { Icon } from "@/components/shared/icon";
 import { Link } from "@/i18n/routing";
@@ -23,11 +24,12 @@ const getSavedResumes = () => {
 
 export const ResumePage = () => {
   const locale = useLocale();
+  const t = useTranslations("resume");
   const [resumes, setResumes] = useState<IResume[]>([]);
   const [duplicatedResumes, setDuplicatedResumes] =
     useState<DuplicatedResume[]>(getSavedResumes);
-
-  const template = "classic";
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isDeletingId, setIsDeletingId] = useState<string | null>(null);
 
   useEffect(() => {
     const loadResumes = async () => {
@@ -42,19 +44,19 @@ export const ResumePage = () => {
           setResumes(data);
         }
       } catch (error) {
-        console.error("Error loading resume:", error);
+        console.error("Error loading resumes:", error);
+        toast.error(t("errors.loadFailed"));
       }
     };
-
     loadResumes();
-  }, []);
+  }, [t]);
 
   const handleDuplicate = (resume: IResume) => {
     const newId = crypto.randomUUID();
     const duplicatedResume: DuplicatedResume = {
       id: newId,
       data: { ...resume },
-      title: `${resume.title} (копія)`,
+      title: `${resume.title} (${t("copy")})`,
     };
 
     setDuplicatedResumes((prev) => {
@@ -66,7 +68,7 @@ export const ResumePage = () => {
     });
   };
 
-  const handleDelete = (id: string) => {
+  const handleDeleteDuplicate = (id: string) => {
     setDuplicatedResumes((prev) => {
       const newResumes = prev.filter((resume) => resume.id !== id);
       if (typeof window !== "undefined") {
@@ -74,6 +76,40 @@ export const ResumePage = () => {
       }
       return newResumes;
     });
+  };
+
+  const handleDeleteResume = async (id: string) => {
+    if (isDeleting) return;
+
+    try {
+      setIsDeleting(true);
+      setIsDeletingId(id);
+      const response = await fetch(`/api/resumes/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      // Remove from local state
+      setResumes((prev) => prev.filter((resume) => resume.id !== id));
+      toast.success(t("messages.deleteSuccess"));
+    } catch (error) {
+      console.error("Error deleting resume:", error);
+      toast.error(t("errors.deleteFailed"));
+    } finally {
+      setIsDeleting(false);
+      setIsDeletingId(null);
+    }
+  };
+
+  const handleDelete = (id: string, isDuplicate = false) => {
+    if (isDuplicate) {
+      handleDeleteDuplicate(id);
+    } else {
+      handleDeleteResume(id);
+    }
   };
 
   const handleTitleChange = (id: string, newTitle: string) => {
@@ -93,11 +129,11 @@ export const ResumePage = () => {
       <div className="mb-[74px] box-border flex h-[320px] w-[232px] items-center justify-center rounded-[4px] border-[1px] border-dashed border-[rgb(208,207,207)] px-5">
         <div className="flex items-center gap-2 pl-[4px]">
           <Icon name="resume-page" size="w-4 h-5" />
-          <Link href="/profile/resume/editor">Створити резюме</Link>
+          <Link href="/profile/resume/editor">{t("actions.create")}</Link>
         </div>
       </div>
 
-      <div className="flex justify-center gap-[68px]">
+      <div className="flex flex-wrap justify-center gap-[68px]">
         {resumes.map((resume) => (
           <div key={resume.id} className="flex h-auto w-[232px] flex-col gap-4">
             <div className="h-[320px] overflow-y-hidden">
@@ -107,13 +143,14 @@ export const ResumePage = () => {
               />
             </div>
             <DocumentInfo
-              title={resume.title}
+              title={resume.title || ""}
               lastUpdated={formatDate(resume.updatedAt, locale)}
+              onDuplicate={() => handleDuplicate(resume)}
+              onDelete={() => handleDelete(resume.id)}
               onTitleChange={(newTitle) =>
                 handleTitleChange(resume.id, newTitle)
               }
-              onDuplicate={() => handleDuplicate(resume)}
-              onDelete={() => handleDelete(resume.id)}
+              isDeleting={isDeleting && isDeletingId === resume.id}
             />
           </div>
         ))}
@@ -126,7 +163,7 @@ export const ResumePage = () => {
             <div className="h-[320px] overflow-y-hidden">
               <ResumePreviewSection
                 data={duplicatedResume.data}
-                template={template}
+                template={duplicatedResume.data.template || "classic"}
               />
             </div>
             <DocumentInfo
@@ -136,7 +173,7 @@ export const ResumePage = () => {
                 handleTitleChange(duplicatedResume.id, newTitle)
               }
               onDuplicate={() => handleDuplicate(duplicatedResume.data)}
-              onDelete={() => handleDelete(duplicatedResume.id)}
+              onDelete={() => handleDelete(duplicatedResume.id, true)}
             />
           </div>
         ))}

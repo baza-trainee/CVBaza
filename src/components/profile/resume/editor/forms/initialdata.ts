@@ -8,6 +8,7 @@ export const initialData: ResumeData = {
   profession: "",
   photo: "",
   location: "",
+  address: "",
   phone: "",
   email: "",
   telegram: "",

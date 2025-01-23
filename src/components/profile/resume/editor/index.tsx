@@ -14,7 +14,14 @@ export const ResumeEditor = () => {
   const searchParams = useSearchParams();
   const currentStep = searchParams.get("step") || steps[0].key;
   const [showMobileResumePreview, setShowMobileResumePreview] = useState(false);
-  const { resumeData, updateResumeData, isInitialized } = useResumeData();
+  const {
+    resumeData,
+    updateResumeData,
+    saveToDatabase,
+    isInitialized,
+    isSaving,
+    isSavingToDb,
+  } = useResumeData();
 
   const setStep = useCallback(
     (key: string) => {
@@ -49,6 +56,9 @@ export const ResumeEditor = () => {
         <EditorFooter
           currentStep={currentStep}
           setCurrentStep={setStep}
+          isSaving={isSaving}
+          isSavingToDb={isSavingToDb}
+          onSave={saveToDatabase}
           showMobileResumePreview={showMobileResumePreview}
           setShowMobileResumePreview={setShowMobileResumePreview}
         />

@@ -62,67 +62,98 @@ export const WorkExperienceItem = ({
           {...listeners}
         />
       </div>
-      <FormField
-        control={form.control}
-        name={`workExperiences.${index}.position`}
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>{t("labels.position")}</FormLabel>
-            <FormControl>
-              <Input
-                placeholder={t("placeholders.position")}
-                {...field}
-                autoFocus
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name={`workExperiences.${index}.company`}
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>{t("labels.company")}</FormLabel>
-            <FormControl>
-              <Input placeholder={t("placeholders.company")} {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <div className="grid grid-cols-2 gap-3">
+
+      <div className="grid gap-3">
         <FormField
           control={form.control}
-          name={`workExperiences.${index}.startDate`}
+          name={`workExperiences.${index}.position`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("labels.startDate")}</FormLabel>
+              <FormLabel>{t("labels.position")}</FormLabel>
               <FormControl>
                 <Input
                   {...field}
-                  type="date"
-                  value={field.value?.slice(0, 10)}
-                  placeholder={t("placeholders.startDate")}
+                  placeholder={t("labels.position")}
+                  value={field.value || ""}
                 />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
-          name={`workExperiences.${index}.endDate`}
+          name={`workExperiences.${index}.company`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("labels.endDate")}</FormLabel>
+              <FormLabel>{t("labels.company")}</FormLabel>
               <FormControl>
                 <Input
                   {...field}
-                  type="date"
-                  value={field.value?.slice(0, 10)}
-                  placeholder={t("placeholders.endDate")}
+                  placeholder={t("labels.company")}
+                  value={field.value || ""}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <div className="grid grid-cols-2 gap-3">
+          <FormField
+            control={form.control}
+            name={`workExperiences.${index}.startDate`}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("labels.startDate")}</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    type="date"
+                    value={field.value?.slice(0, 10)}
+                    placeholder={t("labels.startDate")}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name={`workExperiences.${index}.endDate`}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("labels.endDate")}</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    type="date"
+                    value={field.value?.slice(0, 10)}
+                    placeholder={t("labels.endDate")}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <FormDescription>
+          {t("workExperience.endDateDescription")}
+        </FormDescription>
+
+        <FormField
+          control={form.control}
+          name={`workExperiences.${index}.description`}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t("labels.description")}</FormLabel>
+              <FormControl>
+                <Textarea
+                  {...field}
+                  placeholder={t("labels.description")}
+                  value={field.value || ""}
                 />
               </FormControl>
               <FormMessage />
@@ -130,28 +161,18 @@ export const WorkExperienceItem = ({
           )}
         />
       </div>
-      <FormDescription>
-        {t("workExperience.endDateDescription")}
-      </FormDescription>
-      <FormField
-        control={form.control}
-        name={`workExperiences.${index}.description`}
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>{t("labels.description")}</FormLabel>
-            <FormControl>
-              <Textarea
-                placeholder={t("placeholders.description")}
-                {...field}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <Button variant="destructive" type="button" onClick={() => remove(index)}>
-        {t("workExperience.remove")}
-      </Button>
+
+      <div className="flex justify-end">
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          className="text-destructive"
+          onClick={() => remove(index)}
+        >
+          {t("workExperience.remove")}
+        </Button>
+      </div>
     </div>
   );
 };

@@ -20,9 +20,10 @@ export const resumes = pgTable("resumes", {
   title: varchar("title", { length: 255 }),
   name: varchar("name", { length: 255 }),
   profession: text("profession"), // Can be long, keep as text
-  photo: varchar("photo", { length: 2048 }), // URL length
+  photo: varchar("photo", { length: 2048 }),
+  publicId: varchar("publicId", { length: 100 }), // URL length
   summary: text("summary"), // Can be long, keep as text
-  location: varchar("location", { length: 100 }),
+  location: varchar("location", { length: 320 }),
   phone: varchar("phone", { length: 50 }),
   email: varchar("email", { length: 320 }),
   telegram: varchar("telegram", { length: 255 }),
