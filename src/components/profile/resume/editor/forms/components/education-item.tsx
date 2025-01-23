@@ -67,10 +67,11 @@ export const EducationItem = ({
           name={`educations.${index}.degree`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("fields.degree")}</FormLabel>
+              <FormLabel>{t("labels.degree")}</FormLabel>
               <FormControl>
                 <Input
                   {...field}
+                  placeholder={t("placeholders.degree")}
                   value={field.value || ""}
                   autoComplete="off"
                   data-form-type="other"
@@ -86,10 +87,11 @@ export const EducationItem = ({
           name={`educations.${index}.institution`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("fields.institution")}</FormLabel>
+              <FormLabel>{t("labels.institution")}</FormLabel>
               <FormControl>
                 <Input
                   {...field}
+                  placeholder={t("placeholders.institution")}
                   value={field.value || ""}
                   autoComplete="off"
                   data-form-type="other"
@@ -106,11 +108,12 @@ export const EducationItem = ({
             name={`educations.${index}.startDate`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("fields.startDate")}</FormLabel>
+                <FormLabel>{t("labels.startDate")}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
-                    value={field.value || ""}
+                    type="date"
+                    value={field.value?.slice(0, 10)}
                     placeholder={t("placeholders.startDate")}
                     autoComplete="off"
                     data-form-type="other"
@@ -126,11 +129,12 @@ export const EducationItem = ({
             name={`educations.${index}.endDate`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("fields.endDate")}</FormLabel>
+                <FormLabel>{t("labels.endDate")}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
-                    value={field.value || ""}
+                    type="date"
+                    value={field.value?.slice(0, 10)}
                     placeholder={t("placeholders.endDate")}
                     autoComplete="off"
                     data-form-type="other"
@@ -143,9 +147,17 @@ export const EducationItem = ({
         </div>
       </div>
 
-      <Button variant="destructive" type="button" onClick={() => remove(index)}>
-        {t("education.remove")}
-      </Button>
+      <div className="flex justify-end">
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          className="text-destructive"
+          onClick={() => remove(index)}
+        >
+          {t("education.remove")}
+        </Button>
+      </div>
     </div>
   );
 };

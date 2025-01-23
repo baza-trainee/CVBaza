@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { signOut } from "next-auth/react";
-import { SettingIcon } from "@/components/IconsComponents/setting-icon";
+import { SettingIcon } from "@/components/icons/setting-icon";
 import {
   DropdownMenu,
   DropdownMenuContent,

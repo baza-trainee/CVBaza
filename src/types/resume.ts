@@ -20,26 +20,27 @@ export interface Language {
 }
 
 export interface ResumeData {
-  title: string;
+  title?: string;
   name: string;
-  profession: string;
+  profession?: string;
   email: string;
   phone: string;
-  location: string;
+  location?: string;
+  address: string;
   github?: string;
   linkedin?: string;
   behance?: string;
   telegram?: string;
   dribbble?: string;
   adobePortfolio?: string;
-  photo?: string;
+  photo?: string | File;
   skills: string[];
-  educations: Education[];
-  workExperiences: WorkExperience[];
+  educations?: Education[];
+  education?: Education[];
+  workExperiences?: WorkExperience[];
   languages: Language[];
   summary: string;
-  template: string;
-  lastUpdated: string;
+  template?: string;
 }
 
 export interface IResume extends ResumeData {

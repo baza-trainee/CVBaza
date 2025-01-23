@@ -19,6 +19,33 @@
     "desc": "Схоже, ми не зможемо знайти потрібну вам сторінку. Поверніться на головну.",
     "buttonText": "На головну"
   },
+  "resume": {
+    "lastUpdated": "Останнє оновлення",
+    "copy": "копія",
+    "actions": {
+      "create": "Створити резюме",
+      "downloadPdf": "Завантажити PDF",
+      "duplicate": "Дублювати",
+      "delete": "Видалити",
+      "cancel": "Скасувати",
+      "save": "Зберегти"
+    },
+    "delete": {
+      "title": "Видалити резюме",
+      "description": "Ви впевнені, що хочете видалити це резюме? Ця дія не може бути скасована.",
+      "confirm": "Видалити",
+      "deleting": "Видалення..."
+    },
+    "messages": {
+      "deleteSuccess": "Резюме успішно видалено",
+      "saveTitleSuccess": "Назву резюме успішно оновлено"
+    },
+    "errors": {
+      "loadFailed": "Не вдалося завантажити резюме",
+      "deleteFailed": "Не вдалося видалити резюме",
+      "saveTitleFailed": "Не вдалося оновити назву резюме"
+    }
+  },
   "Form": {
     "validation": {
       "required": "Це поле обов'язкове",
@@ -104,10 +131,10 @@
       "dribbble": "https://dribbble.com/username",
       "adobePortfolio": "https://portfolio.adobe.com/username",
       "position": "Старший інженер програмного забезпечення",
-      "company": "Назва компанії",
+      "company": "Компанія XYZ",
+      "description": "Опишіть ваші обов'язки та досягнення",
       "startDate": "Січень 2020",
       "endDate": "Теперішній час",
-      "description": "Опишіть ваші обов'язки та досягнення",
       "skills": "напр. React.js, Node.js, графічний дизайн, ...",
       "languageLevel": "Оберіть рівень володіння"
     },
