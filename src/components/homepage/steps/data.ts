@@ -8,12 +8,12 @@ interface ISteps {
   width: Record<ScreenSize, number>;
 }
 
-export const dataSteps: ISteps[] = [
+export const createStepsData = (t: (key: string) => string): ISteps[] => [
   {
-    img: "/images/cover_steps/cv_1.png",
-    step: "Крок 1",
-    title: "Виберіть шаблон",
-    description: "Виберіть шаблон резюме або завантажте існуюче",
+    img: "/images/cover_steps/cv_1.webp",
+    step: t("step1.step"),
+    title: t("step1.title"),
+    description: t("step1.description"),
     width: {
       "2xl": 230,
       xl: 230,
@@ -23,10 +23,10 @@ export const dataSteps: ISteps[] = [
     },
   },
   {
-    img: "/images/cover_steps/cv_2.png",
-    step: "Крок 2",
-    title: "Додайте контент",
-    description: "За допомогою декількох кліків заповніть шаблон",
+    img: "/images/cover_steps/cv_2.webp",
+    step: t("step2.step"),
+    title: t("step2.title"),
+    description: t("step2.description"),
     width: {
       "2xl": 253,
       xl: 252,
@@ -36,10 +36,10 @@ export const dataSteps: ISteps[] = [
     },
   },
   {
-    img: "/images/cover_steps/cv_3.png",
-    step: "Крок 3",
-    title: "Адаптуйте під себе",
-    description: "Оберіть кольори та шрифти за допомогою зручного інтерфейсу",
+    img: "/images/cover_steps/cv_3.webp",
+    step: t("step3.step"),
+    title: t("step3.title"),
+    description: t("step3.description"),
     width: {
       "2xl": 260,
       xl: 260,
@@ -49,10 +49,10 @@ export const dataSteps: ISteps[] = [
     },
   },
   {
-    img: "/images/cover_steps/cv_4.png",
-    step: "Крок 4",
-    title: "Збережіть файл",
-    description: "Завантажте своє покращене резюме у PDF форматі",
+    img: "/images/cover_steps/cv_4.webp",
+    step: t("step4.step"),
+    title: t("step4.title"),
+    description: t("step4.description"),
     width: {
       "2xl": 226,
       xl: 226,

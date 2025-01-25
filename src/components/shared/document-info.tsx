@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Alert } from "@/components/shared/alert";
 import { Icon } from "@/components/shared/icon";
 import { Link } from "@/i18n/routing";
 
@@ -8,29 +7,47 @@ interface DocumentInfoProps {
   title: string;
   lastUpdated: string;
   onDuplicate: () => void;
-  onDelete: () => void;
   onTitleChange: (newTitle: string) => void;
-  isDeleting?: boolean;
+  onDeleteClick: () => void;
 }
 
 export const DocumentInfo = ({
   title,
   lastUpdated,
   onDuplicate,
-  onDelete,
   onTitleChange,
-  isDeleting = false,
+  onDeleteClick,
 }: DocumentInfoProps) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const popupRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const t = useTranslations("resume");
 
-  const handleDuplicate = () => {
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        popupRef.current &&
+        !popupRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
+        setIsPopupOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleDuplicateClick = () => {
     onDuplicate();
     setIsPopupOpen(false);
   };
 
-  const handleDelete = () => {
-    onDelete();
+  const handleDeleteTrigger = () => {
+    onDeleteClick();
     setIsPopupOpen(false);
   };
 
@@ -54,6 +71,7 @@ export const DocumentInfo = ({
       <div className="relative flex w-1/2 justify-end pr-[10px] pt-[10px]">
         <button
           type="button"
+          ref={buttonRef}
           className="flex h-6 w-6 cursor-pointer items-center justify-center"
           onClick={() => setIsPopupOpen(!isPopupOpen)}
         >
@@ -61,7 +79,10 @@ export const DocumentInfo = ({
         </button>
 
         {isPopupOpen && (
-          <div className="absolute bottom-[4px] left-[90px] z-10 flex h-auto w-[222px] flex-col gap-4 rounded-bl-[4px] rounded-br-[4px] rounded-tl-[0px] rounded-tr-[4px] bg-white p-6 shadow-lg">
+          <div
+            ref={popupRef}
+            className="absolute bottom-[4px] left-[90px] z-10 flex h-auto w-[222px] flex-col gap-4 rounded-bl-[4px] rounded-br-[4px] rounded-tl-[0px] rounded-tr-[4px] bg-white p-6 shadow-lg"
+          >
             <Link
               href="#"
               className="flex w-full gap-[4px] transition-colors hover:text-blue-700"
@@ -72,31 +93,20 @@ export const DocumentInfo = ({
             <button
               type="button"
               className="flex w-full gap-[4px] transition-colors hover:text-blue-700"
-              onClick={handleDuplicate}
+              onClick={handleDuplicateClick}
             >
               <Icon name="icon-pencil" size="w-6 h-6" />
               <p className="text-body">{t("actions.duplicate")}</p>
             </button>
             <div className="mt-auto w-full border-t border-gray-200 pt-4">
-              <Alert
-                trigger={
-                  <button
-                    type="button"
-                    className="flex w-full gap-[4px] text-red-500 transition-colors hover:text-red-600"
-                  >
-                    <Icon name="icon-delete" size="w-6 h-6" />
-                    <p className="text-body">{t("actions.delete")}</p>
-                  </button>
-                }
-                title={t("delete.title")}
-                description={t("delete.description")}
-                cancelText={t("actions.cancel")}
-                confirmText={t("delete.confirm")}
-                loadingText={t("delete.deleting")}
-                isLoading={isDeleting}
-                variant="destructive"
-                onConfirm={handleDelete}
-              />
+              <button
+                type="button"
+                className="flex w-full gap-[4px] text-red-500 transition-colors hover:text-red-600"
+                onClick={handleDeleteTrigger}
+              >
+                <Icon name="icon-delete" size="w-6 h-6" />
+                <p className="text-body">{t("actions.delete")}</p>
+              </button>
             </div>
           </div>
         )}

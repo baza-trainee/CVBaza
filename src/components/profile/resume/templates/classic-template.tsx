@@ -18,7 +18,7 @@ const formatDate = (date: string) => {
 
 const SectionTitle = ({ title }: { title: string }) => {
   return (
-    <h3 className="mb-4 bg-black-400 text-center text-lg font-bold uppercase text-white">
+    <h3 className="mb-4 bg-black-400 text-center text-xs font-bold uppercase text-white md:text-lg">
       {title}
     </h3>
   );
@@ -39,13 +39,13 @@ const ContactItem = ({
     <>
       {isLink ? (
         <a href={link} className="flex items-center gap-2">
-          <Icon className="h-4 w-4 min-w-4 text-gray-600" />
-          <span className="text-[13px]">{text}</span>
+          <Icon className="h-2 w-2 min-w-2 text-gray-600 md:h-4 md:w-4 md:min-w-4" />
+          <span className="text-xs md:text-[13px]">{text}</span>
         </a>
       ) : (
         <div className="flex items-center gap-2">
-          <Icon className="h-4 w-4 min-w-4 text-gray-600" />
-          <span className="text-[13px]">{text}</span>
+          <Icon className="h-2 w-2 min-w-2 text-gray-600 md:h-4 md:w-4 md:min-w-4" />
+          <span className="text-xs md:text-[13px]">{text}</span>
         </div>
       )}
     </>
@@ -59,7 +59,7 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
       <div className="flex flex-col gap-8 sm:flex-row">
         <div className="flex h-[12rem] w-full items-center justify-center bg-gray-200 sm:w-1/3">
           {data.photo && typeof data.photo === "string" && (
-            <div className="h-32 w-32 overflow-hidden rounded-full border-[0.7rem] border-white">
+            <div className="h-24 w-24 overflow-hidden rounded-full border-[0.7rem] border-white md:h-32 md:w-32">
               <Image
                 src={data.photo}
                 width={128}
@@ -80,7 +80,9 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
             </p>
           )}
           {data.summary && (
-            <p className="mt-4 text-sm text-gray-600">{data.summary}</p>
+            <p className="mt-4 text-xs text-gray-600 md:text-sm">
+              {data.summary}
+            </p>
           )}
         </div>
       </div>
@@ -174,7 +176,7 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
                 {data.skills.map((skill, index) => (
                   <span
                     key={index}
-                    className="rounded-md bg-gray-300 px-2 py-1 text-[13px]"
+                    className="rounded-md bg-gray-300 px-2 py-1 text-xs md:text-[13px]"
                   >
                     {skill}
                   </span>
@@ -189,7 +191,10 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
               <SectionTitle title="Languages" />
               <div className="space-y-2">
                 {data.languages.map((language, index) => (
-                  <div key={index} className="flex justify-between text-[13px]">
+                  <div
+                    key={index}
+                    className="flex justify-between text-xs md:text-[13px]"
+                  >
                     <span>{language.language}</span>
                     <span className="text-gray-600">{language.level}</span>
                   </div>
@@ -208,9 +213,11 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
               <div className="space-y-4">
                 {data.workExperiences.map((exp, index) => (
                   <div key={index} className="space-y-1">
-                    <h4 className="font-bold">{exp.position}</h4>
+                    <h4 className="text-xs font-bold md:text-sm">
+                      {exp.position}
+                    </h4>
                     {exp.company && (
-                      <p className="text-sm text-gray-600">
+                      <p className="text-xs text-gray-600 md:text-sm">
                         {exp.company} | {formatDate(exp.startDate!)} -{" "}
                         {formatDate(exp.endDate!)}
                       </p>
@@ -229,9 +236,11 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
               <div className="space-y-4">
                 {data?.educations?.map((edu, index) => (
                   <div key={index} className="space-y-1">
-                    <h4 className="font-bold">{edu.degree}</h4>
+                    <h4 className="text-xs font-bold md:text-sm">
+                      {edu.degree}
+                    </h4>
                     {edu.institution && (
-                      <p className="text-sm text-gray-600">
+                      <p className="text-xs text-gray-600 md:text-sm">
                         {edu.institution} | {formatDate(edu.startDate!)} -{" "}
                         {formatDate(edu.endDate!)}
                       </p>

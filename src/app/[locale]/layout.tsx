@@ -3,9 +3,11 @@ import { notFound } from "next/navigation";
 import { SessionProvider } from "next-auth/react";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import { Toaster } from "sonner";
 import { LocaleProvider } from "@/components/locale-provider";
 import { Footer } from "@/components/shared/footer";
 import { Header } from "@/components/shared/header";
+import { AlertProvider } from "@/contexts/alert-context";
 import { routing } from "@/i18n/routing";
 import { auth } from "@/lib/auth";
 
@@ -29,9 +31,12 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
     <LocaleProvider locale={locale}>
       <SessionProvider session={session}>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <Header />
-          <main>{children}</main>
-          <Footer />
+          <AlertProvider>
+            <Toaster richColors closeButton position="top-right" />
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </AlertProvider>
         </NextIntlClientProvider>
       </SessionProvider>
     </LocaleProvider>
