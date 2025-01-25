@@ -4,13 +4,13 @@ import { useEffect } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { ResumePreviewSection } from "@/components/profile/resume/resume-preview";
+import { DocumentInfo } from "@/components/shared/document-info";
 import { Icon } from "@/components/shared/icon";
 import { useAlert } from "@/contexts/alert-context";
 import { useCachedResumes } from "@/hooks/use-cached-resumes";
 import { Link } from "@/i18n/routing";
 import { IResume } from "@/types/resume";
 import { formatDate } from "@/utils/date-utils";
-import { DocumentInfo } from "../../../shared/document-info";
 
 type ResumeWithDuplicate =
   | IResume
@@ -39,14 +39,8 @@ export const ResumePage = () => {
   const handleDelete = (id: string, isDuplicate = false) => {
     if (isDuplicate) {
       handleDeleteDuplicate(id);
-      toast.success(t("messages.duplicateDeleted"), {
-        duration: 3000,
-      });
     } else {
       handleDeleteResume(id);
-      toast.success(t("messages.resumeDeleted"), {
-        duration: 3000,
-      });
     }
   };
 

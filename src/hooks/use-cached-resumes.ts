@@ -1,10 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { IResume } from "@/types/resume";
-
-interface CachedResume extends IResume {
-  cachedAt: number;
-}
+import { useStorage } from "./use-storage";
 
 interface DuplicatedResume {
   id: string;
@@ -12,32 +9,13 @@ interface DuplicatedResume {
   title: string;
 }
 
-// Constants
-const CACHE_EXPIRY = 5 * 60 * 1000; // 5 minutes
 const STORAGE_KEYS = {
-  CACHED: "cached_resumes",
   DUPLICATED: "resumes",
 } as const;
 
-// Storage utilities
-const getStorageData = <T>(key: string, defaultValue: T): T => {
-  if (typeof window === "undefined") return defaultValue;
-  const stored = localStorage.getItem(key);
-  return stored ? JSON.parse(stored) : defaultValue;
-};
-
-const setStorageData = <T>(key: string, data: T): void => {
-  localStorage.setItem(key, JSON.stringify(data));
-};
-
-// Cache management
-const isCacheValid = (cached: CachedResume[]): boolean => {
-  if (cached.length === 0) return false;
-  const now = Date.now();
-  return cached[0].cachedAt > now - CACHE_EXPIRY;
-};
-
 export const useCachedResumes = (t: (key: string) => string) => {
+  const { getStorageData, setStorageData } = useStorage();
+
   // State
   const [resumes, setResumes] = useState<IResume[]>([]);
   const [duplicatedResumes, setDuplicatedResumes] = useState<
@@ -47,55 +25,28 @@ export const useCachedResumes = (t: (key: string) => string) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [isDeletingId, setIsDeletingId] = useState<string | null>(null);
 
-  // Cache operations
-  const updateCache = useCallback((data: IResume[]) => {
-    const cachedData: CachedResume[] = data.map((resume) => ({
-      ...resume,
-      cachedAt: Date.now(),
-    }));
-    setStorageData(STORAGE_KEYS.CACHED, cachedData);
-    setResumes(data);
-  }, []);
-
   // Data fetching
-  const fetchResumes = useCallback(
-    async (force = false) => {
-      try {
-        const cached = getStorageData<CachedResume[]>(STORAGE_KEYS.CACHED, []);
-
-        // Use cache if valid and not forced refresh
-        if (!force && isCacheValid(cached)) {
-          setResumes(cached);
-          setIsLoading(false);
-          return;
-        }
-
-        const response = await fetch("/api/resumes");
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        if (Array.isArray(data)) {
-          updateCache(data);
-        }
-      } catch (error) {
-        console.error("Error loading resumes:", error);
-        toast.error(t("errors.loadFailed"), {
-          duration: 3000,
-        });
-
-        // Fallback to cached data
-        const cached = getStorageData<CachedResume[]>(STORAGE_KEYS.CACHED, []);
-        if (cached.length > 0) {
-          setResumes(cached);
-        }
-      } finally {
-        setIsLoading(false);
+  const fetchResumes = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch("/api/resumes");
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
-    },
-    [t, updateCache]
-  );
+
+      const data = await response.json();
+      if (Array.isArray(data)) {
+        setResumes(data);
+      }
+    } catch (error) {
+      console.error("Error loading resumes:", error);
+      toast.error(t("errors.loadFailed"), {
+        duration: 3000,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  }, [t]);
 
   // Resume operations
   const handleDuplicate = useCallback(
@@ -112,16 +63,19 @@ export const useCachedResumes = (t: (key: string) => string) => {
         return newResumes;
       });
     },
-    [t]
+    [t, setStorageData]
   );
 
-  const handleDeleteDuplicate = useCallback((id: string) => {
-    setDuplicatedResumes((prev) => {
-      const newResumes = prev.filter((resume) => resume.id !== id);
-      setStorageData(STORAGE_KEYS.DUPLICATED, newResumes);
-      return newResumes;
-    });
-  }, []);
+  const handleDeleteDuplicate = useCallback(
+    (id: string) => {
+      setDuplicatedResumes((prev) => {
+        const newResumes = prev.filter((resume) => resume.id !== id);
+        setStorageData(STORAGE_KEYS.DUPLICATED, newResumes);
+        return newResumes;
+      });
+    },
+    [setStorageData]
+  );
 
   const handleDeleteResume = useCallback(
     async (id: string) => {
@@ -139,11 +93,10 @@ export const useCachedResumes = (t: (key: string) => string) => {
 
         setResumes((prev) => prev.filter((resume) => resume.id !== id));
 
-        if (response.ok) {
-          toast.success(t("messages.deleteSuccess"), {
-            duration: 3000,
-          });
-        }
+        // Show success message after state update
+        toast.success(t("messages.deleteSuccess"), {
+          duration: 3000,
+        });
       } catch (error) {
         console.error("Error deleting resume:", error);
         toast.error(t("errors.deleteFailed"), {
