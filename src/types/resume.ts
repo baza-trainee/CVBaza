@@ -53,3 +53,9 @@ export interface EditorFormProps {
   resumeData: ResumeData;
   setResumeData: (data: ResumeData) => void;
 }
+
+export interface Fake {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+}
