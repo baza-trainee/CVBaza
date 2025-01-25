@@ -8,7 +8,7 @@ export const Dashboard = () => {
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-start px-4 py-6 sm:px-8 md:px-[80px] md:py-[40px]">
       <Image
-        src="/dashboard-bg.png"
+        src="/dashboard-bg.webp"
         alt="dashboard-bg"
         width={500}
         height={500}
