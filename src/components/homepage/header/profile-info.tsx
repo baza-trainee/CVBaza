@@ -49,7 +49,14 @@ export const ProfileInfo = ({ name }: { name: string }) => {
             </Link>
 
             <span className="h-[1px] w-full bg-black-100"></span>
-            <button onClick={() => signOut({ callbackUrl: "/" })}>
+            <button
+              onClick={() => {
+                const locale = window.location.pathname.startsWith("/en/")
+                  ? "en"
+                  : "ua";
+                signOut({ callbackUrl: `/${locale}` });
+              }}
+            >
               <div className="flex gap-2">
                 <div className="relative h-6 w-6">
                   <Image src="/icons/exit.svg" fill alt={t("exitIcon")} />

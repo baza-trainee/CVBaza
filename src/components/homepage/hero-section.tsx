@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 export const HeroSection = () => {
+  const locale = useLocale();
   const t = useTranslations("HomePage.hero");
 
   return (
@@ -52,7 +53,11 @@ export const HeroSection = () => {
             height={460}
           />
           <Image
-            src="/images/hero/CV.webp"
+            src={
+              locale === "ua"
+                ? "/images/hero/CV.webp"
+                : "/images/hero/CV-eng.webp"
+            }
             className="absolute inset-0 m-auto sm:h-[383px] sm:w-[271px] md:top-[-14px] 3xl:h-[500px] 3xl:w-[340px]"
             alt={t("images.cv")}
             width={340}
@@ -73,7 +78,11 @@ export const HeroSection = () => {
             height={28}
           />
           <Image
-            src="/images/hero/ai.webp"
+            src={
+              locale === "ua"
+                ? "/images/hero/ai.webp"
+                : "/images/hero/ai-eng.webp"
+            }
             className="invisible absolute lg:visible lg:bottom-[110px] lg:right-[-16px] xl:bottom-[166px] xl:right-[10px] 3xl:bottom-[216px] 3xl:right-[450px]"
             alt={t("images.ai")}
             width={181}
