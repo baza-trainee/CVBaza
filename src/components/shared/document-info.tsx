@@ -19,9 +19,33 @@ export const DocumentInfo = ({
   onDeleteClick,
 }: DocumentInfoProps) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [localTitle, setLocalTitle] = useState(title);
   const popupRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const t = useTranslations("resume");
+
+  // Update local title when prop changes
+  useEffect(() => {
+    setLocalTitle(title);
+  }, [title]);
+
+  const handleTitleUpdate = (newTitle: string) => {
+    if (newTitle.trim() !== title) {
+      onTitleChange(newTitle.trim());
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      inputRef.current?.blur();
+    }
+  };
+
+  const handleBlur = () => {
+    handleTitleUpdate(localTitle);
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -56,10 +80,13 @@ export const DocumentInfo = ({
       <div className="pl-2">
         <div className="flex w-[152px] flex-col gap-[4px]">
           <input
+            ref={inputRef}
             type="text"
-            value={title}
-            onChange={(e) => onTitleChange(e.target.value)}
-            className="text-h5-semibold text-blue-700"
+            value={localTitle}
+            onChange={(e) => setLocalTitle(e.target.value)}
+            onKeyDown={handleKeyDown}
+            onBlur={handleBlur}
+            className="rounded px-1 text-h5-semibold text-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-200"
           />
           <p className="text-small text-blue-700">
             {t("lastUpdated")}{" "}
@@ -72,7 +99,7 @@ export const DocumentInfo = ({
         <button
           type="button"
           ref={buttonRef}
-          className="flex h-6 w-6 cursor-pointer items-center justify-center"
+          className="flex h-6 w-6 cursor-pointer items-center justify-center rounded-full hover:bg-gray-100 focus:outline-none"
           onClick={() => setIsPopupOpen(!isPopupOpen)}
         >
           <Icon name="ellipsis" size="w-[15px] h-[4px]" />
@@ -81,31 +108,31 @@ export const DocumentInfo = ({
         {isPopupOpen && (
           <div
             ref={popupRef}
-            className="absolute bottom-[4px] left-[90px] z-10 flex h-auto w-[222px] flex-col gap-4 rounded-bl-[4px] rounded-br-[4px] rounded-tl-[0px] rounded-tr-[4px] bg-white p-6 shadow-lg"
+            className="fixed bottom-4 left-1/2 z-50 w-[calc(100vw-2rem)] -translate-x-1/2 flex-col gap-3 rounded-lg bg-white p-4 shadow-lg sm:absolute sm:bottom-[120%] sm:left-auto sm:right-0 sm:w-[222px] sm:translate-x-0 sm:p-4 lg:bottom-auto lg:right-[100%] lg:top-0"
           >
             <Link
               href="#"
-              className="flex w-full gap-[4px] transition-colors hover:text-blue-700"
+              className="flex w-full items-center gap-3 rounded-md p-2 transition-colors hover:bg-gray-50 focus:outline-none"
             >
-              <Icon name="icon-pdf" size="w-6 h-6" />
-              <p className="text-body">{t("actions.downloadPdf")}</p>
+              <Icon name="icon-pdf" size="w-5 h-5" />
+              <p className="text-sm">{t("actions.downloadPdf")}</p>
             </Link>
             <button
               type="button"
-              className="flex w-full gap-[4px] transition-colors hover:text-blue-700"
+              className="flex w-full items-center gap-3 rounded-md p-2 transition-colors hover:bg-gray-50 focus:outline-none"
               onClick={handleDuplicateClick}
             >
-              <Icon name="icon-pencil" size="w-6 h-6" />
-              <p className="text-body">{t("actions.duplicate")}</p>
+              <Icon name="icon-pencil" size="w-5 h-5" />
+              <p className="text-sm">{t("actions.duplicate")}</p>
             </button>
-            <div className="mt-auto w-full border-t border-gray-200 pt-4">
+            <div className="mt-2 w-full border-t border-gray-200 pt-2">
               <button
                 type="button"
-                className="flex w-full gap-[4px] text-red-500 transition-colors hover:text-red-600"
+                className="flex w-full items-center gap-3 rounded-md p-2 text-red-500 transition-colors hover:bg-red-50 focus:outline-none"
                 onClick={handleDeleteTrigger}
               >
-                <Icon name="icon-delete" size="w-6 h-6" />
-                <p className="text-body">{t("actions.delete")}</p>
+                <Icon name="icon-delete" size="w-5 h-5" />
+                <p className="text-sm">{t("actions.delete")}</p>
               </button>
             </div>
           </div>

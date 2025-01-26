@@ -1,8 +1,8 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { initialData } from "@/components/profile/resume/editor/forms/initialdata";
+import { useToast } from "@/hooks/use-toast";
 import { ResumeData } from "@/types/resume";
-import { useToast } from "./use-toast";
 
 const STORAGE_KEY = "resumeData";
 const REQUIRED_FIELDS = [

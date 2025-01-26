@@ -26,7 +26,13 @@ export const LanguageSwitcher = ({
 
   const handleLanguageChange = (newLocale: string) => {
     const currentPath = pathname;
-    const newPath = currentPath.replace(`/${locale}/`, `/${newLocale}/`);
+    // Handle root path case
+    if (currentPath === "/") {
+      router.push(`/${newLocale}`);
+      return;
+    }
+    // Handle other paths
+    const newPath = currentPath.replace(`/${locale}`, `/${newLocale}`);
     router.push(newPath);
   };
 
@@ -52,7 +58,7 @@ export const LanguageSwitcher = ({
 
   return (
     <Select value={locale} onValueChange={handleLanguageChange}>
-      <SelectTrigger className="w-[70px] border-none bg-transparent hover:bg-blue-100/50">
+      <SelectTrigger className="w-[70px] border-none bg-transparent hover:bg-blue-100/50 focus:ring-0 focus:ring-offset-0">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>

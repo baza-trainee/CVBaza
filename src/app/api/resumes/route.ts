@@ -14,10 +14,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    const data = await req.formData();
-    const jsonData = data.get("data");
+    const body = await req.json();
+    const { data } = body;
 
-    if (!jsonData || typeof jsonData !== "string") {
+    if (!data) {
       return NextResponse.json(
         { message: "Invalid resume data" },
         { status: 400 }
@@ -25,8 +25,7 @@ export async function POST(req: NextRequest) {
     }
 
     try {
-      const parsedData = JSON.parse(jsonData);
-      const validatedData = resumeSchema.parse(parsedData);
+      const validatedData = resumeSchema.parse(data);
 
       // Handle photo upload if it's a base64 string
       if (
@@ -71,7 +70,21 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      return NextResponse.json(resume);
+      // Fetch complete resume data with relations
+      const [resumeEducations, resumeWorkExperiences] = await Promise.all([
+        db.select().from(educations).where(eq(educations.resumeId, resume.id)),
+        db
+          .select()
+          .from(workExperiences)
+          .where(eq(workExperiences.resumeId, resume.id)),
+      ]);
+
+      // Return complete resume data
+      return NextResponse.json({
+        ...resume,
+        educations: resumeEducations,
+        workExperiences: resumeWorkExperiences,
+      });
     } catch (error) {
       if (error instanceof z.ZodError) {
         return NextResponse.json(

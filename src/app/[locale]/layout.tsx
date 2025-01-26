@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { SessionProvider } from "next-auth/react";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "sonner";
 import { LocaleProvider } from "@/components/locale-provider";
 import { Footer } from "@/components/shared/footer";
@@ -37,6 +38,14 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
             <main>{children}</main>
             <Footer />
           </AlertProvider>
+          <NextTopLoader
+            color="#1B91F0"
+            height={2}
+            showSpinner={false}
+            easing="ease"
+            speed={200}
+            shadow="0 0 10px #4DC760,0 0 5px #4DC760"
+          />
         </NextIntlClientProvider>
       </SessionProvider>
     </LocaleProvider>
