@@ -91,12 +91,12 @@ export const useResumeData = () => {
         dataToSend.photo = await convertPhotoToBase64(resumeData.photo);
       }
 
-      const formData = new FormData();
-      formData.append("data", JSON.stringify(dataToSend));
-
       const response = await fetch("/api/resumes", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ data: dataToSend }),
       });
 
       if (!response.ok) {

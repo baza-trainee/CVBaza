@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { BsStars } from "react-icons/bs";
-import { generateSummary } from "@/app/actions/generate-summary";
+import { generateSummaryGemini } from "@/app/actions/generate-summary-gemini";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
@@ -42,7 +42,7 @@ export const SummaryForm = ({ resumeData, setResumeData }: EditorFormProps) => {
         })),
       };
 
-      const summary = await generateSummary(formattedData, locale);
+      const summary = await generateSummaryGemini(formattedData, locale);
       setResumeData({ ...resumeData, summary });
 
       toast({
