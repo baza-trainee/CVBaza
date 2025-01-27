@@ -1,8 +1,40 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { initialData } from "@/components/profile/resume/editor/forms/initialdata";
+import { useToast } from "@/hooks/use-toast";
 import { ResumeData } from "@/types/resume";
-import { useToast } from "./use-toast";
+
+const STORAGE_KEY = "resumeData";
+const REQUIRED_FIELDS = [
+  "name",
+  "profession",
+  "summary",
+  "title",
+  "template",
+] as const;
+
+interface SavedResume {
+  photo?: string;
+  publicId?: string;
+}
+
+const convertPhotoToBase64 = async (photo: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(photo);
+  });
+};
+
+const validateRequiredFields = (data: ResumeData): void => {
+  const missingFields = REQUIRED_FIELDS.filter((field) => !data[field]);
+  if (missingFields.length > 0) {
+    throw new Error(
+      `Please fill in all required fields (${missingFields.join(", ")})`
+    );
+  }
+};
 
 // Custom hook for managing resume data with localStorage
 export const useResumeData = () => {
@@ -13,48 +45,53 @@ export const useResumeData = () => {
   const { toast } = useToast();
   const router = useRouter();
 
+  // Initialize client-side data
   useEffect(() => {
     setIsClient(true);
-    const savedData = localStorage.getItem("resumeData");
+    const savedData = localStorage.getItem(STORAGE_KEY);
     if (savedData) {
       setResumeData(JSON.parse(savedData));
     }
   }, []);
 
+  // Save data to localStorage with debounce
   const updateResumeData = useCallback(
     (newData: ResumeData) => {
       setResumeData(newData);
       if (isClient) {
         setIsSaving(true);
-        localStorage.setItem("resumeData", JSON.stringify(newData));
-        setTimeout(() => {
-          setIsSaving(false);
-        }, 500);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
+        setTimeout(() => setIsSaving(false), 500);
       }
     },
     [isClient]
   );
 
+  // Update resume data with Cloudinary info
+  const updateCloudinaryData = useCallback((savedResume: SavedResume) => {
+    if (savedResume.photo && savedResume.publicId) {
+      setResumeData((prev) => ({
+        ...prev,
+        photo: savedResume.photo,
+        publicId: savedResume.publicId,
+      }));
+    }
+  }, []);
+
+  // Save resume to database
   const saveToDatabase = useCallback(async () => {
     try {
       setIsSavingToDb(true);
+      validateRequiredFields(resumeData);
 
-      // Validate required fields
-      if (!resumeData.name || !resumeData.profession || !resumeData.summary) {
-        throw new Error("Please fill in all required fields");
-      }
-
-      // Create FormData for file upload
-      const formData = new FormData();
       const dataToSend = { ...resumeData };
 
+      // Handle photo upload if it's a File
       if (resumeData.photo instanceof File) {
-        formData.append("photo", resumeData.photo);
-        // Remove photo from JSON data since we're sending it as a file
-        delete dataToSend.photo;
+        dataToSend.photo = await convertPhotoToBase64(resumeData.photo);
       }
 
-      // Add resume data as JSON
+      const formData = new FormData();
       formData.append("data", JSON.stringify(dataToSend));
 
       const response = await fetch("/api/resumes", {
@@ -68,30 +105,16 @@ export const useResumeData = () => {
       }
 
       const savedResume = await response.json();
-
-      // Update local resume data with the Cloudinary URL
-      if (savedResume.photo) {
-        setResumeData((prev) => ({
-          ...prev,
-          photo: savedResume.photo,
-        }));
-      }
+      updateCloudinaryData(savedResume);
 
       toast({
         title: "Success",
         description: "Resume saved successfully",
       });
 
-      // Clear local storage
-      // localStorage.removeItem("resumeData");
-
-      // Reset state to initial data
-      setResumeData(initialData);
-
-      // Redirect to resumes list
+      localStorage.removeItem(STORAGE_KEY);
       router.push("/profile/resume");
     } catch (error) {
-      console.error("Error saving resume:", error);
       toast({
         title: "Error",
         description:
@@ -101,7 +124,7 @@ export const useResumeData = () => {
     } finally {
       setIsSavingToDb(false);
     }
-  }, [resumeData, toast, router]);
+  }, [resumeData, toast, router, updateCloudinaryData]);
 
   return {
     resumeData,

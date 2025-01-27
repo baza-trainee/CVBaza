@@ -7,12 +7,10 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { cn } from "@/lib/utils";
 
 interface AlertProps {
-  trigger: React.ReactNode;
   title: string;
   description: string;
   cancelText: string;
@@ -21,10 +19,11 @@ interface AlertProps {
   isLoading?: boolean;
   variant?: "default" | "destructive";
   onConfirm: () => void;
+  onCancel?: () => void;
+  open?: boolean;
 }
 
 export const Alert = ({
-  trigger,
   title,
   description,
   cancelText,
@@ -33,17 +32,20 @@ export const Alert = ({
   isLoading = false,
   variant = "default",
   onConfirm,
+  onCancel,
+  open = false,
 }: AlertProps) => {
+  if (!open) return null;
+
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
+    <AlertDialog defaultOpen={true}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>{cancelText}</AlertDialogCancel>
+          <AlertDialogCancel onClick={onCancel}>{cancelText}</AlertDialogCancel>
           <AlertDialogAction
             onClick={onConfirm}
             className={cn(

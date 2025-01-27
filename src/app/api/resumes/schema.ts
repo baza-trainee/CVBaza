@@ -23,7 +23,10 @@ export const languageSchema = z.object({
 export const resumeSchema = z.object({
   title: z.string().max(255),
   profession: z.string().optional(),
-  photo: z.string().url().max(2048).nullish(),
+  photo: z
+    .string()
+    .max(1024 * 1024)
+    .nullish(),
   publicId: z.string().max(100).nullish(),
   summary: z.string().optional(),
   name: z.string().max(255),

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { format, parseISO } from "date-fns";
+import parse from "html-react-parser";
 import { Mail, MapPin, Phone } from "lucide-react";
 import {
   FaDribbble,
@@ -25,8 +26,11 @@ const formatDate = (date: string) => {
 };
 
 const SectionTitle = ({ title }: { title: string }) => {
-  return <h3 className="text-lg font-bold text-blue-800">{title}</h3>;
+  return (
+    <h3 className="text-xs font-bold text-blue-800 md:text-lg">{title}</h3>
+  );
 };
+
 const ContactItem = ({
   icon: Icon,
   text,
@@ -42,13 +46,13 @@ const ContactItem = ({
     <>
       {isLink ? (
         <a href={link} className="flex items-center gap-2">
-          <Icon className="h-4 w-4 min-w-4" />
-          <span className="text-[12px]">{text}</span>
+          <Icon className="h-2 w-2 min-w-2 md:h-4 md:w-4 md:min-w-4" />
+          <span className="text-xs md:text-[12px]">{text}</span>
         </a>
       ) : (
         <div className="flex items-center gap-2">
-          <Icon className="h-4 w-4 min-w-4" />
-          <span className="text-[12px]">{text}</span>
+          <Icon className="h-2 w-2 min-w-2 md:h-4 md:w-4 md:min-w-4" />
+          <span className="text-xs md:text-[12px]">{text}</span>
         </div>
       )}
     </>
@@ -62,7 +66,7 @@ export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
       <div className="flex h-[8rem] flex-col gap-2 bg-blue-900 p-8 text-white">
         <div className="flex items-start gap-4">
           {data.photo && typeof data.photo === "string" && (
-            <div className="relative h-32 w-32 translate-y-[40%] overflow-hidden rounded-full border-4 border-white">
+            <div className="relative h-24 w-24 translate-y-[40%] overflow-hidden rounded-full border-4 border-white md:h-32 md:w-32">
               <Image
                 src={data.photo}
                 alt={data.name}
@@ -73,8 +77,8 @@ export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
             </div>
           )}
           <div className="flex flex-1 flex-col items-center justify-center text-left">
-            <h1 className="text-3xl font-bold">{data.name}</h1>
-            <p className="text-xl">{data.profession}</p>
+            <h1 className="text-sm font-bold md:text-3xl">{data.name}</h1>
+            <p className="text-sm md:text-xl">{data.profession}</p>
           </div>
         </div>
       </div>
@@ -157,7 +161,7 @@ export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
               <SectionTitle title="Skills" />
               <div className="mt-4 space-y-2">
                 {data.skills.slice(0, 8).map((skill, i) => (
-                  <div key={i} className="text-sm">
+                  <div key={i} className="text-xs md:text-sm">
                     {skill}
                   </div>
                 ))}
@@ -173,8 +177,10 @@ export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
                 {data.languages.map((language, i) => (
                   <div key={i}>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm">{language.language}</span>
-                      <span className="text-sm text-gray-600">
+                      <span className="text-xs md:text-sm">
+                        {language.language}
+                      </span>
+                      <span className="text-xs text-gray-600 md:text-sm">
                         {language.level}
                       </span>
                     </div>
@@ -190,18 +196,18 @@ export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
           {/* Profile Section */}
           {data.summary && (
             <div className="relative z-0 mb-8 border-l border-l-blue-800 pl-6">
-              <FaUserCircle className="absolute left-[-1rem] top-0 z-30 bg-white text-3xl" />
+              <FaUserCircle className="absolute left-[-0.8rem] top-0 z-30 bg-white text-2xl md:left-[-1rem] md:text-3xl" />
               <SectionTitle title="Profile" />
               <FaRegCircle className="absolute left-[-0.5rem] top-[50%] bg-white text-sm" />
               <hr className="mb-4 border border-blue-800" />
-              <p className="text-sm text-gray-600">{data.summary}</p>
+              <p className="text-xs text-gray-600 md:text-sm">{data.summary}</p>
             </div>
           )}
 
           {/* Work Experience Section */}
           {data.workExperiences && (
             <div className="relative z-0 mb-8 border-l border-l-blue-800 pl-6">
-              <MdOutlineWorkOutline className="absolute left-[-1rem] top-0 z-30 rounded-full bg-blue-800 p-1 text-3xl text-white" />
+              <MdOutlineWorkOutline className="absolute left-[-0.8rem] top-0 z-30 rounded-full bg-blue-800 p-1 text-2xl text-white md:left-[-1rem] md:text-3xl" />
               <SectionTitle title="Work Experience" />
               <FaRegCircle className="absolute left-[-0.5rem] top-[50%] bg-white text-sm" />
               <hr className="mb-4 border border-blue-800" />
@@ -209,21 +215,23 @@ export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
                 {data.workExperiences.slice(0, 2).map((exp, i) => (
                   <div key={i}>
                     <div className="flex flex-col sm:items-start sm:justify-between">
-                      <h4 className="whitespace-nowrap font-medium">
+                      <h4 className="whitespace-nowrap text-xs font-medium md:text-[16px]">
                         {exp.company}
                       </h4>
-                      <p className="mb-1 text-sm font-[500] text-gray-600">
+                      <p className="mb-1 text-xs font-[500] text-gray-600 md:text-sm">
                         {exp.position}
                       </p>
                       {exp.company && (
-                        <span className="mt-1 text-[12px] text-gray-700 sm:mt-0">
+                        <span className="mt-1 text-xs text-gray-700 sm:mt-0 md:text-[12px]">
                           {formatDate(exp.startDate as string)} -{" "}
                           {formatDate(exp.endDate as string)}
                         </span>
                       )}
                     </div>
 
-                    <p className="text-sm text-gray-500">{exp.description}</p>
+                    <div className="text-sm [&>ol]:ml-4 [&>ol]:list-disc [&>ul>li]:pl-2 [&>ul]:ml-4 [&>ul]:list-['-']">
+                      {parse(exp.description || "Work Experience Description")}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -233,7 +241,7 @@ export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
           {/* Education Section */}
           {data.educations && data.educations.length > 0 && (
             <div className="relative z-0 mb-8 border-l border-l-blue-800 pl-6">
-              <LuGraduationCap className="absolute left-[-1rem] top-0 z-30 rounded-full bg-blue-800 p-1 text-3xl text-white" />
+              <LuGraduationCap className="absolute left-[-0.8rem] top-0 z-30 rounded-full bg-blue-800 p-1 text-2xl text-white md:left-[-1rem] md:text-3xl" />
               <SectionTitle title="Education" />
               <FaRegCircle className="absolute left-[-0.5rem] top-[50%] bg-white text-sm" />
               <hr className="mb-4 border border-blue-800" />
@@ -241,9 +249,13 @@ export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
                 {data.educations.map((edu, i) => (
                   <div key={i}>
                     <div className="flex flex-col sm:items-start sm:justify-between">
-                      <h4 className="font-medium">{edu.institution}</h4>
-                      <p className="text-sm text-gray-600">{edu.degree}</p>
-                      <span className="mt-1 text-[12px] text-gray-700 sm:mt-0">
+                      <h4 className="text-xs font-medium md:text-[16px]">
+                        {edu.institution}
+                      </h4>
+                      <p className="text-xs text-gray-600 md:text-sm">
+                        {edu.degree}
+                      </p>
+                      <span className="mt-1 text-xs text-gray-700 sm:mt-0 md:text-[12px]">
                         {formatDate(edu.startDate as string)} -{" "}
                         {formatDate(edu.endDate as string)}
                       </span>
