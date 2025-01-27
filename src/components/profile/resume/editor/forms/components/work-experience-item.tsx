@@ -1,8 +1,10 @@
+import dynamic from "next/dynamic";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { GripHorizontal } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { UseFormReturn } from "react-hook-form";
+import "react-quill-new/dist/quill.snow.css";
 import { Button } from "@/components/ui/button";
 import {
   FormControl,
@@ -13,9 +15,24 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { WorkExperienceValues } from "../schema";
+
+const ReactQuill = dynamic(() => import("react-quill-new"), {
+  ssr: false,
+  loading: () => (
+    <div className="h-[200px] w-full animate-pulse rounded-md bg-slate-100" />
+  ),
+});
+
+const modules = {
+  toolbar: [
+    [{ header: [1, 2, false] }],
+    ["bold", "italic", "underline", "strike"],
+    [{ list: "unordered" }, { list: "bullet" }],
+    ["link", "clean"],
+  ],
+};
 
 interface WorkExperienceItemProps {
   id: string;
@@ -150,10 +167,14 @@ export const WorkExperienceItem = ({
             <FormItem>
               <FormLabel>{t("labels.description")}</FormLabel>
               <FormControl>
-                <Textarea
+                <ReactQuill
                   {...field}
-                  placeholder={t("labels.description")}
                   value={field.value || ""}
+                  onChange={field.onChange}
+                  placeholder="Add more details"
+                  modules={modules}
+                  theme="snow"
+                  className="w-full"
                 />
               </FormControl>
               <FormMessage />
