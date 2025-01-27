@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { format, parseISO } from "date-fns";
+import parse from "html-react-parser";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { FaBehance, FaDribbble, FaTelegram } from "react-icons/fa";
 import { SiAdobeacrobatreader } from "react-icons/si";
@@ -222,7 +223,9 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
                         {formatDate(exp.endDate!)}
                       </p>
                     )}
-                    <p className="text-sm">{exp.description}</p>
+                    <div className="text-sm [&>ol]:ml-4 [&>ol]:list-disc [&>ul>li]:pl-2 [&>ul]:ml-4 [&>ul]:list-['-']">
+                      {parse(exp.description || "Work Experience Description")}
+                    </div>
                   </div>
                 ))}
               </div>
