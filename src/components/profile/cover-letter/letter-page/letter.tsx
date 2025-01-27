@@ -1,6 +1,7 @@
 import { FC } from "react";
+
 // import { Info } from "./info";
-import { DocumentInfo } from "./document-info";
+// import { DocumentInfo } from "../document-info";
 
 interface LetterType {
   title: string;
@@ -14,7 +15,7 @@ export const Letter: FC<LetterType> = ({ title }) => {
         <h2>{title}</h2>
       </div>
       {/* <Info /> */}
-      <DocumentInfo />
+      {/* <DocumentInfo /> */}
     </div>
   );
 };
