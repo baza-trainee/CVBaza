@@ -321,6 +321,7 @@
   "letter": {
     "lastUpdated": "Last updated",
     "copy": "copy",
+    "loading": "Loading resumes...",
     "actions": {
       "create": "Create Cover Letter",
       "downloadPdf": "Download PDF",
@@ -365,7 +366,10 @@
     "navigation": {
       "previousStep": "Previous step",
       "nextStep": "Next step",
-      "togglePreview": "Toggle preview"
+      "togglePreview": "Toggle preview",
+      "saving": "Saving...",
+      "save": "Save",
+      "saveLetter": "Save Letter"
     },
     "steps": {
       "generalInfo": {

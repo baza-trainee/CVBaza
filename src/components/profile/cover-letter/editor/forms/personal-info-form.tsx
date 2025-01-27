@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
@@ -12,59 +11,36 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { EditorFormProps } from "@/types/resume";
+import { EditorFormProps } from "@/types/letter";
 import { personalInfoSchema } from "./schema";
 
-const convertToBase64 = (file: File): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = (error) => reject(error);
-  });
-};
-
 export const PersonalInfoForm = ({
-  resumeData,
-  setResumeData,
+  letterData,
+  setLetterData,
 }: EditorFormProps) => {
   const t = useTranslations("Form");
 
   const form = useForm({
     resolver: zodResolver(personalInfoSchema),
     defaultValues: {
-      name: resumeData?.name || "",
-      profession: resumeData?.profession || "",
-      photo: resumeData?.photo || "",
-      location: resumeData?.location || "",
-      phone: resumeData?.phone || "",
-      email: resumeData?.email || "",
-      github: resumeData?.github || "",
-      linkedin: resumeData?.linkedin || "",
-      behance: resumeData?.behance || "",
-      dribbble: resumeData?.dribbble || "",
-      adobePortfolio: resumeData?.adobePortfolio || "",
+      name: letterData?.name || "",
+      profession: letterData?.profession || "",
+      position: letterData?.position || "",
+      location: letterData?.location || "",
+      phone: letterData?.phone || "",
+      email: letterData?.email || "",
+      company: letterData?.company || "",
+      nameRecipient: letterData?.nameRecipient || "",
+      positionRecipient: letterData?.positionRecipient || "",
     },
   });
 
   useEffect(() => {
     const { unsubscribe } = form.watch((values) => {
-      setResumeData({ ...resumeData, ...values });
+      setLetterData({ ...letterData, ...values });
     });
     return unsubscribe;
-  }, [form, resumeData, setResumeData]);
-
-  const handlePhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      try {
-        const base64 = await convertToBase64(file);
-        form.setValue("photo", base64);
-      } catch (error) {
-        console.error("Error converting file:", error);
-      }
-    }
-  };
+  }, [form, letterData, setLetterData]);
 
   return (
     <div className="mx-auto w-full max-w-md space-y-6 p-6">
@@ -105,38 +81,6 @@ export const PersonalInfoForm = ({
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="photo"
-            render={({ field: { value, ...field } }) => (
-              <FormItem>
-                <FormLabel>Photo</FormLabel>
-                <FormControl>
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    onChange={handlePhotoChange}
-                    name={field.name}
-                  />
-                </FormControl>
-                <div className="flex items-center gap-4">
-                  {value && (
-                    <div className="mt-2">
-                      <Image
-                        src={value as string}
-                        alt="Preview"
-                        className="h-20 w-20 rounded-full object-cover"
-                        width={50}
-                        height={50}
-                      />
-                    </div>
-                  )}
-                </div>
                 <FormMessage />
               </FormItem>
             )}
@@ -186,12 +130,12 @@ export const PersonalInfoForm = ({
 
           <FormField
             control={form.control}
-            name="github"
+            name="company"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("labels.github")}</FormLabel>
+                <FormLabel>{t("labels.company")}</FormLabel>
                 <FormControl>
-                  <Input placeholder={t("placeholders.github")} {...field} />
+                  <Input placeholder={t("placeholders.company")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -200,55 +144,30 @@ export const PersonalInfoForm = ({
 
           <FormField
             control={form.control}
-            name="linkedin"
+            name="nameRecipient"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("labels.linkedin")}</FormLabel>
-                <FormControl>
-                  <Input placeholder={t("placeholders.linkedin")} {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="behance"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("labels.behance")}</FormLabel>
-                <FormControl>
-                  <Input placeholder={t("placeholders.behance")} {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="dribbble"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("labels.dribbble")}</FormLabel>
-                <FormControl>
-                  <Input placeholder={t("placeholders.dribbble")} {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="adobePortfolio"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("labels.adobePortfolio")}</FormLabel>
+                <FormLabel>{t("labels.nameRecipient")}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder={t("placeholders.adobePortfolio")}
+                    placeholder={t("placeholders.nameRecipient")}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="positionRecipient"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("labels.positionRecipient")}</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder={t("placeholders.positionRecipient")}
                     {...field}
                   />
                 </FormControl>

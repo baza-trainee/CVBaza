@@ -18,20 +18,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { templates } from "@/constants";
-import { EditorFormProps } from "@/types/resume";
+import { lettersTemplates } from "@/constants";
+import { EditorFormProps } from "@/types/letter";
 import { GeneralInfoFormValues, generalInfoSchema } from "./schema";
 
 export const GeneralInfoForm = ({
-  resumeData,
-  setResumeData,
+  letterData,
+  setLetterData,
 }: EditorFormProps) => {
   const locale = useLocale();
   const form = useForm<GeneralInfoFormValues>({
     resolver: zodResolver(generalInfoSchema),
     defaultValues: {
-      template: resumeData?.template || templates.CLASSIC,
-      title: resumeData?.title || "",
+      template: letterData?.template || lettersTemplates.SHORT,
+      title: letterData?.title || "",
     },
   });
 
@@ -39,10 +39,10 @@ export const GeneralInfoForm = ({
     const { unsubscribe } = form.watch(async (values) => {
       const isValid = await form.trigger();
       if (!isValid) return;
-      setResumeData({ ...resumeData, ...values });
+      setLetterData({ ...letterData, ...values });
     });
     return unsubscribe;
-  }, [form, resumeData, setResumeData]);
+  }, [form, letterData, setLetterData]);
 
   return (
     <div className="mx-auto w-full max-w-md space-y-6 p-6">
@@ -53,7 +53,7 @@ export const GeneralInfoForm = ({
         <p className="text-sm text-muted-foreground">
           {locale === "en"
             ? "This information will be displayed on your resume."
-            : "Ця інформація буде відображена на вашому резюме."}
+            : "Ця інформація буде відображена у вашому листі."}
         </p>
       </div>
 
@@ -65,11 +65,11 @@ export const GeneralInfoForm = ({
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  {locale === "en" ? "Resume Title" : "Назва резюме"}
+                  {locale === "en" ? "Letter Title" : "Назва листа"}
                 </FormLabel>
                 <FormControl>
                   <Input
-                    placeholder={locale === "en" ? "My Resume" : "Моє резюме"}
+                    placeholder={locale === "en" ? "My Letter" : "Мій лист"}
                     {...field}
                   />
                 </FormControl>
@@ -90,16 +90,18 @@ export const GeneralInfoForm = ({
                       <SelectValue
                         placeholder={
                           locale === "en"
-                            ? "Select template"
-                            : "Виберіть шаблон"
+                            ? "Select a template of the letter"
+                            : "Виберіть шаблон листа"
                         }
                       />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value={templates.CLASSIC}>Classic</SelectItem>
-                    <SelectItem value={templates.MODERN_DARK}>
-                      Modern Dark
+                    <SelectItem value={lettersTemplates.SHORT}>
+                      Short
+                    </SelectItem>
+                    <SelectItem value={lettersTemplates.DETAILED}>
+                      Detailed
                     </SelectItem>
                   </SelectContent>
                 </Select>
@@ -112,7 +114,7 @@ export const GeneralInfoForm = ({
 
       <div className="mt-4 overflow-hidden text-sm text-muted-foreground">
         <pre className="mt-4 rounded-lg bg-slate-950 p-4">
-          {JSON.stringify(resumeData, null, 2)}
+          {JSON.stringify(letterData, null, 2)}
         </pre>
       </div>
     </div>

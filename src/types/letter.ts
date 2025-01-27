@@ -21,5 +21,5 @@ export interface ILetter extends LetterData {
 
 export interface EditorFormProps {
   letterData: LetterData;
-  setRLetterData: (data: LetterData) => void;
+  setLetterData: (data: LetterData) => void;
 }

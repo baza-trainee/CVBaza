@@ -329,6 +329,7 @@
   "letter": {
     "lastUpdated": "Останнє оновлення",
     "copy": "копія",
+    "loading": "Завантаження резюме...",
     "actions": {
       "create": "Створити супровідний лист",
       "downloadPdf": "Завантажити PDF",
@@ -373,7 +374,10 @@
     "navigation": {
       "previousStep": "Попередній крок",
       "nextStep": "Наступний крок",
-      "togglePreview": "Перемкнути перегляд"
+      "togglePreview": "Перемкнути перегляд",
+      "saving": "Збереження...",
+      "save": "Зберегти",
+      "saveLetter": "Зберегти лист"
     },
     "steps": {
       "generalInfo": {

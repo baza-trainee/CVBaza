@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { useCachedResumes } from "@/components/profile/resume/hooks/use-resumes";
-import { ResumePreviewSection } from "@/components/profile/resume/resume-preview";
+import { PreviewSection } from "@/components/profile/resume/preview";
 import { DocumentInfo } from "@/components/shared/document-info";
 import { Icon } from "@/components/shared/icon";
 import { Loader } from "@/components/shared/loader";
@@ -139,8 +139,9 @@ export const ResumePage = () => {
               className="group relative flex h-[520px] flex-col rounded-lg border border-gray-200 transition-shadow hover:shadow-md lg:h-[320px]"
             >
               <div className="relative flex-1 overflow-y-auto rounded-lg lg:overflow-hidden">
-                <ResumePreviewSection
+                <PreviewSection
                   data={getResumeData(resume)}
+                  document={"resume"}
                   template={
                     ("data" in resume
                       ? resume.data.template

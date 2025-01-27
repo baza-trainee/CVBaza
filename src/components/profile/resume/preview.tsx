@@ -4,22 +4,28 @@ import { A4_WIDTH, MIN_ZOOM, PADDING } from "@/constants";
 import useDimensions from "@/hooks/use-dimensions";
 import { cn } from "@/lib/utils";
 import { ResumeData } from "@/types/resume";
-import { renderTemplate } from "@/utils/render-template";
+import {
+  renderLetterTemplate,
+  renderResumeTemplate,
+} from "@/utils/render-template";
 
-interface ResumePreviewSectionProps {
+interface PreviewSectionProps {
   data: ResumeData;
   template: string;
+  document: string;
 }
 
-export const ResumePreviewSection = ({
+export const PreviewSection = ({
   data,
   template,
-}: ResumePreviewSectionProps) => {
+  document,
+}: PreviewSectionProps) => {
   const pathname = usePathname();
   const containerRef = useRef<HTMLDivElement>(null);
   const { width } = useDimensions(containerRef);
   const isEditor = pathname?.includes("/editor");
-  const TemplateComponent = renderTemplate(template);
+  const TemplateResumeComponent = renderResumeTemplate(template);
+  const TemplateLetterComponent = renderLetterTemplate(template);
 
   const zoom = useMemo(() => {
     if (!width) return MIN_ZOOM;
@@ -40,7 +46,11 @@ export const ResumePreviewSection = ({
           zoom: zoom,
         }}
       >
-        <TemplateComponent data={data} />
+        {document === "resume" ? (
+          <TemplateResumeComponent data={data} />
+        ) : (
+          <TemplateLetterComponent data={data} />
+        )}
       </div>
     </div>
   );

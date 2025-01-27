@@ -5,7 +5,7 @@ import { useCallback, useMemo, useState } from "react";
 import { useResumeData } from "@/components/profile/resume/hooks/use-resume-data";
 import { templates } from "@/constants";
 import { MobilePreview } from "../mobile-preview";
-import { ResumePreviewSection } from "../resume-preview";
+import { PreviewSection } from "../preview";
 import { Breadcrumbs } from "./breadcrumbs";
 import { EditorFooter } from "./editor-footer";
 import { steps } from "./steps";
@@ -64,7 +64,8 @@ export const ResumeEditor = () => {
         />
       </div>
       <div className="hidden w-full xl:block xl:w-1/2">
-        <ResumePreviewSection
+        <PreviewSection
+          document={"resume"}
           data={resumeData}
           template={resumeData.template || templates.CLASSIC}
         />

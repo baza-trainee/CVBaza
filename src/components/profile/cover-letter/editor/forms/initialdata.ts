@@ -1,24 +1,17 @@
-import { templates } from "@/constants";
-import { ResumeData } from "@/types/resume";
+import { lettersTemplates } from "@/constants";
+import { LetterData } from "@/types/letter";
 
-export const initialData: ResumeData = {
+export const initialData: LetterData = {
   title: "",
-  template: templates.CLASSIC,
+  template: lettersTemplates.SHORT,
   name: "",
   profession: "",
-  photo: "",
+  position: "",
   location: "",
-  address: "",
+  company: "",
   phone: "",
   email: "",
-  telegram: "",
-  github: "",
-  behance: "",
-  dribbble: "",
-  adobePortfolio: "",
-  workExperiences: [],
-  educations: [],
-  skills: [],
-  languages: [],
-  summary: "",
+  nameRecipient: "",
+  positionRecipient: "",
+  text: "",
 };

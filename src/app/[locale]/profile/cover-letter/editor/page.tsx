@@ -1,7 +1,7 @@
-// import { ResumeEditor } from "@/components/profile/resume/editor";
+import { LetterEditor } from "@/components/profile/cover-letter/editor";
 
-// const AddResumePage = () => {
-//   return <ResumeEditor />;
-// };
+const AddResumePage = () => {
+  return <LetterEditor />;
+};
 
-// export default AddResumePage;
+export default AddResumePage;

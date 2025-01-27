@@ -1,7 +1,7 @@
-import { ResumeTemplates } from "@/components/profile/resume/templates";
+import { Templates } from "@/components/profile/resume/templates";
 
 const ResumeTemlatesPage = () => {
-  return <ResumeTemplates />;
+  return <Templates />;
 };
 
 export default ResumeTemlatesPage;

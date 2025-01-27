@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { ResumeData } from "@/types/resume";
-import { renderTemplate } from "@/utils/render-template";
+
+// import { renderTemplate } from "@/utils/render-template";
 
 interface MobilePreviewProps {
   data: ResumeData;
@@ -10,8 +11,8 @@ interface MobilePreviewProps {
 }
 
 export const MobilePreview = ({
-  data,
-  template,
+  // data,
+  // template,
   onClose,
 }: MobilePreviewProps) => {
   const t = useTranslations("ResumePage");
@@ -36,7 +37,7 @@ export const MobilePreview = ({
       <div className="no-scrollbar h-[calc(100vh-56px)] overflow-y-auto">
         <div className="mx-auto flex justify-center p-3">
           <div className="w-full max-w-[800px]">
-            {renderTemplate(template)({ data: data })}
+            {/* {renderTemplate(template)({ data: data })} */}
           </div>
         </div>
       </div>

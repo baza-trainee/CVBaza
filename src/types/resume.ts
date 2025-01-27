@@ -26,7 +26,7 @@ export interface ResumeData {
   email: string;
   phone: string;
   location?: string;
-  address: string;
+  address?: string;
   github?: string;
   linkedin?: string;
   behance?: string;
@@ -34,12 +34,12 @@ export interface ResumeData {
   dribbble?: string;
   adobePortfolio?: string;
   photo?: string | File;
-  skills: string[];
+  skills?: string[];
   educations?: Education[];
   education?: Education[];
   workExperiences?: WorkExperience[];
-  languages: Language[];
-  summary: string;
+  languages?: Language[];
+  summary?: string;
   template?: string;
 }
 

@@ -2,15 +2,15 @@
 
 import { useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
-import { templates } from "@/constants";
+import { Breadcrumbs } from "@/components/profile/resume/editor/breadcrumbs";
+import { PreviewSection } from "@/components/profile/resume/preview";
+import { lettersTemplates } from "@/constants";
 import { useResumeData } from "@/hooks/use-resume-data";
 import { MobilePreview } from "../mobile-preview";
-import { ResumePreviewSection } from "../resume-preview";
-import { Breadcrumbs } from "./breadcrumbs";
 import { EditorFooter } from "./editor-footer";
 import { steps } from "./steps";
 
-export const ResumeEditor = () => {
+export const LetterEditor = () => {
   const searchParams = useSearchParams();
   const currentStep = searchParams.get("step") || steps[0].key;
   const [showMobileResumePreview, setShowMobileResumePreview] = useState(false);
@@ -48,8 +48,8 @@ export const ResumeEditor = () => {
         {FormComponent && (
           <div className="no-scrollbar overflow-y-auto">
             <FormComponent
-              resumeData={resumeData}
-              setResumeData={updateResumeData}
+              letterData={resumeData}
+              setLetterData={updateResumeData}
             />
           </div>
         )}
@@ -64,15 +64,16 @@ export const ResumeEditor = () => {
         />
       </div>
       <div className="hidden w-full xl:block xl:w-1/2">
-        <ResumePreviewSection
+        <PreviewSection
           data={resumeData}
-          template={resumeData.template || templates.CLASSIC}
+          document={"letter"}
+          template={resumeData.template || lettersTemplates.SHORT}
         />
       </div>
       {showMobileResumePreview && (
         <MobilePreview
           data={resumeData}
-          template={resumeData.template || templates.CLASSIC}
+          template={resumeData.template || lettersTemplates.SHORT}
         />
       )}
     </div>
