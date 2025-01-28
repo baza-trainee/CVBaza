@@ -1,12 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 
 export const HeroSection = () => {
   const locale = useLocale();
   const t = useTranslations("HomePage.hero");
+  const router = useRouter();
+
+  const handleNavigate = () => {
+    router.push("/profile/resume/editor");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <div className="flex w-full items-center overflow-hidden bg-background sm:flex-col sm:gap-0 sm:pb-[76px] sm:pt-[60px] md:h-[calc(100vh-84px)] md:flex-row md:justify-between md:gap-[32px] md:px-4 md:py-20 lg:flex-row lg:gap-10 lg:px-10 xl:gap-[102px] xl:px-20 xl:py-[34px] 2xl:flex-wrap 2xl:content-center 2xl:gap-[111px] 2xl:px-[120px] 2xl:py-0 3xl:h-[calc(100vh-96px)] 3xl:gap-0">
@@ -19,12 +25,12 @@ export const HeroSection = () => {
             {t("description")}
           </p>
 
-          <Link
-            href="/create-resume"
+          <button
+            onClick={handleNavigate}
             className="mds:w-[220px] mt-10 flex h-10 w-full items-center justify-center rounded-[100px] bg-blue-500 text-white sm:h-12 sm:w-[318px] sm:text-btn ms:w-[220px] md:w-[224px] lg:mx-0 lg:w-[220px] xl:w-[200px] 2xl:w-[309px] 3xl:h-[60px] 3xl:w-[404px] 3xl:text-body-sm"
           >
             {t("button")}
-          </Link>
+          </button>
         </div>
         <div className="mx-auto flex w-full flex-col text-center text-violet-800 sm:gap-4 sm:text-start sm:text-body md:gap-2 md:text-start lg:mx-0 lg:flex-row lg:gap-6 lg:text-left 3xl:w-[544px] 3xl:gap-[33px] 3xl:text-[20px]">
           <p className="w-full border-l border-l-black-100 sm:pl-2 md:pl-4 3xl:pl-6">

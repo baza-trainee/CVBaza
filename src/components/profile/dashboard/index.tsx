@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
@@ -5,6 +7,7 @@ import { Link } from "@/i18n/routing";
 
 export const Dashboard = () => {
   const locale = useLocale();
+
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-start px-4 py-6 sm:px-8 md:px-[80px] md:py-[40px]">
       <Image
