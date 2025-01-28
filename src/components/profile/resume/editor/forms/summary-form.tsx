@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { BsStars } from "react-icons/bs";
-import { generateSummary } from "@/app/actions/generate-summary";
+import { toast } from "sonner";
+import { generateSummaryGemini } from "@/app/actions/generate-summary-gemini";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
 import { EditorFormProps } from "@/types/resume";
 
 export const SummaryForm = ({ resumeData, setResumeData }: EditorFormProps) => {
   const [isGenerating, setIsGenerating] = useState(false);
-  const { toast } = useToast();
   const t = useTranslations("Form");
   const locale = useLocale();
 
@@ -42,20 +41,17 @@ export const SummaryForm = ({ resumeData, setResumeData }: EditorFormProps) => {
         })),
       };
 
-      const summary = await generateSummary(formattedData, locale);
+      const summary = await generateSummaryGemini(formattedData, locale);
       setResumeData({ ...resumeData, summary });
 
-      toast({
-        title: t("summary.success"),
-        description: t("summary.successMessage"),
+      toast.success(t("summary.successMessage"), {
+        description: t("summary.success"),
       });
     } catch (error) {
       console.error("Error generating summary:", error);
-      toast({
-        title: t("summary.error"),
+      toast.error(t("summary.errorMessage"), {
         description:
-          error instanceof Error ? error.message : t("summary.errorMessage"),
-        variant: "destructive",
+          error instanceof Error ? error.message : t("summary.error"),
       });
     } finally {
       setIsGenerating(false);

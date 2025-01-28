@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { format, parseISO } from "date-fns";
+import parse from "html-react-parser";
 import { Mail, MapPin, Phone } from "lucide-react";
 import {
   FaDribbble,
@@ -228,9 +229,9 @@ export const ModernDarkTemplate = ({ data }: { data: ResumeData }) => {
                       )}
                     </div>
 
-                    <p className="text-xs text-gray-500 md:text-sm">
-                      {exp.description}
-                    </p>
+                    <div className="text-sm [&>ol]:ml-4 [&>ol]:list-disc [&>ul>li]:pl-2 [&>ul]:ml-4 [&>ul]:list-['-']">
+                      {parse(exp.description || "Work Experience Description")}
+                    </div>
                   </div>
                 ))}
               </div>
