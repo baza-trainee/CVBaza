@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import { toast } from "sonner";
 import { initialData } from "@/components/profile/resume/editor/forms/initialdata";
-import { useToast } from "@/hooks/use-toast";
 import { ResumeData } from "@/types/resume";
 
 const STORAGE_KEY = "resumeData";
@@ -42,7 +42,6 @@ export const useResumeData = () => {
   const [resumeData, setResumeData] = useState<ResumeData>(initialData);
   const [isSaving, setIsSaving] = useState(false);
   const [isSavingToDb, setIsSavingToDb] = useState(false);
-  const { toast } = useToast();
   const router = useRouter();
 
   // Initialize client-side data
@@ -107,24 +106,18 @@ export const useResumeData = () => {
       const savedResume = await response.json();
       updateCloudinaryData(savedResume);
 
-      toast({
-        title: "Success",
-        description: "Resume saved successfully",
-      });
+      toast.success("Resume saved successfully");
 
       localStorage.removeItem(STORAGE_KEY);
       router.push("/profile/resume");
     } catch (error) {
-      toast({
-        title: "Error",
-        description:
-          error instanceof Error ? error.message : "Failed to save resume",
-        variant: "destructive",
-      });
+      toast.error(
+        error instanceof Error ? error.message : "Failed to save resume"
+      );
     } finally {
       setIsSavingToDb(false);
     }
-  }, [resumeData, toast, router, updateCloudinaryData]);
+  }, [resumeData, router, updateCloudinaryData]);
 
   return {
     resumeData,

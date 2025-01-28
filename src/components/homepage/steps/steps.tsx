@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FC } from "react";
 import { useTranslations } from "next-intl";
 import { Container } from "@/components/shared/container";
@@ -11,7 +11,15 @@ import { createStepsData } from "./data";
 export const Steps: FC = () => {
   const screenSize = useMedia();
   const t = useTranslations("HomePage.steps");
+  const router = useRouter();
   const stepsData = createStepsData(t);
+
+  const handleNavigate = () => {
+    router.push("/profile/resume/editor");
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 100);
+  };
 
   return (
     <section className="mx-auto bg-background py-20 2xl:py-[120px]">
@@ -47,12 +55,12 @@ export const Steps: FC = () => {
             ))}
           </ul>
           <div>
-            <Link
+            <button
               className="inline-block rounded-[100px] bg-blue-500 px-[85px] py-[12px] text-center text-btn text-white xl:px-[61px] 2xl:px-[46px]"
-              href="#"
+              onClick={handleNavigate}
             >
               {t("button")}
-            </Link>
+            </button>
           </div>
         </div>
       </Container>
