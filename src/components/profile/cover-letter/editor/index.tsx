@@ -44,7 +44,11 @@ export const LetterEditor = () => {
   return (
     <div className="flex w-full flex-col pt-[4rem] lg:pt-0 xl:flex-row">
       <div className="mx-auto flex h-[94vh] w-full flex-col justify-between xl:w-1/2">
-        <Breadcrumbs currentStep={currentStep} setCurrentStep={setStep} />
+        <Breadcrumbs
+          componentType="letter"
+          currentStep={currentStep}
+          setCurrentStep={setStep}
+        />
         {FormComponent && (
           <div className="no-scrollbar overflow-y-auto">
             <FormComponent
@@ -54,6 +58,7 @@ export const LetterEditor = () => {
           </div>
         )}
         <EditorFooter
+          componentType="letter"
           currentStep={currentStep}
           setCurrentStep={setStep}
           isSaving={isSaving}

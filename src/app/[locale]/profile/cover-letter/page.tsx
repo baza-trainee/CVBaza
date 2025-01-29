@@ -1,7 +1,8 @@
-import { CoverLetter } from "@/components/profile/cover-letter/letter-page";
+// import { CoverLetter } from "@/components/profile/cover-letter/letter-page";
+import { CoverLetterPage } from "@/components/profile/cover-letter";
 
-const CoverLetterPage = () => {
-  return <CoverLetter />;
+const CoverLetterView = () => {
+  return <CoverLetterPage />;
 };
 
-export default CoverLetterPage;
+export default CoverLetterView;

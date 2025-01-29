@@ -1,52 +1,47 @@
-// import { useState } from "react";
-// import { useLocale, useTranslations } from "next-intl";
-import { useTranslations } from "next-intl";
-// import { BsStars } from "react-icons/bs";
-// import { generateSummary } from "@/app/actions/generate-summary";
+import { useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { BsStars } from "react-icons/bs";
+import { toast } from "sonner";
+import { generateTextGemini } from "@/app/actions/generate-text-gemini";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-// import { useToast } from "@/hooks/use-toast";
 import { EditorFormProps } from "@/types/letter";
 
 export const TextForm = ({ letterData, setLetterData }: EditorFormProps) => {
-  // const [isGenerating, setIsGenerating] = useState(false);
-  // const { toast } = useToast();
-  const t = useTranslations("Form");
-  // const locale = useLocale();
+  const [isGenerating, setIsGenerating] = useState(false);
+  const t = useTranslations("FormLetter");
+  const locale = useLocale();
 
-  // const handleGenerateText = async () => {
-  //   try {
-  //     setIsGenerating(true);
+  const handleGenerateText = async () => {
+    try {
+      setIsGenerating(true);
 
-  //     if (!letterData.name || !letterData.profession) {
-  //       throw new Error(t("validation.required"));
-  //     }
+      if (!letterData.name || !letterData.profession) {
+        throw new Error(t("validation.required"));
+      }
 
-  //     const formattedData = {
-  //       fullName: letterData.name,
-  //       position: letterData.profession,
-  //     };
+      const formattedData = {
+        fullName: letterData.name,
+        profession: letterData.profession,
+        position: letterData.position,
+        company: letterData.company,
+      };
 
-  //     // actions
-  //     const text = await generateSummary(formattedData, locale);
-  //     setLetterData({ ...letterData, text });
+      const text = await generateTextGemini(formattedData, locale);
+      setLetterData({ ...letterData, text });
 
-  //     toast({
-  //       title: t("text.success"),
-  //       description: t("text.successMessage"),
-  //     });
-  //   } catch (error) {
-  //     console.error("Error generating the text:", error);
-  //     toast({
-  //       title: t("text.error"),
-  //       description:
-  //         error instanceof Error ? error.message : t("text.errorMessage"),
-  //       variant: "destructive",
-  //     });
-  //   } finally {
-  //     setIsGenerating(false);
-  //   }
-  // };
+      toast.success(t("text.successMessage"), {
+        description: t("text.success"),
+      });
+    } catch (error) {
+      console.error("Error generating the text:", error);
+      toast.error(t("text.errorMessage"), {
+        description: error instanceof Error ? error.message : t("text.error"),
+      });
+    } finally {
+      setIsGenerating(false);
+    }
+  };
 
   return (
     <div className="flex w-full max-w-2xl flex-col gap-4 p-4">
@@ -59,13 +54,13 @@ export const TextForm = ({ letterData, setLetterData }: EditorFormProps) => {
 
       <div className="flex items-center justify-center py-4">
         <Button
-          // onClick={handleGenerateText}
-          // disabled={isGenerating}
+          onClick={handleGenerateText}
+          disabled={isGenerating}
           type="button"
           variant="ai"
           size="sm"
         >
-          {/* {isGenerating ? t("text.generating") : t("text.generate")} <BsStars /> */}
+          {isGenerating ? t("text.generating") : t("text.generate")} <BsStars />
         </Button>
       </div>
 

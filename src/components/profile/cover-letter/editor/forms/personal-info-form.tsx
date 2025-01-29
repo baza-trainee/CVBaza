@@ -18,7 +18,7 @@ export const PersonalInfoForm = ({
   letterData,
   setLetterData,
 }: EditorFormProps) => {
-  const t = useTranslations("Form");
+  const t = useTranslations("FormLetter");
 
   const form = useForm({
     resolver: zodResolver(personalInfoSchema),

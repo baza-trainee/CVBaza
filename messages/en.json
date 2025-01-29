@@ -407,7 +407,8 @@
       "company": "Company XYZ",
       "text": "Write a text of your cover letter",
       "nameRecipient": "Stuart Little",
-      "positionRecipient": "IT recruiter"
+      "positionRecipient": "IT recruiter",
+      "description": "Describe your motivation, strengths, and how you match the job requirements"
     },
     "text": {
       "generate": "Generate with AI",

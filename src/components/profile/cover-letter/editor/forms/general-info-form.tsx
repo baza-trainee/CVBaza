@@ -111,12 +111,6 @@ export const GeneralInfoForm = ({
           />
         </form>
       </Form>
-
-      <div className="mt-4 overflow-hidden text-sm text-muted-foreground">
-        <pre className="mt-4 rounded-lg bg-slate-950 p-4">
-          {JSON.stringify(letterData, null, 2)}
-        </pre>
-      </div>
     </div>
   );
 };

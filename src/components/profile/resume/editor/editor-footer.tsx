@@ -1,9 +1,11 @@
 import { FileUserIcon, PenLineIcon, Save } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { steps as letterSteps } from "@/components/profile/cover-letter/editor/steps";
 import { Button } from "@/components/ui/button";
-import { steps } from "./steps";
+import { steps as resumeSteps } from "./steps";
 
 interface FooterProps {
+  componentType: string;
   currentStep: string;
   setCurrentStep: (step: string) => void;
   showMobileResumePreview: boolean;
@@ -14,6 +16,7 @@ interface FooterProps {
 }
 
 export const EditorFooter = ({
+  componentType,
   currentStep,
   setCurrentStep,
   showMobileResumePreview,
@@ -22,7 +25,10 @@ export const EditorFooter = ({
   isSavingToDb,
   onSave,
 }: FooterProps) => {
-  const t = useTranslations("Form.navigation");
+  const t = useTranslations(
+    componentType === "resume" ? "Form.navigation" : "FormLetter.navigation"
+  );
+  const steps = componentType === "resume" ? resumeSteps : letterSteps;
 
   const previousStep = steps.find(
     (_, index) => steps[index + 1]?.key === currentStep

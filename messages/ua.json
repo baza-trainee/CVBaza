@@ -401,6 +401,7 @@
       "email": "Електронна пошта",
       "position": "Посада",
       "company": "Компанія",
+      "text": "Текст",
       "nameRecipient": "Ім'я отримувача",
       "positionRecipient": "Посада отримувача"
     },
@@ -412,8 +413,10 @@
       "email": "john@example.com",
       "position": "Старший інженер програмного забезпечення",
       "company": "Компанія XYZ",
+      "text": "Напишіть текст вашого супровідного листа",
       "nameRecipient": "Стюард Літтл",
-      "positionRecipient": "IT рекрутер"
+      "positionRecipient": "IT рекрутер",
+      "description": "Опишіть мотивацію, сильні сторони та відповідність вимогам вакансії"
     },
     "text": {
       "generate": "Згенерувати за допомогою ШІ",
