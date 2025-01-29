@@ -275,7 +275,7 @@ export function AuthForm({ lang, type }: AuthFormProps) {
       </Form>
       {type === "signin" ? (
         <div className="flex flex-col items-center text-lg md:text-xl">
-          <h4 className="mt-4 md:mt-6">
+          <h4 className="mt-4">
             {lang === "en"
               ? "Don't have an account?"
               : "Не маєте облікового запису?"}

@@ -73,16 +73,16 @@ export function ForgotPasswordForm({ lang }: ForgotPasswordFormProps) {
 
   if (success) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <Card className="w-full max-w-[600px] p-[50px]">
-          <CardHeader className="mb-8 p-0">
-            <CardTitle className="text-center text-2xl font-semibold">
+      <div className="flex min-h-[80vh] w-full items-center justify-center p-4">
+        <Card className="w-full max-w-[600px] p-4 sm:p-8 md:p-[50px]">
+          <CardHeader className="mb-6 p-0 sm:mb-8">
+            <CardTitle className="text-center text-xl font-semibold sm:text-2xl">
               {lang === "en"
                 ? "Check Your Email"
                 : "Перевірте свою електронну пошту"}
             </CardTitle>
           </CardHeader>
-          <CardContent className="p-0 px-[70px] text-center">
+          <CardContent className="p-0 px-4 text-center sm:px-8 md:px-[70px]">
             <p>
               {lang === "en"
                 ? "If an account exists for this email, you will receive password reset instructions."
@@ -100,24 +100,24 @@ export function ForgotPasswordForm({ lang }: ForgotPasswordFormProps) {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <Card className="w-full max-w-[600px] p-[50px]">
-        <CardHeader className="mb-8 p-0">
-          <CardTitle className="text-center text-2xl font-semibold">
+    <div className="flex min-h-[80vh] w-full items-center justify-center p-4">
+      <Card className="w-full max-w-[600px] p-4 sm:p-8 md:p-[50px]">
+        <CardHeader className="mb-6 p-0 sm:mb-8">
+          <CardTitle className="text-center text-xl font-semibold sm:text-2xl">
             {lang === "en" ? "Forgot Password?" : "Забули пароль?"}
           </CardTitle>
         </CardHeader>
-        <CardContent className="p-0 px-[70px]">
+        <CardContent className="p-0 px-4 sm:px-8 md:px-[70px]">
           {error && (
             <div className="mb-4 rounded-md bg-red-50 p-4 text-red-600">
               {error}
             </div>
           )}
 
-          <p className="mb-6 text-center">
+          <p className="mb-4 text-center text-sm sm:mb-6 sm:text-base">
             {lang === "en"
-              ? "Enter your email address and we'll send you instructions to reset your password."
-              : "Введіть свою електронну адресу, і ми надішлемо вам інструкції щодо скидання пароля."}
+              ? "Please provide your email address to verify your identity."
+              : "Вкажіть  Вашу електронну адресу, щоб підтвердити  Вашу особу."}
           </p>
 
           <Form {...form}>
@@ -130,7 +130,9 @@ export function ForgotPasswordForm({ lang }: ForgotPasswordFormProps) {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-xl font-normal">Email</FormLabel>
+                    <FormLabel className="text-base font-normal sm:text-xl">
+                      Email
+                    </FormLabel>
                     <FormControl>
                       <Input
                         type="text"
@@ -147,20 +149,29 @@ export function ForgotPasswordForm({ lang }: ForgotPasswordFormProps) {
                   </FormItem>
                 )}
               />
-
-              <Button
-                type="submit"
-                className="mt-2 w-full rounded-[40px] bg-blue-500 text-white hover:border-blue-600 hover:bg-blue-600 focus:border-blue-600 focus:bg-blue-600"
-                disabled={form.formState.isSubmitting}
-              >
-                {form.formState.isSubmitting
-                  ? lang === "en"
-                    ? "Processing..."
-                    : "Обробка..."
-                  : lang === "en"
-                    ? "Send Instructions"
-                    : "Надіслати інструкції"}
-              </Button>
+              <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
+                <Button
+                  type="submit"
+                  className="w-full rounded-[40px] bg-blue-500 text-white hover:border-blue-600 hover:bg-blue-600 focus:border-blue-600 focus:bg-blue-600"
+                  disabled={form.formState.isSubmitting}
+                >
+                  {form.formState.isSubmitting
+                    ? lang === "en"
+                      ? "Processing..."
+                      : "Обробка..."
+                    : lang === "en"
+                      ? "Confirm"
+                      : "Підтвердити"}
+                </Button>
+                <Button
+                  onClick={() => router.push("/signin")}
+                  className="w-full rounded-[40px] border-[1px] border-blue-300 bg-white text-blue-500 hover:bg-blue-100"
+                  disabled={form.formState.isSubmitting}
+                  variant="outline"
+                >
+                  {lang === "en" ? "Cancel" : "Скасувати"}
+                </Button>
+              </div>
             </form>
           </Form>
         </CardContent>
