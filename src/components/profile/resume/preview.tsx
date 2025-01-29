@@ -12,13 +12,13 @@ import {
 interface PreviewSectionProps {
   data: ResumeData;
   template: string;
-  document: string;
+  componentType: string;
 }
 
 export const PreviewSection = ({
   data,
   template,
-  document,
+  componentType,
 }: PreviewSectionProps) => {
   const pathname = usePathname();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -46,7 +46,7 @@ export const PreviewSection = ({
           zoom: zoom,
         }}
       >
-        {document === "resume" ? (
+        {componentType === "resume" ? (
           <TemplateResumeComponent data={data} />
         ) : (
           <TemplateLetterComponent data={data} />

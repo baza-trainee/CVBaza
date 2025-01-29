@@ -65,13 +65,14 @@ export const ResumeEditor = () => {
       </div>
       <div className="hidden w-full xl:block xl:w-1/2">
         <PreviewSection
-          document={"resume"}
+          componentType={"resume"}
           data={resumeData}
           template={resumeData.template || templates.CLASSIC}
         />
       </div>
       {showMobileResumePreview && (
         <MobilePreview
+          componentType={"resume"}
           data={resumeData}
           template={resumeData.template || templates.CLASSIC}
           onClose={() => setShowMobileResumePreview(false)}

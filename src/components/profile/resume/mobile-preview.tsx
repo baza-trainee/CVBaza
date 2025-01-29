@@ -1,21 +1,28 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { ResumeData } from "@/types/resume";
-
-// import { renderTemplate } from "@/utils/render-template";
+import {
+  renderLetterTemplate,
+  renderResumeTemplate,
+} from "@/utils/render-template";
 
 interface MobilePreviewProps {
   data: ResumeData;
   template: string;
   onClose: () => void;
+  componentType: string;
 }
 
 export const MobilePreview = ({
-  // data,
-  // template,
+  componentType,
+  data,
+  template,
   onClose,
 }: MobilePreviewProps) => {
-  const t = useTranslations("ResumePage");
+  // const t = useTranslations("ResumePage");
+  const t = useTranslations(
+    componentType === "resume" ? "ResumePage" : "LetterPage"
+  );
 
   return (
     <div className="absolute left-0 top-0 z-50 h-full w-full bg-white/70 backdrop-blur-sm xl:hidden">
@@ -37,7 +44,9 @@ export const MobilePreview = ({
       <div className="no-scrollbar h-[calc(100vh-56px)] overflow-y-auto">
         <div className="mx-auto flex justify-center p-3">
           <div className="w-full max-w-[800px]">
-            {/* {renderTemplate(template)({ data: data })} */}
+            {componentType === "resume"
+              ? renderResumeTemplate(template)({ data: data })
+              : renderLetterTemplate(template)({ data: data })}
           </div>
         </div>
       </div>

@@ -2,26 +2,26 @@
 
 import { useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
+import { useLetterData } from "@/components/profile/cover-letter/hooks/use-letter-data";
 import { Breadcrumbs } from "@/components/profile/resume/editor/breadcrumbs";
+import { EditorFooter } from "@/components/profile/resume/editor/editor-footer";
+import { MobilePreview } from "@/components/profile/resume/mobile-preview";
 import { PreviewSection } from "@/components/profile/resume/preview";
 import { lettersTemplates } from "@/constants";
-import { useResumeData } from "@/hooks/use-resume-data";
-import { MobilePreview } from "../mobile-preview";
-import { EditorFooter } from "./editor-footer";
 import { steps } from "./steps";
 
 export const LetterEditor = () => {
   const searchParams = useSearchParams();
   const currentStep = searchParams.get("step") || steps[0].key;
-  const [showMobileResumePreview, setShowMobileResumePreview] = useState(false);
+  const [showMobileLetterPreview, setShowMobileLetterPreview] = useState(false);
   const {
-    resumeData,
-    updateResumeData,
+    letterData,
+    updateLetterData,
     saveToDatabase,
     isInitialized,
     isSaving,
     isSavingToDb,
-  } = useResumeData();
+  } = useLetterData();
 
   const setStep = useCallback(
     (key: string) => {
@@ -48,8 +48,8 @@ export const LetterEditor = () => {
         {FormComponent && (
           <div className="no-scrollbar overflow-y-auto">
             <FormComponent
-              letterData={resumeData}
-              setLetterData={updateResumeData}
+              letterData={letterData}
+              setLetterData={updateLetterData}
             />
           </div>
         )}
@@ -59,21 +59,25 @@ export const LetterEditor = () => {
           isSaving={isSaving}
           isSavingToDb={isSavingToDb}
           onSave={saveToDatabase}
-          showMobileResumePreview={showMobileResumePreview}
-          setShowMobileResumePreview={setShowMobileResumePreview}
+          showMobileResumePreview={showMobileLetterPreview}
+          setShowMobileResumePreview={setShowMobileLetterPreview}
         />
       </div>
       <div className="hidden w-full xl:block xl:w-1/2">
         <PreviewSection
-          data={resumeData}
-          document={"letter"}
-          template={resumeData.template || lettersTemplates.SHORT}
+          componentType={"letter"}
+          // @ts-expect-error type error
+          data={letterData}
+          template={letterData.template || lettersTemplates.SHORT}
         />
       </div>
-      {showMobileResumePreview && (
+      {showMobileLetterPreview && (
         <MobilePreview
-          data={resumeData}
-          template={resumeData.template || lettersTemplates.SHORT}
+          componentType={"letter"}
+          // @ts-expect-error type error
+          data={letterData}
+          template={letterData.template || lettersTemplates.SHORT}
+          onClose={() => setShowMobileLetterPreview(false)}
         />
       )}
     </div>
