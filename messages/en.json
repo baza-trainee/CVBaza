@@ -314,5 +314,15 @@
       }
     },
     "copyright": "Baza Trainee Ukraine 2024 \u00A9 All rights reserved"
+  },
+  "Settings": {
+    "changeName": {
+      "message": "Name was successfully update",
+      "error": "Some issue happened due changing name"
+    },
+    "changePassword": {
+      "message": "Password was successfully changed",
+      "error": "Some issue happened due changing password"
+    }
   }
 }

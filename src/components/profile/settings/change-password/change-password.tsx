@@ -1,7 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import {
   Form,
   FormControl,
@@ -15,6 +16,7 @@ import { Locale } from "@/i18n/routing";
 import { ChangePasswordValues, changePasswordSchema } from "../schema";
 
 export const ChangePassword = () => {
+  const t = useTranslations("Settings");
   const lang = useLocale() as Locale;
   const { data: session } = useSession();
   const token = session?.user.id;
@@ -43,9 +45,9 @@ export const ChangePassword = () => {
       if (res.ok) {
         form.reset();
       }
-      const data = await res.json();
-      console.log(data.message);
+      toast.success(t("ChangePassword.message"));
     } catch (error) {
+      toast.error(t("ChangePassword.error"));
       console.error("Error submitting form:", error);
     }
   }
