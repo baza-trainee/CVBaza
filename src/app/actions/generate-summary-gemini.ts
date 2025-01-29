@@ -1,8 +1,9 @@
 "use server";
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { env } from "@/env";
 
-const apiKey = "env.GEMINI_API_KEY;";
+const apiKey = env.GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(apiKey || "");
 
 export async function generateSummaryGemini(

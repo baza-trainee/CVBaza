@@ -1,10 +1,20 @@
+"use client";
+
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FC } from "react";
 import { useTranslations } from "next-intl";
 
 export const CoverLetter: FC = () => {
   const t = useTranslations("HomePage.coverLetter");
+  const router = useRouter();
+
+  const handleNavigate = () => {
+    router.push("/profile/cover-letter");
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 100);
+  };
 
   return (
     <section className="flex items-center bg-white px-4 pb-20 pt-20 md:px-4 lg:pt-[60px] xl:pb-[90px] 2xl:py-[120px]">
@@ -17,12 +27,12 @@ export const CoverLetter: FC = () => {
             {t("description")}
           </p>
           <div>
-            <Link
+            <button
               className="inline-block rounded-[100px] bg-blue-500 px-[45px] py-[12px] text-center text-body-semibold text-white md:px-[26px] lg:px-[46px] 2xl:px-[41px]"
-              href="#"
+              onClick={handleNavigate}
             >
               {t("button")}
-            </Link>
+            </button>
           </div>
         </div>
         <Image
