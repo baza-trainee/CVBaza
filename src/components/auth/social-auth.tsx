@@ -6,19 +6,19 @@ import { Icon } from "../shared/icon";
 
 export function SocialAuth() {
   return (
-    <div className="mb-6 grid grid-cols-2 gap-5">
+    <div className="mx-auto flex w-full max-w-md flex-col items-center justify-center gap-4 sm:flex-row">
       <Button
         variant="outline"
-        className="h-12 w-[170px] rounded-[40px] bg-inherit px-8 py-3 text-xl font-normal [&_svg]:size-6"
+        className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-white text-base font-medium transition-colors hover:bg-gray-50 sm:w-[200px]"
         onClick={() => signIn("google", { callbackUrl: "/profile/dashboard" })}
       >
-        <Icon name="icon-google" size="full" />
+        <Icon name="icon-google" size="24px" />
         Google
       </Button>
       <Button
         variant="outline"
         onClick={() => signIn("github", { callbackUrl: "/profile/dashboard" })}
-        className="h-12 w-[170px] rounded-[40px] bg-inherit text-xl font-normal [&_svg]:size-6"
+        className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-white text-base font-medium transition-colors hover:bg-gray-50 sm:w-[200px]"
       >
         <Icon name="icon-git" size="24px" />
         GitHub
