@@ -88,7 +88,7 @@ export function ForgotPasswordForm({ lang }: ForgotPasswordFormProps) {
                 ? "If an account exists for this email, you will receive password reset instructions."
                 : "Якщо обліковий запис існує для цієї електронної адреси, ви отримаєте інструкції щодо скидання пароля."}
             </p>
-            <p className="mt-4">
+            <p className="mt-4 text-blue-500">
               {lang === "en"
                 ? "Redirecting to login page..."
                 : "Перенаправлення на сторінку входу..."}
@@ -149,7 +149,7 @@ export function ForgotPasswordForm({ lang }: ForgotPasswordFormProps) {
                   </FormItem>
                 )}
               />
-              <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
+              <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:gap-4">
                 <Button
                   type="submit"
                   className="w-full rounded-[40px] bg-blue-500 text-white hover:border-blue-600 hover:bg-blue-600 focus:border-blue-600 focus:bg-blue-600"
