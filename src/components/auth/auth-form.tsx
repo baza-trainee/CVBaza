@@ -131,7 +131,7 @@ export function AuthForm({ lang, type }: AuthFormProps) {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="my-6 flex flex-col gap-4"
+          className="my-4 flex flex-col gap-4"
         >
           <FormField
             control={form.control}
@@ -246,11 +246,13 @@ export function AuthForm({ lang, type }: AuthFormProps) {
               )}
             />
           )}
+
           {form.formState.errors.root && (
             <div className="text-sm text-red-500">
               {form.formState.errors.root.message}
             </div>
           )}
+
           <Button
             type="submit"
             className="mt-4 w-full rounded-[40px] bg-blue-500 py-2.5 text-base text-white hover:border-blue-600 hover:bg-blue-600 focus:border-blue-600 focus:bg-blue-600 md:text-lg"
@@ -263,6 +265,7 @@ export function AuthForm({ lang, type }: AuthFormProps) {
                 ? "Register"
                 : "Зареєструватися"}
           </Button>
+
           {type === "signin" && (
             <Link
               href={`/${lang}/forgot-password`}
@@ -273,9 +276,10 @@ export function AuthForm({ lang, type }: AuthFormProps) {
           )}
         </form>
       </Form>
+
       {type === "signin" ? (
-        <div className="flex flex-col items-center text-lg md:text-xl">
-          <h4 className="mt-4">
+        <div className="flex flex-col items-center text-sm md:text-lg">
+          <h4 className="mt-2">
             {lang === "en"
               ? "Don't have an account?"
               : "Не маєте облікового запису?"}
@@ -288,7 +292,7 @@ export function AuthForm({ lang, type }: AuthFormProps) {
           </Link>
         </div>
       ) : (
-        <div className="mt-6 flex flex-col items-center text-lg md:text-xl">
+        <div className="mt-6 flex flex-col items-center text-sm md:text-lg">
           <h4>
             {lang === "en"
               ? "Already have an account?"
