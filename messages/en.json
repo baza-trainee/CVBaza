@@ -392,7 +392,9 @@
       },
       "text": {
         "title": "Text",
-        "description": "Write a text your letter"
+        "description": "Write a text of your letter",
+        "counterStart": "Remaining: ",
+        "counterFinish": "characters"
       }
     },
     "labels": {

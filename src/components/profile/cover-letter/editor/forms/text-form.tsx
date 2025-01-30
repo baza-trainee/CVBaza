@@ -11,6 +11,7 @@ export const TextForm = ({ letterData, setLetterData }: EditorFormProps) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const t = useTranslations("FormLetter");
   const locale = useLocale();
+  const MAX_CHARACTERS = 700;
 
   const handleGenerateText = async () => {
     try {
@@ -43,6 +44,15 @@ export const TextForm = ({ letterData, setLetterData }: EditorFormProps) => {
     }
   };
 
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newText = e.target.value;
+    if (newText.length <= MAX_CHARACTERS) {
+      setLetterData({ ...letterData, text: newText });
+    }
+  };
+
+  const remainingCharacters = MAX_CHARACTERS - (letterData.text?.length || 0);
+
   return (
     <div className="flex w-full max-w-2xl flex-col gap-4 p-4">
       <div className="space-y-2">
@@ -66,10 +76,16 @@ export const TextForm = ({ letterData, setLetterData }: EditorFormProps) => {
 
       <Textarea
         value={letterData.text || ""}
-        onChange={(e) => setLetterData({ ...letterData, text: e.target.value })}
+        // onChange={(e) => setLetterData({ ...letterData, text: e.target.value })}
+        onChange={handleTextChange}
         placeholder={t("placeholders.description")}
         className="min-h-[200px]"
       />
+      <div className="mt-2 text-sm text-muted-foreground">
+        {t("steps.text.counterStart")}
+        {remainingCharacters}&nbsp;
+        {t("steps.text.counterFinish")}
+      </div>
     </div>
   );
 };
