@@ -103,11 +103,11 @@ export function AuthForm({ lang, type }: AuthFormProps) {
   }
 
   return (
-    <div className="px-[70px]">
+    <div className="mx-auto w-full max-w-md px-4 sm:px-8 md:px-[70px]">
       <SocialAuth />
 
       <div className="relative">
-        <p className="relative flex justify-center text-base font-semibold">
+        <p className="relative mt-4 flex justify-center text-base font-semibold">
           {type === "register"
             ? lang === "en"
               ? "or register using email"
@@ -131,14 +131,16 @@ export function AuthForm({ lang, type }: AuthFormProps) {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="my-6 flex flex-col gap-4"
+          className="my-4 flex flex-col gap-4"
         >
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-xl font-normal">Email</FormLabel>
+                <FormLabel className="text-lg font-normal md:text-xl">
+                  Email
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Email"
@@ -155,7 +157,7 @@ export function AuthForm({ lang, type }: AuthFormProps) {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-xl font-normal">
+                <FormLabel className="text-lg font-normal md:text-xl">
                   {lang === "en" ? "Password" : "Пароль"}
                 </FormLabel>
                 <FormControl>
@@ -188,17 +190,6 @@ export function AuthForm({ lang, type }: AuthFormProps) {
                       : "Пароль має складатись з 8 символів і містити цифри та латинські літери")}
                 </FormMessage>
                 <FormMessage className="mt-1 pl-1 text-[12px] text-red-500" />
-
-                {type === "signin" && (
-                  <div className="mt-2 flex justify-end">
-                    <Link
-                      href={`/${lang}/forgot-password`}
-                      className="text-sm text-blue-500 hover:text-blue-700"
-                    >
-                      {lang === "en" ? "Forgot password?" : "Забули пароль?"}
-                    </Link>
-                  </div>
-                )}
               </FormItem>
             )}
           />
@@ -207,9 +198,7 @@ export function AuthForm({ lang, type }: AuthFormProps) {
               <FormItem>
                 <FormControl>
                   <label className="flex items-center gap-2">
-                    <Checkbox
-                    // className="h-[18px] w-[18px] rounded border-blue-500 text-blue-600"
-                    />
+                    <Checkbox />
                     <p className="text-black text-small">
                       {lang === "en" ? "I agree with " : "Я погоджуюся з "}
 
@@ -257,14 +246,16 @@ export function AuthForm({ lang, type }: AuthFormProps) {
               )}
             />
           )}
+
           {form.formState.errors.root && (
             <div className="text-sm text-red-500">
               {form.formState.errors.root.message}
             </div>
           )}
+
           <Button
             type="submit"
-            className="mt-2 w-full rounded-[40px] bg-blue-500 text-white hover:border-blue-600 hover:bg-blue-600 focus:border-blue-600 focus:bg-blue-600"
+            className="mt-4 w-full rounded-[40px] bg-blue-500 py-2.5 text-base text-white hover:border-blue-600 hover:bg-blue-600 focus:border-blue-600 focus:bg-blue-600 md:text-lg"
           >
             {type === "signin"
               ? lang === "en"
@@ -274,11 +265,21 @@ export function AuthForm({ lang, type }: AuthFormProps) {
                 ? "Register"
                 : "Зареєструватися"}
           </Button>
+
+          {type === "signin" && (
+            <Link
+              href={`/${lang}/forgot-password`}
+              className="mt-2 text-center text-sm text-blue-500 hover:text-blue-700"
+            >
+              {lang === "en" ? "Forgot password?" : "Забули пароль?"}
+            </Link>
+          )}
         </form>
       </Form>
+
       {type === "signin" ? (
-        <div className="flex flex-col items-center text-xl">
-          <h4 className="mt-6">
+        <div className="flex flex-col items-center text-sm md:text-lg">
+          <h4 className="mt-2">
             {lang === "en"
               ? "Don't have an account?"
               : "Не маєте облікового запису?"}
@@ -291,7 +292,7 @@ export function AuthForm({ lang, type }: AuthFormProps) {
           </Link>
         </div>
       ) : (
-        <div className="mt-8 flex flex-col items-center text-xl">
+        <div className="mt-6 flex flex-col items-center text-sm md:text-lg">
           <h4>
             {lang === "en"
               ? "Already have an account?"

@@ -323,6 +323,16 @@
     },
     "copyright": "Baza Trainee Ukraine 2024 Усі права захищені"
   },
+  "Settings": {
+    "changeName": {
+      "message": "Ім'я було успішно змінено",
+      "error": "Сталась помилка при зміні імені"
+    },
+    "changePassword": {
+      "message": "Пароль було успішно змінено",
+      "error": "Сталась помилка при зміні паролю"
+    }
+  },
   "CoverLetterPage": {
     "title": "Супровідні листи"
   },

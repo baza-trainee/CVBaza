@@ -2,9 +2,16 @@
 
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Eye, EyeOff } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -25,6 +32,8 @@ interface ResetPasswordFormProps {
 export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const router = useRouter();
 
   const form = useForm<ResetPasswordFormValues>({
@@ -83,7 +92,7 @@ export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
             ? "Password Reset Successful"
             : "Пароль успішно змінено"}
         </h1>
-        <p>
+        <p className="text-blue-500">
           {lang === "en"
             ? "Redirecting to login page..."
             : "Перенаправлено на сторінку входу..."}
@@ -97,8 +106,11 @@ export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
       <Card className="w-full max-w-[600px] p-[50px]">
         <CardHeader className="mb-8 p-0">
           <CardTitle className="text-center text-2xl font-semibold">
-            {lang === "en" ? "Reset Your Password" : "Скинути пароль"}
+            {lang === "en" ? "Reset Your Password" : "Відновити пароль"}
           </CardTitle>
+          <CardDescription className="text-black text-center text-lg">
+            {lang === "en" ? "Create nw password" : "Створіть новий пароль"}
+          </CardDescription>
         </CardHeader>
         <CardContent className="p-0">
           <div className="px-[70px]">
@@ -118,24 +130,37 @@ export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-xl font-normal">
+                      <FormLabel className="text-lg font-normal">
                         {lang === "en" ? "New Password" : "Новий пароль"}
                       </FormLabel>
                       <FormControl>
-                        <Input
-                          type="password"
-                          placeholder={
-                            lang === "en"
-                              ? "Enter your new password"
-                              : "Введіть новий пароль"
-                          }
-                          {...field}
-                          className={`rounded-lg border border-gray-300 bg-gray-50 p-4 text-gray-900 focus:border-blue-500 focus:ring-blue-500 ${
-                            form.formState.errors.password
-                              ? "border-red-300 bg-red-50 text-red-500"
-                              : ""
-                          }`}
-                        />
+                        <div className="relative">
+                          <Input
+                            type={showPassword ? "text" : "password"}
+                            placeholder={
+                              lang === "en"
+                                ? "Enter your new password"
+                                : "Введіть новий пароль"
+                            }
+                            {...field}
+                            className={`rounded-lg border border-gray-300 bg-gray-50 p-4 text-gray-900 focus:border-blue-500 focus:ring-blue-500 ${
+                              form.formState.errors.password
+                                ? "border-red-300 bg-red-50 text-red-500"
+                                : ""
+                            }`}
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                          >
+                            {showPassword ? (
+                              <EyeOff className="h-5 w-5" />
+                            ) : (
+                              <Eye className="h-5 w-5" />
+                            )}
+                          </button>
+                        </div>
                       </FormControl>
                       <FormMessage className="mt-1 pl-1 text-[12px] text-red-500" />
                     </FormItem>
@@ -147,45 +172,70 @@ export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
                   name="confirmPassword"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-xl font-normal">
+                      <FormLabel className="text-lg font-normal">
                         {lang === "en"
                           ? "Confirm Password"
                           : "Підтвердіть пароль"}
                       </FormLabel>
                       <FormControl>
-                        <Input
-                          type="password"
-                          placeholder={
-                            lang === "en"
-                              ? "Confirm your new password"
-                              : "Підтвердіть новий пароль"
-                          }
-                          {...field}
-                          className={`rounded-lg border border-gray-300 bg-gray-50 p-4 text-gray-900 focus:border-blue-500 focus:ring-blue-500 ${
-                            form.formState.errors.confirmPassword
-                              ? "border-red-300 bg-red-50 text-red-500"
-                              : ""
-                          }`}
-                        />
+                        <div className="relative">
+                          <Input
+                            type={showConfirmPassword ? "text" : "password"}
+                            placeholder={
+                              lang === "en"
+                                ? "Confirm your new password"
+                                : "Підтвердіть новий пароль"
+                            }
+                            {...field}
+                            className={`rounded-lg border border-gray-300 bg-gray-50 p-4 text-gray-900 focus:border-blue-500 focus:ring-blue-500 ${
+                              form.formState.errors.confirmPassword
+                                ? "border-red-300 bg-red-50 text-red-500"
+                                : ""
+                            }`}
+                          />
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setShowConfirmPassword(!showConfirmPassword)
+                            }
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                          >
+                            {showConfirmPassword ? (
+                              <EyeOff className="h-5 w-5" />
+                            ) : (
+                              <Eye className="h-5 w-5" />
+                            )}
+                          </button>
+                        </div>
                       </FormControl>
                       <FormMessage className="mt-1 pl-1 text-[12px] text-red-500" />
                     </FormItem>
                   )}
                 />
 
-                <Button
-                  type="submit"
-                  className="mt-2 w-full rounded-[40px] bg-blue-500 text-white hover:border-blue-600 hover:bg-blue-600 focus:border-blue-600 focus:bg-blue-600"
-                  disabled={form.formState.isSubmitting}
-                >
-                  {form.formState.isSubmitting
-                    ? lang === "en"
-                      ? "Processing..."
-                      : "Обробка..."
-                    : lang === "en"
-                      ? "Reset Password"
-                      : "Змінити пароль"}
-                </Button>
+                <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:gap-4">
+                  <Button
+                    type="submit"
+                    className="mt-2 w-full rounded-[40px] bg-blue-500 text-white hover:border-blue-600 hover:bg-blue-600 focus:border-blue-600 focus:bg-blue-600"
+                    disabled={form.formState.isSubmitting}
+                  >
+                    {form.formState.isSubmitting
+                      ? lang === "en"
+                        ? "Processing..."
+                        : "Обробка..."
+                      : lang === "en"
+                        ? "Reset Password"
+                        : "Змінити пароль"}
+                  </Button>
+                  <Button
+                    onClick={() => router.push("/signin")}
+                    className="mt-2 w-full rounded-[40px] border-[1px] border-blue-300 bg-white text-blue-500 hover:bg-blue-100"
+                    disabled={form.formState.isSubmitting}
+                    variant="outline"
+                  >
+                    {lang === "en" ? "Cancel" : "Скасувати"}
+                  </Button>
+                </div>
               </form>
             </Form>
           </div>

@@ -1,7 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import {
   Form,
   FormControl,
@@ -15,6 +16,7 @@ import { Locale } from "@/i18n/routing";
 import { ChangeNameValues, changeNameSchema } from "../schema";
 
 export const ChangeForm = () => {
+  const t = useTranslations("Settings");
   const lang = useLocale() as Locale;
   const { data: session, update } = useSession();
 
@@ -29,6 +31,7 @@ export const ChangeForm = () => {
         },
         body: JSON.stringify(values),
       });
+      toast.success(t("changeName.message"));
       if (session?.user) {
         await update({
           ...session,
@@ -39,6 +42,7 @@ export const ChangeForm = () => {
         });
       }
     } catch (error) {
+      toast.error(t("changeName.error"));
       console.error("Error submitting form:", error);
     }
   }
