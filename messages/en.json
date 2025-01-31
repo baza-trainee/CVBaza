@@ -332,7 +332,11 @@
     }
   },
   "CoverLetterPage": {
-    "title": "Cover letters"
+    "title": "Cover letters",
+    "create": "Create cover letter",
+    "copy": "Copy",
+    "preview": "Preview",
+    "close": "Close"
   },
   "letter": {
     "lastUpdated": "Last updated",

@@ -49,6 +49,7 @@ export const PreviewSection = ({
         {componentType === "resume" ? (
           <TemplateResumeComponent data={data} />
         ) : (
+          // @ts-expect-error type error
           <TemplateLetterComponent data={data} />
         )}
       </div>

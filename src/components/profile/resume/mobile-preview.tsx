@@ -21,7 +21,7 @@ export const MobilePreview = ({
 }: MobilePreviewProps) => {
   // const t = useTranslations("ResumePage");
   const t = useTranslations(
-    componentType === "resume" ? "ResumePage" : "LetterPage"
+    componentType === "resume" ? "ResumePage" : "CoverLetterPage"
   );
 
   return (
@@ -46,7 +46,8 @@ export const MobilePreview = ({
           <div className="w-full max-w-[800px]">
             {componentType === "resume"
               ? renderResumeTemplate(template)({ data: data })
-              : renderLetterTemplate(template)({ data: data })}
+              : // @ts-expect-error type error
+                renderLetterTemplate(template)({ data: data })}
           </div>
         </div>
       </div>

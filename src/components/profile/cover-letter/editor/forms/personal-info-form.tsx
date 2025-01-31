@@ -69,22 +69,24 @@ export const PersonalInfoForm = ({
             )}
           />
 
-          <FormField
-            control={form.control}
-            name="profession"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("labels.profession")}</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder={t("placeholders.profession")}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {letterData.template === "detailed" && (
+            <FormField
+              control={form.control}
+              name="profession"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("labels.profession")}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={t("placeholders.profession")}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
 
           <FormField
             control={form.control}
@@ -128,53 +130,78 @@ export const PersonalInfoForm = ({
             )}
           />
 
-          <FormField
-            control={form.control}
-            name="company"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("labels.company")}</FormLabel>
-                <FormControl>
-                  <Input placeholder={t("placeholders.company")} {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {letterData.template === "detailed" && (
+            <FormField
+              control={form.control}
+              name="company"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("labels.company")}</FormLabel>
+                  <FormControl>
+                    <Input placeholder={t("placeholders.company")} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
 
-          <FormField
-            control={form.control}
-            name="nameRecipient"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("labels.nameRecipient")}</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder={t("placeholders.nameRecipient")}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {letterData.template === "detailed" && (
+            <FormField
+              control={form.control}
+              name="position"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("labels.position")}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={t("placeholders.position")}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
 
-          <FormField
-            control={form.control}
-            name="positionRecipient"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("labels.positionRecipient")}</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder={t("placeholders.positionRecipient")}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {letterData.template === "detailed" && (
+            <FormField
+              control={form.control}
+              name="nameRecipient"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("labels.nameRecipient")}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={t("placeholders.nameRecipient")}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
+
+          {letterData.template === "detailed" && (
+            <FormField
+              control={form.control}
+              name="positionRecipient"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("labels.positionRecipient")}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={t("placeholders.positionRecipient")}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
         </form>
       </Form>
     </div>

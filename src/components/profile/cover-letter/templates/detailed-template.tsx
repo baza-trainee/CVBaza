@@ -1,57 +1,77 @@
-import { ResumeData } from "@/types/resume";
+import { useEffect, useState } from "react";
+import { LetterData } from "@/types/letter";
 
-// import { format, parseISO } from "date-fns";
-
-// const formatDate = (date: string) => {
-//   if (!date) return "";
-//   try {
-//     return format(parseISO(date), "MMM yyyy");
-//   } catch {
-//     return date;
-//   }
+// const formatDate = (date: Date) => {
+//   return new Intl.DateTimeFormat("uk-UA", {
+//     day: "numeric",
+//     month: "long",
+//     year: "numeric",
+//   }).format(date);
 // };
 
-export const DetailedTemplate = ({ data }: { data: ResumeData }) => {
-  // @ts-expect-error type error
+export const DetailedTemplate = ({ data }: { data: LetterData }) => {
+  const [currentDate, setCurrentDate] = useState("");
+
   const formattedText = data.text
-    ? // @ts-expect-error type error
-      data.text.split("\n").map((line, index) => <p key={index}>{line}</p>)
+    ? data.text.split("\n").map((line, index) => (
+        <p key={index} className="text-lg">
+          {line}
+        </p>
+      ))
     : null;
+
+  useEffect(() => {
+    const formatDate = (date: Date) => {
+      return new Intl.DateTimeFormat("uk-UA", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }).format(date);
+    };
+
+    setCurrentDate(formatDate(new Date()));
+  }, []);
 
   return (
     <div className="aspect-[210/297] h-fit w-full bg-white text-black-400">
-      <div className="flex h-[25%] flex-col gap-8 bg-[#e6f1f3]">
-        <div className="flex flex-1 flex-col items-center justify-center p-6 text-left">
-          <h1 className="mb-1 whitespace-normal text-center text-[26px] font-semibold uppercase tracking-widest sm:text-[50px]">
+      <div className="flex h-[20%] flex-col">
+        <div className="relative flex flex-1 flex-col px-12 pt-12 text-left">
+          <h1 className="mb-1 whitespace-normal text-[26px] font-medium uppercase tracking-widest sm:text-[50px]">
             {data.name}
           </h1>
           {data.profession && (
-            <p className="mb-1 whitespace-normal text-center text-[16px] font-semibold uppercase tracking-[8px] text-[#8b8f92] sm:text-[26px]">
+            <p className="w-[70%] text-[16px] font-medium capitalize leading-[1.2] sm:text-[30px]">
               {data.profession}
             </p>
           )}
+          <div className="absolute bottom-[25px] left-0 flex w-full flex-col items-end px-12">
+            <p className="w-[200px] break-all rounded-3xl text-end text-[14px] italic leading-[1.2] sm:text-[20px]">
+              {data.phone}
+            </p>
+            <p className="min-w-[150px] break-all rounded-3xl text-end text-[14px] italic leading-[1.2] sm:text-[20px]">
+              {data.email}
+            </p>
+            <p className="min-w-[200px] max-w-[300px] break-all rounded-3xl text-end text-[14px] italic leading-[1.2] sm:text-[20px]">
+              {data.location}
+            </p>
+          </div>
         </div>
       </div>
-
-      <div className="relative">
-        <div className="absolute bottom-[-20px] left-0 flex w-full justify-around">
-          <p className="flex w-[200px] items-center justify-center break-all rounded-3xl bg-[#8dcedc] px-3 py-2 text-[14px] font-semibold text-white sm:text-[18px]">
-            {data.phone}
-          </p>
-          <p className="flex min-w-[200px] max-w-[300px] items-center justify-center break-all rounded-3xl bg-[#8dcedc] px-3 py-2 text-center text-[14px] font-semibold text-white sm:text-[18px]">
-            {data.location}
-          </p>
-          <p className="flex min-w-[150px] items-center justify-center break-all rounded-3xl bg-[#8dcedc] px-3 py-2 text-center text-[14px] font-semibold text-white sm:text-[18px]">
-            {data.email}
-          </p>
-        </div>
+      <div className="mx-auto mt-5 flex w-[88%] self-center border-t border-[#000] pt-5">
+        <p className="w-[100%] pt-[20px] text-end">{currentDate}</p>
       </div>
 
-      <div className="flex h-[75%] min-h-0 flex-col gap-y-8 px-16 pt-24 text-lg">
-        {/* @ts-expect-error type error */}
-        <p className="text-xl">{data.nameRecipient},</p>
+      <div className="px-12 pt-5">
+        <p className="text-xl">{data.nameRecipient}</p>
+        <p className="text-xl">{data.positionRecipient},</p>
+        <p className="text-xl">{data.company}</p>
+      </div>
+
+      <div className="flex h-[80] min-h-0 flex-col gap-y-5 px-12 pt-12">
+        <div className="pb-5">JOB REFERENCE: {data.position}</div>
+        <p className="text-lg">{data.nameRecipient},</p>
         {formattedText}
-        <p className="text-xl">{data.name}</p>
+        <p className="text-lg">{data.name}</p>
       </div>
     </div>
   );

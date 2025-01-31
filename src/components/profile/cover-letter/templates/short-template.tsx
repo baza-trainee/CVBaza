@@ -1,21 +1,19 @@
-import { ResumeData } from "@/types/resume";
+import { LetterData } from "@/types/letter";
 
-export const ShortTemplate = ({ data }: { data: ResumeData }) => {
-  // @ts-expect-error type error
+export const ShortTemplate = ({ data }: { data: LetterData }) => {
   const formattedText = data.text
-    ? // @ts-expect-error type error
-      data.text.split("\n").map((line, index) => <p key={index}>{line}</p>)
+    ? data.text.split("\n").map((line, index) => <p key={index}>{line}</p>)
     : null;
 
   return (
     <div className="aspect-[210/297] h-fit w-full bg-white text-black-400">
       <div className="flex h-[25%] flex-col gap-8 bg-[#e6f1f3]">
         <div className="flex flex-1 flex-col items-center justify-center p-6 text-left">
-          <h1 className="mb-1 whitespace-normal text-center text-[26px] font-semibold uppercase tracking-widest sm:text-[50px]">
+          <h1 className="mb-1 whitespace-normal text-center font-semibold uppercase tracking-widest sm:text-[28px] md:text-[50px]">
             {data.name}
           </h1>
           {data.profession && (
-            <p className="mb-1 whitespace-normal text-center text-[16px] font-semibold uppercase tracking-[8px] text-[#8b8f92] sm:text-[26px]">
+            <p className="mb-1 whitespace-normal text-center font-semibold uppercase tracking-[8px] text-[#8b8f92] sm:text-[18px] md:text-[26px]">
               {data.profession}
             </p>
           )}
@@ -37,7 +35,6 @@ export const ShortTemplate = ({ data }: { data: ResumeData }) => {
       </div>
 
       <div className="flex h-[75%] min-h-0 flex-col gap-y-8 px-12 pt-24 text-lg">
-        {/* @ts-expect-error type error */}
         <p className="text-xl">{data.nameRecipient},</p>
         {formattedText}
         <p className="text-xl">{data.name}</p>
