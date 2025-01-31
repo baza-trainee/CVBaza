@@ -1,23 +1,19 @@
 import { z } from "zod";
 import { Locale } from "@/i18n/routing";
 
-export const authFormSchema = (lang: Locale) =>
+export const authFormSchema = () =>
   z.object({
-    email: z
+    email: z.string().email("validation.emailRequired"),
+    password: z
       .string()
-      .email(
-        lang === "en"
-          ? "Please enter a valid email address"
-          : "Будь ласка, введіть дійсну електронну адресу"
-      ),
-    password: z.string().min(8, {
-      message:
-        lang === "en"
-          ? "Password must be at least 8 characters"
-          : "Пароль повинен містити щонайменше 8 символів",
-    }),
+      .min(8, "validation.passwordMinLength")
+      .regex(/[0-9]/, "validation.passwordNumber")
+      .regex(/[a-zA-Z]/, "validation.passwordLatin"),
     name: z.string().optional(),
     rememberMe: z.boolean().default(false),
+    termsAccepted: z.boolean().refine((val) => val === true, {
+      message: "validation.termsAccepted",
+    }),
   });
 
 export const forgotPasswordSchema = (lang: Locale) =>
@@ -31,22 +27,18 @@ export const forgotPasswordSchema = (lang: Locale) =>
       ),
   });
 
-export const resetPasswordSchema = (lang: Locale) =>
+export const resetPasswordSchema = () =>
   z
     .object({
       password: z
         .string()
-        .min(
-          8,
-          lang === "en"
-            ? "Password must be at least 8 characters"
-            : "Пароль повинен містити щонайменше 8 символів"
-        ),
+        .min(8, "validation.passwordMinLength")
+        .regex(/[0-9]/, "validation.passwordNumber")
+        .regex(/[a-zA-Z]/, "validation.passwordLatin"),
       confirmPassword: z.string(),
     })
     .refine((data) => data.password === data.confirmPassword, {
-      message:
-        lang === "en" ? "Passwords don't match" : "Паролі не співпадають",
+      message: "validation.passwordsMatch",
       path: ["confirmPassword"],
     });
 

@@ -37,7 +37,7 @@ export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
   const router = useRouter();
 
   const form = useForm<ResetPasswordFormValues>({
-    resolver: zodResolver(resetPasswordSchema(lang)),
+    resolver: zodResolver(resetPasswordSchema()),
     defaultValues: {
       password: "",
       confirmPassword: "",
@@ -103,17 +103,17 @@ export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
 
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <Card className="w-full max-w-[600px] p-[50px]">
+      <Card className="w-full max-w-[600px] p-4 sm:p-[50px]">
         <CardHeader className="mb-8 p-0">
           <CardTitle className="text-center text-2xl font-semibold">
             {lang === "en" ? "Reset Your Password" : "Відновити пароль"}
           </CardTitle>
-          <CardDescription className="text-black text-center text-lg">
-            {lang === "en" ? "Create nw password" : "Створіть новий пароль"}
+          <CardDescription className="text-black text-center text-base sm:text-lg">
+            {lang === "en" ? "Create new password" : "Створіть новий пароль"}
           </CardDescription>
         </CardHeader>
         <CardContent className="p-0">
-          <div className="px-[70px]">
+          <div className="px-4 sm:px-[70px]">
             {error && (
               <div className="rounded-md bg-red-50 p-3 text-small text-red-500">
                 {error}
@@ -134,7 +134,7 @@ export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
                         {lang === "en" ? "New Password" : "Новий пароль"}
                       </FormLabel>
                       <FormControl>
-                        <div className="relative">
+                        <div className="relative flex items-center">
                           <Input
                             type={showPassword ? "text" : "password"}
                             placeholder={
@@ -143,7 +143,7 @@ export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
                                 : "Введіть новий пароль"
                             }
                             {...field}
-                            className={`rounded-lg border border-gray-300 bg-gray-50 p-4 text-gray-900 focus:border-blue-500 focus:ring-blue-500 ${
+                            className={`w-full rounded-lg border border-gray-300 bg-gray-50 pr-10 text-gray-900 focus:border-blue-500 focus:ring-blue-500 ${
                               form.formState.errors.password
                                 ? "border-red-300 bg-red-50 text-red-500"
                                 : ""
@@ -152,7 +152,7 @@ export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
                           <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                            className="absolute right-3 text-gray-500 hover:text-gray-700"
                           >
                             {showPassword ? (
                               <EyeOff className="h-5 w-5" />
@@ -162,6 +162,14 @@ export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
                           </button>
                         </div>
                       </FormControl>
+                      <FormMessage
+                        className={`mt-1 pl-1 text-[12px] ${form.formState.errors.password ? "text-red-500" : "text-gray-400"}`}
+                      >
+                        {!form.formState.errors.password &&
+                          (lang === "en"
+                            ? "The password must consist of 8 characters and contain numbers and Latin letters"
+                            : "Пароль має складатись з 8 символів і містити цифри та латинські літери")}
+                      </FormMessage>
                       <FormMessage className="mt-1 pl-1 text-[12px] text-red-500" />
                     </FormItem>
                   )}
@@ -178,7 +186,7 @@ export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
                           : "Підтвердіть пароль"}
                       </FormLabel>
                       <FormControl>
-                        <div className="relative">
+                        <div className="relative flex items-center">
                           <Input
                             type={showConfirmPassword ? "text" : "password"}
                             placeholder={
@@ -187,7 +195,7 @@ export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
                                 : "Підтвердіть новий пароль"
                             }
                             {...field}
-                            className={`rounded-lg border border-gray-300 bg-gray-50 p-4 text-gray-900 focus:border-blue-500 focus:ring-blue-500 ${
+                            className={`w-full rounded-lg border border-gray-300 bg-gray-50 pr-10 text-gray-900 focus:border-blue-500 focus:ring-blue-500 ${
                               form.formState.errors.confirmPassword
                                 ? "border-red-300 bg-red-50 text-red-500"
                                 : ""
@@ -198,7 +206,7 @@ export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
                             onClick={() =>
                               setShowConfirmPassword(!showConfirmPassword)
                             }
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                            className="absolute right-3 text-gray-500 hover:text-gray-700"
                           >
                             {showConfirmPassword ? (
                               <EyeOff className="h-5 w-5" />
@@ -213,10 +221,10 @@ export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
                   )}
                 />
 
-                <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:gap-4">
+                <div className="mt-4 flex flex-col gap-3">
                   <Button
                     type="submit"
-                    className="mt-2 w-full rounded-[40px] bg-blue-500 text-white hover:border-blue-600 hover:bg-blue-600 focus:border-blue-600 focus:bg-blue-600"
+                    className="w-full rounded-[40px] bg-blue-500 py-2.5 text-white hover:border-blue-600 hover:bg-blue-600 focus:border-blue-600 focus:bg-blue-600"
                     disabled={form.formState.isSubmitting}
                   >
                     {form.formState.isSubmitting
@@ -229,7 +237,7 @@ export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
                   </Button>
                   <Button
                     onClick={() => router.push("/signin")}
-                    className="mt-2 w-full rounded-[40px] border-[1px] border-blue-300 bg-white text-blue-500 hover:bg-blue-100"
+                    className="w-full rounded-[40px] border-[1px] border-blue-300 bg-white py-2.5 text-blue-500 hover:bg-blue-100"
                     disabled={form.formState.isSubmitting}
                     variant="outline"
                   >
