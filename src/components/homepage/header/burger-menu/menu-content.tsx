@@ -56,7 +56,7 @@ export const MenuContent = ({ closeMenu }: { closeMenu: () => void }) => {
             </div>
             <p
               onClick={handleSignOut}
-              className="text-center text-3xl font-semibold text-white ms:text-start"
+              className="mb-6 text-center text-3xl font-semibold text-white ms:text-start"
             >
               {t("exit")}
             </p>
