@@ -25,9 +25,11 @@ export const Avatar: React.FC<{ name: string | null | undefined }> = ({
         )}
       </div>
 
-      <span className="hidden text-base font-semibold md:inline-block">
-        {name}
-      </span>
+      {name && name.trim() !== "" && (
+        <span className="hidden text-base font-semibold md:inline-block">
+          {name}
+        </span>
+      )}
     </div>
   );
 };

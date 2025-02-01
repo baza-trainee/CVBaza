@@ -15,13 +15,13 @@ export const HeroSection = () => {
   };
 
   return (
-    <div className="flex w-full items-center overflow-hidden bg-background sm:flex-col sm:gap-0 sm:pb-[76px] sm:pt-[60px] md:h-[calc(100vh-84px)] md:flex-row md:justify-between md:gap-[32px] md:px-4 md:py-20 lg:flex-row lg:gap-10 lg:px-10 xl:gap-[102px] xl:px-20 xl:py-[34px] 2xl:flex-wrap 2xl:content-center 2xl:gap-[111px] 2xl:px-[120px] 2xl:py-0 3xl:h-[calc(100vh-96px)] 3xl:gap-0">
-      <div className="flex w-full flex-col sm:gap-[60px] sm:px-4 md:w-[352px] md:gap-10 md:px-0 lg:w-[443px] lg:gap-[60px] xl:w-[450px] xl:justify-center 2xl:w-[548px] 2xl:flex-wrap 2xl:content-center 3xl:w-auto">
+    <div className="flex w-full items-center justify-center overflow-hidden bg-background sm:flex-col sm:gap-0 sm:pb-[76px] sm:pt-[60px] md:h-[calc(100vh-84px)] md:flex-row md:justify-between md:gap-[32px] md:px-4 md:py-20 lg:flex-row lg:gap-10 lg:px-10 xl:gap-[102px] xl:px-20 xl:py-[34px] 2xl:flex-wrap 2xl:content-center 2xl:gap-[111px] 2xl:px-[120px] 2xl:py-0 3xl:h-[calc(100vh-96px)] 3xl:gap-0">
+      <div className="flex w-full flex-col items-center sm:gap-[60px] sm:px-4 md:w-[352px] md:items-start md:gap-10 md:px-0 lg:w-[443px] lg:gap-[60px] xl:w-[450px] xl:justify-center 2xl:w-[548px] 2xl:flex-wrap 2xl:content-center 3xl:w-auto">
         <div className="flex w-full flex-col ms:w-[332px]">
-          <h1 className="text-start text-3xl text-black-900 sm:text-h1-sm md:text-h2 lg:text-left lg:text-h1 2xl:text-h1-large 3xl:text-h1-3xl">
+          <h1 className="text-center text-3xl text-black-900 sm:text-h1-sm md:text-start md:text-h2 lg:text-left lg:text-h1 2xl:text-h1-large 3xl:text-h1-3xl">
             {t("title")}
           </h1>
-          <p className="mx-auto w-full pt-4 text-start text-black-500 sm:text-base sm:text-body md:pt-4 lg:mx-0 lg:w-[354px] lg:text-left 2xl:pt-6 3xl:w-[568px] 3xl:text-body-sm">
+          <p className="mx-auto w-full pt-4 text-center text-black-500 sm:text-base sm:text-body md:pt-4 md:text-start lg:mx-0 lg:w-[354px] lg:text-left 2xl:pt-6 3xl:w-[568px] 3xl:text-body-sm">
             {t("description")}
           </p>
 
@@ -32,11 +32,11 @@ export const HeroSection = () => {
             {t("button")}
           </button>
         </div>
-        <div className="mx-auto flex w-full flex-col text-center text-violet-800 sm:gap-4 sm:text-start sm:text-body md:gap-2 md:text-start lg:mx-0 lg:flex-row lg:gap-6 lg:text-left 3xl:w-[544px] 3xl:gap-[33px] 3xl:text-[20px]">
-          <p className="w-full border-l border-l-black-100 sm:pl-2 md:pl-4 3xl:pl-6">
+        <div className="mx-auto flex w-full flex-col items-center text-center text-violet-800 sm:gap-4 sm:text-body md:items-start md:gap-2 md:text-start lg:mx-0 lg:flex-row lg:gap-6 lg:text-left 3xl:w-[544px] 3xl:gap-[33px] 3xl:text-[20px]">
+          <p className="w-full border-l border-l-black-100 text-center sm:pl-2 md:pl-4 md:text-start 3xl:pl-6">
             {t("features.feature1")}
           </p>
-          <p className="w-full border-l border-l-black-100 sm:pl-2 md:pl-4 3xl:pl-6">
+          <p className="w-full border-l border-l-black-100 text-center sm:pl-2 md:pl-4 md:text-start 3xl:pl-6">
             {t("features.feature2")}
           </p>
         </div>

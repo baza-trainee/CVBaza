@@ -42,7 +42,7 @@ export function AuthForm({ type, lang }: AuthFormProps) {
   };
 
   const form = useForm<z.infer<ReturnType<typeof authFormSchema>>>({
-    resolver: zodResolver(authFormSchema()),
+    resolver: zodResolver(authFormSchema(type === "register")),
     defaultValues: {
       email: "",
       password: "",
@@ -313,7 +313,7 @@ export function AuthForm({ type, lang }: AuthFormProps) {
 
           {type === "signin" && (
             <Link
-              href={`/${lang}/forgot-password`}
+              href={`/forgot-password`}
               className="mt-2 text-center text-sm text-blue-500 hover:text-blue-700"
             >
               {lang === "en" ? "Forgot password?" : "Забули пароль?"}

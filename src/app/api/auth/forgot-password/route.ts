@@ -39,10 +39,20 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Generate reset token
-    const timestamp = Date.now();
-    const tokenData = `${user.id}-${timestamp}`;
-    const token = Buffer.from(tokenData).toString("base64");
+    // Generate reset token with JSON structure
+    const tokenData = {
+      userId: user.id,
+      timestamp: Date.now(),
+    };
+    console.log("Token data:", tokenData);
+
+    // Convert to JSON and encode as URL-safe base64
+    const token = Buffer.from(JSON.stringify(tokenData))
+      .toString("base64")
+      .replace(/\+/g, "-")
+      .replace(/\//g, "_")
+      .replace(/=/g, "");
+    console.log("Final token:", token);
 
     // Send reset email
     const resetUrl = `${env.NEXT_PUBLIC_APP_URL}/reset-password/${token}`;

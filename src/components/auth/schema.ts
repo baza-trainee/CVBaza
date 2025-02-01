@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { Locale } from "@/i18n/routing";
 
-export const authFormSchema = () =>
+export const authFormSchema = (isRegister = false) =>
   z.object({
     email: z.string().email("validation.emailRequired"),
     password: z
@@ -11,9 +11,11 @@ export const authFormSchema = () =>
       .regex(/[a-zA-Z]/, "validation.passwordLatin"),
     name: z.string().optional(),
     rememberMe: z.boolean().default(false),
-    termsAccepted: z.boolean().refine((val) => val === true, {
-      message: "validation.termsAccepted",
-    }),
+    termsAccepted: isRegister
+      ? z.boolean().refine((val) => val === true, {
+          message: "validation.termsAccepted",
+        })
+      : z.boolean().optional(),
   });
 
 export const forgotPasswordSchema = (lang: Locale) =>

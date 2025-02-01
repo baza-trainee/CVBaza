@@ -1,4 +1,3 @@
-import React from "react";
 import { useTranslations } from "next-intl";
 
 export const HelpLinks = ({ classNames }: { classNames: string }) => {
@@ -16,7 +15,7 @@ export const HelpLinks = ({ classNames }: { classNames: string }) => {
       <h5 className="font-sans text-h5 3xl:text-h2-sm">{t("title")}</h5>
       <div className="flex flex-col items-center gap-4 ms:items-start">
         {siteList.map((s) => (
-          <a key={s.href} href={s.href}>
+          <a key={s.href} href={s.href} target="_blank">
             <p className="text-body 3xl:text-body-sm">{s.label}</p>
           </a>
         ))}
