@@ -46,6 +46,7 @@ export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
 
   const onSubmit = async (data: ResetPasswordFormValues) => {
     try {
+      setError("");
       const response = await fetch("/api/auth/reset-password", {
         method: "POST",
         headers: {
@@ -86,17 +87,19 @@ export function ResetPasswordForm({ token, lang }: ResetPasswordFormProps) {
 
   if (success) {
     return (
-      <div className="rounded-lg bg-white p-8 shadow-md">
-        <h1 className="mb-4 text-2xl font-bold">
-          {lang === "en"
-            ? "Password Reset Successful"
-            : "Пароль успішно змінено"}
-        </h1>
-        <p className="text-blue-500">
-          {lang === "en"
-            ? "Redirecting to login page..."
-            : "Перенаправлено на сторінку входу..."}
-        </p>
+      <div className="bg-black/50 fixed inset-0 z-50 flex items-center justify-center">
+        <Card className="w-[90%] max-w-md p-6">
+          <CardHeader>
+            <CardTitle className="text-center text-xl text-green-600">
+              {lang === "en" ? "Success!" : "Успішно!"}
+            </CardTitle>
+            <CardDescription className="text-center">
+              {lang === "en"
+                ? "Your password has been successfully reset. Redirecting to login..."
+                : "Ваш пароль успішно змінено. Перенаправлення на сторінку входу..."}
+            </CardDescription>
+          </CardHeader>
+        </Card>
       </div>
     );
   }

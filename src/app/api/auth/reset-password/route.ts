@@ -17,12 +17,50 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { token, password } = resetSchema.parse(body);
 
-    // Decode token to get user ID and timestamp
-    const tokenData = Buffer.from(token, "base64").toString();
-    const [userId, timestamp] = tokenData.split("-");
+    // Normalize and decode the token
+    const normalizedToken = token.replace(/-/g, "+").replace(/_/g, "/");
+    const paddedToken = normalizedToken.padEnd(
+      normalizedToken.length + ((4 - (normalizedToken.length % 4)) % 4),
+      "="
+    );
+
+    // Parse the JSON token data
+    let tokenData;
+    try {
+      tokenData = JSON.parse(Buffer.from(paddedToken, "base64").toString());
+      console.log("Decoded token data:", tokenData);
+    } catch (error) {
+      console.error("Failed to parse token:", error);
+      return NextResponse.json(
+        { error: "Invalid reset link" },
+        { status: 400 }
+      );
+    }
+
+    if (!tokenData?.userId || !tokenData?.timestamp) {
+      console.error("Missing required token data");
+      return NextResponse.json(
+        { error: "Invalid reset link" },
+        { status: 400 }
+      );
+    }
+
+    const userId = tokenData.userId;
+    const tokenTime = Number(tokenData.timestamp);
+
+    if (isNaN(tokenTime)) {
+      console.error("Invalid timestamp in token");
+      return NextResponse.json(
+        { error: "Invalid reset link" },
+        { status: 400 }
+      );
+    }
+
+    console.log("Token time:", tokenTime);
+    console.log("Current time:", Date.now());
+    console.log("Difference:", Date.now() - tokenTime);
 
     // Check if token is expired (1 hour)
-    const tokenTime = parseInt(timestamp);
     if (Date.now() - tokenTime > ONE_HOUR) {
       return NextResponse.json(
         { error: "Reset link has expired" },
@@ -30,33 +68,35 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Find user
-    const [user] = await db.select().from(users).where(eq(users.id, userId));
-
-    if (!user) {
-      return NextResponse.json(
-        { error: "Invalid reset link" },
-        { status: 400 }
-      );
-    }
-
     // Hash new password
     const hashedPassword = await hashPassword(password);
 
-    // Update password
-    await db
-      .update(users)
-      .set({ password: hashedPassword })
-      .where(eq(users.id, userId));
+    try {
+      // Update password using Drizzle
+      const result = await db
+        .update(users)
+        .set({
+          password: hashedPassword,
+          updatedAt: new Date(),
+        })
+        .where(eq(users.id, userId))
+        .returning({ id: users.id });
 
-    return NextResponse.json({
-      message: "Password has been reset successfully",
-    });
+      if (result.length === 0) {
+        console.error("User not found:", userId);
+        return NextResponse.json(
+          { error: "Invalid reset link" },
+          { status: 400 }
+        );
+      }
+    } catch (dbError) {
+      console.error("Database error:", dbError);
+      return NextResponse.json({ error: "An error occurred" }, { status: 500 });
+    }
+
+    return NextResponse.json({ message: "Password updated successfully" });
   } catch (error) {
-    console.error("Error in reset password:", error);
-    return NextResponse.json(
-      { error: "Failed to reset password" },
-      { status: 500 }
-    );
+    console.error("Unexpected error:", error);
+    return NextResponse.json({ error: "An error occurred" }, { status: 500 });
   }
 }

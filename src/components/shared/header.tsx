@@ -36,7 +36,7 @@ export const Header = () => {
                 href={l.href}
               >
                 <li className="flex h-full items-center justify-center">
-                  <p className="font-sans text-body text-black-500 3xl:text-body-sm">
+                  <p className="font-sans text-body text-black-500 hover:text-blue-500 3xl:text-body-sm">
                     {l.name}
                   </p>
                 </li>
