@@ -26,13 +26,13 @@ export const ShortTemplate = ({ data }: { data: LetterData }) => {
 
       <div className="relative">
         <div className="absolute bottom-[-13px] left-0 flex w-full justify-between px-1 sm:justify-around sm:px-0 md:bottom-[-20px] md:px-3 lg:px-8">
-          <p className="flex min-w-[80px] items-center justify-center rounded-3xl bg-[#8dcedc] px-1 py-2 text-[8px] font-semibold text-white sm:min-w-[100px] sm:text-[8px] md:w-[200px] md:break-all md:px-3 md:text-[14px] lg:text-[18px]">
+          <p className="flex min-w-[80px] items-center justify-center rounded-3xl bg-[#8dcedc] px-1 py-2 text-[8px] font-semibold text-white sm:min-w-[100px] sm:text-[8px] md:w-[200px] md:break-all md:px-3 md:text-[14px] lg:text-[16px]">
             {data.phone}
           </p>
-          <p className="flex min-w-[80px] items-center justify-center rounded-3xl bg-[#8dcedc] px-1 py-2 text-center text-[8px] font-semibold text-white sm:min-w-[100px] sm:text-[8px] md:min-w-[200px] md:max-w-[300px] md:break-all md:px-3 md:text-[14px] lg:text-[18px]">
+          <p className="flex min-w-[80px] items-center justify-center rounded-3xl bg-[#8dcedc] px-1 py-2 text-center text-[8px] font-semibold text-white sm:min-w-[100px] sm:text-[8px] md:min-w-[200px] md:max-w-[300px] md:break-all md:px-3 md:text-[14px] lg:text-[16px]">
             {data.location}
           </p>
-          <p className="flex min-w-[100px] items-center justify-center rounded-3xl bg-[#8dcedc] px-1 py-2 text-center text-[8px] font-semibold text-white sm:min-w-[100px] sm:text-[8px] md:min-w-[150px] md:break-all md:px-3 md:text-[14px] lg:text-[18px]">
+          <p className="flex min-w-[100px] items-center justify-center rounded-3xl bg-[#8dcedc] px-1 py-2 text-center text-[8px] font-semibold text-white sm:min-w-[100px] sm:text-[8px] md:min-w-[150px] md:break-all md:px-3 md:text-[14px] lg:text-[16px]">
             {data.email}
           </p>
         </div>
