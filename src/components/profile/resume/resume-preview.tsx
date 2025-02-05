@@ -1,5 +1,5 @@
 import { usePathname } from "next/navigation";
-import { useMemo, useRef } from "react";
+import { forwardRef, useMemo, useRef } from "react";
 import { A4_WIDTH, MIN_ZOOM, PADDING } from "@/constants";
 import useDimensions from "@/hooks/use-dimensions";
 import { cn } from "@/lib/utils";
@@ -11,10 +11,10 @@ interface ResumePreviewSectionProps {
   template: string;
 }
 
-export const ResumePreviewSection = ({
-  data,
-  template,
-}: ResumePreviewSectionProps) => {
+export const ResumePreviewSection = forwardRef<
+  HTMLDivElement,
+  ResumePreviewSectionProps
+>(({ data, template }: ResumePreviewSectionProps, ref) => {
   const pathname = usePathname();
   const containerRef = useRef<HTMLDivElement>(null);
   const { width } = useDimensions(containerRef);
@@ -32,7 +32,7 @@ export const ResumePreviewSection = ({
         "group relative w-full border-2",
         isEditor ? "hidden md:flex" : "flex"
       )}
-      ref={containerRef}
+      ref={ref || containerRef}
     >
       <div
         className="no-scrollbar flex w-full justify-center overflow-y-auto p-4"
@@ -44,4 +44,6 @@ export const ResumePreviewSection = ({
       </div>
     </div>
   );
-};
+});
+
+ResumePreviewSection.displayName = "ResumePreviewSection";

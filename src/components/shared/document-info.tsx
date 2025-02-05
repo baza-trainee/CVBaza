@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Icon } from "@/components/shared/icon";
-import { Link } from "@/i18n/routing";
 
 interface DocumentInfoProps {
   title: string;
   lastUpdated: string;
+  resumeRef: React.RefObject<HTMLElement>;
   onDuplicate: () => void;
   onTitleChange: (newTitle: string) => void;
   onDeleteClick: () => void;
+  reactToPrintFn: () => void;
+  className?: string;
 }
 
 export const DocumentInfo = ({
@@ -17,6 +19,8 @@ export const DocumentInfo = ({
   onDuplicate,
   onTitleChange,
   onDeleteClick,
+  reactToPrintFn,
+  className = "",
 }: DocumentInfoProps) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [localTitle, setLocalTitle] = useState(title);
@@ -86,7 +90,7 @@ export const DocumentInfo = ({
             onChange={(e) => setLocalTitle(e.target.value)}
             onKeyDown={handleKeyDown}
             onBlur={handleBlur}
-            className="rounded px-1 text-h5-semibold text-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-200"
+            className="w-auto min-w-60 max-w-full rounded px-1 text-h5-semibold text-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-200"
           />
           <p className="text-small text-blue-700">
             {t("lastUpdated")}{" "}
@@ -108,21 +112,23 @@ export const DocumentInfo = ({
         {isPopupOpen && (
           <div
             ref={popupRef}
-            className="fixed bottom-4 left-1/2 z-50 w-[calc(100vw-2rem)] -translate-x-1/2 flex-col gap-3 rounded-lg bg-white p-4 shadow-lg sm:absolute sm:bottom-[120%] sm:left-auto sm:right-0 sm:w-[222px] sm:translate-x-0 sm:p-4 lg:bottom-auto lg:right-[100%] lg:top-0"
+            className={`fixed left-1/2 z-50 w-[calc(100vw-2rem)] flex-col gap-3 rounded-lg bg-white p-4 shadow-lg sm:absolute sm:w-[222px] ${className}`}
           >
-            <Link
-              href="#"
-              className="flex w-full items-center gap-3 rounded-md p-2 transition-colors hover:bg-gray-50 focus:outline-none"
+            <button
+              type="button"
+              className="flex w-full items-center gap-3 p-2 transition-colors hover:bg-gray-50 focus:outline-none"
+              onClick={reactToPrintFn}
             >
-              <Icon name="icon-pdf" size="w-5 h-5" />
+              <Icon name="icon-pdf" size="w-6 h-6" />
               <p className="text-sm">{t("actions.downloadPdf")}</p>
-            </Link>
+            </button>
+
             <button
               type="button"
               className="flex w-full items-center gap-3 rounded-md p-2 transition-colors hover:bg-gray-50 focus:outline-none"
               onClick={handleDuplicateClick}
             >
-              <Icon name="icon-pencil" size="w-5 h-5" />
+              <Icon name="icon-pencil" size="w-6 h-6" />
               <p className="text-sm">{t("actions.duplicate")}</p>
             </button>
             <div className="mt-2 w-full border-t border-gray-200 pt-2">
@@ -131,7 +137,7 @@ export const DocumentInfo = ({
                 className="flex w-full items-center gap-3 rounded-md p-2 text-red-500 transition-colors hover:bg-red-50 focus:outline-none"
                 onClick={handleDeleteTrigger}
               >
-                <Icon name="icon-delete" size="w-5 h-5" />
+                <Icon name="icon-delete" size="w-6 h-6" />
                 <p className="text-sm">{t("actions.delete")}</p>
               </button>
             </div>
