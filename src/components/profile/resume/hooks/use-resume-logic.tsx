@@ -1,10 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { useReactToPrint } from "react-to-print";
 import { toast } from "sonner";
 import { useCachedResumes } from "@/components/profile/resume/hooks/use-resumes";
 import { useAlert } from "@/contexts/alert-context";
 import { IResume } from "@/types/resume";
+import { PrintPreview } from "../print-preview";
 
 type ResumeWithDuplicate =
   | IResume
@@ -27,10 +27,13 @@ export const useResumeLogic = () => {
   } = useCachedResumes(t);
 
   const resumeRef = useRef<HTMLDivElement>(null);
+  const [isPrinting, setIsPrinting] = useState(false);
+  const [currentResume, setCurrentResume] = useState<IResume | null>(null);
 
-  const reactToPrintFn = useReactToPrint({
-    contentRef: resumeRef,
-  });
+  const reactToPrintFn = (resume: IResume) => {
+    setCurrentResume(resume);
+    setIsPrinting(true);
+  };
 
   useEffect(() => {
     refreshResumes();
@@ -117,5 +120,15 @@ export const useResumeLogic = () => {
     getResumeData,
     handleDeleteClick,
     handleDuplicateResume,
+    printComponent:
+      isPrinting && currentResume ? (
+        <PrintPreview
+          resume={currentResume}
+          onPrintComplete={() => {
+            setIsPrinting(false);
+            setCurrentResume(null);
+          }}
+        />
+      ) : null,
   };
 };
