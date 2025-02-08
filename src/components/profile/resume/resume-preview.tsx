@@ -1,5 +1,5 @@
 import { usePathname } from "next/navigation";
-import { forwardRef, useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import { A4_WIDTH, MIN_ZOOM, PADDING } from "@/constants";
 import useDimensions from "@/hooks/use-dimensions";
 import { cn } from "@/lib/utils";
@@ -9,12 +9,14 @@ import { renderTemplate } from "@/utils/render-template";
 interface ResumePreviewSectionProps {
   data: ResumeData;
   template: string;
+  isPrintMode?: boolean;
 }
 
-export const ResumePreviewSection = forwardRef<
-  HTMLDivElement,
-  ResumePreviewSectionProps
->(({ data, template }: ResumePreviewSectionProps, ref) => {
+export const ResumePreviewSection = ({
+  data,
+  template,
+  isPrintMode = false,
+}: ResumePreviewSectionProps) => {
   const pathname = usePathname();
   const containerRef = useRef<HTMLDivElement>(null);
   const { width } = useDimensions(containerRef);
@@ -32,18 +34,30 @@ export const ResumePreviewSection = forwardRef<
         "group relative w-full border-2",
         isEditor ? "hidden md:flex" : "flex"
       )}
-      ref={ref || containerRef}
+      ref={containerRef}
     >
-      <div
-        className="no-scrollbar flex w-full justify-center overflow-y-auto p-4"
-        style={{
-          zoom: zoom,
-        }}
-      >
-        <TemplateComponent data={data} />
-      </div>
+      {isPrintMode ? (
+        <div
+          className="no-scrollbar flex w-full justify-center overflow-y-auto"
+          style={{
+            width: "210mm",
+            minHeight: "297mm",
+            padding: "0",
+            backgroundColor: "white",
+          }}
+        >
+          <TemplateComponent data={data} />
+        </div>
+      ) : (
+        <div
+          className="no-scrollbar flex w-full justify-center overflow-y-auto p-4"
+          style={{
+            zoom: zoom,
+          }}
+        >
+          <TemplateComponent data={data} />
+        </div>
+      )}
     </div>
   );
-});
-
-ResumePreviewSection.displayName = "ResumePreviewSection";
+};

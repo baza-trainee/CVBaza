@@ -103,7 +103,8 @@
     },
     "messages": {
       "deleteSuccess": "Резюме успішно видалено",
-      "saveTitleSuccess": "Назву резюме успішно оновлено"
+      "saveTitleSuccess": "Назву резюме успішно оновлено",
+      "duplicateCreated": "Копію резюме успішно створено"
     },
     "errors": {
       "loadFailed": "Не вдалося завантажити резюме",

@@ -5,7 +5,6 @@ import { Icon } from "@/components/shared/icon";
 interface DocumentInfoProps {
   title: string;
   lastUpdated: string;
-  resumeRef: React.RefObject<HTMLElement>;
   onDuplicate: () => void;
   onTitleChange: (newTitle: string) => void;
   onDeleteClick: () => void;
@@ -80,26 +79,28 @@ export const DocumentInfo = ({
   };
 
   return (
-    <div className="flex justify-between">
-      <div className="pl-2">
-        <div className="flex w-[152px] flex-col gap-[4px]">
-          <input
-            ref={inputRef}
-            type="text"
-            value={localTitle}
-            onChange={(e) => setLocalTitle(e.target.value)}
-            onKeyDown={handleKeyDown}
-            onBlur={handleBlur}
-            className="w-auto min-w-60 max-w-full rounded px-1 text-h5-semibold text-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-200"
-          />
-          <p className="text-small text-blue-700">
+    <div className="flex w-full justify-between gap-4">
+      <div className="min-w-0 flex-1 pl-2">
+        <div className="flex flex-col gap-[4px]">
+          <div className="relative w-full max-w-[300px]">
+            <input
+              ref={inputRef}
+              type="text"
+              value={localTitle}
+              onChange={(e) => setLocalTitle(e.target.value)}
+              onKeyDown={handleKeyDown}
+              onBlur={handleBlur}
+              className="w-full truncate rounded py-1 text-h5-semibold text-blue-700 hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-200"
+            />
+          </div>
+          <p className="truncate text-small text-blue-700">
             {t("lastUpdated")}{" "}
             <span className="text-small text-blue-700">{lastUpdated}</span>
           </p>
         </div>
       </div>
 
-      <div className="relative flex w-1/2 justify-end pr-[10px] pt-[10px]">
+      <div className="relative flex items-start justify-end pr-[10px] pt-[10px]">
         <button
           type="button"
           ref={buttonRef}
