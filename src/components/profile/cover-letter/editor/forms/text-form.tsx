@@ -21,6 +21,7 @@ export const TextForm = ({ letterData, setLetterData }: EditorFormProps) => {
         throw new Error(t("validation.required"));
       }
 
+      // tech, exp
       const formattedData = {
         fullName: letterData.name,
         profession: letterData.profession,
