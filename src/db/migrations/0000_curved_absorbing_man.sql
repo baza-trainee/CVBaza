@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS "account" (
 	"session_state" text
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "educations" (
+CREATE TABLE IF NOT EXISTS "+" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"degree" varchar(255),
 	"school" varchar(255),

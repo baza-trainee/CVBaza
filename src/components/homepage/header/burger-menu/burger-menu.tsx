@@ -28,6 +28,7 @@ export const BurgerMenu = ({
 
     if (open) {
       document.body.style.overflow = "hidden";
+      currentLayer?.addEventListener("click", closeMenu);
     } else {
       document.body.style.overflowY = "auto";
     }
@@ -38,6 +39,20 @@ export const BurgerMenu = ({
       }
     };
   }, [open, closeMenu]);
+
+  // useEffect(() => {
+  //   const currentLayer = layerRef.current;
+  //   if (open) {
+  //     document.body.style.overflow = "hidden";
+  //     currentLayer?.addEventListener("click", closeMenu);
+  //   } else {
+  //     document.body.style.overflowY = "auto";
+  //   }
+  //   return () => {
+  //     document.body.style.overflowY = "auto";
+  //     currentLayer?.removeEventListener("click", closeMenu);
+  //   };
+  // }, [open, closeMenu]);
 
   return (
     <>

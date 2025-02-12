@@ -4,24 +4,30 @@ import { A4_WIDTH, MIN_ZOOM, PADDING } from "@/constants";
 import useDimensions from "@/hooks/use-dimensions";
 import { cn } from "@/lib/utils";
 import { ResumeData } from "@/types/resume";
-import { renderTemplate } from "@/utils/render-template";
+import {
+  renderLetterTemplate,
+  renderResumeTemplate,
+} from "@/utils/render-template";
 
-interface ResumePreviewSectionProps {
+interface PreviewSectionProps {
   data: ResumeData;
   template: string;
+  componentType: string;
   isPrintMode?: boolean;
 }
 
-export const ResumePreviewSection = ({
+export const PreviewSection = ({
   data,
   template,
+  componentType,
   isPrintMode = false,
-}: ResumePreviewSectionProps) => {
+}: PreviewSectionProps) => {
   const pathname = usePathname();
   const containerRef = useRef<HTMLDivElement>(null);
   const { width } = useDimensions(containerRef);
   const isEditor = pathname?.includes("/editor");
-  const TemplateComponent = renderTemplate(template);
+  const TemplateResumeComponent = renderResumeTemplate(template);
+  const TemplateLetterComponent = renderLetterTemplate(template);
 
   const zoom = useMemo(() => {
     if (!width) return MIN_ZOOM;
@@ -46,7 +52,12 @@ export const ResumePreviewSection = ({
             backgroundColor: "white",
           }}
         >
-          <TemplateComponent data={data} />
+          {componentType === "resume" ? (
+            <TemplateResumeComponent data={data} />
+          ) : (
+            // @ts-expect-error type error
+            <TemplateLetterComponent data={data} />
+          )}
         </div>
       ) : (
         <div
@@ -55,7 +66,12 @@ export const ResumePreviewSection = ({
             zoom: zoom,
           }}
         >
-          <TemplateComponent data={data} />
+          {componentType === "resume" ? (
+            <TemplateResumeComponent data={data} />
+          ) : (
+            // @ts-expect-error type error
+            <TemplateLetterComponent data={data} />
+          )}
         </div>
       )}
     </div>

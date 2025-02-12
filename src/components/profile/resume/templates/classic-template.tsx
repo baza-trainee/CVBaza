@@ -170,7 +170,7 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
           )}
 
           {/* Skills Section */}
-          {data.skills?.length > 0 && (
+          {Array.isArray(data.skills) && data.skills.length > 0 && (
             <div>
               <SectionTitle title="Skills" />
               <div className="flex flex-wrap gap-2">
@@ -187,7 +187,7 @@ export const ClassicTemplate = ({ data }: { data: ResumeData }) => {
           )}
 
           {/* Languages Section */}
-          {data.languages?.length > 0 && (
+          {Array.isArray(data.languages) && data.languages.length > 0 && (
             <div>
               <SectionTitle title="Languages" />
               <div className="space-y-2">
