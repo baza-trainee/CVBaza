@@ -358,7 +358,10 @@
     },
     "messages": {
       "deleteSuccess": "Cover letter deleted successfully",
-      "saveTitleSuccess": "Cover letter title updated successfully"
+      "saveTitleSuccess": "Cover letter title updated successfully",
+      "duplicateCreated": "Cover letter duplicated successfully",
+      "duplicateDeleted": "Duplicate cover letter deleted successfully",
+      "resumeDeleted": "Cover letter deleted successfully"
     },
     "errors": {
       "loadFailed": "Failed to load resumes",

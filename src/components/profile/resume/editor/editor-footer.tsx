@@ -68,16 +68,25 @@ export const EditorFooter = ({
             <span className="text-sm text-gray-500 sm:ml-4">{t("saving")}</span>
           )}
 
-          {onSave && currentStep === "summary" && (
+          {onSave && (currentStep === "summary" || currentStep === "text") && (
             <Button
               onClick={onSave}
               disabled={isSavingToDb}
               className="flex min-w-[120px] items-center justify-center gap-2 transition-colors hover:bg-blue-100/50"
             >
               <Save className="h-4 w-4" />
-              <span className="hidden sm:inline">
-                {isSavingToDb ? t("saving") : t("saveResume")}
-              </span>
+              {componentType === "resume" ? (
+                <span className="hidden sm:inline">
+                  {isSavingToDb ? t("saving") : t("saveResume")}
+                </span>
+              ) : (
+                <span className="hidden sm:inline">
+                  {isSavingToDb ? t("saving") : t("saveLetter")}
+                </span>
+              )}
+              {/* // <span className="hidden sm:inline">
+              //   {isSavingToDb ? t("saving") : t("saveResume")}
+              // </span> */}
               <span className="sm:hidden">
                 {isSavingToDb ? t("saving") : t("save")}
               </span>

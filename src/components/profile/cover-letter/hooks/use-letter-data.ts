@@ -2,7 +2,6 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { initialData } from "@/components/profile/cover-letter/editor/forms/initialdata";
-// import { ResumeData } from "@/types/resume";
 import { LetterData } from "@/types/letter";
 
 const STORAGE_LETTER_KEY = "letterData";
@@ -93,7 +92,7 @@ export const useLetterData = () => {
       const savedLetter = await response.json();
       updateCloudinaryData(savedLetter);
 
-      toast.success("Resume saved successfully");
+      toast.success("Letter saved successfully");
 
       localStorage.removeItem(STORAGE_LETTER_KEY);
       router.push("/profile/cover-letter");

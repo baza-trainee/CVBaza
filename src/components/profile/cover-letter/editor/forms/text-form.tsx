@@ -27,6 +27,7 @@ export const TextForm = ({ letterData, setLetterData }: EditorFormProps) => {
         profession: letterData.profession,
         position: letterData.position,
         company: letterData.company,
+        nameRecipient: letterData.nameRecipient,
       };
 
       const text = await generateTextGemini(formattedData, locale);

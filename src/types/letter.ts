@@ -7,7 +7,7 @@ export interface LetterData {
   location?: string;
   phone?: string;
   email?: string;
-  nameRecipient?: string;
+  nameRecipient: string;
   positionRecipient?: string;
   text: string;
   template?: string;

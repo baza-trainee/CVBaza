@@ -12,6 +12,7 @@ export async function generateTextGemini(
     profession: string;
     position: string;
     company: string;
+    nameRecipient: string;
   },
   locale: string = "en"
 ) {
@@ -22,43 +23,55 @@ export async function generateTextGemini(
   const prompt =
     locale === "ua"
       ? `Створіть текст супровідного листа українською мовою на основі наступних даних:
-    Ім'я: ${letterData.fullName}
-    Професія: ${letterData.profession}
-    Посада: ${letterData.position}
-    Компанія: ${letterData.company}
 
-Інструкції:
-- Напишіть чітке введення, яке підкреслює вашу мотивацію та зацікавленість у вакансії (максимум 2 речення)
-- Використовуйте професійну ділову українську мову
-- Пишіть від першої особи
-- Зосередьтеся на тому, чому ви підходите для цієї ролі, підкреслюючи ваші сильні сторони та досягнення
-- Уникайте зайвих деталей, фокусуйтеся на ключових моментах, які вас виділяють
-- Використовуйте активні дієслова
-Вкладіться в обсяг 50 слів, але не більше ніж на пів сторінки.
+Ім'я кандидата: **${letterData.fullName}**
+Професія: **${letterData.profession}**
+Ім'я отримувача: **${letterData.nameRecipient}**
+Посада отримувача: **${letterData.position}**
+Компанія: **${letterData.company}**
 
-Приклад формату:
-"Досвідчений [посада] з глибоким розумінням [ключова галузь або сфера]. Спеціалізуюсь на [основні досягнення або навички], маю значний досвід у [конкретні завдання або проекти], що дозволяє мені ефективно [як саме це застосовуєте для ролі]. Шукаю можливість [яка мета або прагнення]."
+### **Інструкції:**
+- Використовуйте точні передані значення для отримувача, компанії та інших даних. **Не змінюйте ці дані та не вигадуйте інші імена чи назви.**
+- Напишіть чітке введення, яке підкреслює мотивацію та зацікавленість у вакансії (максимум 2 речення).
+- Використовуйте професійну ділову українську мову.
+- Пишіть від першої особи.
+- Зосередьтеся на тому, чому кандидат підходить для цієї ролі, підкреслюючи його сильні сторони та досягнення.
+- Використовуйте активні дієслова.
+- Текст має містити 50-100 слів і не перевищувати 700 символів та пів сторінки.
 
-Згенеруйте професійний супровідний лист за цими інструкціями, дотримуючись норм сучасної української ділової мови:`
-      : `Create a text for a cover letter with the following details:
-    Name: ${letterData.fullName}
-    Profession: ${letterData.profession}
-    Position: ${letterData.position}
-    Company: ${letterData.company}
+### **Приклад формату:**
+"Шановний(а) **${letterData.nameRecipient}**,
 
-Instructions:
-- Write a clear introduction that emphasizes your motivation and interest in the position (maximum 2 sentences)
-- Use professional business Ukrainian language
-- Write in the first person
-- Focus on why you are a good fit for the role, highlighting your strengths and achievements
-- Avoid unnecessary details, focusing on the key points that make you stand out
-- Use active verbs
-Keep the text to 50 words, but no more than half a page
+Зацікавившись позицією **${letterData.profession}** у вашій компанії **${letterData.company}**, я подаю свою кандидатуру.
 
-Example format:
-"Experienced [position] with a deep understanding of [key industry or field]. Specializing in [key achievements or skills], I have significant experience in [specific tasks or projects], which allows me to effectively [how you apply this for the role]. I am seeking an opportunity to [what you aim to achieve]."
+Мій досвід у [ключові навички] дозволяє мені ефективно виконувати [ключові обов'язки]. Вірю, що мої знання та ентузіазм принесуть користь вашій команді."
 
-Generate a professional cover letter following these instructions, adhering to the norms of modern Ukrainian business language:`;
+**Згенеруйте унікальний супровідний лист, не змінюючи передані дані.**`
+      : `Create a cover letter text based on the following details:
+
+Candidate Name: **${letterData.fullName}**
+Profession: **${letterData.profession}**
+Recipient Name: **${letterData.nameRecipient}**
+Recipient Position: **${letterData.position}**
+Company: **${letterData.company}**
+
+### **Instructions:**
+- Use the exact provided values for recipient name, company name, and other details. **Do not modify or invent different names or company names.**
+- Write a clear introduction that emphasizes motivation and interest in the position (maximum 2 sentences).
+- Use professional business English.
+- Write in the first person.
+- Focus on why the candidate is a good fit for the role, highlighting strengths and achievements.
+- Use active verbs.
+- Keep the text between 50-100 words and no more than 700 symbols and half a page.
+
+### **Example format:**
+"Dear **${letterData.nameRecipient}**,
+
+I am excited to apply for the **${letterData.profession}** position at **${letterData.company}**.
+
+With my expertise in [key skills], I am confident in my ability to contribute effectively to [specific responsibilities]. I believe my knowledge and enthusiasm will be valuable to your team."
+
+**Generate a unique professional cover letter without modifying the given data.**`;
 
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });

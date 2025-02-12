@@ -13,12 +13,14 @@ interface PreviewSectionProps {
   data: ResumeData;
   template: string;
   componentType: string;
+  isPrintMode?: boolean;
 }
 
 export const PreviewSection = ({
   data,
   template,
   componentType,
+  isPrintMode = false,
 }: PreviewSectionProps) => {
   const pathname = usePathname();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -40,19 +42,38 @@ export const PreviewSection = ({
       )}
       ref={containerRef}
     >
-      <div
-        className="no-scrollbar flex w-full justify-center overflow-y-auto p-4"
-        style={{
-          zoom: zoom,
-        }}
-      >
-        {componentType === "resume" ? (
-          <TemplateResumeComponent data={data} />
-        ) : (
-          // @ts-expect-error type error
-          <TemplateLetterComponent data={data} />
-        )}
-      </div>
+      {isPrintMode ? (
+        <div
+          className="no-scrollbar flex w-full justify-center overflow-y-auto"
+          style={{
+            width: "210mm",
+            minHeight: "297mm",
+            padding: "0",
+            backgroundColor: "white",
+          }}
+        >
+          {componentType === "resume" ? (
+            <TemplateResumeComponent data={data} />
+          ) : (
+            // @ts-expect-error type error
+            <TemplateLetterComponent data={data} />
+          )}
+        </div>
+      ) : (
+        <div
+          className="no-scrollbar flex w-full justify-center overflow-y-auto p-4"
+          style={{
+            zoom: zoom,
+          }}
+        >
+          {componentType === "resume" ? (
+            <TemplateResumeComponent data={data} />
+          ) : (
+            // @ts-expect-error type error
+            <TemplateLetterComponent data={data} />
+          )}
+        </div>
+      )}
     </div>
   );
 };

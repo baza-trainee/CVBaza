@@ -103,7 +103,8 @@
     },
     "messages": {
       "deleteSuccess": "Резюме успішно видалено",
-      "saveTitleSuccess": "Назву резюме успішно оновлено"
+      "saveTitleSuccess": "Назву резюме успішно оновлено",
+      "duplicateCreated": "Копію резюме успішно створено"
     },
     "errors": {
       "loadFailed": "Не вдалося завантажити резюме",
@@ -362,7 +363,8 @@
     },
     "messages": {
       "deleteSuccess": "Лист успішно видалено",
-      "saveTitleSuccess": "Назву листа успішно оновлено"
+      "saveTitleSuccess": "Назву листа успішно оновлено",
+      "duplicateCreated": "Копію листа успішно створено"
     },
     "errors": {
       "loadFailed": "Не вдалося завантажити супровідний лист",

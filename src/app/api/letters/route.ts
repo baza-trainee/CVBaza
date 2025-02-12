@@ -3,56 +3,56 @@ import { desc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "@/db";
 import { letters } from "@/db/schema";
+import { auth } from "@/lib/auth";
 import { letterSchema } from "./schema";
 
 export async function POST(req: NextRequest) {
   try {
-    // !!!!!!!!!!!!! what is it and where to take? From auth?..
-    const hardcodedUserId = "c6f5d462-17cb-4a13-84b5-3a03bece5a8f";
+    const session = await auth();
+    if (!session?.user?.id) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
 
     const body = await req.json();
-    const validatedData = letterSchema.parse(body);
+    const { data } = body;
 
-    const [newLetter] = await db
-      .insert(letters)
-      .values({
-        userId: hardcodedUserId,
-        title: validatedData.title,
-        name: validatedData.name,
-        profession: validatedData.profession,
-        position: validatedData.position,
-        company: validatedData.company,
-        location: validatedData.location,
-        phone: validatedData.phone,
-        email: validatedData.email,
-        nameRecipient: validatedData.nameRecipient,
-        positionRecipient: validatedData.positionRecipient,
-        text: validatedData.text,
-        template: validatedData.template,
-      })
-      .returning();
-
-    // Fetch the complete resume
-    const completeLetter = await db
-      .select()
-      .from(letters)
-      .where(eq(letters.id, newLetter.id));
-
-    return NextResponse.json(completeLetter, { status: 201 });
-  } catch (error) {
-    console.error("Letter creation error:", error);
-
-    if (error instanceof z.ZodError) {
+    if (!data) {
       return NextResponse.json(
-        { error: "Invalid input", details: error.errors },
+        { message: "Invalid letter data" },
         { status: 400 }
       );
     }
+
+    try {
+      const validatedData = letterSchema.parse(data);
+
+      // Insert the letter
+      const [letter] = await db
+        .insert(letters)
+        .values({
+          ...validatedData,
+          userId: session.user.id,
+        })
+        .returning();
+
+      // Return complete letter data
+      return NextResponse.json({ ...letter });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return NextResponse.json(
+          {
+            message: "Invalid letter data",
+            errors: (error as z.ZodError).errors,
+          },
+          { status: 400 }
+        );
+      }
+      throw error;
+    }
+  } catch (error) {
+    console.error("Error creating the letter:", error);
     return NextResponse.json(
-      {
-        error: "Something went wrong",
-        details: error instanceof Error ? error.message : String(error),
-      },
+      { message: "Failed to create the letter", error },
       { status: 500 }
     );
   }
@@ -60,21 +60,23 @@ export async function POST(req: NextRequest) {
 
 export async function GET() {
   try {
-    const allLetters = await db
+    const session = await auth();
+    if (!session?.user?.id) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
+    // First get all letters
+    const userLetters = await db
       .select()
       .from(letters)
-      .orderBy(desc(letters.createdAt));
+      .where(eq(letters.userId, session.user.id))
+      .orderBy(desc(letters.updatedAt));
 
-    const lettersWithRelations = allLetters.map((letter) => ({ ...letter }));
-
-    return NextResponse.json(lettersWithRelations);
+    return NextResponse.json(userLetters);
   } catch (error) {
     console.error("Error fetching letters:", error);
     return NextResponse.json(
-      {
-        error: "Failed to fetch letters",
-        details: error instanceof Error ? error.message : String(error),
-      },
+      { message: "Failed to fetch letters" },
       { status: 500 }
     );
   }
