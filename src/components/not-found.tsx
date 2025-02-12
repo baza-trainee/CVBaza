@@ -1,11 +1,17 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export function NotFoundPage() {
   const router = useRouter();
   const pathname = usePathname();
-  const isUa = pathname.includes("/ua");
+  const [isUa, setIsUa] = useState(false);
+
+  useEffect(() => {
+    setIsUa(pathname.includes("/ua"));
+  }, [pathname]);
+
   const changeLanguageHandler = () => {
     router.replace(isUa ? "/ua" : "/en");
   };
