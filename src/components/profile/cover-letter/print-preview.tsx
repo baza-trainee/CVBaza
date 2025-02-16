@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from "react";
 import { useReactToPrint } from "react-to-print";
-import { IResume } from "@/types/resume";
-import { PreviewSection } from "./preview";
+import { PreviewSection } from "@/components/profile/resume/preview";
+import { ILetter } from "@/types/letter";
 
 interface PrintPreviewProps {
-  resume: IResume;
+  letter: ILetter;
   onPrintComplete: () => void;
 }
 
-const PrintContent = React.forwardRef<HTMLDivElement, { resume: IResume }>(
-  ({ resume }, ref) => (
+const PrintContent = React.forwardRef<HTMLDivElement, { letter: ILetter }>(
+  ({ letter }, ref) => (
     <div
       ref={ref}
       style={{
@@ -20,9 +20,10 @@ const PrintContent = React.forwardRef<HTMLDivElement, { resume: IResume }>(
       }}
     >
       <PreviewSection
-        data={resume}
-        template={resume.template || "classic"}
-        componentType="resume"
+        // @ts-expect-error type error
+        data={letter}
+        template={letter.template || "short"}
+        componentType="letter"
         isPrintMode
       />
     </div>
@@ -32,13 +33,13 @@ const PrintContent = React.forwardRef<HTMLDivElement, { resume: IResume }>(
 PrintContent.displayName = "PrintContent";
 
 export const PrintPreview: React.FC<PrintPreviewProps> = ({
-  resume,
+  letter,
   onPrintComplete,
 }) => {
   const contentRef = React.useRef<HTMLDivElement>(null);
 
   const handlePrint = useReactToPrint({
-    documentTitle: resume.title || resume.name || "Resume",
+    documentTitle: letter.title || letter.name || "Letter",
     //@ts-expect-error
     content: () => contentRef.current,
     onAfterPrint: onPrintComplete,
@@ -62,5 +63,5 @@ export const PrintPreview: React.FC<PrintPreviewProps> = ({
     }
   }, [handlePrint]);
 
-  return <PrintContent ref={contentRef} resume={resume} />;
+  return <PrintContent ref={contentRef} letter={letter} />;
 };

@@ -1,9 +1,11 @@
 import { FileUserIcon, PenLineIcon, Save } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { steps as letterSteps } from "@/components/profile/cover-letter/editor/steps";
 import { Button } from "@/components/ui/button";
-import { steps } from "./steps";
+import { steps as resumeSteps } from "./steps";
 
 interface FooterProps {
+  componentType: string;
   currentStep: string;
   setCurrentStep: (step: string) => void;
   showMobileResumePreview: boolean;
@@ -14,6 +16,7 @@ interface FooterProps {
 }
 
 export const EditorFooter = ({
+  componentType,
   currentStep,
   setCurrentStep,
   showMobileResumePreview,
@@ -22,7 +25,10 @@ export const EditorFooter = ({
   isSavingToDb,
   onSave,
 }: FooterProps) => {
-  const t = useTranslations("Form.navigation");
+  const t = useTranslations(
+    componentType === "resume" ? "Form.navigation" : "FormLetter.navigation"
+  );
+  const steps = componentType === "resume" ? resumeSteps : letterSteps;
 
   const previousStep = steps.find(
     (_, index) => steps[index + 1]?.key === currentStep
@@ -62,16 +68,25 @@ export const EditorFooter = ({
             <span className="text-sm text-gray-500 sm:ml-4">{t("saving")}</span>
           )}
 
-          {onSave && currentStep === "summary" && (
+          {onSave && (currentStep === "summary" || currentStep === "text") && (
             <Button
               onClick={onSave}
               disabled={isSavingToDb}
               className="flex min-w-[120px] items-center justify-center gap-2 transition-colors hover:bg-blue-100/50"
             >
               <Save className="h-4 w-4" />
-              <span className="hidden sm:inline">
-                {isSavingToDb ? t("saving") : t("saveResume")}
-              </span>
+              {componentType === "resume" ? (
+                <span className="hidden sm:inline">
+                  {isSavingToDb ? t("saving") : t("saveResume")}
+                </span>
+              ) : (
+                <span className="hidden sm:inline">
+                  {isSavingToDb ? t("saving") : t("saveLetter")}
+                </span>
+              )}
+              {/* // <span className="hidden sm:inline">
+              //   {isSavingToDb ? t("saving") : t("saveResume")}
+              // </span> */}
               <span className="sm:hidden">
                 {isSavingToDb ? t("saving") : t("save")}
               </span>
