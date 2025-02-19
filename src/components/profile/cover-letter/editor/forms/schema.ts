@@ -37,4 +37,13 @@ export const letterSchema = z.object({
 
 export type GeneralInfoFormValues = z.infer<typeof generalInfoSchema>;
 export type PersonalInfoFormValues = z.infer<typeof personalInfoSchema>;
+export const workInfoSchema = z.object({
+  profession: z.string().min(1, "validation.professionRequired"),
+  position: z.string().min(1, "validation.positionRequired"),
+  company: z.string().min(1, "validation.companyRequired"),
+  nameRecipient: z.string().optional(),
+  positionRecipient: z.string().min(1, "validation.positionRecipientRequired"),
+});
+
 export type TextValues = z.infer<typeof textSchema>;
+export type WorkInfoFormValues = z.infer<typeof workInfoSchema>;

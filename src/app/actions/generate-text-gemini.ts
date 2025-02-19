@@ -13,6 +13,12 @@ export async function generateTextGemini(
     position: string;
     company: string;
     nameRecipient: string;
+    skills?: string[];
+    workExperience?: Array<{
+      company?: string;
+      position?: string;
+      description?: string;
+    }>;
   },
   locale: string = "en"
 ) {
@@ -29,6 +35,16 @@ export async function generateTextGemini(
 Ім'я отримувача: **${letterData.nameRecipient}**
 Посада отримувача: **${letterData.position}**
 Компанія: **${letterData.company}**
+Навички: **${letterData.skills?.join(", ") || ""}**
+Досвід роботи:
+${
+  letterData.workExperience
+    ?.map(
+      (exp) => `- ${exp.position} в ${exp.company}
+  ${exp.description}`
+    )
+    .join("\n") || ""
+}
 
 ### **Інструкції:**
 - Використовуйте точні передані значення для отримувача, компанії та інших даних. **Не змінюйте ці дані та не вигадуйте інші імена чи назви.**
@@ -54,6 +70,16 @@ Profession: **${letterData.profession}**
 Recipient Name: **${letterData.nameRecipient}**
 Recipient Position: **${letterData.position}**
 Company: **${letterData.company}**
+Skills: **${letterData.skills?.join(", ") || ""}**
+Work Experience:
+${
+  letterData.workExperience
+    ?.map(
+      (exp) => `- ${exp.position} at ${exp.company}
+  ${exp.description}`
+    )
+    .join("\n") || ""
+}
 
 ### **Instructions:**
 - Use the exact provided values for recipient name, company name, and other details. **Do not modify or invent different names or company names.**

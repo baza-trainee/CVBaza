@@ -3,11 +3,13 @@ import { useLocale, useTranslations } from "next-intl";
 import { BsStars } from "react-icons/bs";
 import { toast } from "sonner";
 import { generateTextGemini } from "@/app/actions/generate-text-gemini";
+import { useResumeData } from "@/components/profile/resume/hooks/use-resume-data";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { EditorFormProps } from "@/types/letter";
 
 export const TextForm = ({ letterData, setLetterData }: EditorFormProps) => {
+  const { resumeData } = useResumeData();
   const [isGenerating, setIsGenerating] = useState(false);
   const t = useTranslations("FormLetter");
   const locale = useLocale();
@@ -21,13 +23,14 @@ export const TextForm = ({ letterData, setLetterData }: EditorFormProps) => {
         throw new Error(t("validation.required"));
       }
 
-      // tech, exp
       const formattedData = {
         fullName: letterData.name,
         profession: letterData.profession,
         position: letterData.position,
         company: letterData.company,
         nameRecipient: letterData.nameRecipient,
+        skills: resumeData?.skills,
+        workExperience: resumeData?.workExperiences,
       };
 
       const text = await generateTextGemini(formattedData, locale);

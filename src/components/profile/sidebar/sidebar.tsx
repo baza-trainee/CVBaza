@@ -26,11 +26,11 @@ export function Sidebar({ lng }: { lng: string }) {
     <aside className="hidden border-r-2 px-4 font-semibold lg:block xl:w-[20vw]">
       <Avatar name={session?.user.name || "Baza Trainee"} />
       <nav className="mt-5">
-        <ul>
+        <ul className="space-y-1">
           <li>
             <Link
               href="/profile/dashboard"
-              className={linkClassName(isDashboardPage)}
+              className={cn(linkClassName(isDashboardPage), "px-2")}
             >
               <Icon name="icon-dashboard" size="w-6 h-6" />
               <span className="hidden whitespace-nowrap md:inline-block">
@@ -41,7 +41,7 @@ export function Sidebar({ lng }: { lng: string }) {
           <li>
             <Link
               href="/profile/resume"
-              className={linkClassName(isResumePage)}
+              className={cn(linkClassName(isResumePage), "px-2")}
             >
               <Icon name="icon-resume" size="w-6 h-6" />
               <span className="hidden whitespace-nowrap md:inline-block">
@@ -52,7 +52,7 @@ export function Sidebar({ lng }: { lng: string }) {
           <li>
             <Link
               href="/profile/cover-letter"
-              className={linkClassName(isCoverLetterPage)}
+              className={cn(linkClassName(isCoverLetterPage), "px-2")}
             >
               <Icon name="icon-cover-letter" size="w-6 h-6" />
               <span className="hidden whitespace-nowrap md:inline-block">

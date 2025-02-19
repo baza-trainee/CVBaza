@@ -403,6 +403,10 @@
         "title": "Personal Info",
         "description": "Fill in your personal information"
       },
+      "workInfo": {
+        "title": "Work Info",
+        "description": "Fill in your work and recipient information"
+      },
       "text": {
         "title": "Text",
         "description": "Write a text of your letter",
@@ -419,7 +423,7 @@
       "position": "Position",
       "company": "Company",
       "text": "Text",
-      "nameRecipient": "Name of the Recipient",
+      "nameRecipient": "Name of the Recipient (optional)",
       "positionRecipient": "Position of the Recipient"
     },
     "placeholders": {
