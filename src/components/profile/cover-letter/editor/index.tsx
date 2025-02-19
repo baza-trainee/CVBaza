@@ -23,6 +23,8 @@ export const LetterEditor = () => {
     isSavingToDb,
   } = useLetterData();
 
+  console.log(letterData);
+
   const setStep = useCallback(
     (key: string) => {
       const newSearchParams = new URLSearchParams(searchParams);
