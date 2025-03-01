@@ -12,6 +12,7 @@ export function Sidebar({ lng }: { lng: string }) {
   const isDashboardPage = pathname.split("/").includes("dashboard");
   const isResumePage = pathname.split("/").includes("resume");
   const isCoverLetterPage = pathname.split("/").includes("cover-letter");
+  const isJobsPage = pathname.split("/").includes("jobs");
 
   const linkClassName = (isPath: boolean) => {
     return cn(
@@ -41,7 +42,7 @@ export function Sidebar({ lng }: { lng: string }) {
           <li>
             <Link
               href="/profile/resume"
-              className={cn(linkClassName(isResumePage), "px-2")}
+              className={cn(linkClassName(isResumePage), "px-1")}
             >
               <Icon name="icon-resume" size="w-6 h-6" />
               <span className="hidden whitespace-nowrap md:inline-block">
@@ -60,24 +61,17 @@ export function Sidebar({ lng }: { lng: string }) {
               </span>
             </Link>
           </li>
-          {/* <li className="relative w-full">
-            <div
-              className="rounded-[8px] transition-all hover:bg-blue-50 hover:fill-blue-500 hover:stroke-blue-50 hover:text-blue-500 focus:bg-blue-50 focus:text-blue-500"
-              onMouseEnter={() => setIsOpen(true)}
-              onMouseLeave={() => setIsOpen(false)}
-              onFocus={() => setIsOpen(true)}
-              // onClick={() => setIsOpen(true)}
-              onBlur={() => setIsOpen(false)}
+          <li>
+            <Link
+              href="/profile/jobs"
+              className={cn(linkClassName(isJobsPage), "px-2")}
             >
-              <Link href="" className={linkClassName(isDocumentsPage)}>
-                <Icon name="icon-list" size="w-6 h-6" />
-                <span className="hidden md:inline-block">
-                  {lng === "en" ? "My Documents" : "Мої документи"}
-                </span>
-              </Link>
-              <DropdownMenu isOpen={isOpen} lng={lng} toggle={toggle} />
-            </div>
-          </li> */}
+              <Icon name="icon-search" size="w-6 h-6" />
+              <span className="hidden whitespace-nowrap md:inline-block">
+                {lng === "en" ? "Search Jobs" : "Пошук роботи"}
+              </span>
+            </Link>
+          </li>
         </ul>
       </nav>
     </aside>

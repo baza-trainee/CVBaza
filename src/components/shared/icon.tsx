@@ -295,6 +295,20 @@ export const Icon: React.FC<IconProps> = ({
           <path d="M10 6.04v12m4-12v12M3 2.62h18m-15.89 0v17.1c0 1.25.95 2.28 2.12 2.28h9.53c1.17 0 2.12-1.03 2.12-2.28V2.62M8.21 2h8.05" />
         </g>
       </symbol>
+
+      <symbol
+        id="icon-search"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </symbol>
     </svg>
 
     <svg className={`${size} ${color} ${className}`} aria-hidden="true">
