@@ -43,7 +43,7 @@ export const LanguageSwitcher = ({
           <button
             key={lang.code}
             onClick={() => handleLanguageChange(lang.code)}
-            className={`text-xl font-semibold ${
+            className={`text-xl font-semibold 2xl:text-[3rem] ${
               locale === lang.code
                 ? "text-white"
                 : "text-white/60 hover:text-white/80"
@@ -58,7 +58,7 @@ export const LanguageSwitcher = ({
 
   return (
     <Select value={locale} onValueChange={handleLanguageChange}>
-      <SelectTrigger className="w-[70px] border-none bg-transparent hover:bg-blue-100/50 focus:ring-0 focus:ring-offset-0">
+      <SelectTrigger className="w-[70px] border-none bg-transparent text-base hover:bg-blue-100/50 focus:ring-0 focus:ring-offset-0 2xl:text-xl">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>

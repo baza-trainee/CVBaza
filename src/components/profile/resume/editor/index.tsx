@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
-import { useResumeData } from "@/components/profile/resume/hooks/use-resume-data";
+import { useResumeData } from "@/components/profile/hooks/use-resume-data";
 import { templates } from "@/constants";
 import { MobilePreview } from "../mobile-preview";
 import { PreviewSection } from "../preview";

@@ -3,7 +3,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { BsStars } from "react-icons/bs";
 import { toast } from "sonner";
 import { generateTextGemini } from "@/app/actions/generate-text-gemini";
-import { useResumeLogic } from "@/components/profile/resume/hooks/use-resume-logic";
+import { useResumeLogic } from "@/components/profile/hooks/use-resume-logic";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { EditorFormProps } from "@/types/letter";
