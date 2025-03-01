@@ -18,13 +18,44 @@ async function searchForKeyword(
 
   try {
     console.log(`Searching for keyword: ${keyword}`);
+
+    // Set a longer timeout for navigation
+    await page.setDefaultNavigationTimeout(60000);
+    await page.setDefaultTimeout(60000);
+
+    // Enable request interception
+    await page.setRequestInterception(true);
+    page.on("request", (request: any) => {
+      // Only allow document, script, xhr, and fetch requests
+      const resourceType = request.resourceType();
+      if (["document", "script", "xhr", "fetch"].includes(resourceType)) {
+        request.continue();
+      } else {
+        request.abort();
+      }
+    });
+
+    // Navigate to the page
     await page.goto(
       `https://jobs.dou.ua/vacancies/?search=${encodeURIComponent(keyword)}`,
-      { waitUntil: "networkidle0", timeout: 30000 }
+      {
+        waitUntil: ["domcontentloaded", "networkidle0"],
+        timeout: 60000,
+      }
     );
 
-    await page.waitForSelector(".l-vacancy", { timeout: 15000 });
+    // Wait for either the vacancy list or the no-results message
+    try {
+      await Promise.race([
+        page.waitForSelector(".l-vacancy", { timeout: 30000 }),
+        page.waitForSelector(".nothing-found", { timeout: 30000 }),
+      ]);
+    } catch (err) {
+      console.log(err);
+      console.log("Timeout waiting for selectors, attempting to continue...");
+    }
 
+    // Get cookies regardless of vacancy presence
     const cookies = await page.cookies();
     const csrfCookie = cookies.find(
       (cookie: any) => cookie.name === "csrftoken"
@@ -38,9 +69,17 @@ async function searchForKeyword(
     console.log("CSRF token found:", csrfCookie.value);
 
     const allJobs = await page.evaluate(() => {
+      // Check for no results first
+      const nothingFound = document.querySelector(".nothing-found");
+      if (nothingFound) {
+        console.log("No results found");
+        return [];
+      }
+
       const vacancies = Array.from(
-        document.querySelectorAll(".l-vacancy")
+        document.querySelectorAll(".l-vacancy") || []
       ).slice(0, 10);
+
       return vacancies.map((vacancy) => ({
         title: vacancy.querySelector(".vt")?.textContent?.trim() || "",
         company: vacancy.querySelector(".company")?.textContent?.trim() || "",
@@ -70,19 +109,44 @@ async function searchForKeyword(
   }
 }
 
+// Rate limiting variables
+let lastRequestTime = 0;
+const minRequestInterval = 2000; // 2 seconds between requests
+
+async function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export async function POST(req: Request) {
   try {
     const { searchQuery } = await req.json();
     const keywords = searchQuery.split(/[,\s]+/).filter(Boolean);
+
+    // Add a small delay between requests to avoid overloading
+    const now = Date.now();
+    const timeSinceLastRequest = now - lastRequestTime;
+    if (timeSinceLastRequest < minRequestInterval) {
+      await delay(minRequestInterval - timeSinceLastRequest);
+    }
+    lastRequestTime = Date.now();
 
     const browser = await puppeteer.launch({
       headless: true,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
 
-    const jobsArrays = await Promise.all(
-      keywords.map((keyword: string) => searchForKeyword(browser, keyword))
-    );
+    // Process keywords sequentially instead of in parallel
+    const jobsArrays = [];
+    for (const keyword of keywords) {
+      try {
+        const jobs = await searchForKeyword(browser, keyword);
+        jobsArrays.push(jobs);
+        // Add delay between keyword searches
+        await delay(1000);
+      } catch (error) {
+        console.error(`Error searching for keyword ${keyword}:`, error);
+      }
+    }
 
     await browser.close();
 
@@ -105,7 +169,7 @@ export async function POST(req: Request) {
   } catch (error) {
     console.error("Error fetching jobs:", error);
     return NextResponse.json(
-      { error: "Failed to fetch jobs" },
+      { error: typeof error === "string" ? error : "Failed to fetch jobs" },
       { status: 500 }
     );
   }
