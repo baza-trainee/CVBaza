@@ -1,113 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextResponse } from "next/server";
-import puppeteer from "puppeteer";
+import chromium from "@sparticuz/chromium-min";
+import puppeteer, { type Browser } from "puppeteer";
+import puppeteerCore, {
+  type Browser as BrowserCore,
+  type LaunchOptions,
+} from "puppeteer-core";
+import { searchForKeyword } from "./helper";
 
-export interface DouJob {
-  title: string;
-  company: string;
-  description: string;
-  link: string;
-  id: string;
-}
-
-async function searchForKeyword(
-  browser: any,
-  keyword: string
-): Promise<DouJob[]> {
-  const page = await browser.newPage();
-
-  try {
-    console.log(`Searching for keyword: ${keyword}`);
-
-    // Set a longer timeout for navigation
-    await page.setDefaultNavigationTimeout(60000);
-    await page.setDefaultTimeout(60000);
-
-    // Enable request interception
-    await page.setRequestInterception(true);
-    page.on("request", (request: any) => {
-      // Only allow document, script, xhr, and fetch requests
-      const resourceType = request.resourceType();
-      if (["document", "script", "xhr", "fetch"].includes(resourceType)) {
-        request.continue();
-      } else {
-        request.abort();
-      }
-    });
-
-    // Navigate to the page
-    await page.goto(
-      `https://jobs.dou.ua/vacancies/?search=${encodeURIComponent(keyword)}`,
-      {
-        waitUntil: ["domcontentloaded", "networkidle0"],
-        timeout: 60000,
-      }
-    );
-
-    // Wait for either the vacancy list or the no-results message
-    try {
-      await Promise.race([
-        page.waitForSelector(".l-vacancy", { timeout: 30000 }),
-        page.waitForSelector(".nothing-found", { timeout: 30000 }),
-      ]);
-    } catch (err) {
-      console.log(err);
-      console.log("Timeout waiting for selectors, attempting to continue...");
-    }
-
-    // Get cookies regardless of vacancy presence
-    const cookies = await page.cookies();
-    const csrfCookie = cookies.find(
-      (cookie: any) => cookie.name === "csrftoken"
-    );
-
-    if (!csrfCookie) {
-      console.log("CSRF token not found");
-      return [];
-    }
-
-    console.log("CSRF token found:", csrfCookie.value);
-
-    const allJobs = await page.evaluate(() => {
-      // Check for no results first
-      const nothingFound = document.querySelector(".nothing-found");
-      if (nothingFound) {
-        console.log("No results found");
-        return [];
-      }
-
-      const vacancies = Array.from(
-        document.querySelectorAll(".l-vacancy") || []
-      ).slice(0, 10);
-
-      return vacancies.map((vacancy) => ({
-        title: vacancy.querySelector(".vt")?.textContent?.trim() || "",
-        company: vacancy.querySelector(".company")?.textContent?.trim() || "",
-        description:
-          vacancy.querySelector(".sh-info")?.textContent?.trim() || "",
-        link:
-          vacancy.querySelector(".vt a:not(.company)")?.getAttribute("href") ||
-          "",
-        id: vacancy.getAttribute("data-id") || "",
-      }));
-    });
-
-    console.log(`Found ${allJobs.length} jobs`);
-
-    console.log(`Total jobs found: ${allJobs.length}`);
-    return allJobs.map((job: any) => ({
-      ...job,
-      link: job.link.startsWith("http")
-        ? job.link
-        : `https://jobs.dou.ua${job.link}`,
-    }));
-  } catch (error) {
-    console.error(`Error searching for ${keyword}:`, error);
-    return [];
-  } finally {
-    await page.close();
-  }
-}
+export const dynamic = "force-dynamic";
+// Increase timeout for Vercel (max 60 seconds)
+export const maxDuration = 60;
+// Force dynamic to prevent caching
+export const fetchCache = "force-no-store";
+export const revalidate = 0;
 
 // Rate limiting variables
 let lastRequestTime = 0;
@@ -130,21 +36,40 @@ export async function POST(req: Request) {
     }
     lastRequestTime = Date.now();
 
-    const browser = await puppeteer.launch({
-      headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    });
+    let browser: Browser | BrowserCore;
+    if (
+      process.env.NODE_ENV === "production" ||
+      process.env.VERCEL_ENV === "production"
+    ) {
+      const executablePath = await chromium.executablePath(
+        "https://github.com/Sparticuz/chromium/releases/download/v131.0.1/chromium-v131.0.1-pack.tar"
+      );
+      browser = await puppeteerCore.launch({
+        executablePath,
+        args: chromium.args,
+        headless: true,
+        defaultViewport: chromium.defaultViewport,
+      } as LaunchOptions);
+    } else {
+      browser = await puppeteer.launch({
+        headless: true,
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      });
+    }
 
-    // Process keywords sequentially instead of in parallel
+    // Process keywords sequentially and limit total results
     const jobsArrays = [];
     for (const keyword of keywords) {
       try {
         const jobs = await searchForKeyword(browser, keyword);
         jobsArrays.push(jobs);
-        // Add delay between keyword searches
-        await delay(1000);
+        // Break early if we've found enough jobs
+        if (jobsArrays.flat().length >= 15) break;
+        // Add minimal delay between searches
+        await delay(500);
       } catch (error) {
         console.error(`Error searching for keyword ${keyword}:`, error);
+        jobsArrays.push([]);
       }
     }
 

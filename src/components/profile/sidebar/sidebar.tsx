@@ -42,7 +42,7 @@ export function Sidebar({ lng }: { lng: string }) {
           <li>
             <Link
               href="/profile/resume"
-              className={cn(linkClassName(isResumePage), "px-1")}
+              className={cn(linkClassName(isResumePage), "px-[2.5px]")}
             >
               <Icon name="icon-resume" size="w-6 h-6" />
               <span className="hidden whitespace-nowrap md:inline-block">
