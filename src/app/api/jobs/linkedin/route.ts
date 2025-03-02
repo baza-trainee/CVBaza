@@ -52,9 +52,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ jobs: uniqueJobs });
   } catch (error) {
     console.error("Error fetching LinkedIn jobs:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch jobs" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error }, { status: 500 });
   }
 }
