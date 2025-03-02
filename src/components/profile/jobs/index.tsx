@@ -13,13 +13,13 @@ export const Jobs = () => {
 
   return (
     <div className="w-full space-y-4 p-[24px]">
-      {jobs.length && (
+      {jobs.length ? (
         <div className="mb-2 text-sm text-gray-500">
           {locale === "en" ? "Found" : "Знайдено"}
           &nbsp;
           {jobs.length} {locale === "en" ? "jobs" : "вакансій"}
         </div>
-      )}
+      ) : null}
 
       <div className="flex gap-2">
         <Button

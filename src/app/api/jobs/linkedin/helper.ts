@@ -10,6 +10,8 @@ export async function searchForKeyword(
   const page = (await browser.newPage()) as Page;
 
   try {
+    console.log("Starting LinkedIn job search for:", keyword);
+
     // Set a realistic viewport and user agent
     await page.setViewport({ width: 1920, height: 1080 });
     await page.setUserAgent(
@@ -57,15 +59,53 @@ export async function searchForKeyword(
     const searchUrl = `https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(keyword)}&location=${encodeURIComponent(country)}`;
     console.log(`Searching LinkedIn jobs at: ${searchUrl}`);
 
-    await page.goto(searchUrl, {
-      waitUntil: "networkidle0",
-      timeout: 30000,
-    });
+    console.log("Attempting to navigate to:", searchUrl);
+    try {
+      await page.goto(searchUrl, {
+        waitUntil: "domcontentloaded", // Changed from networkidle0 to be less strict
+        timeout: 45000, // Increased timeout
+      });
+    } catch (navError) {
+      console.error("Navigation error:", navError);
+      // Try again with less strict options
+      await page.goto(searchUrl, {
+        waitUntil: "load",
+        timeout: 60000,
+      });
+    }
+
+    // Log the current URL to debug redirects
+    const currentUrl = await page.url();
+    console.log("Current page URL:", currentUrl);
+
+    // Take a screenshot in production for debugging
+    if (
+      process.env.NODE_ENV === "production" ||
+      process.env.VERCEL_ENV === "production"
+    ) {
+      try {
+        const screenshot = await page.screenshot();
+        console.log("Screenshot taken, size:", screenshot.length, "bytes");
+      } catch (screenshotError) {
+        console.error("Screenshot error:", screenshotError);
+      }
+    }
+
+    // Check the page content and status
+    const pageContent = await page.content();
+    console.log("Page content length:", pageContent.length);
 
     // First check if we're redirected to login page
     const isLoginPage = await page.evaluate(() => {
-      return window.location.href.includes("linkedin.com/login");
+      const url = window.location.href;
+      const isLogin =
+        url.includes("linkedin.com/login") ||
+        url.includes("linkedin.com/checkpoint") ||
+        document.querySelector("form#login") !== null;
+      return isLogin;
     });
+
+    console.log("Is login page:", isLoginPage);
 
     if (isLoginPage) {
       console.log("LinkedIn requires authentication. Returning empty results.");
@@ -83,11 +123,17 @@ export async function searchForKeyword(
     ];
 
     let foundSelector = null;
+    console.log("Checking selectors...");
     for (const selector of selectors) {
-      const element = await page.$(selector);
-      if (element) {
-        foundSelector = selector;
-        break;
+      try {
+        const element = await page.$(selector);
+        if (element) {
+          foundSelector = selector;
+          console.log("Found working selector:", selector);
+          break;
+        }
+      } catch (selectorError) {
+        console.error("Error checking selector:", selector, selectorError);
       }
     }
 
