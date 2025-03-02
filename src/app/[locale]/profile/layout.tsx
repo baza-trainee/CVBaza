@@ -3,8 +3,8 @@
 import { usePathname } from "next/navigation";
 // import { useEffect } from "react";
 // import { useSession } from "next-auth/react";
-import { HorizontalSidebar } from "@/components/profile/sidebar/horizontal-sidebar";
-import { Sidebar } from "@/components/profile/sidebar/sidebar";
+import { Sidebar } from "@/components/profile/sidebar";
+import { HorizontalSidebar } from "@/components/profile/sidebar/components/horizontal-sidebar";
 
 export default function ProfileLayout({
   children,

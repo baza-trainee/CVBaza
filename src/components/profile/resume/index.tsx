@@ -9,7 +9,7 @@ import { Loader } from "@/components/shared/loader";
 import { Link } from "@/i18n/routing";
 import { IResume } from "@/types/resume";
 import { formatDate } from "@/utils/date-utils";
-import { useResumeLogic } from "../../hooks/use-resume-logic";
+import { useResumeLogic } from "../hooks/use-resume-logic";
 
 type ResumeWithDuplicate =
   | IResume

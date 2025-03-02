@@ -107,6 +107,7 @@
       "required": "This field is required",
       "titleRequired": "Title is required",
       "templateRequired": "Please select a template",
+      "nameMinLength": "Name should be at least 2 symbols",
       "nameRequired": "Name is required",
       "emailRequired": "Please enter a valid email address",
       "passwordMinLength": "Password must be at least 8 characters",

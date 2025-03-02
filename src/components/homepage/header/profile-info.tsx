@@ -28,7 +28,7 @@ export const ProfileInfo = ({ name }: { name: string }) => {
     <>
       <DropdownMenu onOpenChange={(state) => setOpen(state)} modal={false}>
         <div className="hidden items-center justify-center gap-3 lg:flex">
-          <div className="flex rounded-full bg-blue-50 px-5 py-4">
+          <div className="flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-full bg-blue-50">
             <p className="text-body">{createAvatar(name)}</p>
           </div>
           <p className="text-btn">{name}</p>

@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ChangeForm } from "./change-form/change-form";
-import { ChangePassword } from "./change-password/change-password";
+import { cn } from "@/lib/utils";
+import { ChangeForm } from "./change-name";
+import { ChangePassword } from "./change-password";
 
 export const Settings = () => {
   const { data: session } = useSession();
@@ -19,11 +20,11 @@ export const Settings = () => {
   }, [session]);
 
   return (
-    <div className="ml-6 pb-20">
+    <div className="min-h-[70vh] p-[24px]">
       <p className="mb-10 text-h3">Мій профіль</p>
       <Tabs defaultValue="tab1">
         <TabsList>
-          <TabsTrigger className="mr-2" value="tab1">
+          <TabsTrigger className={cn(!qAuth && "mr-2")} value="tab1">
             Change name
           </TabsTrigger>
           {!qAuth && <TabsTrigger value="tab2">Change password</TabsTrigger>}

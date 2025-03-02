@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon } from "../../shared/icon";
+import { Icon } from "@/components/shared/icon";
 
 export const Avatar: React.FC<{ name: string | null | undefined }> = ({
   name,

@@ -1,4 +1,4 @@
-import { ResumePage } from "@/components/profile/resume/resume-page";
+import { ResumePage } from "@/components/profile/resume";
 
 const ResumeView = () => {
   return (

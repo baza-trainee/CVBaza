@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Locale } from "@/i18n/routing";
-import { ChangePasswordValues, changePasswordSchema } from "../schema";
+import { ChangePasswordValues, changePasswordSchema } from "./schema";
 
 export const ChangePassword = () => {
   const t = useTranslations("Settings");
