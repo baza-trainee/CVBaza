@@ -9,7 +9,11 @@ import puppeteerCore, {
 import { searchForKeyword } from "./helper";
 
 export const dynamic = "force-dynamic";
+// Increase timeout for Vercel (max 60 seconds)
 export const maxDuration = 60;
+// Force dynamic to prevent caching
+export const fetchCache = "force-no-store";
+export const revalidate = 0;
 
 // Rate limiting variables
 let lastRequestTime = 0;
@@ -53,16 +57,19 @@ export async function POST(req: Request) {
       });
     }
 
-    // Process keywords sequentially instead of in parallel
+    // Process keywords sequentially and limit total results
     const jobsArrays = [];
     for (const keyword of keywords) {
       try {
         const jobs = await searchForKeyword(browser, keyword);
         jobsArrays.push(jobs);
-        // Add delay between keyword searches
-        await delay(1000);
+        // Break early if we've found enough jobs
+        if (jobsArrays.flat().length >= 15) break;
+        // Add minimal delay between searches
+        await delay(500);
       } catch (error) {
         console.error(`Error searching for keyword ${keyword}:`, error);
+        jobsArrays.push([]);
       }
     }
 

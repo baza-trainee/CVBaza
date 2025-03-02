@@ -16,30 +16,60 @@ export async function searchForKeyword(
   try {
     console.log(`Searching for keyword: ${keyword}`);
 
-    // Set a longer timeout for navigation
-    await page.setDefaultNavigationTimeout(60000);
-    await page.setDefaultTimeout(60000);
+    // Set shorter timeouts for faster response
+    await page.setDefaultNavigationTimeout(20000);
+    await page.setDefaultTimeout(20000);
 
-    // Enable request interception
+    // Set a realistic viewport
+    await page.setViewport({ width: 1920, height: 1080 });
+    await page.setUserAgent(
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
+    );
+
+    // Block unnecessary resources to speed up loading
     await page.setRequestInterception(true);
     page.on("request", (request: any) => {
-      // Only allow document, script, xhr, and fetch requests
       const resourceType = request.resourceType();
-      if (["document", "script", "xhr", "fetch"].includes(resourceType)) {
-        request.continue();
-      } else {
+      if (
+        resourceType === "image" ||
+        resourceType === "stylesheet" ||
+        resourceType === "font" ||
+        resourceType === "media"
+      ) {
         request.abort();
+      } else {
+        const headers = request.headers();
+        headers["Accept-Language"] = "uk-UA,uk;q=0.9,en-US;q=0.8,en;q=0.7";
+        headers["Accept"] =
+          "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+        request.continue({ headers });
       }
     });
 
-    // Navigate to the page
-    await page.goto(
-      `https://jobs.dou.ua/vacancies/?search=${encodeURIComponent(keyword)}`,
-      {
-        waitUntil: ["domcontentloaded", "networkidle0"],
-        timeout: 60000,
-      }
-    );
+    console.log("Attempting to navigate to DOU jobs page");
+    try {
+      await page.goto(
+        `https://jobs.dou.ua/vacancies/?search=${encodeURIComponent(keyword)}`,
+        {
+          waitUntil: "domcontentloaded", // Less strict wait condition
+          timeout: 20000,
+        }
+      );
+    } catch (navError) {
+      console.error("Navigation error:", navError);
+      // Try again with more lenient settings
+      await page.goto(
+        `https://jobs.dou.ua/vacancies/?search=${encodeURIComponent(keyword)}`,
+        {
+          waitUntil: "load",
+          timeout: 30000,
+        }
+      );
+    }
+
+    // Log current URL and page status
+    const currentUrl = await page.url();
+    console.log("Current page URL:", currentUrl);
 
     // Wait for either the vacancy list or the no-results message
     try {
@@ -75,7 +105,7 @@ export async function searchForKeyword(
 
       const vacancies = Array.from(
         document.querySelectorAll(".l-vacancy") || []
-      ).slice(0, 10);
+      ).slice(0, 5); // Reduced number of jobs per keyword for faster response
 
       return vacancies.map((vacancy) => ({
         title: vacancy.querySelector(".vt")?.textContent?.trim() || "",
