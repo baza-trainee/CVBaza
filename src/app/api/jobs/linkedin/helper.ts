@@ -35,25 +35,29 @@ export async function searchForKeyword(
     const location = await getUserLocation();
     const country = location.country;
 
-    // Set longer timeout and enable JavaScript
-    await page.setDefaultTimeout(30000);
+    // Set shorter timeout and optimize page load
+    await page.setDefaultTimeout(20000);
     await page.setJavaScriptEnabled(true);
 
-    // Add request interception to modify headers
+    // Block unnecessary resources to speed up loading
     await page.setRequestInterception(true);
-    page.on(
-      "request",
-      (request: {
-        headers: () => any;
-        continue: (arg0: { headers: any }) => void;
-      }) => {
+    page.on("request", (request) => {
+      const resourceType = request.resourceType();
+      if (
+        resourceType === "image" ||
+        resourceType === "stylesheet" ||
+        resourceType === "font" ||
+        resourceType === "media"
+      ) {
+        request.abort();
+      } else {
         const headers = request.headers();
         headers["Accept-Language"] = "en-US,en;q=0.9";
         headers["Accept"] =
-          "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8";
+          "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
         request.continue({ headers });
       }
-    );
+    });
 
     // Add location to search URL
     const searchUrl = `https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(keyword)}&location=${encodeURIComponent(country)}`;
@@ -112,8 +116,8 @@ export async function searchForKeyword(
       return [];
     }
 
-    // Wait a bit for dynamic content
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    // Reduced wait time
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     // Try different selectors for job listings
     const selectors = [
@@ -142,30 +146,26 @@ export async function searchForKeyword(
       return [];
     }
 
-    // Scroll to load more results
+    // Simplified scrolling with fewer iterations
     await page.evaluate(async () => {
       await new Promise((resolve) => {
-        let totalHeight = 0;
-        const distance = 100;
-        const maxScrolls = 20; // Limit scrolling to prevent infinite loops
         let scrollCount = 0;
+        const maxScrolls = 5; // Reduced number of scrolls
 
         const timer = setInterval(() => {
-          const scrollHeight = document.documentElement.scrollHeight;
-          window.scrollBy(0, distance);
-          totalHeight += distance;
+          window.scrollBy(0, window.innerHeight);
           scrollCount++;
 
-          if (totalHeight >= scrollHeight || scrollCount >= maxScrolls) {
+          if (scrollCount >= maxScrolls) {
             clearInterval(timer);
             resolve(true);
           }
-        }, 200); // Increased interval to reduce rate limiting
+        }, 100);
       });
     });
 
-    // Wait a bit for any dynamic content to load after scrolling
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // Minimal wait after scrolling
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     // Extract job listings with more flexible selectors
     const jobs = await page.evaluate(() => {

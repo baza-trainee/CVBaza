@@ -9,7 +9,11 @@ import puppeteerCore, {
 import { searchForKeyword } from "./helper";
 
 export const dynamic = "force-dynamic";
+// Increase timeout for Vercel (max 60 seconds)
 export const maxDuration = 60;
+// Force dynamic to prevent caching
+export const fetchCache = "force-no-store";
+export const revalidate = 0;
 
 export async function POST(req: Request) {
   try {
@@ -37,10 +41,19 @@ export async function POST(req: Request) {
       });
     }
 
-    // Search for each keyword in parallel
-    const jobsArrays = await Promise.all(
-      keywords.map((keyword: string) => searchForKeyword(browser, keyword))
-    );
+    // Process keywords sequentially to avoid timeouts
+    const jobsArrays = [];
+    for (const keyword of keywords) {
+      try {
+        const jobs = await searchForKeyword(browser, keyword);
+        jobsArrays.push(jobs);
+        // Break early if we've found enough jobs
+        if (jobsArrays.flat().length >= 20) break;
+      } catch (error) {
+        console.error(`Error searching for keyword ${keyword}:`, error);
+        jobsArrays.push([]);
+      }
+    }
 
     await browser.close();
 
@@ -52,6 +65,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ jobs: uniqueJobs });
   } catch (error) {
     console.error("Error fetching LinkedIn jobs:", error);
-    return NextResponse.json({ error }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch jobs" },
+      { status: 500 }
+    );
   }
 }
