@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { Icon } from "@/components/shared/icon";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
-import { Avatar } from "./avatar";
+import { Avatar } from "./components/avatar";
 
 export function Sidebar({ lng }: { lng: string }) {
   const pathname = usePathname();

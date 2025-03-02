@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Locale } from "@/i18n/routing";
-import { ChangeNameValues, changeNameSchema } from "../schema";
+import { ChangeNameValues, changeNameSchema } from "./schema";
 
 export const ChangeForm = () => {
   const t = useTranslations("Settings");
@@ -80,26 +80,8 @@ export const ChangeForm = () => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-h4">Email</FormLabel>
-              <FormControl>
-                <Input
-                  className="max-w-[360px]"
-                  placeholder="Email"
-                  {...field}
-                  disabled
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <button
-          className="max-w-[360px] rounded-[100px] bg-blue-500 px-[45px] py-[12px] text-white"
+          className="max-w-[360px] rounded-[100px] bg-blue-500 px-[45px] py-[12px] text-white hover:bg-blue-600"
           type="submit"
         >
           {lang === "en" ? "Change" : "Змінити"}

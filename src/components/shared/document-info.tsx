@@ -93,7 +93,7 @@ export const DocumentInfo = ({
               className="w-full truncate rounded py-1 text-h5-semibold text-blue-700 hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-200"
             />
           </div>
-          <p className="truncate text-small text-blue-700">
+          <p className="text-small text-blue-700">
             {t("lastUpdated")}{" "}
             <span className="text-small text-blue-700">{lastUpdated}</span>
           </p>
