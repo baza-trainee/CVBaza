@@ -3,8 +3,20 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { env } from "@/env";
 
-const apiKey = env.GEMINI_API_KEY;
-const genAI = new GoogleGenerativeAI(apiKey || "");
+// Initialize the API client with a function to ensure fresh instance
+function initializeGeminiAPI() {
+  const apiKey = env.GEMINI_API_KEY;
+  console.log("API Key configured:", !!apiKey, "Length:", apiKey?.length);
+
+  if (!apiKey) {
+    throw new Error("Gemini API key is not configured");
+  }
+
+  const genAI = new GoogleGenerativeAI(apiKey);
+  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+  console.log("Gemini model initialized successfully");
+  return model;
+}
 
 export async function generateSummaryGemini(
   resumeData: {
@@ -20,9 +32,7 @@ export async function generateSummaryGemini(
   },
   locale: string = "en"
 ) {
-  if (!apiKey) {
-    throw new Error("Gemini API key is not configured");
-  }
+  // API key check is now handled in initializeGeminiAPI()
 
   const prompt =
     locale === "ua"
@@ -75,7 +85,9 @@ Example format:
 Generate a summary following these guidelines:`;
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    // Initialize a fresh model instance for each request
+    const model = initializeGeminiAPI();
+    console.log("Model initialized with new instance");
 
     const result = await model.generateContent(prompt);
     const response = await result.response;

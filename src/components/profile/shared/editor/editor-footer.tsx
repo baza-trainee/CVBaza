@@ -1,8 +1,8 @@
 import { FileUserIcon, PenLineIcon, Save } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { steps as letterSteps } from "@/components/profile/cover-letter/editor/steps";
+import { steps as resumeSteps } from "@/components/profile/shared/editor/steps";
 import { Button } from "@/components/ui/button";
-import { steps as resumeSteps } from "./steps";
 
 interface FooterProps {
   componentType: string;
@@ -84,9 +84,6 @@ export const EditorFooter = ({
                   {isSavingToDb ? t("saving") : t("saveLetter")}
                 </span>
               )}
-              {/* // <span className="hidden sm:inline">
-              //   {isSavingToDb ? t("saving") : t("saveResume")}
-              // </span> */}
               <span className="sm:hidden">
                 {isSavingToDb ? t("saving") : t("save")}
               </span>
@@ -101,9 +98,9 @@ export const EditorFooter = ({
             title={t("togglePreview")}
           >
             {showMobileResumePreview ? (
-              <PenLineIcon className="h-5 w-5" />
+              <PenLineIcon className="h-4 w-4" />
             ) : (
-              <FileUserIcon className="h-5 w-5" />
+              <FileUserIcon className="h-4 w-4" />
             )}
           </Button>
         </div>

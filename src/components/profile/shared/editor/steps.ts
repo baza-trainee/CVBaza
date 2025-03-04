@@ -1,11 +1,11 @@
+import { EducationForm } from "@/components/profile/resume/editor/forms/education-form";
+import { GeneralInfoForm } from "@/components/profile/resume/editor/forms/general-info-form";
+import { LanguagesForm } from "@/components/profile/resume/editor/forms/languages-form";
+import { PersonalInfoForm } from "@/components/profile/resume/editor/forms/personal-info-form";
+import { SkillsForm } from "@/components/profile/resume/editor/forms/skills-form";
+import { SummaryForm } from "@/components/profile/resume/editor/forms/summary-form";
+import { WorkExperienceForm } from "@/components/profile/resume/editor/forms/work-experience-form";
 import { EditorFormProps } from "@/types/resume";
-import { EducationForm } from "./forms/education-form";
-import { GeneralInfoForm } from "./forms/general-info-form";
-import { LanguagesForm } from "./forms/languages-form";
-import { PersonalInfoForm } from "./forms/personal-info-form";
-import { SkillsForm } from "./forms/skills-form";
-import { SummaryForm } from "./forms/summary-form";
-import { WorkExperienceForm } from "./forms/work-experience-form";
 
 export type StepKey =
   | "generalInfo"

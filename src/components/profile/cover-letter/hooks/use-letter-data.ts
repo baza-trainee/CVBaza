@@ -29,7 +29,7 @@ const validateRequiredFields = (data: LetterData): void => {
 };
 
 // Custom hook for managing letter data with localStorage
-export const useLetterData = () => {
+export const useLetterData = (letterId?: string) => {
   const [isClient, setIsClient] = useState(false);
   const [letterData, setLetterData] = useState<LetterData>(initialData);
   const [isSaving, setIsSaving] = useState(false);
@@ -39,11 +39,32 @@ export const useLetterData = () => {
   // Initialize client-side data
   useEffect(() => {
     setIsClient(true);
-    const savedData = localStorage.getItem(STORAGE_LETTER_KEY);
-    if (savedData) {
-      setLetterData(JSON.parse(savedData));
+    if (letterId) {
+      // If we have a letter ID, fetch that letter's data
+      const fetchLetter = async () => {
+        try {
+          const response = await fetch(`/api/letters/${letterId}`);
+          if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || "Failed to fetch letter");
+          }
+          const letter = await response.json();
+          // The letter data is directly in the response, not in a data property
+          setLetterData(letter);
+        } catch (error) {
+          console.error("Error fetching letter:", error);
+          toast.error("Failed to load letter data");
+        }
+      };
+      fetchLetter();
+    } else {
+      // Otherwise load from localStorage
+      const savedData = localStorage.getItem(STORAGE_LETTER_KEY);
+      if (savedData) {
+        setLetterData(JSON.parse(savedData));
+      }
     }
-  }, []);
+  }, [letterId]);
 
   // Save data to localStorage with debounce
   const updateLetterData = useCallback(
@@ -76,8 +97,11 @@ export const useLetterData = () => {
 
       const dataToSend = { ...letterData };
 
-      const response = await fetch("/api/letters", {
-        method: "POST",
+      const url = letterId ? `/api/letters/${letterId}` : "/api/letters";
+      const method = letterId ? "PUT" : "POST";
+
+      const response = await fetch(url, {
+        method,
         headers: {
           "Content-Type": "application/json",
         },

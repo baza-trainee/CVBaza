@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
+import { PrintPreview } from "@/components/profile/shared/preview/print-preview";
 import { useAlert } from "@/contexts/alert-context";
 import { IResume } from "@/types/resume";
-import { PrintPreview } from "../resume/print-preview";
 import { useCachedResumes } from "./use-resumes";
 
 type ResumeWithDuplicate =

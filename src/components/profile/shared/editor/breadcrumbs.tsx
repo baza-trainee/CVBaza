@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import { steps as letterSteps } from "@/components/profile/cover-letter/editor/steps";
+import { steps as resumeSteps } from "@/components/profile/shared/editor/steps";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,7 +10,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { steps as resumeSteps } from "./steps";
 
 interface BreadcrumbsProps {
   componentType: string;

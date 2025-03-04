@@ -19,7 +19,6 @@ export const MobilePreview = ({
   template,
   onClose,
 }: MobilePreviewProps) => {
-  // const t = useTranslations("ResumePage");
   const t = useTranslations(
     componentType === "resume" ? "ResumePage" : "CoverLetterPage"
   );

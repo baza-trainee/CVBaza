@@ -3,12 +3,12 @@
 import { useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 import { useResumeData } from "@/components/profile/hooks/use-resume-data";
+import { Breadcrumbs } from "@/components/profile/shared/editor/breadcrumbs";
+import { EditorFooter } from "@/components/profile/shared/editor/editor-footer";
+import { steps } from "@/components/profile/shared/editor/steps";
+import { MobilePreview } from "@/components/profile/shared/preview/mobile-preview";
+import { PreviewSection } from "@/components/profile/shared/preview/preview";
 import { templates } from "@/constants";
-import { MobilePreview } from "../mobile-preview";
-import { PreviewSection } from "../preview";
-import { Breadcrumbs } from "./breadcrumbs";
-import { EditorFooter } from "./editor-footer";
-import { steps } from "./steps";
 
 export const ResumeEditor = () => {
   const searchParams = useSearchParams();

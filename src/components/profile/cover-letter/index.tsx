@@ -3,11 +3,11 @@
 import { ForwardedRef, forwardRef, useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import { useLetterLogic } from "@/components/profile/cover-letter/hooks/use-letter-logic";
-import { PreviewSection } from "@/components/profile/resume/preview";
-import { DocumentInfo } from "@/components/shared/document-info";
+import { DocumentInfo } from "@/components/profile/shared/document-info";
+import { PreviewSection } from "@/components/profile/shared/preview/preview";
 import { Icon } from "@/components/shared/icon";
 import { Loader } from "@/components/shared/loader";
-import { Link } from "@/i18n/routing";
+import { Link, useRouter } from "@/i18n/routing";
 import { ILetter } from "@/types/letter";
 import { formatDate } from "@/utils/date-utils";
 
@@ -32,6 +32,7 @@ const PrintPreview = forwardRef(
 PrintPreview.displayName = "PrintPreview";
 
 export const CoverLetterPage = () => {
+  const router = useRouter();
   const {
     t,
     locale,
@@ -142,6 +143,11 @@ export const CoverLetterPage = () => {
                       const letterData =
                         "data" in letter ? letter.data : letter;
                       setCurrentPrintLetter(letterData);
+                    }}
+                    onEditClick={() => {
+                      router.push(
+                        `/profile/cover-letter/editor?id=${letter.id}`
+                      );
                     }}
                   />
                 </div>

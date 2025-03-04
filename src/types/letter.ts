@@ -1,7 +1,7 @@
 export interface LetterData {
   title?: string;
   name: string;
-  profession?: string;
+  profession: string;
   position: string;
   company: string;
   location?: string;
