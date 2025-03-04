@@ -28,7 +28,7 @@ export const DocumentInfo = ({
   const popupRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const t = useTranslations("resume");
+  const t = useTranslations();
 
   // Update local title when prop changes
   useEffect(() => {

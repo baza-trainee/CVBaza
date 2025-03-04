@@ -41,7 +41,7 @@ export const workInfoSchema = z.object({
   profession: z.string().min(1, "validation.professionRequired"),
   position: z.string().min(1, "validation.positionRequired"),
   company: z.string().min(1, "validation.companyRequired"),
-  nameRecipient: z.string().optional(),
+  nameRecipient: z.string().min(1, "validation.nameRecipientRequired"),
   positionRecipient: z.string().min(1, "validation.positionRecipientRequired"),
 });
 
