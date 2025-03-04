@@ -48,6 +48,8 @@ const letterDataSchema = z.object({
     text: z.string(),
     title: z.string(),
     template: z.string(),
+    nameRecipient: z.string(),
+    positionRecipient: z.string(),
     publicId: z.string().optional(),
   }),
 });

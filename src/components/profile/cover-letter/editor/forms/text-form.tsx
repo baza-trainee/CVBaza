@@ -28,6 +28,7 @@ export const TextForm = ({ letterData, setLetterData }: EditorFormProps) => {
         "profession",
         "position",
         "company",
+        "nameRecipient",
       ] as const;
       const missingFields = requiredFields.filter(
         (field) => !letterData[field]

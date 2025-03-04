@@ -95,7 +95,19 @@ export const useLetterData = (letterId?: string) => {
       setIsSavingToDb(true);
       validateRequiredFields(letterData);
 
-      const dataToSend = { ...letterData };
+      // Ensure all required fields are included
+      const dataToSend = {
+        ...letterData,
+        name: letterData.name || "",
+        profession: letterData.profession || "",
+        position: letterData.position || "",
+        company: letterData.company || "",
+        text: letterData.text || "",
+        title: letterData.title || "",
+        template: letterData.template || "short",
+        nameRecipient: letterData.nameRecipient || "",
+        positionRecipient: letterData.positionRecipient || "",
+      };
 
       const url = letterId ? `/api/letters/${letterId}` : "/api/letters";
       const method = letterId ? "PUT" : "POST";
@@ -127,7 +139,7 @@ export const useLetterData = (letterId?: string) => {
     } finally {
       setIsSavingToDb(false);
     }
-  }, [letterData, router, updateCloudinaryData]);
+  }, [letterData, router, updateCloudinaryData, letterId]);
 
   return {
     letterData,

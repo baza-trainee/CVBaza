@@ -1,4 +1,14 @@
 {
+  "actions": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "downloadPdf": "Download PDF",
+    "duplicate": "Duplicate",
+    "create": "Create",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "lastUpdated": "Last updated",
   "HomePage": {
     "title": "Hello world!",
     "coverLetter": {
@@ -436,7 +446,7 @@
       "position": "Senior Software Engineer",
       "company": "Company XYZ",
       "text": "Write a text of your cover letter",
-      "nameRecipient": "Stuart Little",
+      "nameRecipient": "John Snow",
       "positionRecipient": "IT recruiter",
       "description": "Describe your motivation, strengths, and how you match the job requirements"
     },

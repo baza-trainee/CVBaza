@@ -33,7 +33,16 @@ export const WorkInfoForm = ({
 
   useEffect(() => {
     const { unsubscribe } = form.watch((values) => {
-      setLetterData({ ...letterData, ...values });
+      // Only update fields that have changed and are not empty
+      const updatedValues = Object.entries(values).reduce<
+        Record<string, string>
+      >((acc, [key, value]) => {
+        if (value !== undefined && value !== "") {
+          acc[key] = value;
+        }
+        return acc;
+      }, {});
+      setLetterData({ ...letterData, ...updatedValues });
     });
     return unsubscribe;
   }, [form, letterData, setLetterData]);
