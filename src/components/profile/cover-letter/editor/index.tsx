@@ -3,16 +3,17 @@
 import { useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 import { useLetterData } from "@/components/profile/cover-letter/hooks/use-letter-data";
-import { Breadcrumbs } from "@/components/profile/resume/editor/breadcrumbs";
-import { EditorFooter } from "@/components/profile/resume/editor/editor-footer";
-import { MobilePreview } from "@/components/profile/resume/mobile-preview";
-import { PreviewSection } from "@/components/profile/resume/preview";
+import { Breadcrumbs } from "@/components/profile/shared/editor/breadcrumbs";
+import { EditorFooter } from "@/components/profile/shared/editor/editor-footer";
+import { MobilePreview } from "@/components/profile/shared/preview/mobile-preview";
+import { PreviewSection } from "@/components/profile/shared/preview/preview";
 import { lettersTemplates } from "@/constants";
 import { steps } from "./steps";
 
 export const LetterEditor = () => {
   const searchParams = useSearchParams();
   const currentStep = searchParams.get("step") || steps[0].key;
+  const letterId = searchParams.get("id");
   const [showMobileLetterPreview, setShowMobileLetterPreview] = useState(false);
   const {
     letterData,
@@ -21,7 +22,7 @@ export const LetterEditor = () => {
     isInitialized,
     isSaving,
     isSavingToDb,
-  } = useLetterData();
+  } = useLetterData(letterId || undefined);
 
   console.log(letterData);
 

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from "react";
 import { useReactToPrint } from "react-to-print";
-import { PreviewSection } from "@/components/profile/resume/preview";
+import { PreviewSection } from "@/components/profile/shared/preview/preview";
 import { ILetter } from "@/types/letter";
 
 interface PrintPreviewProps {

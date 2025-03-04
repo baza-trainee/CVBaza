@@ -92,6 +92,7 @@
       "downloadPdf": "Завантажити PDF",
       "duplicate": "Дублювати",
       "delete": "Видалити",
+      "edit": "Редагувати",
       "cancel": "Скасувати",
       "save": "Зберегти"
     },
@@ -187,7 +188,9 @@
       "education": "Освіта",
       "skills": "Навички",
       "languageName": "Мова",
-      "languageLevel": "Рівень"
+      "languageLevel": "Рівень",
+      "degree": "Ступінь",
+      "institution": "Навчальний заклад"
     },
     "placeholders": {
       "name": "Джон Доу",
@@ -207,7 +210,9 @@
       "startDate": "Січень 2020",
       "endDate": "Теперішній час",
       "skills": "напр. React.js, Node.js, графічний дизайн, ...",
-      "languageLevel": "Оберіть рівень володіння"
+      "languageLevel": "Оберіть рівень володіння",
+      "degree": "Бакалавр комп'ютерних наук",
+      "institution": "Київський національний університет"
     },
     "workExperience": {
       "endDateDescription": "Залиште дату закінчення порожньою, якщо ви зараз тут працюєте",

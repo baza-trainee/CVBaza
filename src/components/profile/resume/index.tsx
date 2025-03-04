@@ -2,8 +2,8 @@
 
 import { ForwardedRef, forwardRef, useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
-import { PreviewSection } from "@/components/profile/resume/preview";
-import { DocumentInfo } from "@/components/shared/document-info";
+import { DocumentInfo } from "@/components/profile/shared/document-info";
+import { PreviewSection } from "@/components/profile/shared/preview/preview";
 import { Icon } from "@/components/shared/icon";
 import { Loader } from "@/components/shared/loader";
 import { Link } from "@/i18n/routing";

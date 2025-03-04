@@ -9,6 +9,7 @@ interface DocumentInfoProps {
   onTitleChange: (newTitle: string) => void;
   onDeleteClick: () => void;
   reactToPrintFn: () => void;
+  onEditClick?: () => void;
   className?: string;
 }
 
@@ -18,6 +19,7 @@ export const DocumentInfo = ({
   onDuplicate,
   onTitleChange,
   onDeleteClick,
+  onEditClick,
   reactToPrintFn,
   className = "",
 }: DocumentInfoProps) => {
@@ -132,6 +134,21 @@ export const DocumentInfo = ({
               <Icon name="icon-pencil" size="w-6 h-6" />
               <p className="text-sm">{t("actions.duplicate")}</p>
             </button>
+
+            {onEditClick && (
+              <button
+                type="button"
+                className="flex w-full items-center gap-3 rounded-md p-2 transition-colors hover:bg-gray-50 focus:outline-none"
+                onClick={() => {
+                  onEditClick();
+                  setIsPopupOpen(false);
+                }}
+              >
+                <Icon name="icon-edit" size="w-6 h-6" />
+                <p className="text-sm">{t("actions.edit")}</p>
+              </button>
+            )}
+
             <div className="mt-2 w-full border-t border-gray-200 pt-2">
               <button
                 type="button"

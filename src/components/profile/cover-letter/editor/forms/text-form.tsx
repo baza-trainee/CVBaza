@@ -22,21 +22,43 @@ export const TextForm = ({ letterData, setLetterData }: EditorFormProps) => {
     try {
       setIsGenerating(true);
 
-      if (!letterData.name || !letterData.profession) {
-        throw new Error(t("validation.required"));
+      // Validate required fields
+      const requiredFields = [
+        "name",
+        "profession",
+        "position",
+        "company",
+      ] as const;
+      const missingFields = requiredFields.filter(
+        (field) => !letterData[field]
+      );
+
+      if (missingFields.length > 0) {
+        throw new Error(
+          `${t("validation.required")}: ${missingFields
+            .map((field) => t(`fields.${field}`))
+            .join(", ")}`
+        );
       }
 
+      // We've already validated these fields exist
       const formattedData = {
         fullName: letterData.name,
         profession: letterData.profession,
         position: letterData.position,
         company: letterData.company,
-        nameRecipient: letterData.nameRecipient,
+        nameRecipient: letterData.nameRecipient || "",
+        positionRecipient: letterData.positionRecipient || "",
         skills: resumeData?.skills || [],
         workExperience: resumeData?.workExperiences || [],
       };
 
       const text = await generateTextGemini(formattedData, locale);
+
+      if (!text) {
+        throw new Error(t("text.emptyResponse"));
+      }
+
       setLetterData({ ...letterData, text });
 
       toast.success(t("text.successMessage"), {
@@ -44,9 +66,16 @@ export const TextForm = ({ letterData, setLetterData }: EditorFormProps) => {
       });
     } catch (error) {
       console.error("Error generating the text:", error);
-      toast.error(t("text.errorMessage"), {
-        description: error instanceof Error ? error.message : t("text.error"),
-      });
+
+      if (error instanceof Error && error.message.includes("API key")) {
+        toast.error(t("text.apiKeyError"), {
+          description: t("text.contactAdmin"),
+        });
+      } else {
+        toast.error(t("text.errorMessage"), {
+          description: error instanceof Error ? error.message : t("text.error"),
+        });
+      }
     } finally {
       setIsGenerating(false);
     }
@@ -84,15 +113,13 @@ export const TextForm = ({ letterData, setLetterData }: EditorFormProps) => {
 
       <Textarea
         value={letterData.text || ""}
-        // onChange={(e) => setLetterData({ ...letterData, text: e.target.value })}
         onChange={handleTextChange}
         placeholder={t("placeholders.description")}
         className="min-h-[200px]"
+        disabled={isGenerating}
       />
-      <div className="mt-2 text-sm text-muted-foreground">
-        {t("steps.text.counterStart")}
-        {remainingCharacters}&nbsp;
-        {t("steps.text.counterFinish")}
+      <div className="text-sm text-muted-foreground">
+        {remainingCharacters} {t("steps.text.counterFinish")}
       </div>
     </div>
   );
