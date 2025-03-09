@@ -12,6 +12,7 @@ import { templates } from "@/constants";
 
 export const ResumeEditor = () => {
   const searchParams = useSearchParams();
+  const resumeId = searchParams.get("id");
   const currentStep = searchParams.get("step") || steps[0].key;
   const [showMobileResumePreview, setShowMobileResumePreview] = useState(false);
   const {
@@ -21,7 +22,7 @@ export const ResumeEditor = () => {
     isInitialized,
     isSaving,
     isSavingToDb,
-  } = useResumeData();
+  } = useResumeData(resumeId || undefined);
 
   const setStep = useCallback(
     (key: string) => {
