@@ -37,7 +37,7 @@ const validateRequiredFields = (data: ResumeData): void => {
 };
 
 // Custom hook for managing resume data with localStorage
-export const useResumeData = () => {
+export const useResumeData = (resumeId?: string) => {
   const [isClient, setIsClient] = useState(false);
   const [resumeData, setResumeData] = useState<ResumeData>(initialData);
   const [isSaving, setIsSaving] = useState(false);
@@ -47,11 +47,34 @@ export const useResumeData = () => {
   // Initialize client-side data
   useEffect(() => {
     setIsClient(true);
-    const savedData = localStorage.getItem(STORAGE_KEY);
-    if (savedData) {
-      setResumeData(JSON.parse(savedData));
+    if (resumeId) {
+      // If we have a resume ID, fetch that resume's data
+      const fetchResume = async () => {
+        try {
+          const response = await fetch(`/api/resumes/${resumeId}`);
+          if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || "Failed to fetch resume");
+          }
+          const resume = await response.json();
+          // The resume data is directly in the response, not in a data property
+
+          console.log("str 62 resume-data-> resume", resume);
+          setResumeData(resume);
+        } catch (error) {
+          console.error("Error fetching resume:", error);
+          toast.error("Failed to load resume data");
+        }
+      };
+      fetchResume();
+    } else {
+      // Otherwise load from localStorage
+      const savedData = localStorage.getItem(STORAGE_KEY);
+      if (savedData) {
+        setResumeData(JSON.parse(savedData));
+      }
     }
-  }, []);
+  }, [resumeId]);
 
   // Save data to localStorage with debounce
   const updateResumeData = useCallback(
@@ -90,8 +113,11 @@ export const useResumeData = () => {
         dataToSend.photo = await convertPhotoToBase64(resumeData.photo);
       }
 
-      const response = await fetch("/api/resumes", {
-        method: "POST",
+      const url = resumeId ? `/api/resumes/${resumeId}` : "/api/resumes";
+      const method = resumeId ? "PUT" : "POST";
+
+      const response = await fetch(url, {
+        method,
         headers: {
           "Content-Type": "application/json",
         },
@@ -117,7 +143,7 @@ export const useResumeData = () => {
     } finally {
       setIsSavingToDb(false);
     }
-  }, [resumeData, router, updateCloudinaryData]);
+  }, [resumeData, router, updateCloudinaryData, resumeId]);
 
   return {
     resumeData,

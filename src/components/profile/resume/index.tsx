@@ -6,7 +6,7 @@ import { DocumentInfo } from "@/components/profile/shared/document-info";
 import { PreviewSection } from "@/components/profile/shared/preview/preview";
 import { Icon } from "@/components/shared/icon";
 import { Loader } from "@/components/shared/loader";
-import { Link } from "@/i18n/routing";
+import { Link, useRouter } from "@/i18n/routing";
 import { IResume } from "@/types/resume";
 import { formatDate } from "@/utils/date-utils";
 import { useResumeLogic } from "../hooks/use-resume-logic";
@@ -31,6 +31,7 @@ const PrintPreview = forwardRef(
 PrintPreview.displayName = "PrintPreview";
 
 export const ResumePage = () => {
+  const router = useRouter();
   const {
     t,
     locale,
@@ -142,6 +143,9 @@ export const ResumePage = () => {
                       const resumeData =
                         "data" in resume ? resume.data : resume;
                       setCurrentPrintResume(resumeData);
+                    }}
+                    onEditClick={() => {
+                      router.push(`/profile/resume/editor?id=${resume.id}`);
                     }}
                   />
                 </div>
