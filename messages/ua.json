@@ -144,7 +144,8 @@
       "endDateRequired": "Дата закінчення обов'язкова",
       "descriptionRequired": "Опис обов'язковий",
       "languageNameRequired": "Назва мови обов'язкова",
-      "languageLevelRequired": "Рівень володіння обов'язковий"
+      "languageLevelRequired": "Рівень володіння обов'язковий",
+      "yearsRequired": "Роки досвіду обов'язкові"
     },
     "steps": {
       "generalInfo": {
@@ -174,6 +175,10 @@
       "summary": {
         "title": "Резюме",
         "description": "Напишіть коротке професійне резюме"
+      },
+      "interview": {
+        "title": "Налаштування співбесіди",
+        "description": "Налаштуйте параметри вашої співбесіди"
       }
     },
     "labels": {
@@ -200,7 +205,9 @@
       "languageName": "Мова",
       "languageLevel": "Рівень",
       "degree": "Ступінь",
-      "institution": "Навчальний заклад"
+      "institution": "Навчальний заклад",
+      "techStack": "Технічний стек",
+      "yearsOfExperience": "Роки досвіду"
     },
     "placeholders": {
       "name": "Джон Доу",
@@ -222,7 +229,9 @@
       "skills": "напр. React.js, Node.js, графічний дизайн, ...",
       "languageLevel": "Оберіть рівень володіння",
       "degree": "Бакалавр комп'ютерних наук",
-      "institution": "Київський національний університет"
+      "institution": "Київський національний університет",
+      "techStack": "напр. React, TypeScript, Node.js",
+      "yearsOfExperience": "напр. 3"
     },
     "workExperience": {
       "endDateDescription": "Залиште дату закінчення порожньою, якщо ви зараз тут працюєте",
@@ -276,7 +285,12 @@
       "saveResume": "Зберегти резюме"
     },
     "descriptions": {
-      "skills": "Розділіть кожну навичку комою."
+      "skills": "Розділіть кожну навичку комою.",
+      "techStack": "Розділіть технології комами"
+    },
+    "buttons": {
+      "cancel": "Скасувати",
+      "startInterview": "Почати співбесіду"
     }
   },
   "Header": {

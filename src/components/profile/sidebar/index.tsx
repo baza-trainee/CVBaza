@@ -72,6 +72,17 @@ export function Sidebar({ lng }: { lng: string }) {
               </span>
             </Link>
           </li>
+          <li>
+            <Link
+              href="/profile/interviewer"
+              className={cn(linkClassName(isJobsPage), "px-2")}
+            >
+              <Icon name="icon-interview-trainer" size="w-6 h-6" />
+              <span className="hidden whitespace-nowrap md:inline-block">
+                {lng === "en" ? "Interview Trainer" : "Тренер інтерв'ю"}
+              </span>
+            </Link>
+          </li>
         </ul>
       </nav>
     </aside>

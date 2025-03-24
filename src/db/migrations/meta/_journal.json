@@ -15,6 +15,13 @@
       "when": 1738692939727,
       "tag": "0001_cooing_havok",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1742821208547,
+      "tag": "0002_romantic_virginia_dare",
+      "breakpoints": true
     }
   ]
 }
