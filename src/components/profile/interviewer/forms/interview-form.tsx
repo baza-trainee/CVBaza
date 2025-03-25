@@ -93,14 +93,25 @@ export const InterviewForm = ({
                   <Textarea
                     placeholder={t("placeholders.techStack")}
                     className="min-h-[100px]"
-                    value={field.value?.join(", ") || ""}
+                    value={
+                      typeof field.value === "string"
+                        ? field.value
+                        : field.value?.join(", ") || ""
+                    }
                     onChange={(e) => {
-                      const techStack = e.target.value.split(",");
-                      field.onChange(
-                        techStack
-                          .map((item) => item.trim())
-                          .filter((item) => item !== "")
-                      );
+                      // Store the raw text input instead of processing it immediately
+                      field.onChange(e.target.value);
+                    }}
+                    onBlur={(e) => {
+                      // Process the input when the field loses focus
+                      if (typeof e.target.value === "string") {
+                        const techStack = e.target.value.split(",");
+                        field.onChange(
+                          techStack
+                            .map((item) => item.trim())
+                            .filter((item) => item !== "")
+                        );
+                      }
                     }}
                   />
                 </FormControl>
@@ -121,6 +132,7 @@ export const InterviewForm = ({
                     {...field}
                     type="number"
                     min="0"
+                    step="0.1"
                     placeholder={t("placeholders.yearsOfExperience")}
                   />
                 </FormControl>
@@ -133,7 +145,9 @@ export const InterviewForm = ({
             <Button type="button" variant="outline" onClick={onCancel}>
               {t("buttons.cancel")}
             </Button>
-            <Button type="submit">{t("buttons.startInterview")}</Button>
+            <Button type="submit" className="hover:bg-blue-50">
+              {t("buttons.startInterview")}
+            </Button>
           </div>
         </form>
       </Form>

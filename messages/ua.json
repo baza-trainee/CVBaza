@@ -402,6 +402,26 @@
       "saveTitleFailed": "Не вдалося оновити назву супровідного листа"
     }
   },
+  "Interviewer": {
+    "title": "ШІ Генератор Інтерв'ю",
+    "createButton": "Створити нове інтерв'ю",
+    "regenerateButton": "Перегенерувати",
+    "expandButton": "Розгорнути",
+    "collapseButton": "Згорнути",
+    "deleteButton": "Видалити",
+    "cancelButton": "Скасувати",
+    "deleteConfirmTitle": "Видалити інтерв'ю",
+    "deleteConfirmDescription": "Ви впевнені, що хочете видалити це інтерв'ю? Цю дію неможливо скасувати.",
+    "deletingMessage": "Видалення...",
+    "expandMessage": "Натисніть \"Розгорнути\", щоб переглянути питання та відповіді.",
+    "failedMessage": "Не вдалося згенерувати питання. Будь ласка, спробуйте ще раз.",
+    "generatingMessage": "Генерація питань для інтерв'ю...",
+    "loadingMessage": "Завантаження інтерв'ю...",
+    "noInterviewsMessage": "Ще не створено жодного інтерв'ю.",
+    "getStartedMessage": "Натисніть кнопку \"Створити нове інтерв'ю\", щоб почати.",
+    "rawResponseLabel": "Сира відповідь ШІ:",
+    "yearsExp": "років досвіду"
+  },
   "FormLetter": {
     "validation": {
       "required": "Це поле обов'язкове",

@@ -394,6 +394,26 @@
       "saveTitleFailed": "Failed to update letter title"
     }
   },
+  "Interviewer": {
+    "title": "AI Interview Generator",
+    "createButton": "Create New Interview",
+    "regenerateButton": "Regenerate",
+    "expandButton": "Expand",
+    "collapseButton": "Collapse",
+    "deleteButton": "Delete",
+    "cancelButton": "Cancel",
+    "deleteConfirmTitle": "Delete Interview",
+    "deleteConfirmDescription": "Are you sure you want to delete this interview? This action cannot be undone.",
+    "deletingMessage": "Deleting...",
+    "expandMessage": "Click \"Expand\" to view questions and answers.",
+    "failedMessage": "Failed to generate questions. Please try again.",
+    "generatingMessage": "Generating interview questions...",
+    "loadingMessage": "Loading interviews...",
+    "noInterviewsMessage": "No interviews created yet.",
+    "getStartedMessage": "Click the \"Create New Interview\" button to get started.",
+    "rawResponseLabel": "Raw AI Response:",
+    "yearsExp": "years exp."
+  },
   "FormLetter": {
     "validation": {
       "required": "This field is required",
