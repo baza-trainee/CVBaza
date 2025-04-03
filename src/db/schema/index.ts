@@ -1,5 +1,6 @@
 export { accounts } from "./accounts";
 export { educations } from "./educations";
+export { interviews } from "./interviews";
 export { letters } from "./letters";
 export {
   passwordResetTokens,

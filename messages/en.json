@@ -137,13 +137,15 @@
       "endDateRequired": "End date is required",
       "descriptionRequired": "Description is required",
       "languageNameRequired": "Language name is required",
-      "languageLevelRequired": "Language level is required"
+      "languageLevelRequired": "Language level is required",
+      "yearsRequired": "Years of experience is required"
     },
     "descriptions": {
       "skills": "Separate each skill with a comma",
       "workExperience": "List your work experience in chronological order",
       "education": "List your educational background in chronological order",
-      "languages": "Add languages you know and your proficiency level"
+      "languages": "Add languages you know and your proficiency level",
+      "techStack": "Separate technologies with commas"
     },
     "navigation": {
       "previousStep": "Previous Step",
@@ -181,6 +183,10 @@
       "summary": {
         "title": "Summary",
         "description": "Write a brief professional summary"
+      },
+      "interview": {
+        "title": "Interview Setup",
+        "description": "Set up your interview parameters"
       }
     },
     "labels": {
@@ -207,7 +213,9 @@
       "languageName": "Language",
       "languageLevel": "Level",
       "degree": "Degree",
-      "institution": "Institution"
+      "institution": "Institution",
+      "techStack": "Tech Stack",
+      "yearsOfExperience": "Years of Experience"
     },
     "placeholders": {
       "name": "John Doe",
@@ -230,7 +238,9 @@
       "languageLevel": "Select proficiency level",
       "degree": "Bachelor's degree",
       "institution": "University of New York",
-      "summary": "Write a brief summary of your professional background and goals"
+      "summary": "Write a brief summary of your professional background and goals",
+      "techStack": "e.g. React, TypeScript, Node.js",
+      "yearsOfExperience": "e.g. 3"
     },
     "workExperience": {
       "endDateDescription": "Leave end date empty if you are currently working here",
@@ -260,6 +270,10 @@
       "successMessage": "Summary generated successfully!",
       "error": "Error",
       "errorMessage": "Failed to generate summary. Please try again."
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "startInterview": "Start Interview"
     }
   },
   "Header": {
@@ -378,6 +392,56 @@
       "loadFailed": "Failed to load resumes",
       "deleteFailed": "Failed to delete letter",
       "saveTitleFailed": "Failed to update letter title"
+    }
+  },
+  "Interviewer": {
+    "title": "AI Interview Generator",
+    "createButton": "Create New Interview",
+    "regenerateButton": "Regenerate",
+    "expandButton": "Expand",
+    "collapseButton": "Collapse",
+    "deleteButton": "Delete",
+    "cancelButton": "Cancel",
+    "deleteConfirmTitle": "Delete Interview",
+    "deleteConfirmDescription": "Are you sure you want to delete this interview? This action cannot be undone.",
+    "deletingMessage": "Deleting...",
+    "expandMessage": "Click \"Expand\" to view questions and answers.",
+    "failedMessage": "Failed to generate questions. Please try again.",
+    "generatingMessage": "Generating interview questions...",
+    "generatingQuestionsMessage": "Generating interview questions...",
+    "loadingMessage": "Loading interviews...",
+    "noInterviewsMessage": "No interviews created yet.",
+    "getStartedMessage": "Click the \"Create New Interview\" button to get started.",
+    "rawResponseLabel": "Raw AI Response:",
+    "yearsExp": "years exp.",
+    "liveInterview": {
+      "title": "Live Interview Session",
+      "position": "Position",
+      "experience": "Experience",
+      "techStack": "Tech Stack",
+      "interviewDetails": "Interview Details",
+      "enableWebcam": "Enable Webcam",
+      "enableCamera": "Enable Camera",
+      "disableCamera": "Disable Camera",
+      "startRecording": "Start Recording",
+      "stopRecording": "Stop Recording",
+      "micDisabled": "Enable camera to use microphone",
+      "cameraDisabled": "Camera is currently disabled",
+      "interviewChat": "Interview Chat",
+      "responsePrompt": "Type your response here...",
+      "interviewTip": "Tip: Speak clearly and maintain eye contact with the camera",
+      "endInterviewButton": "End Interview",
+      "previousQuestion": "Previous Question",
+      "nextQuestion": "Next Question",
+      "currentQuestion": "Current Question",
+      "clearAnswer": "Clear Answer",
+      "checkAnswer": "Check Answer",
+      "generatingFeedback": "Generating feedback...",
+      "feedbackReceived": "Feedback received",
+      "errorTitle": "Error",
+      "notFoundTitle": "Interview Not Found",
+      "notFoundDescription": "The requested interview could not be found.",
+      "returnButton": "Return to Interviews"
     }
   },
   "FormLetter": {
