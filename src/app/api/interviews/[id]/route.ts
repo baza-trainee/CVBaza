@@ -27,10 +27,7 @@ export async function DELETE(
       .select()
       .from(interviews)
       .where(
-        and(
-          eq(interviews.mockId, id),
-          eq(interviews.createdBy, session.user.id)
-        )
+        and(eq(interviews.id, id), eq(interviews.createdBy, session.user.id))
       )
       .then((res) => res[0]);
 
@@ -48,10 +45,7 @@ export async function DELETE(
     await db
       .delete(interviews)
       .where(
-        and(
-          eq(interviews.mockId, id),
-          eq(interviews.createdBy, session.user.id)
-        )
+        and(eq(interviews.id, id), eq(interviews.createdBy, session.user.id))
       );
 
     return NextResponse.json({ message: "Interview deleted successfully" });
@@ -80,10 +74,7 @@ export async function GET(
       .select()
       .from(interviews)
       .where(
-        and(
-          eq(interviews.mockId, id),
-          eq(interviews.createdBy, session.user.id)
-        )
+        and(eq(interviews.id, id), eq(interviews.createdBy, session.user.id))
       )
       .then((res) => res[0]);
 
@@ -125,10 +116,7 @@ export async function PATCH(
       .select()
       .from(interviews)
       .where(
-        and(
-          eq(interviews.mockId, id),
-          eq(interviews.createdBy, session.user.id)
-        )
+        and(eq(interviews.id, id), eq(interviews.createdBy, session.user.id))
       )
       .then((res) => res[0]);
 
@@ -144,10 +132,7 @@ export async function PATCH(
       .update(interviews)
       .set({ jobPosition: validatedData.jobPosition })
       .where(
-        and(
-          eq(interviews.mockId, id),
-          eq(interviews.createdBy, session.user.id)
-        )
+        and(eq(interviews.id, id), eq(interviews.createdBy, session.user.id))
       )
       .returning();
 

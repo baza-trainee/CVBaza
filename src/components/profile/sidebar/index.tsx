@@ -74,7 +74,7 @@ export function Sidebar({ lng }: { lng: string }) {
           </li>
           <li>
             <Link
-              href="/profile/interviewer"
+              href="/profile/interview"
               className={cn(linkClassName(isJobsPage), "px-2")}
             >
               <Icon name="icon-interview-trainer" size="w-6 h-6" />

@@ -1,7 +1,7 @@
 "use server";
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { InterviewFormValues } from "@/components/profile/interviewer/forms/schema";
+import { InterviewFormValues } from "@/components/profile/interview/forms/schema";
 
 // Make sure to add GEMINI_API_KEY to your .env file
 const apiKey = process.env.GEMINI_API_KEY;
@@ -53,7 +53,7 @@ export async function generateInterview(
 
 Роки досвіду: ${yearsOfExperience}
 
-На основі цієї інформації, згенеруйте 7 питань для співбесіди з прикладами відповідей у форматі JSON українською мовою. Кожне питання має бути релевантним до посади, технічного стеку та рівня досвіду. Поверніть тільки валідний JSON масив з полями Question та Answer для кожного елемента.`;
+На основі цієї інформації, згенеруйте 5 питань для співбесіди з прикладами відповідей у форматі JSON українською мовою. Кожне питання має бути релевантним до посади, технічного стеку та рівня досвіду. Поверніть тільки валідний JSON масив з полями Question та Answer для кожного елемента.`;
     } else {
       prompt = `Job Position: ${position}
 
@@ -63,7 +63,7 @@ Tech Stack: ${techStack.join(", ")}
 
 Years of Experience: ${yearsOfExperience}
 
-Based on this information, generate 7 interview questions with sample answers in JSON format. Each question should be relevant to the position, tech stack, and experience level. Return only a valid JSON array with Question and Answer fields for each item.`;
+Based on this information, generate 5 interview questions with sample answers in JSON format. Each question should be relevant to the position, tech stack, and experience level. Return only a valid JSON array with Question and Answer fields for each item.`;
     }
 
     // Start chat session

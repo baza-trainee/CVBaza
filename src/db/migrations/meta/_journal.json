@@ -5,36 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1737625124526,
-      "tag": "0000_curved_absorbing_man",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1738692939727,
-      "tag": "0001_cooing_havok",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1742821208547,
-      "tag": "0002_romantic_virginia_dare",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1742895130832,
-      "tag": "0003_familiar_dazzler",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1742895183147,
-      "tag": "0004_groovy_grandmaster",
+      "when": 1742983737959,
+      "tag": "0000_amusing_rogue",
       "breakpoints": true
     }
   ]

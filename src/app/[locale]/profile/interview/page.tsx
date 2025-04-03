@@ -1,4 +1,4 @@
-import { Interviewer } from "@/components/profile/interviewer";
+import { Interviewer } from "@/components/profile/interview";
 
 const InterviewerPage = () => {
   return <Interviewer />;

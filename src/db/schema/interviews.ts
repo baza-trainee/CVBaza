@@ -1,12 +1,11 @@
-import { jsonb, pgTable, serial, text } from "drizzle-orm/pg-core";
+import { jsonb, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
 export const interviews = pgTable("interviews", {
-  id: serial("id").primaryKey(),
+  id: uuid("id").primaryKey().defaultRandom(),
   jobPosition: text("jobPosition").notNull(),
   jobDescription: text("jobDescription").notNull(),
   jobExperience: text("jobExperience").notNull(),
   techStack: jsonb("skills").$type<string[]>().default([]),
   createdBy: text("createdBy").notNull(),
-  createdAt: text("createdAt"),
-  mockId: text("mockId").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
 });

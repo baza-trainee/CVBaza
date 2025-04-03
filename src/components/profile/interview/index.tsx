@@ -29,12 +29,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useAlert } from "@/contexts/alert-context";
+import { Link } from "@/i18n/routing";
 import { InterviewForm } from "./forms/interview-form";
 import { InterviewFormValues } from "./forms/schema";
 
 interface InterviewData extends InterviewFormValues {
   questions?: InterviewQuestion[];
-  mockId?: string;
+  id?: string;
 }
 
 export const Interviewer = () => {
@@ -74,14 +75,14 @@ export const Interviewer = () => {
               jobDescription: string;
               jobExperience: number;
               techStack: string[];
-              mockId: string;
+              id: string;
             }) => {
               const formattedInterview = {
                 position: interview.jobPosition,
                 description: interview.jobDescription,
                 yearsOfExperience: interview.jobExperience,
                 techStack: interview.techStack,
-                mockId: interview.mockId,
+                id: interview.id,
                 // We don't have the questions here since we're not storing them
               };
               console.log("Formatted interview:", formattedInterview);
@@ -156,15 +157,15 @@ export const Interviewer = () => {
 
       if (response.ok) {
         const savedInterview = await response.json();
-        console.log("Saved interview with mockId:", savedInterview.mockId);
+        console.log("Saved interview with id:", savedInterview.id);
 
-        // Update the interview in the state with the mockId from the server
+        // Update the interview in the state with the id from the server
         setInterviewData((prevData) => {
           const updatedData = [...prevData];
           if (updatedData[newIndex]) {
             updatedData[newIndex] = {
               ...updatedData[newIndex],
-              mockId: savedInterview.mockId,
+              id: savedInterview.id,
             };
           }
           return updatedData;
@@ -190,14 +191,14 @@ export const Interviewer = () => {
     setExpandedInterview((current) => (current === index ? null : index));
   };
 
-  const deleteInterview = async (mockId: string, index: number) => {
-    if (!mockId) return;
+  const deleteInterview = async (id: string, index: number) => {
+    if (!id) return;
 
     try {
       setIsDeleting(true);
       setCurrentInterviewIndex(index);
 
-      const response = await fetch(`/api/interviews/${mockId}`, {
+      const response = await fetch(`/api/interviews/${id}`, {
         method: "DELETE",
       });
 
@@ -223,8 +224,8 @@ export const Interviewer = () => {
     }
   };
 
-  const handleDelete = (mockId: string, index: number) => {
-    if (!mockId) return;
+  const handleDelete = (id: string, index: number) => {
+    if (!id) return;
 
     showAlert({
       title: t("deleteConfirmTitle") || "Delete Interview",
@@ -236,7 +237,7 @@ export const Interviewer = () => {
       loadingText: t("deletingMessage") || "Deleting...",
       isLoading: isDeleting,
       variant: "destructive",
-      onConfirm: () => deleteInterview(mockId, index),
+      onConfirm: () => deleteInterview(id, index),
     });
   };
 
@@ -321,16 +322,26 @@ export const Interviewer = () => {
                     <Button
                       variant="outline"
                       size="sm"
+                      disabled={isGenerating || isDeleting}
+                      className="flex items-center gap-1"
+                    >
+                      <Link href={`/profile/interview/${interview.id}`}>
+                        Go Live
+                      </Link>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
                       onClick={() => {
                         console.log("Delete clicked for interview:", interview);
-                        if (interview.mockId) {
+                        if (interview.id) {
                           console.log(
-                            "Deleting interview with mockId:",
-                            interview.mockId
+                            "Deleting interview with id:",
+                            interview.id
                           );
-                          handleDelete(interview.mockId, index);
+                          handleDelete(interview.id, index);
                         } else {
-                          console.error("Cannot delete: mockId is missing");
+                          console.error("Cannot delete: id is missing");
                         }
                       }}
                       disabled={isDeleting || isGenerating}
