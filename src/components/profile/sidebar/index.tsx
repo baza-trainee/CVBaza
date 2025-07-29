@@ -13,6 +13,7 @@ export function Sidebar({ lng }: { lng: string }) {
   const isResumePage = pathname.split("/").includes("resume");
   const isCoverLetterPage = pathname.split("/").includes("cover-letter");
   const isJobsPage = pathname.split("/").includes("jobs");
+  const isAnalyzePage = pathname.split("/").includes("cv-analyze");
 
   const linkClassName = (isPath: boolean) => {
     return cn(
@@ -80,6 +81,17 @@ export function Sidebar({ lng }: { lng: string }) {
               <Icon name="icon-interview-trainer" size="w-6 h-6" />
               <span className="hidden whitespace-nowrap md:inline-block">
                 {lng === "en" ? "Interview Trainer" : "Тренер інтерв'ю"}
+              </span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/profile/cv-analyze"
+              className={cn(linkClassName(isAnalyzePage), "px-2")}
+            >
+              <Icon name="icon-analysis" size="w-6 h-6" />
+              <span className="hidden whitespace-nowrap md:inline-block">
+                {lng === "en" ? "CV Analyzer" : "Аналізатор резюме"}
               </span>
             </Link>
           </li>

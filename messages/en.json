@@ -522,5 +522,44 @@
       "error": "Error",
       "errorMessage": "Failed to generate text. Please try again."
     }
+  },
+  "cvAnalyzer": {
+    "title": "CV Analyzer",
+    "description": "Upload your CV and get AI-powered feedback to improve your chances of landing your dream job.",
+    "form": {
+      "companyName": "Company Name",
+      "companyPlaceholder": "Enter company name (optional)",
+      "jobTitle": "Job Title",
+      "jobTitlePlaceholder": "Enter the job title you're applying for",
+      "jobDescription": "Job Description",
+      "jobDescriptionPlaceholder": "Paste the job description here for more targeted feedback",
+      "uploadCV": "Upload Your CV",
+      "analyzeButton": "Analyze CV"
+    },
+    "status": {
+      "extractingText": "Extracting text from PDF...",
+      "analyzing": "Analyzing your CV with AI...",
+      "complete": "Analysis complete!",
+      "pleaseWait": "This may take a few moments, please wait."
+    },
+    "results": {
+      "title": "Analysis Results",
+      "analyzeAnother": "Analyze Another CV",
+      "overallScore": "Overall Score",
+      "sections": {
+        "ats": "ATS Compatibility",
+        "content": "Content Quality",
+        "structure": "Structure & Format",
+        "skills": "Skills & Keywords",
+        "toneAndStyle": "Tone & Style"
+      }
+    },
+    "errors": {
+      "missingFields": "Please fill in the job title and upload your CV.",
+      "analysisFailed": "Failed to analyze CV. Please try again."
+    },
+    "success": {
+      "analysisComplete": "CV analysis completed successfully!"
+    }
   }
 }
