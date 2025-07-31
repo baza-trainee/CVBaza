@@ -17,7 +17,7 @@ export const ProfileInfo = ({ name }: { name: string }) => {
   const t = useTranslations("Header.profileInfo");
 
   const createAvatar = (name: string) => {
-    if (!name) return "AA";
+    if (!name) return "??";
     const names = name.split(" ");
     if (names.length > 1) {
       return `${names[0][0].toLocaleUpperCase()}${names[1][0].toLocaleUpperCase()}`;

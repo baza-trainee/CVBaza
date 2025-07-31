@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Icon } from "@/components/shared/icon";
@@ -14,6 +15,7 @@ export function Sidebar({ lng }: { lng: string }) {
   const isCoverLetterPage = pathname.split("/").includes("cover-letter");
   const isJobsPage = pathname.split("/").includes("jobs");
   const isAnalyzePage = pathname.split("/").includes("cv-analyze");
+  const isInterviewPage = pathname.split("/").includes("interview");
 
   const linkClassName = (isPath: boolean) => {
     return cn(
@@ -76,7 +78,7 @@ export function Sidebar({ lng }: { lng: string }) {
           <li>
             <Link
               href="/profile/interview"
-              className={cn(linkClassName(isJobsPage), "px-2")}
+              className={cn(linkClassName(isInterviewPage), "px-2")}
             >
               <Icon name="icon-interview-trainer" size="w-6 h-6" />
               <span className="hidden whitespace-nowrap md:inline-block">
@@ -89,7 +91,14 @@ export function Sidebar({ lng }: { lng: string }) {
               href="/profile/cv-analyze"
               className={cn(linkClassName(isAnalyzePage), "px-2")}
             >
-              <Icon name="icon-analysis" size="w-6 h-6" />
+              {/* <Icon name="icon-analysis" size="w-6 h-6" /> */}
+              <Image
+                src="/icons/analyze.svg"
+                alt=""
+                width={20}
+                height={20}
+                className="ml-1"
+              />
               <span className="hidden whitespace-nowrap md:inline-block">
                 {lng === "en" ? "CV Analyzer" : "Аналізатор резюме"}
               </span>
