@@ -304,10 +304,15 @@ export function AuthForm({ type, lang }: AuthFormProps) {
               (lang === "en"
                 ? "This email is already registered with a different sign-in method."
                 : "Цей email вже зареєстрований з іншим способом входу.")}
+            {error === "UseCredentials" &&
+              (lang === "en"
+                ? "This email is already registered with email/password. Please sign in using your email and password instead of Google."
+                : "Цей email вже зареєстрований з паролем. Будь ласка, увійдіть, використовуючи свій email та пароль замість Google.")}
             {![
               "CredentialsSignin",
               "AccessDenied",
               "OAuthAccountNotLinked",
+              "UseCredentials",
             ].includes(error) &&
               (lang === "en"
                 ? "An error occurred during authentication. Please try again."
