@@ -534,7 +534,15 @@
       "jobDescription": "Job Description",
       "jobDescriptionPlaceholder": "Paste the job description here for more targeted feedback",
       "uploadCV": "Upload Your CV",
-      "analyzeButton": "Analyze CV"
+      "analyzeButton": "Analyze CV",
+      "fileUploaded": "File uploaded successfully! Click to change.",
+      "dropHere": "Drop your CV here...",
+      "dragDrop": "Drag & drop your CV here",
+      "clickBrowse": "or click to browse files",
+      "pdfOnly": "PDF files only, max 10MB",
+      "analyzing": "Analyzing CV...",
+      "optional": "(Optional)",
+      "required": "*"
     },
     "status": {
       "extractingText": "Extracting text from PDF...",
@@ -555,11 +563,13 @@
       }
     },
     "errors": {
-      "missingFields": "Please fill in the job title and upload your CV.",
-      "analysisFailed": "Failed to analyze CV. Please try again."
+      "missingFields": "Please provide both a CV file and job title.",
+      "analysisFailed": "Failed to analyze CV. Please try again.",
+      "pdfOnly": "Please upload a PDF file only."
     },
     "success": {
-      "analysisComplete": "CV analysis completed successfully!"
+      "analysisComplete": "CV analysis completed successfully!",
+      "fileUploaded": "File uploaded successfully!"
     }
   }
 }

@@ -11,6 +11,7 @@ import {
   Upload,
   XCircle,
 } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import { useDropzone } from "react-dropzone";
 import { toast } from "sonner";
 import {
@@ -29,6 +30,9 @@ interface CVAnalyzerProps {
 }
 
 export const CVAnalyzer = ({ className }: CVAnalyzerProps) => {
+  const t = useTranslations("cvAnalyzer");
+  const locale = useLocale();
+
   const [file, setFile] = useState<File | null>(null);
   const [companyName, setCompanyName] = useState("");
   const [jobTitle, setJobTitle] = useState("");
@@ -43,9 +47,9 @@ export const CVAnalyzer = ({ className }: CVAnalyzerProps) => {
     if (selectedFile) {
       if (selectedFile.type === "application/pdf") {
         setFile(selectedFile);
-        toast.success(`File "${selectedFile.name}" uploaded successfully!`);
+        toast.success(t("success.fileUploaded"));
       } else {
-        toast.error("Please upload a PDF file only.");
+        toast.error(t("errors.pdfOnly"));
       }
     }
   };
@@ -61,7 +65,7 @@ export const CVAnalyzer = ({ className }: CVAnalyzerProps) => {
 
   const handleAnalyze = async () => {
     if (!file || !jobTitle.trim()) {
-      toast.error("Please provide both a CV file and job title.");
+      toast.error(t("errors.missingFields"));
       return;
     }
 
@@ -76,12 +80,12 @@ export const CVAnalyzer = ({ className }: CVAnalyzerProps) => {
         cvFile: file,
       };
 
-      const result = await analyzeCv(formData, "en");
+      const result = await analyzeCv(formData, locale);
       setAnalysisResult(result.feedback);
-      toast.success("CV analysis completed successfully!");
+      toast.success(t("success.analysisComplete"));
     } catch (error) {
       console.error("Analysis error:", error);
-      toast.error("Failed to analyze CV. Please try again.");
+      toast.error(t("errors.analysisFailed"));
     } finally {
       setIsAnalyzing(false);
     }
@@ -114,7 +118,7 @@ export const CVAnalyzer = ({ className }: CVAnalyzerProps) => {
             <div className="flex-1">
               <p className="text-sm font-medium">{tip.tip}</p>
               {tip.explanation && (
-                <p className="mt-1 text-xs text-gray-600">{tip.explanation}</p>
+                <p className="mt-1 text-sm text-gray-600">{tip.explanation}</p>
               )}
             </div>
           </div>
@@ -130,13 +134,13 @@ export const CVAnalyzer = ({ className }: CVAnalyzerProps) => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <FileText className="h-5 w-5" />
-            CV Analysis
+            {t("title")}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {/* File Upload - Dropzone */}
           <div className="space-y-2">
-            <Label>Upload CV (PDF)</Label>
+            <Label>{t("form.uploadCV")} (PDF)</Label>
             <div
               {...getRootProps()}
               className={`cursor-pointer rounded-lg border-2 border-dashed p-8 text-center transition-colors ${
@@ -156,28 +160,26 @@ export const CVAnalyzer = ({ className }: CVAnalyzerProps) => {
                       {file.name}
                     </p>
                     <p className="text-sm text-green-600">
-                      File uploaded successfully! Click to change.
+                      {t("form.fileUploaded")}
                     </p>
                   </>
                 ) : isDragActive ? (
                   <>
                     <CloudUpload className="h-12 w-12 text-blue-500" />
                     <p className="text-lg font-medium text-blue-700">
-                      Drop your CV here...
+                      {t("form.dropHere")}
                     </p>
                   </>
                 ) : (
                   <>
                     <Upload className="h-12 w-12 text-gray-400" />
                     <p className="text-lg font-medium text-gray-700">
-                      Drag & drop your CV here
+                      {t("form.dragDrop")}
                     </p>
                     <p className="text-sm text-gray-500">
-                      or click to browse files
+                      {t("form.clickBrowse")}
                     </p>
-                    <p className="text-xs text-gray-400">
-                      PDF files only, max 10MB
-                    </p>
+                    <p className="text-xs text-gray-400">{t("form.pdfOnly")}</p>
                   </>
                 )}
               </div>
@@ -186,24 +188,28 @@ export const CVAnalyzer = ({ className }: CVAnalyzerProps) => {
 
           {/* Company Name */}
           <div>
-            <Label htmlFor="company-name">Company Name (Optional)</Label>
+            <Label htmlFor="company-name">
+              {t("form.companyName")} {t("form.optional")}
+            </Label>
             <Input
               id="company-name"
               value={companyName}
               onChange={(e) => setCompanyName(e.target.value)}
-              placeholder="e.g., Google, Microsoft"
+              placeholder={t("form.companyPlaceholder")}
               className="mt-1"
             />
           </div>
 
           {/* Job Title */}
           <div>
-            <Label htmlFor="job-title">Job Title *</Label>
+            <Label htmlFor="job-title">
+              {t("form.jobTitle")} {t("form.required")}
+            </Label>
             <Input
               id="job-title"
               value={jobTitle}
               onChange={(e) => setJobTitle(e.target.value)}
-              placeholder="e.g., Software Engineer, Product Manager"
+              placeholder={t("form.jobTitlePlaceholder")}
               className="mt-1"
               required
             />
@@ -211,12 +217,14 @@ export const CVAnalyzer = ({ className }: CVAnalyzerProps) => {
 
           {/* Job Description */}
           <div>
-            <Label htmlFor="job-description">Job Description (Optional)</Label>
+            <Label htmlFor="job-description">
+              {t("form.jobDescription")} {t("form.optional")}
+            </Label>
             <Textarea
               id="job-description"
               value={jobDescription}
               onChange={(e) => setJobDescription(e.target.value)}
-              placeholder="Paste the job description here for more targeted analysis..."
+              placeholder={t("form.jobDescriptionPlaceholder")}
               className="mt-1 min-h-[100px]"
             />
           </div>
@@ -231,10 +239,10 @@ export const CVAnalyzer = ({ className }: CVAnalyzerProps) => {
               {isAnalyzing ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Analyzing CV...
+                  {t("form.analyzing")}
                 </>
               ) : (
-                "Analyze CV"
+                t("form.analyzeButton")
               )}
             </Button>
           </div>
@@ -251,7 +259,9 @@ export const CVAnalyzer = ({ className }: CVAnalyzerProps) => {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 {getScoreIcon(analysisResult.overallScore)}
-                <h3 className="text-lg font-semibold">Overall Score</h3>
+                <h3 className="text-lg font-semibold">
+                  {t("results.overallScore")}
+                </h3>
               </div>
               <div className="text-2xl font-bold">
                 {analysisResult.overallScore}/100
@@ -268,7 +278,9 @@ export const CVAnalyzer = ({ className }: CVAnalyzerProps) => {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
                     {getScoreIcon(analysisResult.ATS.score)}
-                    <h3 className="text-lg font-semibold">ATS Compatibility</h3>
+                    <h3 className="text-lg font-semibold">
+                      {t("results.sections.ats")}
+                    </h3>
                   </div>
                   <div className="text-2xl font-bold">
                     {analysisResult.ATS.score}/100
@@ -288,7 +300,9 @@ export const CVAnalyzer = ({ className }: CVAnalyzerProps) => {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
                     {getScoreIcon(analysisResult.toneAndStyle.score)}
-                    <h3 className="text-lg font-semibold">Tone & Style</h3>
+                    <h3 className="text-lg font-semibold">
+                      {t("results.sections.toneAndStyle")}
+                    </h3>
                   </div>
                   <div className="text-2xl font-bold">
                     {analysisResult.toneAndStyle.score}/100
@@ -310,7 +324,9 @@ export const CVAnalyzer = ({ className }: CVAnalyzerProps) => {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
                     {getScoreIcon(analysisResult.content.score)}
-                    <h3 className="text-lg font-semibold">Content Analysis</h3>
+                    <h3 className="text-lg font-semibold">
+                      {t("results.sections.content")}
+                    </h3>
                   </div>
                   <div className="text-2xl font-bold">
                     {analysisResult.content.score}/100

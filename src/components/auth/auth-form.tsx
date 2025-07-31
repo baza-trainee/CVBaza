@@ -5,6 +5,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
@@ -36,6 +37,7 @@ export function AuthForm({ type, lang }: AuthFormProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -52,31 +54,180 @@ export function AuthForm({ type, lang }: AuthFormProps) {
     },
   });
 
+  // Enhanced error handling functions
+  const getErrorMessage = (
+    error: unknown,
+    context: "register" | "signin"
+  ): string => {
+    // Type guard for Error objects
+    const isError = (err: unknown): err is Error => {
+      return err instanceof Error;
+    };
+
+    // Type guard for objects with properties
+    const isErrorObject = (err: unknown): err is Record<string, unknown> => {
+      return typeof err === "object" && err !== null;
+    };
+
+    // Network errors
+    if (
+      isError(error) &&
+      error.name === "TypeError" &&
+      error.message.includes("fetch")
+    ) {
+      return lang === "en"
+        ? "Network error. Please check your connection and try again."
+        : "Помилка мережі. Перевірте підключення та спробуйте ще раз.";
+    }
+
+    // Timeout errors
+    if (
+      isError(error) &&
+      (error.name === "AbortError" || error.message?.includes("timeout"))
+    ) {
+      return lang === "en"
+        ? "Request timed out. Please try again."
+        : "Час очікування вичерпано. Спробуйте ще раз.";
+    }
+
+    // Rate limiting
+    if (isErrorObject(error) && error.status === 429) {
+      return lang === "en"
+        ? "Too many attempts. Please wait a few minutes before trying again."
+        : "Забагато спроб. Зачекайте кілька хвилин перед повторною спробою.";
+    }
+
+    // Server errors
+    if (
+      isErrorObject(error) &&
+      typeof error.status === "number" &&
+      error.status >= 500
+    ) {
+      return lang === "en"
+        ? "Server error. Please try again later."
+        : "Помилка сервера. Спробуйте пізніше.";
+    }
+
+    // Authentication specific errors
+    if (context === "signin") {
+      if (error === "CredentialsSignin" || error === "Configuration") {
+        return lang === "en"
+          ? "Invalid email or password. Please check your credentials."
+          : "Невірний email або пароль. Перевірте свої дані.";
+      }
+      if (error === "AccessDenied") {
+        return lang === "en"
+          ? "Access denied. Please check your account status."
+          : "Доступ заборонено. Перевірте статус свого облікового запису.";
+      }
+    }
+
+    // Registration specific errors
+    if (context === "register" && isErrorObject(error)) {
+      const errorStr = typeof error.error === "string" ? error.error : "";
+      const messageStr = typeof error.message === "string" ? error.message : "";
+
+      if (errorStr.includes("email") || messageStr.includes("email")) {
+        return lang === "en"
+          ? "This email is already registered. Please use a different email or sign in."
+          : "Цей email вже зареєстрований. Використайте інший email або увійдіть.";
+      }
+      if (
+        errorStr.includes("validation") ||
+        messageStr.includes("validation")
+      ) {
+        return lang === "en"
+          ? "Please check your input data and try again."
+          : "Перевірте введені дані та спробуйте ще раз.";
+      }
+    }
+
+    // Generic fallback
+    let errorMessage = "";
+    if (isErrorObject(error)) {
+      errorMessage =
+        (typeof error.error === "string" ? error.error : "") ||
+        (typeof error.message === "string" ? error.message : "");
+    } else if (isError(error)) {
+      errorMessage = error.message;
+    }
+
+    return (
+      errorMessage ||
+      (lang === "en"
+        ? `${context === "register" ? "Registration" : "Authentication"} failed. Please try again.`
+        : `${context === "register" ? "Реєстрація" : "Авторизація"} не вдалася. Спробуйте ще раз.`)
+    );
+  };
+
+  const handleRetry = async (
+    data: z.infer<ReturnType<typeof authFormSchema>>
+  ) => {
+    if (retryCount < 2) {
+      setRetryCount((prev) => prev + 1);
+      toast.info(lang === "en" ? "Retrying..." : "Повторна спроба...");
+      await new Promise((resolve) => setTimeout(resolve, 1000 * retryCount)); // Exponential backoff
+      return onSubmit(data);
+    }
+    return false;
+  };
+
   const onSubmit = async (data: z.infer<ReturnType<typeof authFormSchema>>) => {
     try {
       setIsLoading(true);
+
       if (type === "register") {
-        const response = await fetch("/api/auth/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
 
-        if (!response.ok) {
-          const error = await response.json();
-          form.setError("root", {
-            message: error.error || "Registration failed",
+        try {
+          const response = await fetch("/api/auth/register", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+            signal: controller.signal,
           });
-          return;
-        }
 
-        // Show success modal after successful registration
-        setShowSuccessModal(true);
-        return;
+          clearTimeout(timeoutId);
+
+          if (!response.ok) {
+            const errorData = await response
+              .json()
+              .catch(() => ({ error: "Unknown error" }));
+            const errorMessage = getErrorMessage(
+              { ...errorData, status: response.status },
+              "register"
+            );
+
+            form.setError("root", { message: errorMessage });
+            toast.error(errorMessage);
+
+            // Offer retry for certain errors
+            if (response.status >= 500 || response.status === 429) {
+              const retried = await handleRetry(data);
+              if (retried !== false) return;
+            }
+            return;
+          }
+
+          // Reset retry count on success
+          setRetryCount(0);
+          setShowSuccessModal(true);
+          toast.success(
+            lang === "en"
+              ? "Registration successful! Please check your email."
+              : "Реєстрація успішна! Перевірте свою електронну пошту."
+          );
+          return;
+        } catch (fetchError: unknown) {
+          clearTimeout(timeoutId);
+          throw fetchError;
+        }
       }
 
+      // Sign in flow
       const result = await signIn("credentials", {
         email: data.email,
         password: data.password,
@@ -85,31 +236,32 @@ export function AuthForm({ type, lang }: AuthFormProps) {
       });
 
       if (result?.error) {
-        const errorMessage =
-          result.error === "Configuration"
-            ? `${
-                lang === "en"
-                  ? "Account not found. Please sign up or try a different email."
-                  : "Обліковий запис не знайдено. Будь ласка, зареєструйтеся або спробуйте іншу електронну адресу."
-              }`
-            : result.error;
-
-        form.setError("root", {
-          message: errorMessage,
-        });
+        const errorMessage = getErrorMessage(result.error, "signin");
+        form.setError("root", { message: errorMessage });
+        toast.error(errorMessage);
         return;
       }
 
+      // Reset retry count on success
+      setRetryCount(0);
+      toast.success(lang === "en" ? "Welcome back!" : "Ласкаво просимо!");
       router.push(callbackUrl);
       router.refresh();
-    } catch (error) {
-      console.error(error);
-      form.setError("root", {
-        message:
-          error instanceof Error
-            ? error.message
-            : `${lang === "en" ? "Authentication failed" : "Помилка авторизації"}`,
-      });
+    } catch (error: unknown) {
+      console.error("Auth error:", error);
+      const errorMessage = getErrorMessage(error, type);
+
+      form.setError("root", { message: errorMessage });
+      toast.error(errorMessage);
+
+      // Offer retry for network errors
+      if (
+        error instanceof Error &&
+        (error.name === "TypeError" || error.name === "AbortError")
+      ) {
+        const retried = await handleRetry(data);
+        if (retried !== false) return;
+      }
     } finally {
       setIsLoading(false);
     }
@@ -132,12 +284,40 @@ export function AuthForm({ type, lang }: AuthFormProps) {
       </div>
 
       {error && (
-        <div className="mb-4 rounded-md bg-red-50 p-3 text-small text-red-500">
-          {error === "CredentialsSignin" && "Invalid email or password"}
-          {error === "AccessDenied" &&
-            (lang === "en"
-              ? "This email is registered with email/password. Please sign in with your password."
-              : "Помилка авторизації. Будь ласка, увійдіть, використовуючи свій Email та пароль.")}
+        <div className="mb-4 rounded-md border border-red-200 bg-red-50 p-3 text-small text-red-600">
+          <div className="flex items-center gap-2">
+            <Icon name="icon-warning" size="16px" className="text-red-500" />
+            <span className="font-medium">
+              {lang === "en" ? "Authentication Error" : "Помилка авторизації"}
+            </span>
+          </div>
+          <p className="mt-1 text-sm">
+            {error === "CredentialsSignin" &&
+              (lang === "en"
+                ? "Invalid email or password. Please check your credentials."
+                : "Невірний email або пароль. Перевірте свої дані.")}
+            {error === "AccessDenied" &&
+              (lang === "en"
+                ? "This email is registered with email/password. Please sign in with your password."
+                : "Цей email зареєстрований з паролем. Будь ласка, увійдіть, використовуючи свій пароль.")}
+            {error === "OAuthAccountNotLinked" &&
+              (lang === "en"
+                ? "This email is already registered with a different sign-in method."
+                : "Цей email вже зареєстрований з іншим способом входу.")}
+            {error === "UseCredentials" &&
+              (lang === "en"
+                ? "This email is already registered with email/password. Please sign in using your email and password instead of Google."
+                : "Цей email вже зареєстрований з паролем. Будь ласка, увійдіть, використовуючи свій email та пароль замість Google.")}
+            {![
+              "CredentialsSignin",
+              "AccessDenied",
+              "OAuthAccountNotLinked",
+              "UseCredentials",
+            ].includes(error) &&
+              (lang === "en"
+                ? "An error occurred during authentication. Please try again."
+                : "Сталася помилка під час авторизації. Спробуйте ще раз.")}
+          </p>
         </div>
       )}
 
@@ -275,8 +455,27 @@ export function AuthForm({ type, lang }: AuthFormProps) {
           )}
 
           {form.formState.errors.root && (
-            <div className="text-sm text-red-500">
-              {form.formState.errors.root.message}
+            <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-600">
+              <div className="flex items-start gap-2">
+                <Icon
+                  name="icon-warning"
+                  size="16px"
+                  className="mt-0.5 flex-shrink-0 text-red-500"
+                />
+                <div>
+                  <p className="mb-1 font-medium">
+                    {lang === "en" ? "Error" : "Помилка"}
+                  </p>
+                  <p>{form.formState.errors.root.message}</p>
+                  {retryCount > 0 && (
+                    <p className="mt-2 text-xs text-red-500">
+                      {lang === "en"
+                        ? `Attempt ${retryCount + 1} of 3`
+                        : `Спроба ${retryCount + 1} з 3`}
+                    </p>
+                  )}
+                </div>
+              </div>
             </div>
           )}
 
