@@ -30,5 +30,5 @@
     "commitlint.config.ts",
     "next.config.mjs"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "ai-resume-analyzer-main"]
 }
